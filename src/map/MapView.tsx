@@ -287,7 +287,7 @@ export function MapView({
             aria-pressed={selectingStates}
             onClick={onToggleStateSelection}
           >
-            주 선택
+            <span>주 선택</span>
           </button>
         </div>
         <div className="map-zoom">

@@ -3,7 +3,7 @@ export const siteTitle = "세종학당 인도 가보기 프로젝트";
 export const mapSection = {
   id: "map",
   path: "/map",
-  title: "인도 भारत",
+  title: "인도",
 } as const;
 
 export const collections = [

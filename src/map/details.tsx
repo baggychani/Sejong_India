@@ -11,6 +11,12 @@ export type DetailRecord = {
   links?: { label: string; href: string }[];
 };
 
+const emphasizedOperator = /(부산외국어대학교|Busan University of Foreign Studies)/;
+
+function operatorName(value: string) {
+  return value.split(emphasizedOperator).map((part, i) => i % 2 ? <strong key={i}>{part}</strong> : part);
+}
+
 export function DetailCard({ detail }: { detail: DetailRecord }) {
   const showTongues = hasMotherTongues(detail.id);
   return (
@@ -38,7 +44,7 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
           {detail.facts?.map((fact) => (
             <div key={fact.label}>
               <dt>{fact.label}</dt>
-              <dd>{fact.value}</dd>
+              <dd>{fact.label === "운영기관" ? operatorName(fact.value) : fact.value}</dd>
             </div>
           ))}
           {showTongues && <MotherTongueRow placeId={detail.id} />}

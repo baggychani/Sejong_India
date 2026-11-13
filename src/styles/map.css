@@ -47,8 +47,10 @@
 .map-toolbar { position: absolute; bottom: 18px; left: 16px; display: flex; align-items: stretch; gap: 8px; }
 .map-zoom { position: absolute; right: 16px; bottom: 18px; flex-direction: column; gap: 0; }
 .map-controls button { border: 0; color: #535e5b; background: transparent; border-radius: 8px; cursor: pointer; font-weight: 620; }
-.map-controls .state-selection { pointer-events: auto; padding: 0 11px; background: #fff; border: 1px solid #889f9980; border-radius: 12px; font-size: 13px; white-space: nowrap; box-shadow: 0 2px 9px #264b4b14; }
-.map-controls .state-selection[aria-pressed="true"] { color: #fff; background: var(--accent); border-color: var(--accent); }
+.map-controls .state-selection { display: grid; pointer-events: auto; padding: 4px; background: #fff; border: 1px solid #889f9959; border-radius: 12px; font-size: 13px; white-space: nowrap; box-shadow: 0 2px 9px #264b4b14; }
+.state-selection span { display: grid; place-items: center; padding-inline: 8px; border-radius: 8px; }
+.state-selection:hover span { background: #f0f4f1; }
+.state-selection[aria-pressed="true"] span { background: var(--accent); color: white; }
 .map-layers button { display: flex; align-items: center; gap: 6px; padding: 9px; font-size: 13px; }
 .map-layers button[aria-pressed="true"] { color: #175642; background: #e8f3ec; }
 .map-layers button:hover, .map-zoom button:hover { background: #f0f4f1; }
@@ -111,7 +113,8 @@
 @container (max-width: 485px) {
   .map-toolbar { left: 8px; bottom: 16px; gap: 5px; }
   .map-layers { gap: 1px; }
-  .map-controls .state-selection { padding: 0 7px; font-size: 12px; }
+  .map-controls .state-selection { font-size: 12px; }
+  .state-selection span { padding-inline: 4px; }
   .map-layers button { padding: 8px 6px; font-size: 12px; gap: 4px; }
   .map-zoom { bottom: 65px; right: 8px; }
 }
