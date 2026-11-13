@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { siteTitle } from "../site/sections";
+import { mapSection, siteTitle } from "../site/sections";
 import { Icon } from "../site/Icon";
 import { MapView } from "../map/MapView";
 import { DetailCard } from "../map/details";
@@ -28,7 +28,7 @@ export function MapPage() {
   const lastRowId = useRef<string | null>(null);
 
   useEffect(() => {
-    document.title = `지도 · ${siteTitle}`;
+    document.title = `${mapSection.title} · ${siteTitle}`;
   }, []);
 
   useEffect(() => {

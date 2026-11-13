@@ -154,6 +154,8 @@ h1 {
 .site-header nav a { padding: 7px 12px; font-weight: 620; border-radius: 8px; }
 .site-header nav a.active, .site-header nav a:hover { background: #e9f2ec; color: #175c4b; }
 .home { width: min(890px, 100%); margin: 0 auto; padding: clamp(48px, 14vh, 134px) 24px 64px; }
+.home-credit { margin-top: 28px; color: var(--muted); text-align: right; }
+.home-credit small { font-size: 13px; }
 .home-cover { position: relative; isolation: isolate; display: flex; align-items: center; min-height: 288px; padding: 38px 7%; border-radius: 22px; background-color: #dceee7; background-image: linear-gradient(90deg, #679e8b16 1px, transparent 1px), linear-gradient(#679e8b16 1px, transparent 1px); background-size: 32px 32px; overflow: hidden; }
 .home-cover h1 { font-size: clamp(38px, 5vw, 66px); color: #173e32; line-height: 1.14; font-weight: 800; letter-spacing: -.055em; }
 .home-cover h1 span { display: block; color: #176250; }

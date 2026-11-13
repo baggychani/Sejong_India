@@ -38,6 +38,7 @@ export function HomePage() {
           </Link>
         ))}
       </nav>
+      <footer className="home-credit"><small>© 2026 배기찬</small></footer>
     </article>
   );
 }
