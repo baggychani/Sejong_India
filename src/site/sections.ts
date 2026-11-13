@@ -3,19 +3,19 @@ export const siteTitle = "세종학당 인도 가보기 프로젝트";
 export const mapSection = {
   id: "map",
   path: "/map",
-  title: "인도",
+  title: "인도 भारत",
 } as const;
 
 export const collections = [
   {
     id: "study",
     path: "/study",
-    title: "공부",
+    title: "면접대비",
   },
   {
     id: "lessons",
     path: "/lessons",
-    title: "교안",
+    title: "세종한국어 교안",
   },
   {
     id: "library",

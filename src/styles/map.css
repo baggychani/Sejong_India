@@ -4,7 +4,7 @@
   height: calc(100dvh - var(--header-h));
   min-height: 410px;
 }
-.map-frame { position: relative; min-width: 0; overflow: hidden; background: #c9e5ee; }
+.map-frame { position: relative; min-width: 0; container-type: inline-size; overflow: hidden; background: #c9e5ee; }
 .map-frame > svg { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
 .map-frame > svg:active { cursor: grabbing; }
 .map-frame path { vector-effect: non-scaling-stroke; }
@@ -34,7 +34,7 @@
 .map-point.selected .point-hit, .map-point:focus-visible .point-hit { fill: #fff9e9ad; stroke: #994632; stroke-width: 1.3; }
 .map-label { font-size: 12px; fill: #30413a; paint-order: stroke; stroke: #fff9e9; stroke-width: 3px; stroke-linejoin: round; pointer-events: none; }
 .map-label.point-label { pointer-events: auto; cursor: pointer; }
-.map-label-institute { fill: #792e24; font-weight: 700; }
+.map-label-institute { fill: #792e24; font-size: 13px; font-weight: 700; }
 .point-label.selected { text-decoration: underline; }
 .map-label-neighbor { fill: #707668; font-size: 12px; stroke: #edece1; }
 .map-label-river { fill: #26677b; font-size: 11px; }
@@ -43,12 +43,12 @@
 .sea-name { fill: #507e91; stroke: #c9e5ee; font-size: 14px; letter-spacing: .12em; }
 .map-leader { stroke: #7d7466; stroke-width: .8; pointer-events: none; }
 .map-controls { position: absolute; inset: 0; pointer-events: none; }
-.map-layers, .map-zoom { position: absolute; display: flex; gap: 3px; border: 1px solid #889f9959; border-radius: 12px; padding: 4px; background: #fff; box-shadow: 0 2px 9px #264b4b14; pointer-events: auto; }
-.map-layers { bottom: 18px; left: 16px; }
-.map-zoom { right: 16px; bottom: 18px; flex-direction: column; gap: 0; }
+.map-layers, .map-zoom { display: flex; gap: 3px; border: 1px solid #889f9959; border-radius: 12px; padding: 4px; background: #fff; box-shadow: 0 2px 9px #264b4b14; pointer-events: auto; }
+.map-toolbar { position: absolute; bottom: 18px; left: 16px; display: flex; align-items: stretch; gap: 8px; }
+.map-zoom { position: absolute; right: 16px; bottom: 18px; flex-direction: column; gap: 0; }
 .map-controls button { border: 0; color: #535e5b; background: transparent; border-radius: 8px; cursor: pointer; font-weight: 620; }
-.map-controls .state-selection { position: absolute; top: 12px; left: 12px; pointer-events: auto; padding: 7px 10px; background: #fff; border: 1px solid #889f9980; font-size: 13px; }
-.map-controls .state-selection[aria-pressed="true"] { color: #175642; background: #e8f3ec; border-color: #548273; }
+.map-controls .state-selection { pointer-events: auto; padding: 0 11px; background: #fff; border: 1px solid #889f9980; border-radius: 12px; font-size: 13px; white-space: nowrap; box-shadow: 0 2px 9px #264b4b14; }
+.map-controls .state-selection[aria-pressed="true"] { color: #fff; background: var(--accent); border-color: var(--accent); }
 .map-layers button { display: flex; align-items: center; gap: 6px; padding: 9px; font-size: 13px; }
 .map-layers button[aria-pressed="true"] { color: #175642; background: #e8f3ec; }
 .map-layers button:hover, .map-zoom button:hover { background: #f0f4f1; }
@@ -87,6 +87,7 @@
 .detail-card dd { margin: 0; }
 .detail-card a { color: var(--accent); }
 .detail-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.detail-card dl + .detail-links { padding-top: 6px; }
 .detail-links a { padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 620; }
 .detail-links a:hover { background: #e9f2ec; }
 .detail-card dl .tongue-row { grid-template-columns: 5.5em minmax(0, 1fr) 26px; align-items: start; }
@@ -107,16 +108,24 @@
   .map-frame { height: clamp(390px, 66dvh, 650px); }
   .detail { border-left: 0; border-top: 1px solid var(--line); }
 }
-@media (max-width: 540px) {
-  .map-layers { left: 8px; bottom: 16px; gap: 1px; }
+@container (max-width: 485px) {
+  .map-toolbar { left: 8px; bottom: 16px; gap: 5px; }
+  .map-layers { gap: 1px; }
+  .map-controls .state-selection { padding: 0 7px; font-size: 12px; }
   .map-layers button { padding: 8px 6px; font-size: 12px; gap: 4px; }
   .map-zoom { bottom: 65px; right: 8px; }
+}
+@container (max-width: 355px) {
+  .map-layers button { padding-inline: 4px; }
+}
+@media (max-width: 540px) {
   .detail { padding: 20px 18px 32px; }
   .detail-card dl div { grid-template-columns: 4.2em 1fr; }
   .detail-card dl .tongue-row { grid-template-columns: 4.2em minmax(0, 1fr) 26px; gap: 8px; }
   .tongue-pills { gap: 5px; }
   .tongue-pill { gap: 5px; height: 26px; padding: 0 9px; font-size: 13px; }
   .tongue-share { font-size: 12px; }
-  .map-label-neighbor, .map-label-institute { font-size: 11px; }
+  .map-label-neighbor { font-size: 11px; }
+  .map-label-institute { font-size: 12px; }
   .sea-name { font-size: 12px; }
 }

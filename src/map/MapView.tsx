@@ -268,25 +268,27 @@ export function MapView({
       </svg>
       <a className="map-credit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a>
       <div className="map-controls">
-        <button
-          className="state-selection"
-          type="button"
-          aria-pressed={selectingStates}
-          onClick={onToggleStateSelection}
-        >
-          <span aria-hidden="true">{selectingStates ? "☑" : "☐"}</span> 주 선택
-        </button>
-        <div className="map-layers" role="group" aria-label="지도 레이어">
-          {layers.map((layer) => (
-            <button
-              key={layer.id}
-              type="button"
-              aria-pressed={layer.pressed}
-              onClick={() => onToggleLayer(layer.id)}
-            >
-              <i className={`layer-swatch swatch-${layer.id}`} aria-hidden="true" />{layer.label}
-            </button>
-          ))}
+        <div className="map-toolbar">
+          <div className="map-layers" role="group" aria-label="지도 레이어">
+            {layers.map((layer) => (
+              <button
+                key={layer.id}
+                type="button"
+                aria-pressed={layer.pressed}
+                onClick={() => onToggleLayer(layer.id)}
+              >
+                <i className={`layer-swatch swatch-${layer.id}`} aria-hidden="true" />{layer.label}
+              </button>
+            ))}
+          </div>
+          <button
+            className="state-selection"
+            type="button"
+            aria-pressed={selectingStates}
+            onClick={onToggleStateSelection}
+          >
+            주 선택
+          </button>
         </div>
         <div className="map-zoom">
           <button type="button" onClick={() => zoomBy(1.45)} aria-label="확대">
