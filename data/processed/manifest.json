@@ -1,0 +1,12 @@
+{
+  "source": "Natural Earth",
+  "version": "5.1.2",
+  "license": "public domain",
+  "builtAt": "2026-11-13",
+  "simplify": {
+    "countryAndAdmin": "visvalingam weighted 7% keep-shapes",
+    "neighbors": "visvalingam weighted 2% keep-shapes",
+    "rivers": "visvalingam weighted 20% keep-shapes",
+    "landforms": "visvalingam weighted 15% keep-shapes"
+  }
+}

@@ -1,0 +1,778 @@
+{
+  "year": 2011,
+  "profiles": [
+    {
+      "placeIds": [
+        "delhi-kcci"
+      ],
+      "area": "델리 수도직할지 전체",
+      "languages": [
+        {
+          "name": "힌디어",
+          "sharePct": 81.266333
+        },
+        {
+          "name": "펀자브어",
+          "sharePct": 5.201978
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 5.163701
+        },
+        {
+          "name": "보지푸리어",
+          "sharePct": 1.346818
+        },
+        {
+          "name": "벵골어",
+          "sharePct": 1.285554
+        },
+        {
+          "name": "마이틸리어",
+          "sharePct": 0.719463
+        },
+        {
+          "name": "하리얀비어",
+          "sharePct": 0.67228
+        },
+        {
+          "name": "말라얄람어",
+          "sharePct": 0.522506
+        },
+        {
+          "name": "타밀어",
+          "sharePct": 0.492407
+        },
+        {
+          "name": "Rajasthani",
+          "sharePct": 0.459973
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "bengaluru-cmr",
+        "Bengaluru"
+      ],
+      "area": "벵갈루루 시역 및 외곽 확장지",
+      "languages": [
+        {
+          "name": "칸나다어",
+          "sharePct": 42.054433
+        },
+        {
+          "name": "타밀어",
+          "sharePct": 16.340925
+        },
+        {
+          "name": "텔루구어",
+          "sharePct": 13.728434
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 12.995963
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 4.637095
+        },
+        {
+          "name": "말라얄람어",
+          "sharePct": 3.160441
+        },
+        {
+          "name": "마라티어",
+          "sharePct": 2.051135
+        },
+        {
+          "name": "콘칸어",
+          "sharePct": 0.737462
+        },
+        {
+          "name": "벵골어",
+          "sharePct": 0.648156
+        },
+        {
+          "name": "마르와리어",
+          "sharePct": 0.596269
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "chennai-inko",
+        "Chennai"
+      ],
+      "area": "첸나이 시역",
+      "languages": [
+        {
+          "name": "타밀어",
+          "sharePct": 78.342198
+        },
+        {
+          "name": "텔루구어",
+          "sharePct": 9.302796
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 4.271432
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 2.789832
+        },
+        {
+          "name": "말라얄람어",
+          "sharePct": 2.259459
+        },
+        {
+          "name": "마르와리어",
+          "sharePct": 0.545889
+        },
+        {
+          "name": "칸나다어",
+          "sharePct": 0.465295
+        },
+        {
+          "name": "구자라트어",
+          "sharePct": 0.423739
+        },
+        {
+          "name": "마라티어",
+          "sharePct": 0.384959
+        },
+        {
+          "name": "Saurashtra/Saurashtri",
+          "sharePct": 0.255298
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "chennai-vit"
+      ],
+      "area": "옛 칸치푸람구 전체 (광역 참고)",
+      "languages": [
+        {
+          "name": "타밀어",
+          "sharePct": 90.060431
+        },
+        {
+          "name": "텔루구어",
+          "sharePct": 5.048631
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 1.553454
+        },
+        {
+          "name": "말라얄람어",
+          "sharePct": 1.086875
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 0.897717
+        },
+        {
+          "name": "칸나다어",
+          "sharePct": 0.386894
+        },
+        {
+          "name": "Saurashtra/Saurashtri",
+          "sharePct": 0.221597
+        },
+        {
+          "name": "마라티어",
+          "sharePct": 0.20679
+        },
+        {
+          "name": "오리야어",
+          "sharePct": 0.096542
+        },
+        {
+          "name": "벵골어",
+          "sharePct": 0.083136
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "pune-ikc",
+        "Pune"
+      ],
+      "area": "푸네 시역",
+      "languages": [
+        {
+          "name": "마라티어",
+          "sharePct": 67.836822
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 13.136934
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 3.775663
+        },
+        {
+          "name": "마르와리어",
+          "sharePct": 2.598243
+        },
+        {
+          "name": "구자라트어",
+          "sharePct": 2.169304
+        },
+        {
+          "name": "텔루구어",
+          "sharePct": 1.989913
+        },
+        {
+          "name": "칸나다어",
+          "sharePct": 1.917101
+        },
+        {
+          "name": "타밀어",
+          "sharePct": 0.869335
+        },
+        {
+          "name": "말라얄람어",
+          "sharePct": 0.671861
+        },
+        {
+          "name": "벵골어",
+          "sharePct": 0.620588
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "patna-anc",
+        "Patna"
+      ],
+      "area": "파트나 시역 및 외곽 확장지",
+      "languages": [
+        {
+          "name": "힌디어",
+          "sharePct": 65.939974
+        },
+        {
+          "name": "마가히어",
+          "sharePct": 18.039218
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 9.670503
+        },
+        {
+          "name": "보지푸리어",
+          "sharePct": 3.186315
+        },
+        {
+          "name": "마이틸리어",
+          "sharePct": 1.788046
+        },
+        {
+          "name": "벵골어",
+          "sharePct": 0.472304
+        },
+        {
+          "name": "펀자브어",
+          "sharePct": 0.166598
+        },
+        {
+          "name": "영어",
+          "sharePct": 0.073206
+        },
+        {
+          "name": "마르와리어",
+          "sharePct": 0.042451
+        },
+        {
+          "name": "Surjapuri",
+          "sharePct": 0.042392
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "barasat-wbsu"
+      ],
+      "area": "바라사트 I 블록",
+      "languages": [
+        {
+          "name": "벵골어",
+          "sharePct": 98.583638
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 1.197782
+        },
+        {
+          "name": "사드리어",
+          "sharePct": 0.07467
+        },
+        {
+          "name": "산탈리어",
+          "sharePct": 0.045481
+        },
+        {
+          "name": "네팔어",
+          "sharePct": 0.019686
+        },
+        {
+          "name": "오리야어",
+          "sharePct": 0.018668
+        },
+        {
+          "name": "Kurukh/Oraon",
+          "sharePct": 0.013237
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 0.012219
+        },
+        {
+          "name": "영어",
+          "sharePct": 0.006449
+        },
+        {
+          "name": "보지푸리어",
+          "sharePct": 0.00577
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "imphal-dm",
+        "Imphal"
+      ],
+      "area": "임팔 시역 및 외곽 확장지",
+      "languages": [
+        {
+          "name": "마니푸리어(메이테이어)",
+          "sharePct": 82.799535
+        },
+        {
+          "name": "카부이어",
+          "sharePct": 3.375229
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 2.195558
+        },
+        {
+          "name": "타도어",
+          "sharePct": 1.360409
+        },
+        {
+          "name": "탕쿨어",
+          "sharePct": 1.309903
+        },
+        {
+          "name": "네팔어",
+          "sharePct": 1.176424
+        },
+        {
+          "name": "벵골어",
+          "sharePct": 1.105716
+        },
+        {
+          "name": "보지푸리어",
+          "sharePct": 1.104994
+        },
+        {
+          "name": "Kuki",
+          "sharePct": 0.983059
+        },
+        {
+          "name": "Paite",
+          "sharePct": 0.527425
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "IN-DL"
+      ],
+      "area": "델리 수도직할지 전체",
+      "languages": [
+        {
+          "name": "힌디어",
+          "sharePct": 81.266333
+        },
+        {
+          "name": "펀자브어",
+          "sharePct": 5.201978
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 5.163701
+        },
+        {
+          "name": "보지푸리어",
+          "sharePct": 1.346818
+        },
+        {
+          "name": "벵골어",
+          "sharePct": 1.285554
+        },
+        {
+          "name": "마이틸리어",
+          "sharePct": 0.719463
+        },
+        {
+          "name": "하리얀비어",
+          "sharePct": 0.67228
+        },
+        {
+          "name": "말라얄람어",
+          "sharePct": 0.522506
+        },
+        {
+          "name": "타밀어",
+          "sharePct": 0.492407
+        },
+        {
+          "name": "Rajasthani",
+          "sharePct": 0.459973
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "IN-BR"
+      ],
+      "area": "비하르주",
+      "languages": [
+        {
+          "name": "힌디어",
+          "sharePct": 25.543482
+        },
+        {
+          "name": "보지푸리어",
+          "sharePct": 24.862466
+        },
+        {
+          "name": "마이틸리어",
+          "sharePct": 12.409598
+        },
+        {
+          "name": "마가히어",
+          "sharePct": 10.870675
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 8.423682
+        },
+        {
+          "name": "Surjapuri",
+          "sharePct": 1.784764
+        },
+        {
+          "name": "벵골어",
+          "sharePct": 0.775934
+        },
+        {
+          "name": "산탈리어",
+          "sharePct": 0.43772
+        },
+        {
+          "name": "Thati",
+          "sharePct": 0.138978
+        },
+        {
+          "name": "Khortha/Khotta",
+          "sharePct": 0.129103
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "IN-MN"
+      ],
+      "area": "마니푸르주",
+      "languages": [
+        {
+          "name": "마니푸리어(메이테이어)",
+          "sharePct": 53.299783
+        },
+        {
+          "name": "타도어",
+          "sharePct": 7.814674
+        },
+        {
+          "name": "탕쿨어",
+          "sharePct": 6.411212
+        },
+        {
+          "name": "Paola",
+          "sharePct": 4.739452
+        },
+        {
+          "name": "Mao",
+          "sharePct": 3.116856
+        },
+        {
+          "name": "네팔어",
+          "sharePct": 2.232514
+        },
+        {
+          "name": "Rongmei",
+          "sharePct": 1.946149
+        },
+        {
+          "name": "Paite",
+          "sharePct": 1.926995
+        },
+        {
+          "name": "카부이어",
+          "sharePct": 1.892223
+        },
+        {
+          "name": "Hmar",
+          "sharePct": 1.718646
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "IN-WB"
+      ],
+      "area": "서벵골주",
+      "languages": [
+        {
+          "name": "벵골어",
+          "sharePct": 85.621267
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 5.001915
+        },
+        {
+          "name": "산탈리어",
+          "sharePct": 2.653121
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 1.820784
+        },
+        {
+          "name": "네팔어",
+          "sharePct": 1.265799
+        },
+        {
+          "name": "사드리어",
+          "sharePct": 0.812401
+        },
+        {
+          "name": "Surjapuri",
+          "sharePct": 0.433504
+        },
+        {
+          "name": "Rajbangsi",
+          "sharePct": 0.310092
+        },
+        {
+          "name": "Kurmali Thar",
+          "sharePct": 0.239083
+        },
+        {
+          "name": "보지푸리어",
+          "sharePct": 0.194884
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "IN-MH"
+      ],
+      "area": "마하라슈트라주",
+      "languages": [
+        {
+          "name": "마라티어",
+          "sharePct": 68.839479
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 9.701317
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 6.705075
+        },
+        {
+          "name": "구자라트어",
+          "sharePct": 2.064698
+        },
+        {
+          "name": "Ahirani",
+          "sharePct": 1.421682
+        },
+        {
+          "name": "Banjari",
+          "sharePct": 1.142917
+        },
+        {
+          "name": "Bhili/Bhilodi",
+          "sharePct": 1.07512
+        },
+        {
+          "name": "텔루구어",
+          "sharePct": 0.995507
+        },
+        {
+          "name": "칸나다어",
+          "sharePct": 0.883772
+        },
+        {
+          "name": "마르와리어",
+          "sharePct": 0.790299
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "IN-KA"
+      ],
+      "area": "카르나타카주",
+      "languages": [
+        {
+          "name": "칸나다어",
+          "sharePct": 66.490938
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 10.832012
+        },
+        {
+          "name": "텔루구어",
+          "sharePct": 5.836158
+        },
+        {
+          "name": "타밀어",
+          "sharePct": 3.438942
+        },
+        {
+          "name": "마라티어",
+          "sharePct": 3.295
+        },
+        {
+          "name": "툴루어",
+          "sharePct": 2.607263
+        },
+        {
+          "name": "Lamani/Lambadi",
+          "sharePct": 1.595249
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 1.426966
+        },
+        {
+          "name": "콘칸어",
+          "sharePct": 1.250826
+        },
+        {
+          "name": "말라얄람어",
+          "sharePct": 1.220884
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "IN-TN"
+      ],
+      "area": "타밀나두주",
+      "languages": [
+        {
+          "name": "타밀어",
+          "sharePct": 88.352697
+        },
+        {
+          "name": "텔루구어",
+          "sharePct": 5.868871
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 1.752549
+        },
+        {
+          "name": "칸나다어",
+          "sharePct": 1.582845
+        },
+        {
+          "name": "말라얄람어",
+          "sharePct": 0.996544
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 0.458864
+        },
+        {
+          "name": "Saurashtra/Saurashtri",
+          "sharePct": 0.330653
+        },
+        {
+          "name": "Badaga",
+          "sharePct": 0.183101
+        },
+        {
+          "name": "마라티어",
+          "sharePct": 0.118342
+        },
+        {
+          "name": "마르와리어",
+          "sharePct": 0.04831
+        }
+      ]
+    },
+    {
+      "placeIds": [
+        "Barasat"
+      ],
+      "area": "바라사트 시역",
+      "languages": [
+        {
+          "name": "벵골어",
+          "sharePct": 97.634277
+        },
+        {
+          "name": "힌디어",
+          "sharePct": 1.818019
+        },
+        {
+          "name": "사드리어",
+          "sharePct": 0.155153
+        },
+        {
+          "name": "오리야어",
+          "sharePct": 0.077217
+        },
+        {
+          "name": "산탈리어",
+          "sharePct": 0.072548
+        },
+        {
+          "name": "구자라트어",
+          "sharePct": 0.034838
+        },
+        {
+          "name": "네팔어",
+          "sharePct": 0.033401
+        },
+        {
+          "name": "Kurukh/Oraon",
+          "sharePct": 0.022986
+        },
+        {
+          "name": "펀자브어",
+          "sharePct": 0.014007
+        },
+        {
+          "name": "우르두어",
+          "sharePct": 0.013648
+        }
+      ]
+    }
+  ]
+}

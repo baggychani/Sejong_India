@@ -1,0 +1,9 @@
+[
+  { "id": "PAK", "shortLabel": "파키스탄", "at": [69.4, 28.2], "label": { "dx": 0, "dy": 0, "anchor": "middle", "leader": false } },
+  { "id": "CHN", "shortLabel": "중국", "at": [79.2, 34.6], "label": { "dx": 0, "dy": 0, "anchor": "middle", "leader": false } },
+  { "id": "NPL", "shortLabel": "네팔", "at": [83.9, 28.35], "label": { "dx": 0, "dy": 0, "anchor": "middle", "leader": false } },
+  { "id": "BTN", "shortLabel": "부탄", "at": [90.4, 27.45], "label": { "dx": 0, "dy": 0, "anchor": "middle", "leader": false } },
+  { "id": "BGD", "shortLabel": "방글라데시", "at": [90.3, 23.7], "label": { "dx": 0, "dy": 0, "anchor": "middle", "leader": false } },
+  { "id": "MMR", "shortLabel": "미얀마", "at": [96.0, 22.2], "label": { "dx": 0, "dy": 0, "anchor": "middle", "leader": false } },
+  { "id": "LKA", "shortLabel": "스리랑카", "at": [80.7, 7.6], "label": { "dx": 0, "dy": 0, "anchor": "middle", "leader": false } }
+]

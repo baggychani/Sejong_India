@@ -1,0 +1,145 @@
+.library { max-width: 1120px; margin: 0 auto; padding: 64px 28px 110px; }
+.library-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 34px; }
+.library-head p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* ── 마감 ───────────────────────── */
+.bookshelf {
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2400' height='60'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.004 .35' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  /* 오크 */
+  --wood: #c9a272; --wood-top: #dcbb8e; --wood-edge: #a77f50; --wood-dark: #7d5a35;
+  --wall: #efe6d6; --cast: 60 40 20;
+}
+
+/* ── 책장 몸체 ───────────────────────── */
+.bookcase {
+  --case-pad: 18px; --row-pad: 22px;
+  position: relative; margin-top: 10px; padding: var(--case-pad) var(--case-pad) 0;
+  background: var(--wood);
+  background-image: var(--grain), linear-gradient(90deg, rgb(0 0 0 / .10), transparent 6%, transparent 94%, rgb(0 0 0 / .14));
+  border-radius: 4px 4px 2px 2px;
+  box-shadow: 0 1px 0 rgb(255 255 255 / .35) inset, 0 30px 40px -24px rgb(var(--cast) / .45), 0 2px 4px rgb(var(--cast) / .2);
+}
+.bookcase::before {
+  content: ""; position: absolute; left: -6px; right: -6px; top: -10px; height: 12px; border-radius: 3px 3px 0 0;
+  background: var(--wood-top); background-image: var(--grain); box-shadow: 0 2px 0 var(--wood-edge);
+}
+.bay {
+  position: relative;
+  background: var(--wall);
+  background-image: radial-gradient(120% 90% at 50% 0%, rgb(255 255 255 / .28), transparent 60%), linear-gradient(transparent, rgb(var(--cast) / .10));
+  box-shadow: inset 0 22px 22px -14px rgb(var(--cast) / .55), inset 14px 0 16px -12px rgb(var(--cast) / .35), inset -14px 0 16px -12px rgb(var(--cast) / .35);
+}
+.shelf-row { display: flex; align-items: flex-end; gap: 2px; height: calc(236px * var(--scale, 1)); padding: 0 var(--row-pad); }
+.shelf-board { position: relative; height: 26px; }
+.shelf-board::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 9px;
+  background: var(--wood-top); background-image: var(--grain); box-shadow: inset 0 3px 5px -2px rgb(var(--cast) / .45);
+}
+.shelf-board::after {
+  content: ""; position: absolute; inset: 9px calc(var(--case-pad) * -1) 0;
+  background: var(--wood); background-image: var(--grain), linear-gradient(rgb(255 255 255 / .18), transparent 30%, rgb(0 0 0 / .18));
+  box-shadow: 0 1px 0 var(--wood-dark);
+}
+.bookcase-plinth { height: 30px; margin: 0 calc(var(--case-pad) * -1); background: var(--wood-edge); background-image: var(--grain), linear-gradient(rgb(0 0 0 / .18), transparent 40%); border-radius: 0 0 2px 2px; }
+
+/* ── 책등 ───────────────────────── */
+.spine {
+  --shade: linear-gradient(90deg, rgb(0 0 0 / .32) 0, rgb(0 0 0 / .06) 9%, rgb(255 255 255 / .16) 24%, rgb(255 255 255 / .03) 46%, rgb(0 0 0 / .05) 74%, rgb(0 0 0 / .34) 100%);
+  position: relative; flex: none; display: block; width: var(--w); height: var(--h);
+  border-radius: 2px 2px 1px 1px; color: var(--spine-ink); text-decoration: none;
+  background-color: var(--c); background-image: var(--shade), var(--noise); background-size: auto, 120px;
+  box-shadow: 5px -1px 9px -2px rgb(var(--cast) / .45), 1px 0 0 rgb(0 0 0 / .25);
+  transform-origin: 50% 100%;
+  transition: transform .28s cubic-bezier(.2, .8, .2, 1), box-shadow .28s;
+}
+.spine::after {
+  content: ""; position: absolute; left: -2px; right: -6px; bottom: -3px; height: 6px;
+  background: radial-gradient(closest-side, rgb(var(--cast) / .55), transparent); pointer-events: none;
+}
+.spine.v1 { background-image: var(--shade), linear-gradient(color-mix(in srgb, var(--c) 72%, black) 0 21%, transparent 21% 79%, color-mix(in srgb, var(--c) 72%, black) 79%), var(--noise); }
+.spine .band { position: absolute; left: 0; right: 0; height: 2px; background: currentColor; opacity: .55; }
+.spine .band.top { top: 14px; }
+.spine .band.bottom { bottom: 30px; }
+.spine:not(.v0) .band { display: none; }
+.spine-text {
+  position: absolute; left: 0; right: 0; top: 24px; bottom: 40px;
+  display: flex; align-items: center;
+  writing-mode: vertical-rl; font-family: "Noto Serif KR", serif; font-weight: 700;
+  font-size: var(--fs, 13px); letter-spacing: .08em; line-height: 1; white-space: nowrap; overflow: hidden;
+  text-shadow: 0 1px 0 rgb(0 0 0 / .2);
+}
+.spine-text small { margin-top: auto; font-family: Pretendard, "Malgun Gothic", sans-serif; font-weight: 500; font-size: 10px; letter-spacing: .04em; opacity: .8; }
+.spine-mark { position: absolute; left: 50%; bottom: 10px; width: 10px; height: 10px; margin-left: -5px; border: 1.5px solid currentColor; border-radius: 50%; opacity: .7; }
+.spine:hover, .spine:focus-visible { z-index: 2; transform: translateY(-16px); box-shadow: 8px 6px 14px -2px rgb(var(--cast) / .5), 1px 0 0 rgb(0 0 0 / .25); outline: none; }
+.spine:focus-visible { box-shadow: 0 0 0 3px #197f9e, 8px 6px 14px -2px rgb(var(--cast) / .5); }
+.spine.pose-lean { transform-origin: 0 100%; transform: rotate(-9deg); margin-left: calc(30px * var(--scale, 1)); }
+.spine.pose-lean:hover, .spine.pose-lean:focus-visible { transform: rotate(-9deg) translateY(-12px); }
+
+/* 눕혀 쌓은 책 */
+.book-stack { flex: none; display: flex; flex-direction: column; align-items: flex-start; margin: 0 14px; }
+.book-stack .spine {
+  width: var(--h); height: var(--w); border-radius: 1px 2px 2px 1px;
+  background-image: linear-gradient(rgb(255 255 255 / .16), rgb(255 255 255 / .02) 40%, rgb(0 0 0 / .28)), var(--noise);
+  box-shadow: 0 -1px 0 rgb(0 0 0 / .18), 4px 2px 6px -2px rgb(var(--cast) / .4);
+}
+.book-stack .spine:nth-child(even) { margin-left: 10px; }
+.book-stack .spine-text { writing-mode: horizontal-tb; inset: 0 12px; justify-content: space-between; gap: 10px; font-size: 12px; }
+.book-stack .spine-text small { margin: 0; }
+.book-stack .band, .book-stack .spine-mark, .book-stack .spine::after { display: none; }
+.book-stack .spine:hover, .book-stack .spine:focus-visible { transform: translateX(10px); }
+
+/* 표지가 보이게 세운 책 */
+.face-out {
+  position: relative; flex: none; display: block; width: var(--fw); aspect-ratio: 128 / 186; margin: 0 16px 0 10px;
+  transform: perspective(700px) rotateX(5deg) translateY(-1px); transform-origin: 50% 100%;
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1); text-decoration: none;
+}
+.face-cover {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 1px 3px 3px 1px;
+  box-shadow: 10px 2px 16px -4px rgb(var(--cast) / .55), 2px 0 0 #efe7d6, 3px 0 0 #d8ccb4;
+}
+img.face-cover { object-fit: contain; background: var(--c); }
+.face-cover.is-blank {
+  display: flex; flex-direction: column; padding: 16px 14px; color: var(--spine-ink);
+  background: var(--c); background-image: linear-gradient(90deg, rgb(0 0 0 / .28), rgb(255 255 255 / .1) 3%, transparent 6%), radial-gradient(90% 60% at 30% 20%, rgb(255 255 255 / .16), transparent), var(--noise);
+}
+.face-cover.is-blank b { font-family: "Noto Serif KR", serif; font-size: 18px; line-height: 1.3; word-break: keep-all; }
+.face-cover.is-blank small { margin-top: 8px; font-size: 11px; opacity: .85; }
+.face-out::before { /* 표지 왼쪽 접힘 */
+  content: ""; position: absolute; z-index: 1; inset: 0 auto 0 0; width: 7px; border-radius: 1px 0 0 1px;
+  background: linear-gradient(90deg, rgb(0 0 0 / .28), rgb(255 255 255 / .12) 45%, transparent); pointer-events: none;
+}
+.face-out::after { content: ""; position: absolute; left: 4px; right: -10px; bottom: -4px; height: 8px; background: radial-gradient(closest-side, rgb(var(--cast) / .5), transparent); }
+.face-out:hover, .face-out:focus-visible { transform: perspective(700px) rotateX(0deg) translateY(-8px); }
+.face-ribbon { position: absolute; z-index: 2; top: -9px; right: 10px; padding: 3px 7px; border-radius: 4px; background: #fff; color: var(--accent); font-size: 11px; font-weight: 700; box-shadow: 0 2px 6px rgb(0 0 0 / .15); }
+
+/* 북엔드 */
+.bookend { flex: none; position: relative; width: 10px; height: calc(120px * var(--scale, 1)); margin: 0 6px 0 4px; background: #3b3b38; border-radius: 2px 2px 0 0; box-shadow: 4px 0 8px -2px rgb(var(--cast) / .5); }
+.bookend::after { content: ""; position: absolute; bottom: 0; left: -22px; width: 32px; height: 4px; background: #2b2b29; }
+
+.shelf-caption { min-height: 28px; margin: 22px 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; color: var(--muted); font-size: 15px; }
+.shelf-caption b { color: var(--ink); font-size: 17px; letter-spacing: -.02em; }
+
+/* ── 책 페이지 ───────────────────────── */
+.book-page { max-width: 900px; margin: 0 auto; padding: 56px 28px 120px; }
+.book-hero { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 40px; align-items: end; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+.book-hero-cover { width: 200px; aspect-ratio: 2 / 3; border-radius: 2px 4px 4px 2px; object-fit: cover; box-shadow: 12px 10px 24px -8px rgb(60 40 20 / .45), 2px 0 0 #efe7d6, 3px 0 0 #d8ccb4; }
+.book-hero-cover.is-blank { display: flex; flex-direction: column; padding: 22px 18px; color: var(--spine-ink); background: var(--c); }
+.book-hero-cover.is-blank b { font-family: "Noto Serif KR", serif; font-size: 22px; line-height: 1.3; word-break: keep-all; }
+img.book-hero-cover { display: block; height: auto; aspect-ratio: auto; }
+.book-subtitle { margin: 10px 0 0; color: var(--muted); line-height: 1.5; word-break: keep-all; }
+.book-hero h1 { font-family: "Noto Serif KR", serif; font-size: clamp(30px, 4.4vw, 46px); font-weight: 700; letter-spacing: -.03em; line-height: 1.2; word-break: keep-all; }
+.book-meta { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 16px 0 0; color: var(--muted); font-size: 15px; }
+.book-page .prose { max-width: 680px; }
+
+@media (max-width: 640px) {
+  .library { padding: 36px 16px 72px; }
+  .bookcase { --case-pad: 12px; --row-pad: 12px; }
+  .book-page { padding: 36px 18px 80px; }
+  .book-hero { grid-template-columns: 1fr; gap: 24px; justify-items: start; }
+  .book-hero-cover { width: 150px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spine, .face-out { transition: none; }
+}

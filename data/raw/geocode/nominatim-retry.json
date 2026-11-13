@@ -1,0 +1,153 @@
+{
+  "accessed": "2026-11-13",
+  "provider": "Nominatim / OpenStreetMap",
+  "results": [
+    {
+      "id": "delhi-kcci",
+      "q": "Korean Cultural Centre, Lajpat Nagar, New Delhi",
+      "results": []
+    },
+    {
+      "id": "delhi-kcci-street",
+      "q": "Lajpat Nagar IV Ring Road, New Delhi",
+      "results": []
+    },
+    {
+      "id": "chennai-inko",
+      "q": "InKo Centre, Chennai",
+      "results": []
+    },
+    {
+      "id": "chennai-inko-street",
+      "q": "Adyar Club Gate Road, Chennai",
+      "results": []
+    },
+    {
+      "id": "barasat-wbsu",
+      "q": "West Bengal State University, Barasat",
+      "results": []
+    },
+    {
+      "id": "imphal-dm",
+      "q": "Dhanamanjuri College of Arts, Imphal",
+      "results": []
+    },
+    {
+      "id": "imphal-dm-alt",
+      "q": "DM College of Arts, Imphal",
+      "results": []
+    },
+    {
+      "id": "pune-mima",
+      "q": "MIMA Institute of Management, Balewadi, Pune",
+      "results": []
+    },
+    {
+      "id": "pune-balewadi",
+      "q": "Balewadi, Pune",
+      "results": [
+        {
+          "place_id": 250950257,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "node",
+          "osm_id": 6616669384,
+          "lat": "18.5820266",
+          "lon": "73.7689831",
+          "category": "place",
+          "type": "suburb",
+          "place_rank": 19,
+          "importance": 0.3575511715318858,
+          "addresstype": "suburb",
+          "name": "Balewadi",
+          "display_name": "Balewadi, Pune, Pune City Subdistrict, Pune, Maharashtra, 411001, India",
+          "boundingbox": [
+            "18.5620266",
+            "18.6020266",
+            "73.7489831",
+            "73.7889831"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bengaluru-banaswadi",
+      "q": "Chikka Banaswadi, Bengaluru",
+      "results": [
+        {
+          "place_id": 252312474,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 363617611,
+          "lat": "13.0057413",
+          "lon": "77.6508239",
+          "category": "highway",
+          "type": "secondary",
+          "place_rank": 26,
+          "importance": 0.0534042778667887,
+          "addresstype": "secondary",
+          "name": "Chikka Banaswadi Road",
+          "display_name": "Chikka Banaswadi Road, Doctors Layout, Kasturi Nagar, Bengaluru Central City Corporation, Bengaluru, Bangalore East, Bengaluru Urban, Karnataka, 560043, India",
+          "boundingbox": [
+            "13.0020183",
+            "13.0064488",
+            "77.6409577",
+            "77.6597913"
+          ]
+        },
+        {
+          "place_id": 253188708,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 169722380,
+          "lat": "13.0057347",
+          "lon": "77.6395118",
+          "category": "highway",
+          "type": "primary",
+          "place_rank": 26,
+          "importance": 0.0534042778667887,
+          "addresstype": "primary",
+          "name": "Chikka Banaswadi Main Road",
+          "display_name": "Chikka Banaswadi Main Road, Jai Jawan Nagar, Subbayanapalya, Bengaluru North City Corporation, Bengaluru, Bangalore North, Bengaluru Urban, Karnataka, 560043, India",
+          "boundingbox": [
+            "13.0054610",
+            "13.0060866",
+            "77.6380586",
+            "77.6409577"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "patna-anc",
+      "q": "A. N. College, Boring Road, Patna",
+      "results": []
+    },
+    {
+      "id": "patna-anc-alt",
+      "q": "Anugrah Narayan College, Patna",
+      "results": [
+        {
+          "place_id": 242975174,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 258106319,
+          "lat": "25.6188508",
+          "lon": "85.1096514",
+          "category": "amenity",
+          "type": "college",
+          "place_rank": 30,
+          "importance": 0.00006920653086132627,
+          "addresstype": "amenity",
+          "name": "Anugrah Narayan College",
+          "display_name": "Anugrah Narayan College, Boring Road, Danapur, Patna, Patna Rural, Patna, Bihar, 800013, India",
+          "boundingbox": [
+            "25.6168024",
+            "25.6206919",
+            "85.1077922",
+            "85.1122789"
+          ]
+        }
+      ]
+    }
+  ]
+}

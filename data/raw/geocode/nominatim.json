@@ -1,0 +1,152 @@
+{
+  "accessed": "2026-11-13",
+  "provider": "Nominatim / OpenStreetMap",
+  "results": [
+    {
+      "id": "delhi-kcci",
+      "q": "25A Ring Road, Lajpat Nagar IV, New Delhi, India",
+      "results": []
+    },
+    {
+      "id": "chennai-inko",
+      "q": "InKo Centre, 18 Adyar Club Gate Road, Chennai, India",
+      "results": []
+    },
+    {
+      "id": "chennai-vit",
+      "q": "VIT Chennai, Kelambakkam Vandalur Road, Melakottaiyur, Tamil Nadu, India",
+      "results": [
+        {
+          "place_id": 251236863,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 336095563,
+          "lat": "12.8429461",
+          "lon": "80.1554100",
+          "category": "amenity",
+          "type": "university",
+          "place_rank": 30,
+          "importance": 0.42397855970078896,
+          "addresstype": "amenity",
+          "name": "Vellore Institute of Technology - Chennai",
+          "display_name": "Vellore Institute of Technology - Chennai, Vandalur - Mambakkam - Kelambakkam Road, Ponmar, Kolathur, Chennai Metropolitan Area, Vandalur, Chengalpattu, Tamil Nadu, 600127, India",
+          "address": {
+            "amenity": "Vellore Institute of Technology - Chennai",
+            "road": "Vandalur - Mambakkam - Kelambakkam Road",
+            "suburb": "Ponmar",
+            "village": "Kolathur",
+            "city": "Chennai Metropolitan Area",
+            "county": "Vandalur",
+            "state_district": "Chengalpattu",
+            "state": "Tamil Nadu",
+            "ISO3166-2-lvl4": "IN-TN",
+            "postcode": "600127",
+            "country": "India",
+            "country_code": "in"
+          },
+          "boundingbox": [
+            "12.8385517",
+            "12.8475158",
+            "80.1507363",
+            "80.1621227"
+          ]
+        },
+        {
+          "place_id": 251750433,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 1264107709,
+          "lat": "12.8437944",
+          "lon": "80.1516557",
+          "category": "tourism",
+          "type": "hostel",
+          "place_rank": 30,
+          "importance": 0.00005509498741126142,
+          "addresstype": "tourism",
+          "name": "VIT Chennai Hostel Block D2",
+          "display_name": "VIT Chennai Hostel Block D2, Vandalur - Mambakkam - Kelambakkam Road, Ponmar, Kolathur, Chennai Metropolitan Area, Vandalur, Chengalpattu, Tamil Nadu, 600127, India",
+          "address": {
+            "tourism": "VIT Chennai Hostel Block D2",
+            "road": "Vandalur - Mambakkam - Kelambakkam Road",
+            "suburb": "Ponmar",
+            "village": "Kolathur",
+            "city": "Chennai Metropolitan Area",
+            "county": "Vandalur",
+            "state_district": "Chengalpattu",
+            "state": "Tamil Nadu",
+            "ISO3166-2-lvl4": "IN-TN",
+            "postcode": "600127",
+            "country": "India",
+            "country_code": "in"
+          },
+          "boundingbox": [
+            "12.8435280",
+            "12.8442589",
+            "80.1513867",
+            "80.1519394"
+          ]
+        },
+        {
+          "place_id": 251783597,
+          "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+          "osm_type": "way",
+          "osm_id": 1307421337,
+          "lat": "12.8406291",
+          "lon": "80.1539745",
+          "category": "building",
+          "type": "university",
+          "place_rank": 30,
+          "importance": 0.00005509498741126142,
+          "addresstype": "building",
+          "name": "VIT Chennai Administrative Block",
+          "display_name": "VIT Chennai Administrative Block, Vandalur - Mambakkam - Kelambakkam Road, Ponmar, Kolathur, Chennai Metropolitan Area, Vandalur, Chengalpattu, Tamil Nadu, 600127, India",
+          "address": {
+            "building": "VIT Chennai Administrative Block",
+            "road": "Vandalur - Mambakkam - Kelambakkam Road",
+            "suburb": "Ponmar",
+            "village": "Kolathur",
+            "city": "Chennai Metropolitan Area",
+            "county": "Vandalur",
+            "state_district": "Chengalpattu",
+            "state": "Tamil Nadu",
+            "ISO3166-2-lvl4": "IN-TN",
+            "postcode": "600127",
+            "country": "India",
+            "country_code": "in"
+          },
+          "boundingbox": [
+            "12.8403796",
+            "12.8408411",
+            "80.1537231",
+            "80.1542193"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "barasat-wbsu",
+      "q": "West Bengal State University, Berunanpukuria, Barasat, India",
+      "results": []
+    },
+    {
+      "id": "imphal-dm",
+      "q": "DM College of Arts, Dhanamanjuri University, Imphal, Manipur, India",
+      "results": []
+    },
+    {
+      "id": "pune-mima",
+      "q": "MIMA Institute of Management, Balewadi, Pune, Maharashtra, India",
+      "results": []
+    },
+    {
+      "id": "bengaluru-cmr",
+      "q": "5 Chikka Banaswadi Road, Banaswadi, Bengaluru, Karnataka, India",
+      "results": []
+    },
+    {
+      "id": "patna-anc",
+      "q": "A.N. College, Boring Road, Patna, Bihar, India",
+      "results": []
+    }
+  ]
+}

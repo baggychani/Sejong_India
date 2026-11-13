@@ -1,0 +1,74 @@
+[
+  {
+    "id": "HIMALAYAS",
+    "names": { "ko": "히말라야산맥", "en": "Himalayas", "hi": "हिमालय" },
+    "shortLabel": "히말라야",
+    "kind": "range",
+    "at": [80.2, 31.6],
+    "summary": "인도 북부를 가르는 산맥이다.",
+    "label": { "dx": 0, "dy": 0, "anchor": "middle", "leader": false }
+  },
+  {
+    "id": "WESTERN GHATS",
+    "names": { "ko": "서고츠산맥", "en": "Western Ghats", "hi": "पश्चिमी घाट" },
+    "shortLabel": "서고츠",
+    "kind": "range",
+    "at": [74.2, 15.2],
+    "summary": "반도 서해안을 따라 남북으로 이어지는 산맥이다.",
+    "label": { "dx": -14, "dy": 0, "anchor": "end", "leader": false }
+  },
+  {
+    "id": "EASTERN GHATS",
+    "names": { "ko": "동고츠산맥", "en": "Eastern Ghats", "hi": "पूर्वी घाट" },
+    "shortLabel": "동고츠",
+    "kind": "range",
+    "at": [81.6, 16.8],
+    "summary": "반도 동쪽에 끊기며 이어지는 구릉성 산지다.",
+    "label": { "dx": 12, "dy": 0, "anchor": "start", "leader": false }
+  },
+  {
+    "id": "DECCAN PLATEAU",
+    "names": { "ko": "데칸고원", "en": "Deccan Plateau", "hi": "दक्कन का पठार" },
+    "shortLabel": "데칸고원",
+    "kind": "plateau",
+    "at": [77.2, 18.2],
+    "summary": "인도 반도의 고원이다.",
+    "label": { "dx": 0, "dy": 0, "anchor": "middle", "leader": false }
+  },
+  {
+    "id": "THAR DESERT",
+    "names": { "ko": "타르 사막", "en": "Thar Desert", "hi": "थार मरुस्थल" },
+    "shortLabel": "타르",
+    "kind": "desert",
+    "at": [71.2, 26.8],
+    "summary": "인도 북서부와 파키스탄에 걸친 사막이다.",
+    "label": { "dx": -8, "dy": 0, "anchor": "end", "leader": false }
+  },
+  {
+    "id": "Arvalli Ra.",
+    "names": { "ko": "아라발리산맥", "en": "Aravalli Range", "hi": "अरावली" },
+    "shortLabel": "아라발리",
+    "kind": "range",
+    "at": [74.2, 25.6],
+    "summary": "라자스탄을 남서–북동으로 지나는 오래된 산맥이다.",
+    "label": { "dx": -10, "dy": -8, "anchor": "end", "leader": false }
+  },
+  {
+    "id": "Vindhya Range",
+    "names": { "ko": "빈디아산맥", "en": "Vindhya Range", "hi": "विन्ध्याचल" },
+    "shortLabel": "빈디아",
+    "kind": "range",
+    "at": [79.4, 24.2],
+    "summary": "인도 중북부의 산맥이다.",
+    "label": { "dx": 0, "dy": -10, "anchor": "middle", "leader": false }
+  },
+  {
+    "id": "Satpura Range",
+    "names": { "ko": "사트푸라산맥", "en": "Satpura Range", "hi": "सतपुड़ा" },
+    "shortLabel": "사트푸라",
+    "kind": "range",
+    "at": [77.4, 21.8],
+    "summary": "빈디아산맥 남쪽, 나르마다강과 타피강 사이의 산맥이다.",
+    "label": { "dx": 0, "dy": 10, "anchor": "middle", "leader": false }
+  }
+]

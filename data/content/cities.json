@@ -1,0 +1,137 @@
+[
+  {
+    "id": "New Delhi",
+    "names": { "ko": "뉴델리", "en": "New Delhi", "hi": "नई दिल्ली" },
+    "shortLabel": "뉴델리",
+    "lat": 28.600023,
+    "lon": 77.19998,
+    "summary": "인도의 수도. 델리 연방직할지의 행정 중심이다.",
+    "label": { "dx": 2, "dy": -20, "anchor": "middle", "leader": false }
+  },
+  {
+    "id": "Mumbai",
+    "names": { "ko": "뭄바이", "en": "Mumbai", "hi": "मुम्बई" },
+    "shortLabel": "뭄바이",
+    "lat": 19.018936,
+    "lon": 72.855043,
+    "summary": "마하라슈트라의 수도. 아라비아해 연안의 가장 큰 항구 도시다.",
+    "label": { "dx": -8, "dy": 2, "anchor": "end", "leader": false }
+  },
+  {
+    "id": "Kolkata",
+    "names": { "ko": "콜카타", "en": "Kolkata", "hi": "कोलकाता" },
+    "shortLabel": "콜카타",
+    "lat": 22.496915,
+    "lon": 88.32273,
+    "summary": "서벵골의 수도. 후글리강 유역에 있다.",
+    "label": { "dx": 16, "dy": -4, "anchor": "start", "leader": false }
+  },
+  {
+    "id": "Chennai",
+    "names": { "ko": "첸나이", "en": "Chennai", "hi": "चेन्नई" },
+    "shortLabel": "첸나이",
+    "lat": 13.091934,
+    "lon": 80.278053,
+    "summary": "타밀나두의 수도. 코로만델 해안에 있다.",
+    "label": { "dx": -18, "dy": -10, "anchor": "end", "leader": false }
+  },
+  {
+    "id": "Bengaluru",
+    "names": { "ko": "벵갈루루", "en": "Bengaluru", "hi": "बेंगलुरु" },
+    "shortLabel": "벵갈루루",
+    "lat": 12.971941,
+    "lon": 77.558064,
+    "summary": "카르나타카의 수도. 데칸고원 남부에 있다.",
+    "label": { "dx": -10, "dy": 12, "anchor": "end", "leader": false }
+  },
+  {
+    "id": "Hyderabad",
+    "names": { "ko": "하이데라바드", "en": "Hyderabad", "hi": "हैदराबाद" },
+    "shortLabel": "하이데라바드",
+    "lat": 17.401929,
+    "lon": 78.478008,
+    "summary": "텔랑가나의 수도.",
+    "label": { "dx": 8, "dy": -8, "anchor": "start", "leader": false }
+  },
+  {
+    "id": "Ahmedabad",
+    "names": { "ko": "아마다바드", "en": "Ahmedabad", "hi": "अहमदाबाद" },
+    "shortLabel": "아마다바드",
+    "lat": 23.031999,
+    "lon": 72.578058,
+    "summary": "구자라트의 큰 도시. 사바르마티강 유역에 있다.",
+    "label": { "dx": -8, "dy": -12, "anchor": "end", "leader": false }
+  },
+  {
+    "id": "Pune",
+    "names": { "ko": "푸네", "en": "Pune", "hi": "पुणे" },
+    "shortLabel": "푸네",
+    "lat": 18.531963,
+    "lon": 73.848058,
+    "summary": "마하라슈트라 서부 내륙의 도시. 뭄바이 동쪽이다.",
+    "label": { "dx": 8, "dy": 12, "anchor": "start", "leader": false }
+  },
+  {
+    "id": "Jaipur",
+    "names": { "ko": "자이푸르", "en": "Jaipur", "hi": "जयपुर" },
+    "shortLabel": "자이푸르",
+    "lat": 26.923079,
+    "lon": 75.808042,
+    "summary": "라자스탄의 수도.",
+    "label": { "dx": -10, "dy": 0, "anchor": "end", "leader": false }
+  },
+  {
+    "id": "Agra",
+    "names": { "ko": "아그라", "en": "Agra", "hi": "आगरा" },
+    "shortLabel": "아그라",
+    "lat": 27.172366,
+    "lon": 78.013075,
+    "summary": "우타르프라데시의 도시. 야무나강 유역에 있다.",
+    "label": { "dx": 8, "dy": 4, "anchor": "start", "leader": false }
+  },
+  {
+    "id": "Varanasi",
+    "names": { "ko": "바라나시", "en": "Varanasi", "hi": "वाराणसी" },
+    "shortLabel": "바라나시",
+    "lat": 25.331936,
+    "lon": 82.998094,
+    "summary": "우타르프라데시의 도시. 갠지스강 유역에 있다.",
+    "label": { "dx": 8, "dy": 12, "anchor": "start", "leader": false }
+  },
+  {
+    "id": "Amritsar",
+    "names": { "ko": "암리차르", "en": "Amritsar", "hi": "अमृतसर" },
+    "shortLabel": "암리차르",
+    "lat": 31.641938,
+    "lon": 74.868047,
+    "summary": "펀자브의 도시. 파키스탄 국경 가까이에 있다.",
+    "label": { "dx": -8, "dy": -8, "anchor": "end", "leader": false }
+  },
+  {
+    "id": "Patna",
+    "names": { "ko": "파트나", "en": "Patna", "hi": "पटना" },
+    "shortLabel": "파트나",
+    "lat": 25.626905,
+    "lon": 85.128093,
+    "summary": "비하르의 수도. 갠지스강 남안에 있다.",
+    "label": { "dx": 10, "dy": -14, "anchor": "start", "leader": false }
+  },
+  {
+    "id": "Imphal",
+    "names": { "ko": "임팔", "en": "Imphal", "hi": "इम्फाल" },
+    "shortLabel": "임팔",
+    "lat": 24.799971,
+    "lon": 93.950017,
+    "summary": "마니푸르의 수도.",
+    "label": { "dx": 10, "dy": -12, "anchor": "start", "leader": false }
+  },
+  {
+    "id": "Barasat",
+    "names": { "ko": "바라사트", "en": "Barasat", "hi": "बारासात" },
+    "shortLabel": "바라사트",
+    "lat": 22.7191072,
+    "lon": 88.4826229,
+    "summary": "콜카타 북동쪽에 있는 서벵골의 도시다.",
+    "label": { "dx": -8, "dy": -14, "anchor": "end", "leader": false }
+  }
+]

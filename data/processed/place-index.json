@@ -1,0 +1,128 @@
+[
+  {
+    "id": "Imphal",
+    "name": "Imphal",
+    "nameKo": "임팔",
+    "nameHi": "इम्फाल",
+    "lat": 24.799971,
+    "lon": 93.950017,
+    "popMax": 264986
+  },
+  {
+    "id": "Agra",
+    "name": "Agra",
+    "nameKo": "아그라",
+    "nameHi": "आगरा",
+    "lat": 27.172366,
+    "lon": 78.013075,
+    "popMax": 1592000
+  },
+  {
+    "id": "Amritsar",
+    "name": "Amritsar",
+    "nameKo": "암리차르",
+    "nameHi": "अमृतसर",
+    "lat": 31.641938,
+    "lon": 74.868047,
+    "popMax": 1212000
+  },
+  {
+    "id": "Varanasi",
+    "name": "Varanasi",
+    "nameKo": "바라나시",
+    "nameHi": "वाराणसी",
+    "lat": 25.331936,
+    "lon": 82.998094,
+    "popMax": 1352000
+  },
+  {
+    "id": "Hyderabad",
+    "name": "Hyderabad",
+    "nameKo": "하이데라바드",
+    "nameHi": "हैदराबाद",
+    "lat": 17.401929,
+    "lon": 78.478008,
+    "popMax": 6376000
+  },
+  {
+    "id": "Pune",
+    "name": "Pune",
+    "nameKo": "푸네",
+    "nameHi": "पुणे",
+    "lat": 18.531963,
+    "lon": 73.848058,
+    "popMax": 4672000
+  },
+  {
+    "id": "Jaipur",
+    "name": "Jaipur",
+    "nameKo": "자이푸르",
+    "nameHi": "जयपुर",
+    "lat": 26.923079,
+    "lon": 75.808042,
+    "popMax": 2917000
+  },
+  {
+    "id": "Patna",
+    "name": "Patna",
+    "nameKo": "파트나",
+    "nameHi": "पटना",
+    "lat": 25.626905,
+    "lon": 85.128093,
+    "popMax": 2158000
+  },
+  {
+    "id": "Chennai",
+    "name": "Chennai",
+    "nameKo": "첸나이",
+    "nameHi": "चेन्नई",
+    "lat": 13.091934,
+    "lon": 80.278053,
+    "popMax": 7163000
+  },
+  {
+    "id": "Ahmedabad",
+    "name": "Ahmedabad",
+    "nameKo": "아마다바드",
+    "nameHi": "अहमदाबाद",
+    "lat": 23.031999,
+    "lon": 72.578058,
+    "popMax": 5375000
+  },
+  {
+    "id": "New Delhi",
+    "name": "New Delhi",
+    "nameKo": "뉴델리",
+    "nameHi": "नई दिल्ली",
+    "lat": 28.600023,
+    "lon": 77.19998,
+    "popMax": 317797
+  },
+  {
+    "id": "Bengaluru",
+    "name": "Bengaluru",
+    "nameKo": "벵갈루루",
+    "nameHi": "बंगलौर",
+    "lat": 12.971941,
+    "lon": 77.558064,
+    "popMax": 6787000
+  },
+  {
+    "id": "Mumbai",
+    "name": "Mumbai",
+    "nameKo": "뭄바이",
+    "nameHi": "मुम्बई",
+    "lat": 19.018936,
+    "lon": 72.855043,
+    "popMax": 18978000
+  },
+  {
+    "id": "Kolkata",
+    "name": "Kolkata",
+    "nameKo": "콜카타",
+    "nameHi": "कोलकाता",
+    "lat": 22.496915,
+    "lon": 88.32273,
+    "popMax": 14787000
+  }
+]

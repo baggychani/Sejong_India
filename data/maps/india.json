@@ -1,0 +1,15 @@
+{
+  "id": "india-overview",
+  "title": "인도",
+  "projection": {
+    "parallels": [15, 32],
+    "centerLon": 82.5
+  },
+  "layers": [
+    { "id": "sejong", "label": "세종학당", "visible": true },
+    { "id": "city", "label": "도시", "visible": false },
+    { "id": "river", "label": "강", "visible": false },
+    { "id": "landform", "label": "지형", "visible": false },
+    { "id": "admin", "label": "주 경계", "visible": true }
+  ]
+}

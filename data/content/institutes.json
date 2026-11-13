@@ -1,0 +1,161 @@
+[
+  {
+    "id": "delhi-kcci",
+    "allowances": { "housingManwon": 125, "hardshipManwon": 70 },
+    "mapsQuery": "King Sejong Institute, Korean Cultural Centre India, New Delhi, India",
+    "names": { "ko": "인도 한국문화원 세종학당", "en": "King Sejong Institute, Korean Cultural Centre India" },
+    "shortLabel": "문화원",
+    "operator": { "ko": "주인도한국문화원", "en": "Korean Cultural Centre India" },
+    "city": { "ko": "뉴델리", "en": "New Delhi", "hi": "नई दिल्ली" },
+    "address": "25A, Ring Road, Lajpat Nagar IV, New Delhi 110024",
+    "lat": 28.56118,
+    "lon": 77.2398,
+    "precision": "approximate",
+    "locationNote": "공식 주소는 라지파트 나가르 4구역 링로드 25A다. 건물 좌표는 확인하지 못했다. 점은 그 구역의 위치이고, 출입구 좌표가 아니다.",
+    "homepage": "https://india.korean-culture.org/",
+    "label": { "dx": 14, "dy": 16, "anchor": "start", "leader": true },
+    "sources": [
+      { "title": "세종학당재단 학당 목록", "url": "https://www.ksif.or.kr/ste/ksf/hkd/ajaxLocalHakdangList_v2.do", "accessed": "2026-11-13" },
+      { "title": "주인도한국문화원 채용 안내의 주소", "url": "https://india.korean-culture.org/en/1274/board/414/read/116086", "accessed": "2026-11-13" }
+    ]
+  },
+  {
+    "id": "chennai-inko",
+    "allowances": { "housingManwon": 125, "hardshipManwon": 70 },
+    "mapsQuery": "King Sejong Institute Chennai 1, InKo Centre, Chennai, India",
+    "names": { "ko": "첸나이1 세종학당", "en": "King Sejong Institute Chennai 1" },
+    "shortLabel": "인코",
+    "operator": { "ko": "인코센터–부산외국어대학교", "en": "InKo Centre and Busan University of Foreign Studies" },
+    "city": { "ko": "첸나이", "en": "Chennai", "hi": "चेन्नई" },
+    "address": "No.18, Adyar Club Gate Road, Chennai 600028",
+    "lat": 13.0262,
+    "lon": 80.24848,
+    "precision": "street",
+    "locationNote": "재단 목록과 인코센터 연락처가 같은 도로를 적는다. 점은 그 도로의 위치이고, 18번지 출입구를 따로 측량하지는 않았다.",
+    "homepage": "https://www.inkocentre.org/contact.html",
+    "label": { "dx": 13, "dy": -11, "anchor": "start", "leader": true },
+    "sources": [
+      { "title": "세종학당재단 학당 목록", "url": "https://www.ksif.or.kr/ste/ksf/hkd/ajaxLocalHakdangList_v2.do", "accessed": "2026-11-13" },
+      { "title": "InKo Centre 연락처", "url": "https://www.inkocentre.org/contact.html", "accessed": "2026-11-13" }
+    ]
+  },
+  {
+    "id": "chennai-vit",
+    "allowances": { "housingManwon": 125, "hardshipManwon": 70 },
+    "mapsQuery": "King Sejong Institute Chennai 2, VIT Chennai, Melakottaiyur, India",
+    "names": { "ko": "첸나이2 세종학당", "en": "King Sejong Institute Chennai 2" },
+    "shortLabel": "VIT",
+    "operator": { "ko": "벨로어 공과대학–부산외국어대학교", "en": "Vellore Institute of Technology and Busan University of Foreign Studies" },
+    "city": { "ko": "첸나이", "en": "Chennai", "hi": "चेन्नई" },
+    "address": "603, Admin block, VIT Chennai, Kelambakkam–Vandalur Road, Melakottaiyur, Chennai, Tamil Nadu 600127",
+    "lat": 12.84063,
+    "lon": 80.15397,
+    "precision": "campus",
+    "locationNote": "재단 주소의 행정동(Admin block)에 해당하는 OpenStreetMap 건물을 점으로 했다. 603호 출입구는 아니다. 2026년 신규 지정이다.",
+    "homepage": null,
+    "label": { "dx": 14, "dy": 12, "anchor": "start", "leader": true },
+    "sources": [
+      { "title": "세종학당재단 학당 목록", "url": "https://www.ksif.or.kr/ste/ksf/hkd/ajaxLocalHakdangList_v2.do", "accessed": "2026-11-13" },
+      { "title": "문화체육관광부 2026년 신규 지정", "url": "https://www.mcst.go.kr/site/s_notice/press/pressView.jsp?pSeq=22554", "accessed": "2026-11-13" }
+    ]
+  },
+  {
+    "id": "barasat-wbsu",
+    "allowances": { "housingManwon": 125, "hardshipManwon": null },
+    "mapsQuery": "King Sejong Institute, West Bengal State University, Barasat, India",
+    "names": { "ko": "바라사트 세종학당", "en": "King Sejong Institute Barasat" },
+    "shortLabel": "WBSU",
+    "operator": { "ko": "웨스트벵골주립대학교–한국성서대학교", "en": "West Bengal State University and Korean Bible University" },
+    "city": { "ko": "바라사트", "en": "Barasat", "hi": "बारासात" },
+    "address": "Berunanpukuria, P.O. Malikapur, Barasat, North 24 Parganas, West Bengal 700126",
+    "lat": 22.7391375,
+    "lon": 88.4350716,
+    "precision": "campus",
+    "locationNote": "대학 공식 주소와 재단 주소가 같다. 점은 위키백과에 실린 캠퍼스 좌표이고, 학당 안내가 적힌 강의동 4층 출입구는 아니다.",
+    "homepage": "https://ksi.wbsu.ac.in/",
+    "label": { "dx": -16, "dy": 14, "anchor": "end", "leader": true },
+    "sources": [
+      { "title": "세종학당재단 학당 목록", "url": "https://www.ksif.or.kr/ste/ksf/hkd/ajaxLocalHakdangList_v2.do", "accessed": "2026-11-13" },
+      { "title": "웨스트벵골주립대학교 연락처", "url": "https://wbsu.ac.in/web/", "accessed": "2026-11-13" },
+      { "title": "바라사트 세종학당 강의 장소 안내", "url": "https://ksi.wbsu.ac.in/", "accessed": "2026-11-13" }
+    ]
+  },
+  {
+    "id": "imphal-dm",
+    "allowances": { "housingManwon": 125, "hardshipManwon": null },
+    "mapsQuery": "King Sejong Institute Imphal, DM College of Arts, Dhanamanjuri University, India",
+    "names": { "ko": "임팔 세종학당", "en": "King Sejong Institute Imphal" },
+    "shortLabel": "DM",
+    "operator": { "ko": "다만만주리 대학교–주인도한국문화원", "en": "Dhanamanjuri University and Korean Cultural Centre India" },
+    "city": { "ko": "임팔", "en": "Imphal", "hi": "इम्फाल" },
+    "address": "P.G. Block, DM College of Arts, Dhanamanjuri University, Imphal, Manipur 795001",
+    "lat": 24.82457,
+    "lon": 93.94227,
+    "precision": "campus",
+    "locationNote": "재단 주소는 DM College of Arts의 P.G. Block이다. OpenStreetMap에는 같은 캠퍼스의 DM College of Science만 있어 그 점을 썼다. 예술대학 건물 출입구는 아니다.",
+    "homepage": "https://imphal.sejonghakdang.org",
+    "label": { "dx": 12, "dy": 16, "anchor": "start", "leader": true },
+    "sources": [
+      { "title": "세종학당재단 학당 목록", "url": "https://www.ksif.or.kr/ste/ksf/hkd/ajaxLocalHakdangList_v2.do", "accessed": "2026-11-13" }
+    ]
+  },
+  {
+    "id": "pune-ikc",
+    "allowances": { "housingManwon": 125, "hardshipManwon": null },
+    "mapsQuery": "King Sejong Institute Pune, Indo Korean Center, Pune, India",
+    "names": { "ko": "푸네 세종학당", "en": "King Sejong Institute Pune" },
+    "shortLabel": "IKC",
+    "operator": { "ko": "유스빌드재단의 인도한국센터", "en": "Indo Korean Center of the Youth Build Foundation" },
+    "city": { "ko": "푸네", "en": "Pune", "hi": "पुणे" },
+    "address": "Sr. No. 33/1, 2nd Floor, MIMA Institute of Management, behind Mitcon International School, Balewadi, Pune 411045",
+    "lat": 18.5756016,
+    "lon": 73.7659075,
+    "precision": "campus",
+    "locationNote": "재단 주소는 Mitcon International School 뒤 MIMA 2층이다. 점은 그 학교(OpenStreetMap의 MIS International School, 우편번호 411045)이고, 2층 강의실은 아니다. 운영기관 사이트가 2026년 10월 인디라 대학교와 새 센터 협약을 알렸으나, 재단 목록의 수업 주소는 아직 발레와디다.",
+    "homepage": "https://justkiwa.in/",
+    "label": { "dx": -14, "dy": -14, "anchor": "end", "leader": true },
+    "sources": [
+      { "title": "세종학당재단 학당 목록", "url": "https://www.ksif.or.kr/ste/ksf/hkd/ajaxLocalHakdangList_v2.do", "accessed": "2026-11-13" },
+      { "title": "Indo Korean Center", "url": "https://justkiwa.in/", "accessed": "2026-11-13" }
+    ]
+  },
+  {
+    "id": "bengaluru-cmr",
+    "allowances": { "housingManwon": 125, "hardshipManwon": 60 },
+    "mapsQuery": "King Sejong Institute Bengaluru, CMR University, Banaswadi, Bengaluru, India",
+    "names": { "ko": "벵갈루루 세종학당", "en": "King Sejong Institute Bengaluru" },
+    "shortLabel": "CMR",
+    "operator": { "ko": "CMR대학교–주인도한국문화원", "en": "CMR University and Korean Cultural Centre India" },
+    "city": { "ko": "벵갈루루", "en": "Bengaluru", "hi": "बेंगलुरु" },
+    "address": "5, Chikka Banaswadi Road, Banaswadi, Bengaluru, Karnataka 560043",
+    "lat": 13.00574,
+    "lon": 77.65082,
+    "precision": "street",
+    "locationNote": "재단 목록의 도로와 우편번호에 점을 찍었다. 5번지 출입구는 확인하지 못했다. CMR 레이크사이드 캠퍼스와는 다른 곳이다.",
+    "homepage": null,
+    "label": { "dx": -12, "dy": -12, "anchor": "end", "leader": true },
+    "sources": [
+      { "title": "세종학당재단 학당 목록", "url": "https://www.ksif.or.kr/ste/ksf/hkd/ajaxLocalHakdangList_v2.do", "accessed": "2026-11-13" }
+    ]
+  },
+  {
+    "id": "patna-anc",
+    "allowances": { "housingManwon": 125, "hardshipManwon": null },
+    "mapsQuery": "King Sejong Institute Patna, Anugrah Narayan College, Patna, India",
+    "names": { "ko": "파트나 세종학당", "en": "King Sejong Institute Patna" },
+    "shortLabel": "A.N.",
+    "operator": { "ko": "A.N. 칼리지–주인도한국문화원", "en": "A.N. College and Korean Cultural Centre India" },
+    "city": { "ko": "파트나", "en": "Patna", "hi": "पटना" },
+    "address": "A.N. College, Boring Road, Patna, Bihar 800013",
+    "lat": 25.6188508,
+    "lon": 85.1096514,
+    "precision": "campus",
+    "locationNote": "재단 목록의 주소칸은 델리 문화원으로 적혀 있어 수업 장소로 쓰지 않았다. 운영기관명과 OpenStreetMap의 Anugrah Narayan College가 가리키는 캠퍼스에 점을 찍었다.",
+    "homepage": "https://patna.sejonghakdang.org",
+    "label": { "dx": -14, "dy": 14, "anchor": "end", "leader": true },
+    "sources": [
+      { "title": "세종학당재단 학당 목록", "url": "https://www.ksif.or.kr/ste/ksf/hkd/ajaxLocalHakdangList_v2.do", "accessed": "2026-11-13" },
+      { "title": "Outlook India, 파트나 A.N. College의 세종학당", "url": "https://www.outlookindia.com/culture-society/finding-a-slice-of-korea-in-patna", "accessed": "2026-11-13" }
+    ]
+  }
+]
