@@ -1,7 +1,7 @@
 .map-page {
   display: grid;
   grid-template-columns: minmax(0, 1fr) clamp(400px, 40vw, 620px);
-  height: calc(100dvh - var(--header-h));
+  height: calc(100dvh - var(--header-h) - var(--india-nav-height));
   min-height: 410px;
 }
 .map-frame { position: relative; min-width: 0; container-type: inline-size; overflow: hidden; background: #c9e5ee; }

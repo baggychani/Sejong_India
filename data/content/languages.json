@@ -1,0 +1,242 @@
+[
+  {
+    "id": "hindi",
+    "ko": "힌디어",
+    "en": "Hindi",
+    "native": "हिन्दी",
+    "tag": "hin",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "bengali",
+    "ko": "벵골어",
+    "en": "Bengali",
+    "native": "বাংলা",
+    "tag": "ben",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": true
+  },
+  {
+    "id": "marathi",
+    "ko": "마라티어",
+    "en": "Marathi",
+    "native": "मराठी",
+    "tag": "mar",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": true
+  },
+  {
+    "id": "telugu",
+    "ko": "텔루구어",
+    "en": "Telugu",
+    "native": "తెలుగు",
+    "tag": "tel",
+    "family": "Dravidian",
+    "scheduled": true,
+    "classical": true
+  },
+  {
+    "id": "tamil",
+    "ko": "타밀어",
+    "en": "Tamil",
+    "native": "தமிழ்",
+    "tag": "tam",
+    "family": "Dravidian",
+    "scheduled": true,
+    "classical": true
+  },
+  {
+    "id": "gujarati",
+    "ko": "구자라트어",
+    "en": "Gujarati",
+    "native": "ગુજરાતી",
+    "tag": "guj",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "urdu",
+    "ko": "우르두어",
+    "en": "Urdu",
+    "native": "اردو",
+    "tag": "urd",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "kannada",
+    "ko": "칸나다어",
+    "en": "Kannada",
+    "native": "ಕನ್ನಡ",
+    "tag": "kan",
+    "family": "Dravidian",
+    "scheduled": true,
+    "classical": true
+  },
+  {
+    "id": "odia",
+    "ko": "오디아어",
+    "en": "Odia",
+    "native": "ଓଡ଼ିଆ",
+    "tag": "ory",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": true
+  },
+  {
+    "id": "malayalam",
+    "ko": "말라얄람어",
+    "en": "Malayalam",
+    "native": "മലയാളം",
+    "tag": "mal",
+    "family": "Dravidian",
+    "scheduled": true,
+    "classical": true
+  },
+  {
+    "id": "punjabi",
+    "ko": "펀자브어",
+    "en": "Punjabi",
+    "native": "ਪੰਜਾਬੀ",
+    "tag": "pan",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "assamese",
+    "ko": "아삼어",
+    "en": "Assamese",
+    "native": "অসমীয়া",
+    "tag": "asm",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": true
+  },
+  {
+    "id": "maithili",
+    "ko": "마이틸리어",
+    "en": "Maithili",
+    "native": "मैथिली",
+    "tag": "mai",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "santali",
+    "ko": "산탈리어",
+    "en": "Santali",
+    "native": "ᱥᱟᱱᱛᱟᱲᱤ",
+    "tag": "sat",
+    "family": "Austroasiatic",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "kashmiri",
+    "ko": "카슈미르어",
+    "en": "Kashmiri",
+    "native": "کٲشُر",
+    "tag": "kas",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "nepali",
+    "ko": "네팔어",
+    "en": "Nepali",
+    "native": "नेपाली",
+    "tag": "npi",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "sindhi",
+    "ko": "신디어",
+    "en": "Sindhi",
+    "native": "سنڌي",
+    "tag": "snd",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "dogri",
+    "ko": "도그리어",
+    "en": "Dogri",
+    "native": "डोगरी",
+    "tag": "doi",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "konkani",
+    "ko": "콘칸어",
+    "en": "Konkani",
+    "native": "कोंकणी",
+    "tag": "kok",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "manipuri",
+    "ko": "마니푸르어",
+    "en": "Manipuri (Meitei)",
+    "native": "ꯃꯩꯇꯩꯂꯣꯟ",
+    "tag": "mni",
+    "family": "Sino-Tibetan",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "bodo",
+    "ko": "보도어",
+    "en": "Bodo",
+    "native": "बड़ो",
+    "tag": "brx",
+    "family": "Sino-Tibetan",
+    "scheduled": true,
+    "classical": false
+  },
+  {
+    "id": "sanskrit",
+    "ko": "산스크리트어",
+    "en": "Sanskrit",
+    "native": "संस्कृतम्",
+    "tag": "san",
+    "family": "Indo-European",
+    "scheduled": true,
+    "classical": true
+  },
+  {
+    "id": "pali",
+    "ko": "팔리어",
+    "en": "Pali",
+    "native": "पाळि",
+    "tag": "pli",
+    "family": "Indo-European",
+    "scheduled": false,
+    "classical": true
+  },
+  {
+    "id": "prakrit",
+    "ko": "프라크리트어",
+    "en": "Prakrit",
+    "native": "प्राकृत",
+    "tag": "pra",
+    "family": "Indo-European",
+    "scheduled": false,
+    "classical": true
+  }
+]
