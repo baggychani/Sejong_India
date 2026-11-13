@@ -1,6 +1,6 @@
 import { lazy, Suspense, useState } from "react";
 import { Icon } from "./site/Icon";
-import { NavLink, Outlet, Route, Routes } from "react-router";
+import { Navigate, NavLink, Outlet, Route, Routes } from "react-router";
 import { SiteShell } from "./shell/SiteShell";
 import { HomePage } from "./pages/HomePage";
 import { CollectionPage } from "./pages/CollectionPage";
@@ -17,8 +17,8 @@ function IndiaSection() {
   const label = collapsed ? "인도 메뉴 펼치기" : "인도 메뉴 접기";
   return <div className={collapsed ? "india-section is-collapsed" : "india-section"}>
     <nav className="india-navigation" id="india-navigation" aria-label="인도" hidden={collapsed}>
-      <NavLink to="/map" end>지도</NavLink>
-      <NavLink to="/map/languages">언어</NavLink>
+      <NavLink to="map" end>지도</NavLink>
+      <NavLink to="languages">언어</NavLink>
     </nav>
     <button className="india-nav-toggle" aria-controls="india-navigation" aria-expanded={!collapsed}
       aria-label={label} title={label} onClick={() => setCollapsed(!collapsed)}>
@@ -33,8 +33,9 @@ export function App() {
     <SiteShell>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/map" element={<IndiaSection />}>
-        <Route index element={
+        <Route path="/bharat" element={<IndiaSection />}>
+        <Route index element={<Navigate to="map" replace />} />
+        <Route path="map" element={
           <Suspense fallback={<p className="reading" role="status">지도를 여는 중…</p>}>
             <MapPage />
           </Suspense>

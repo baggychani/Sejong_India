@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import { globSync, mkdirSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 import catalog from "./data/content/languages.json";
-import { collections, mapSection } from "./src/site/sections";
+import { collections, mapSection, movedRoutes } from "./src/site/sections";
 
 export default defineConfig(({ mode }) => ({
   base: mode === "pages" ? "/Sejong_India/" : "/",
@@ -12,16 +12,19 @@ export default defineConfig(({ mode }) => ({
     apply: "build",
     writeBundle({ dir }) {
       if (mode !== "pages" || !dir) return;
-      const map = mapSection.path.slice(1);
-      const routes = [map, map + "/languages", ...catalog.map(l => map + "/languages/" + l.id)];
-      for (const { id } of collections) {
-        routes.push(id);
+      const india = mapSection.path;
+      const routes = [india, india + "/map", india + "/languages", ...catalog.map(l => india + "/languages/" + l.id)];
+      for (const { id, path } of collections) {
+        routes.push(path);
         for (const name of globSync("*.md", { cwd: "content/" + id })) {
-          routes.push(id + "/" + name.slice(0, -3));
+          routes.push(path + "/" + name.slice(0, -3));
         }
       }
       const entry = join(dir, "index.html");
-      for (const route of routes) {
+      const aliases = movedRoutes.flatMap(({ from, to }) => routes
+        .filter(route => route === to || route.startsWith(to + "/"))
+        .map(route => from + route.slice(to.length)));
+      for (const route of [...routes, ...aliases]) {
         const folder = join(dir, route);
         mkdirSync(folder, { recursive: true });
         copyFileSync(entry, join(folder, "index.html"));

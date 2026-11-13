@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import { App } from "./App";
+import { movedRoutes } from "./site/sections";
 import "./styles/global.css";
 
 const root = document.getElementById("root");
@@ -16,6 +17,12 @@ if (location.pathname === base && location.hash.startsWith("#/")) {
   if (target.origin === location.origin && target.pathname.startsWith(base)) {
     history.replaceState(null, "", target);
   }
+}
+
+const path = location.pathname.slice(base.length - 1);
+const moved = movedRoutes.find(({ from }) => path === from || path.startsWith(from + "/"));
+if (moved) {
+  history.replaceState(null, "", base + moved.to.slice(1) + path.slice(moved.from.length) + location.search + location.hash);
 }
 
 createRoot(root).render(

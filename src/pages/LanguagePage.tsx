@@ -36,7 +36,7 @@ export default function LanguagePage() {
   }, [id, selected]);
   if (id && !selected) return <NotFoundPage />;
   if (selected) return <article className="language-page">
-    <Link className="language-back" to={`/map/languages${query}`}>← 언어</Link>
+    <Link className="language-back" to={`/bharat/languages${query}`}>← 언어</Link>
     <header className="language-identity">
       <NativeName language={selected} />
       <h1>{selected.ko}</h1><span lang="en">{selected.en}</span>
@@ -68,7 +68,7 @@ export default function LanguagePage() {
         </a>}
       </div>}
       <div className="language-grid">
-        {entries.map(l => <Link key={l.id} className="language-card" data-family={l.family} to={`/map/languages/${l.id}${query}`}>
+        {entries.map(l => <Link key={l.id} className="language-card" data-family={l.family} to={`/bharat/languages/${l.id}${query}`}>
           {l.id === "hindi" && <span aria-label="관심 언어" role="img" title="관심 언어" className="language-bookmark">★</span>}
           <NativeName language={l} />
           <span className="language-caption"><strong>{l.ko}</strong><span lang="en">{l.en}</span><Icon name="arrow" /></span>
