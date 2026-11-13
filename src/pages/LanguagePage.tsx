@@ -32,11 +32,11 @@ export default function LanguagePage() {
   const query = mode === "speakers" ? "" : `?group=${mode}`;
   const selected = languages.find(l => l.id === id);
   useEffect(() => {
-    if (!id || selected) document.title = `${selected?.ko ?? "언어 목록"} · ${siteTitle}`;
+    if (!id || selected) document.title = `${selected?.ko ?? "언어"} · ${siteTitle}`;
   }, [id, selected]);
   if (id && !selected) return <NotFoundPage />;
   if (selected) return <article className="language-page">
-    <Link className="language-back" to={`/map/languages${query}`}>← 언어 목록</Link>
+    <Link className="language-back" to={`/map/languages${query}`}>← 언어</Link>
     <header className="language-identity">
       <NativeName language={selected} />
       <h1>{selected.ko}</h1><span lang="en">{selected.en}</span>

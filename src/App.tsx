@@ -18,7 +18,7 @@ function IndiaSection() {
   return <div className={collapsed ? "india-section is-collapsed" : "india-section"}>
     <nav className="india-navigation" id="india-navigation" aria-label="인도" hidden={collapsed}>
       <NavLink to="/map" end>지도</NavLink>
-      <NavLink to="/map/languages">언어 목록</NavLink>
+      <NavLink to="/map/languages">언어</NavLink>
     </nav>
     <button className="india-nav-toggle" aria-controls="india-navigation" aria-expanded={!collapsed}
       aria-label={label} title={label} onClick={() => setCollapsed(!collapsed)}>

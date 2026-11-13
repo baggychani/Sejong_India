@@ -7,7 +7,7 @@
 .language-modes button { border: 0; background: transparent; color: var(--muted); cursor: pointer; padding: 8px 10px; border-radius: 8px; font-size: 13px; }
 .language-modes button[aria-pressed=true] { background: var(--accent); color: white; }
 .language-group { margin-top: 28px; }
-.language-group-heading { display: flex; align-items: center; gap: 5px; margin-bottom: 12px; }
+.language-group-heading { display: flex; align-items: center; min-height: 28px; gap: 5px; margin-bottom: 12px; }
 .language-group-heading h2 { font-size: 19px; margin: 0; }
 .language-group-heading a { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 6px; color: var(--muted); }
 .language-group-heading a:hover { color: var(--accent); background: #e6f1eb; }
