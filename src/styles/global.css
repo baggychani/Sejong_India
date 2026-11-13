@@ -209,5 +209,5 @@ h1 {
   background: white; color: var(--accent); cursor: pointer;
 }
 .india-nav-toggle svg { width: 16px; transform: rotate(-90deg); }
-.is-collapsed .india-nav-toggle { top: 0; height: 25px; border-radius: 0 0 8px 8px; }
+.is-collapsed .india-nav-toggle { top: 0; height: 25px; border-top: 0; border-radius: 0 0 8px 8px; }
 .is-collapsed .india-nav-toggle svg { transform: rotate(90deg); }

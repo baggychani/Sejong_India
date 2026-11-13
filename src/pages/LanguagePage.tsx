@@ -7,8 +7,12 @@ import { NotFoundPage } from "./NotFoundPage";
 import "../styles/languages.css";
 
 const modes = [
-  ["speakers", "모어 화자 수순"], ["constitution", "헌법 등재"], ["family", "어족별"], ["classical", "지정 고전어"],
+  ["speakers", "화자 많은 순"], ["family", "어족별"], ["constitution", "헌법 등재"], ["classical", "지정 고전어"],
 ] as const;
+const sources = {
+  constitution: { heading: "헌법 등재", title: "인도 헌법 제8부속서 원문", href: "https://cdnbbsr.s3waas.gov.in/s380537a945c7aaa788ccfcdf1b99b5d8f/uploads/2023/07/202507081043003900.pdf#page=511" },
+  classical: { heading: "지정 고전어", title: "인도 문화부 고전어 지정 고시 원문", href: "https://egazette.gov.in/WriteReadData/2024/257710.pdf#page=2" },
+};
 const families: Record<string, string> = {
   "Indo-European": "인도유럽어족", Dravidian: "드라비다어족",
   "Sino-Tibetan": "중국티베트어족", Austroasiatic: "오스트로아시아어족",
@@ -40,10 +44,11 @@ export default function LanguagePage() {
   </article>;
 
   const groups = new Map<string, Language[]>();
+  const source = mode === "constitution" || mode === "classical" ? sources[mode] : undefined;
   for (const language of languages) {
     if (mode === "constitution" && !language.scheduled) continue;
     if (mode === "classical" && !language.classical) continue;
-    const label = mode === "family" ? families[language.family] : "";
+    const label = mode === "family" ? families[language.family] : source?.heading ?? "";
     if (!groups.has(label)) groups.set(label, []);
     groups.get(label)!.push(language);
   }
@@ -56,7 +61,12 @@ export default function LanguagePage() {
       </div>
     </header>
     {[...groups].map(([label, entries]) => <section className="language-group" key={label}>
-      {label && <h2>{label} <small>{entries.length}</small></h2>}
+      {label && <div className="language-group-heading">
+        <h2>{label} <small>{entries.length}{source && "개"}</small></h2>
+        {source && <a href={source.href} target="_blank" rel="noreferrer" aria-label={source.title} title={source.title}>
+          <Icon name="link" />
+        </a>}
+      </div>}
       <div className="language-grid">
         {entries.map(l => <Link key={l.id} className="language-card" data-family={l.family} to={`/map/languages/${l.id}${query}`}>
           {l.id === "hindi" && <span aria-label="관심 언어" role="img" title="관심 언어" className="language-bookmark">★</span>}
