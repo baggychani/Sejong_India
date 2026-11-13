@@ -1,4 +1,5 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
+import { Icon } from "./site/Icon";
 import { NavLink, Outlet, Route, Routes } from "react-router";
 import { SiteShell } from "./shell/SiteShell";
 import { HomePage } from "./pages/HomePage";
@@ -12,13 +13,19 @@ const MapPage = lazy(() => import("./pages/MapPage").then(({ MapPage }) => ({ de
 const LanguagePage = lazy(() => import("./pages/LanguagePage"));
 
 function IndiaSection() {
-  return <>
-    <nav className="india-navigation" aria-label="인도">
+  const [collapsed, setCollapsed] = useState(false);
+  const label = collapsed ? "인도 메뉴 펼치기" : "인도 메뉴 접기";
+  return <div className={collapsed ? "india-section is-collapsed" : "india-section"}>
+    <nav className="india-navigation" id="india-navigation" aria-label="인도" hidden={collapsed}>
       <NavLink to="/map" end>지도</NavLink>
       <NavLink to="/map/languages">언어 목록</NavLink>
     </nav>
+    <button className="india-nav-toggle" aria-controls="india-navigation" aria-expanded={!collapsed}
+      aria-label={label} title={label} onClick={() => setCollapsed(!collapsed)}>
+      <Icon name="arrow" />
+    </button>
     <Outlet />
-  </>;
+  </div>;
 }
 
 export function App() {

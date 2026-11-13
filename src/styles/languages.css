@@ -1,6 +1,7 @@
 .language-page { max-width: 1180px; margin: auto; padding: clamp(28px,5vw,64px) clamp(16px,4vw,48px) 72px; }
 .language-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; }
-.language-toolbar h1 { font-size: clamp(32px,4vw,48px); }
+.language-page:has(.language-toolbar) { padding-top: 28px; }
+.language-toolbar + .language-group { margin-top: 16px; }
 .language-page small { font-weight: 500; font-size: 14px; color: var(--muted); letter-spacing: 0; }
 .language-modes { display: flex; flex-wrap: wrap; gap: 3px; border: 1px solid var(--line); border-radius: 12px; padding: 4px; background: white; }
 .language-modes button { border: 0; background: transparent; color: var(--muted); cursor: pointer; padding: 8px 10px; border-radius: 8px; font-size: 13px; }
@@ -9,13 +10,18 @@
 .language-group h2 { font-size: 19px; margin: 0 0 12px; }
 .language-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(min(100%,200px),1fr)); gap: 12px; }
 .language-card {
-  --wash: #e6f1eb; --letter: #215f51; display: grid; grid-template-rows: 1fr auto;
+  --wash: #e6f1eb; --letter: #215f51; position: relative; display: grid; grid-template-rows: 1fr auto;
   text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--line);
   border-radius: 14px; overflow: hidden;
 }
 .language-card[data-family=Dravidian] { --wash: #f7eadc; --letter: #825327; }
 .language-card[data-family=Sino-Tibetan] { --wash: #e8edf7; --letter: #444f80; }
-.language-card[data-family=Austroasiatic] { --wash: #f2e8ee; --letter: #804761; }
+.language-card[data-family=Austroasiatic] { --wash: #624478; --letter: #fff; }
+.language-bookmark {
+  position: absolute; top: 0; right: 12px; padding: 2px 4px 6px;
+  background: #915314; color: white; font-size: 11px;
+  clip-path: polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);
+}
 .language-card:hover, .language-card:focus-visible { border-color: var(--letter); }
 .native-name { font-family: "Nirmala UI", sans-serif; font-weight: 500; }
 .language-card .native-name { display: grid; place-content: center; min-height: 84px; padding: 10px; font-size: 29px; background: var(--wash); color: var(--letter); }

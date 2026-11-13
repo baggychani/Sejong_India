@@ -7,14 +7,14 @@ import { NotFoundPage } from "./NotFoundPage";
 import "../styles/languages.css";
 
 const modes = [
-  ["alphabet", "영문명순"], ["constitution", "헌법 등재별"],
-  ["family", "어족별"], ["classical", "고전어 지정별"],
+  ["speakers", "모어 화자 수순"], ["constitution", "헌법 등재"], ["family", "어족별"], ["classical", "지정 고전어"],
 ] as const;
 const families: Record<string, string> = {
   "Indo-European": "인도유럽어족", Dravidian: "드라비다어족",
   "Sino-Tibetan": "중국티베트어족", Austroasiatic: "오스트로아시아어족",
 };
-const languages = [...catalog].sort((a, b) => a.en.localeCompare(b.en, "en"));
+const languages = [...catalog].sort((a, b) =>
+  (b.census2011GroupSpeakers ?? -1) - (a.census2011GroupSpeakers ?? -1) || a.en.localeCompare(b.en, "en"));
 type Language = typeof languages[number];
 
 function NativeName({ language }: { language: Language }) {
@@ -24,8 +24,8 @@ function NativeName({ language }: { language: Language }) {
 export default function LanguagePage() {
   const { id } = useParams();
   const [params, setParams] = useSearchParams();
-  const mode = modes.find(([key]) => key === params.get("group"))?.[0] ?? "alphabet";
-  const query = mode === "alphabet" ? "" : `?group=${mode}`;
+  const mode = modes.find(([key]) => key === params.get("group"))?.[0] ?? "speakers";
+  const query = mode === "speakers" ? "" : `?group=${mode}`;
   const selected = languages.find(l => l.id === id);
   useEffect(() => {
     if (!id || selected) document.title = `${selected?.ko ?? "언어 목록"} · ${siteTitle}`;
@@ -39,30 +39,27 @@ export default function LanguagePage() {
     </header>
   </article>;
 
-  function group(l: Language) {
-    if (mode === "family") return families[l.family];
-    if (mode === "constitution") return l.scheduled ? "헌법 제8부속서 등재" : "제8부속서 미등재";
-    if (mode === "classical") return l.classical ? "지정 고전어" : "고전어 미지정";
-    return "";
-  }
   const groups = new Map<string, Language[]>();
   for (const language of languages) {
-    const label = group(language);
+    if (mode === "constitution" && !language.scheduled) continue;
+    if (mode === "classical" && !language.classical) continue;
+    const label = mode === "family" ? families[language.family] : "";
     if (!groups.has(label)) groups.set(label, []);
     groups.get(label)!.push(language);
   }
   return <section className="language-page">
     <header className="language-toolbar">
-      <h1>언어 목록 <small>{languages.length}개</small></h1>
       <div className="language-modes" role="group" aria-label="언어 분류">
         {modes.map(([key, label]) => <button key={key} aria-pressed={mode === key}
-          onClick={() => setParams(key === "alphabet" ? {} : { group: key })}>{label}</button>)}
+          title={key === "speakers" ? "2011년 인도 인구조사 · 언어 집단별 전국 모어 화자 수" : undefined}
+          onClick={() => setParams(key === "speakers" ? {} : { group: key })}>{label}</button>)}
       </div>
     </header>
     {[...groups].map(([label, entries]) => <section className="language-group" key={label}>
       {label && <h2>{label} <small>{entries.length}</small></h2>}
       <div className="language-grid">
         {entries.map(l => <Link key={l.id} className="language-card" data-family={l.family} to={`/map/languages/${l.id}${query}`}>
+          {l.id === "hindi" && <span aria-label="관심 언어" role="img" title="관심 언어" className="language-bookmark">★</span>}
           <NativeName language={l} />
           <span className="language-caption"><strong>{l.ko}</strong><span lang="en">{l.en}</span><Icon name="arrow" /></span>
         </Link>)}

@@ -7,7 +7,8 @@
     "tag": "hin",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 528347193
   },
   {
     "id": "bengali",
@@ -17,7 +18,8 @@
     "tag": "ben",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": 97237669
   },
   {
     "id": "marathi",
@@ -27,7 +29,8 @@
     "tag": "mar",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": 83026680
   },
   {
     "id": "telugu",
@@ -37,7 +40,8 @@
     "tag": "tel",
     "family": "Dravidian",
     "scheduled": true,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": 81127740
   },
   {
     "id": "tamil",
@@ -47,7 +51,8 @@
     "tag": "tam",
     "family": "Dravidian",
     "scheduled": true,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": 69026881
   },
   {
     "id": "gujarati",
@@ -57,7 +62,8 @@
     "tag": "guj",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 55492554
   },
   {
     "id": "urdu",
@@ -67,7 +73,8 @@
     "tag": "urd",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 50772631
   },
   {
     "id": "kannada",
@@ -77,7 +84,8 @@
     "tag": "kan",
     "family": "Dravidian",
     "scheduled": true,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": 43706512
   },
   {
     "id": "odia",
@@ -87,7 +95,8 @@
     "tag": "ory",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": 37521324
   },
   {
     "id": "malayalam",
@@ -97,7 +106,8 @@
     "tag": "mal",
     "family": "Dravidian",
     "scheduled": true,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": 34838819
   },
   {
     "id": "punjabi",
@@ -107,7 +117,8 @@
     "tag": "pan",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 33124726
   },
   {
     "id": "assamese",
@@ -117,7 +128,8 @@
     "tag": "asm",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": 15311351
   },
   {
     "id": "maithili",
@@ -127,7 +139,8 @@
     "tag": "mai",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 13583464
   },
   {
     "id": "santali",
@@ -137,7 +150,8 @@
     "tag": "sat",
     "family": "Austroasiatic",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 7368192
   },
   {
     "id": "kashmiri",
@@ -147,7 +161,8 @@
     "tag": "kas",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 6797587
   },
   {
     "id": "nepali",
@@ -157,7 +172,8 @@
     "tag": "npi",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 2926168
   },
   {
     "id": "sindhi",
@@ -167,7 +183,8 @@
     "tag": "snd",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 2772264
   },
   {
     "id": "dogri",
@@ -177,7 +194,8 @@
     "tag": "doi",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 2596767
   },
   {
     "id": "konkani",
@@ -187,7 +205,8 @@
     "tag": "kok",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 2256502
   },
   {
     "id": "manipuri",
@@ -197,7 +216,8 @@
     "tag": "mni",
     "family": "Sino-Tibetan",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 1761079
   },
   {
     "id": "bodo",
@@ -207,7 +227,8 @@
     "tag": "brx",
     "family": "Sino-Tibetan",
     "scheduled": true,
-    "classical": false
+    "classical": false,
+    "census2011GroupSpeakers": 1482929
   },
   {
     "id": "sanskrit",
@@ -217,7 +238,8 @@
     "tag": "san",
     "family": "Indo-European",
     "scheduled": true,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": 24821
   },
   {
     "id": "pali",
@@ -227,7 +249,8 @@
     "tag": "pli",
     "family": "Indo-European",
     "scheduled": false,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": null
   },
   {
     "id": "prakrit",
@@ -237,6 +260,7 @@
     "tag": "pra",
     "family": "Indo-European",
     "scheduled": false,
-    "classical": true
+    "classical": true,
+    "census2011GroupSpeakers": null
   }
 ]
