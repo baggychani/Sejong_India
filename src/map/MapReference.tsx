@@ -16,6 +16,13 @@ export function MapReference() {
       {institutes.map(institute => <details key={institute.id} id={`institute-${institute.id}`}>
         <summary>{institute.names.ko} · {institute.city.ko}</summary>
         <DetailCard detail={details.get(institute.id)!} />
+        {institute.locationNote ? <p>{institute.locationNote}</p> : null}
+        {institute.sources.length > 0 && <ul className="institute-sources">
+          {institute.sources.map(source => <li key={source.url}>
+            <a href={source.url}>{source.title}</a>
+            <span>{source.accessed}</span>
+          </li>)}
+        </ul>}
       </details>)}
     </section>
     {([

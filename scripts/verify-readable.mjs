@@ -73,6 +73,9 @@ for (const url of urls) {
   assert(read("llms.txt").includes(new URL("index.md", url).href));
 }
 assert.equal(readablePage('<main><h1>A &amp; B</h1><a href="/x"><span>Link</span></a><script>ignore me</script><div hidden>hidden</div></main>', siteUrl), '# A & B\n\n[Link](https://baggychani.github.io/x)');
+const mapBundle = readdirSync(join(outDir, "assets")).filter(name => name.endsWith(".js")).map(name => readFileSync(join(outDir, "assets", name), "utf8")).join("\n");
+assert(mapBundle.includes("홈페이지 열기") && mapBundle.includes("Google 지도에서 검색"), "map actions missing from the client bundle");
+assert(!mapBundle.includes("(확인:"), "source access dates must not be map detail buttons");
 console.log(`PASS: ${files.length} HTML pages readable without JavaScript; ${urls.length} unique sitemap URLs; all language, book and textbook links preserved; page CSS available initially.`);
 verifyContentFields(outDir);
 verifyContentContract(outDir);

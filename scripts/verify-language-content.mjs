@@ -54,7 +54,7 @@ export function verifyLanguageContent(outDir) {
     const sorted = [...profile.languages].sort((a, b) => b.sharePct - a.sharePct);
     for (const top of sorted) {
       const rank = sorted.findIndex(entry => entry.sharePct === top.sharePct) + 1;
-      if (rank > 3) continue;
+      if (rank > 2) continue;
       const id = aliases[top.name] ?? languages.find(language => language.ko === top.name)?.id;
       if (!id) continue; // Unlisted languages retain their rank in the full profile.
       expected.get(id).set(institute.id, rank);
@@ -74,5 +74,5 @@ export function verifyLanguageContent(outDir) {
     visit(parse(html, { scriptingEnabled: true }));
     assert.deepEqual(actual, expected.get(language.id), `${language.id}: incorrect regional rank badges`);
   }
-  console.log(`PASS: ${goals.length} in-card examples with no visible editorial labels; review state retained; top-three badges match complete ${census.year} profiles.`);
+  console.log(`PASS: ${goals.length} in-card examples with no visible editorial labels; review state retained; top-two badges match complete ${census.year} profiles.`);
 }

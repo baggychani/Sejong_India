@@ -22,14 +22,15 @@
 .language-group-heading a:hover { color: var(--accent); background: #e6f1eb; }
 .language-group-heading .icon { width: 15px; height: 15px; }
 .language-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(min(100%,200px),1fr)); gap: 12px; }
-.language-card {
-  --wash: #e6f1eb; --letter: #215f51; position: relative; display: grid; grid-template-rows: 1fr auto;
-  text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--line);
-  border-radius: 14px; overflow: hidden;
-}
+.language-card { --wash: #e6f1eb; --letter: #215f51; }
 .language-card[data-family=Dravidian] { --wash: #f7eadc; --letter: #825327; }
 .language-card[data-family=Sino-Tibetan] { --wash: #e8edf7; --letter: #444f80; }
 .language-card[data-family=Austroasiatic] { --wash: #e7d7ed; --letter: #624478; }
+.language-card {
+  position: relative; display: grid; grid-template-rows: 1fr auto;
+  text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--line);
+  border-radius: 14px; overflow: hidden;
+}
 .language-bookmark {
   position: absolute; top: 0; right: 12px; padding: 2px 4px 6px;
   background: #915314; color: white; font-size: 11px;
@@ -44,32 +45,36 @@
 .language-caption span { grid-row: 2; font-size: 13px; color: var(--muted); }
 .language-caption svg { grid-column: 2; grid-row: 1 / 3; width: 15px; color: var(--accent); }
 .language-back { color: var(--accent); font-size: 14px; text-decoration: none; }
-.language-identity { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); align-items: center; gap: 32px; margin-top: 24px; border-radius: 20px; background: #e6f1eb; padding: 28px; }
+.language-identity {
+  display: grid; grid-template-columns: minmax(240px, .9fr) minmax(260px, 1.1fr); align-items: center;
+  gap: 28px; margin-top: 24px; padding: 22px 26px; border: 1px solid var(--line); border-radius: 16px; background: white;
+}
 .language-identity .native-name { color: var(--accent); font-size: clamp(40px,5vw,64px); overflow-wrap: anywhere; }
 .language-identity h1 { font-size: 24px; }
 .language-detail-page { padding-top: 32px; }
-.language-identity-summary { min-width: 0; padding: 8px 0 8px 12px; }
+.language-identity-summary { min-width: 0; }
 .language-name-block { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
 .language-name-block h1 { margin: 0 0 6px; }
-.language-name-block [lang=en] { font-size: 14px; color: #547168; }
-.language-regions { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
-.language-region-badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px 6px 7px; border: 1px solid #abcabf; border-radius: 999px; background: #ffffffa8; color: #244f40; font-size: 12px; white-space: nowrap; }
-.region-rank { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: #28664f; color: white; font-size: 10px; font-weight: 700; }
-.language-region-badge[data-rank="2"] .region-rank { background: #d9e7e1; color: #385e51; }
-.language-region-badge[data-rank="3"] .region-rank { background: #e9e3d5; color: #6a6048; }
-.language-region-badge small { font-size: 10px; color: #6b726b; }
-.region-share { font-size: 11px; color: #5f776d; font-variant-numeric: tabular-nums; }
-.language-goal { min-width: 0; padding: 24px 28px; border: 1px solid #e7e4d7; border-radius: 14px; background: #fffaf0; }
-.goal-native { margin: 0 0 12px; font-family: "Nirmala UI", sans-serif; color: #324f43; font-size: clamp(22px,2.1vw,28px); line-height: 1.75; overflow-wrap: anywhere; }
-.goal-romanization { margin: 0; color: #637066; font-size: 14px; line-height: 1.75; overflow-wrap: anywhere; }
-.goal-meaning { margin: 16px 0 0; color: #77796d; font-size: 11px; line-height: 1.7; word-break: keep-all; }
+.language-name-block [lang=en] { font-size: 14px; color: var(--muted); }
+.language-regions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px; }
+.language-region-badge {
+  display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 8px; min-width: 0;
+  padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); font-size: 13px;
+}
+.region-rank { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 4px; background: var(--accent); color: white; font-size: 11px; font-weight: 700; }
+.language-region-badge[data-rank="2"] .region-rank { background: #d7e0db; color: #35584c; }
+.region-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.region-share { color: var(--muted); font-variant-numeric: tabular-nums; }
+.language-goal { min-width: 0; padding: 2px 0 2px 28px; border-left: 1px solid var(--line); }
+.goal-native { margin: 0; font-family: "Nirmala UI", sans-serif; color: var(--ink); font-size: clamp(20px,2vw,26px); line-height: 1.65; overflow-wrap: anywhere; }
+.goal-romanization { margin: 10px 0 0; color: var(--muted); font-size: 15px; line-height: 1.6; overflow-wrap: anywhere; }
 @media (max-width: 850px) {
-  .language-identity { grid-template-columns: minmax(0,1fr); gap: 24px; }
-  .language-identity-summary { padding: 4px; }
+  .language-identity { grid-template-columns: minmax(0,1fr); gap: 20px; }
+  .language-goal { padding: 18px 0 0; border-left: 0; border-top: 1px solid var(--line); }
 }
 @media (max-width: 580px) {
-  .language-identity { padding: 20px; gap: 22px; }
-  .language-goal { padding: 20px; }
+  .language-identity { padding: 18px; gap: 18px; }
+  .language-regions { grid-template-columns: 1fr; }
   .language-name-block { gap: 8px 20px; }
   .language-name-block h1 { font-size: 22px; }
   .language-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }

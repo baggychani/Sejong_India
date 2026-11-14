@@ -15,13 +15,12 @@ export const regionalRankings = institutes.flatMap(institute => {
   // A language outside the catalog still occupies its actual regional rank.
   return profile.languages.flatMap(entry => {
     const rank = 1 + profile.languages.filter(other => other.sharePct > entry.sharePct).length;
-    if (rank > 3) return [];
+    if (rank > 2) return [];
     const languageId = censusAliases[entry.name] ?? languages.find(language => language.ko === entry.name)?.id;
     if (!languageId) return [];
     return [{ languageId, instituteId: institute.id,
       label: institute.names.ko.replace("인도 한국문화원 세종학당", "뉴델리").replace(" 세종학당", ""),
       area: profile.area, sharePct: entry.sharePct, year: census.year, rank,
-      broad: /광역 참고/.test(profile.area),
       tied: profile.languages.filter(other => other.sharePct === entry.sharePct).length > 1 }];
   });
 });
