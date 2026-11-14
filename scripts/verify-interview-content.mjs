@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, globSync } from "node:fs";
 import { join } from "node:path";
 import { parse } from "parse5";
 
@@ -13,17 +13,34 @@ export function verifyInterviewContent(outDir) {
   const main = index.find(node => node.tagName === "main");
   const links = descendants(main).filter(node => node.tagName === "a");
   const sitemap = read("sitemap.xml");
-  const files = readdirSync("content/study").filter(file => file.endsWith(".md"));
+  const files = globSync("**/*.md", { cwd: "content/study" }).map(file => file.replace(/\\/g, "/"));
   for (const file of files) {
     const slug = file.slice(0, -3);
     const route = `interview/${slug}`;
     const source = readFileSync(join("content/study", file), "utf8");
-    assert(links.some(node => node.attrs?.some(attr => attr.name === "href" && attr.value.replace(/\/$/, "").endsWith(`/${route}`))), `${slug}: missing section entry point`);
+    const parentRoute = slug.includes("/") ? `interview/${slug.split("/")[0]}` : "interview";
+    const incoming = parentRoute === "interview" ? links : descendants(parse(read(`${parentRoute}/index.html`))).filter(node => node.tagName === "a");
+    assert(incoming.some(node => node.attrs?.some(attr => attr.name === "href" && attr.value.replace(/\/$/, "").endsWith(`/${route}`))), `${slug}: missing entry point`);
     const html = read(`${route}/index.html`);
     const nodes = descendants(parse(html));
     const article = nodes.find(node => node.tagName === "article");
     const prose = descendants(article).find(node => node.attrs?.some(attr => attr.name === "class" && attr.value === "prose"));
     assert(prose, `${slug}: missing static section body`);
+    const questionFiles = files.filter(name => name.startsWith(`${slug}/`));
+    if (questionFiles.length) {
+      assert.equal(descendants(prose).filter(node => node.tagName === "blockquote").length, 0, `${slug}: answers must not be expanded in the question list`);
+      const list = descendants(article).find(node => node.attrs?.some(attr => attr.name === "class" && attr.value === "interview-question-list"));
+      assert(list, `${slug}: missing question list`);
+      assert.equal(descendants(list).filter(node => node.tagName === "a").length, questionFiles.length, `${slug}: question list incomplete`);
+    }
+    if (slug.includes("/")) {
+      assert(descendants(article).some(node => node.tagName === "a" && node.attrs?.some(attr => attr.name === "href" && attr.value.endsWith(parentRoute))), `${slug}: missing return to question list`);
+      const siblingFiles = files.filter(name => name !== file && name.startsWith(`${slug.split("/")[0]}/`));
+      for (const sibling of siblingFiles) {
+        const siblingTitle = readFileSync(join("content/study", sibling), "utf8").match(/^title: (.+)$/m)?.[1];
+        assert(siblingTitle && !html.includes(siblingTitle), `${slug}: another question leaked into detail`);
+      }
+    }
     const headings = (prose.childNodes ?? []).filter(node => node.tagName === "h2");
     assert.equal(headings.length, [...source.matchAll(/^## /gm)].length, `${slug}: question headings lost`);
     const diagnoses = (prose.childNodes ?? []).filter(node => node.tagName === "blockquote")
@@ -37,5 +54,5 @@ export function verifyInterviewContent(outDir) {
     assert(sitemap.includes(`<loc>${canonical}</loc>`), `${slug}: missing sitemap entry`);
     assert(read(`${route}/index.md`).includes(canonical), `${slug}: missing text version`);
   }
-  console.log(`PASS: ${files.length} interview sections linked from index; question/list hierarchy, direct HTML, text versions and sitemap preserved.`);
+  console.log(`PASS: ${files.length} interview section/question pages linked; list/detail separation, diagnosis and list hierarchy, direct HTML, text versions and sitemap preserved.`);
 }

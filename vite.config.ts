@@ -26,8 +26,8 @@ export default defineConfig(({ mode }) => {
       routes.push(...textbooks.map(book => "/lessons/" + book.id));
       for (const { id, path } of collections) {
         routes.push(path);
-        for (const name of globSync("*.md", { cwd: "content/" + id })) {
-          routes.push(path + "/" + name.slice(0, -3));
+        for (const name of globSync(id === "study" ? "**/*.md" : "*.md", { cwd: "content/" + id })) {
+          routes.push(path + "/" + name.replace(/\\/g, "/").slice(0, -3));
         }
       }
       const renderPath = (route: string) => route === india ? india + "/map" : route;

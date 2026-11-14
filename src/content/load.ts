@@ -32,7 +32,7 @@ const files: Record<CollectionId, Record<string, string>> = {
   }),
 };
 
-function parseEntry(filePath: string, raw: string): Entry {
+export function parseEntry(filePath: string, raw: string): Entry {
   const slug = filePath.split("/").pop()?.replace(/\.md$/, "") ?? filePath;
   const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(raw);
   let title = slug;

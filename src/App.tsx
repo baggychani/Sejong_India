@@ -54,6 +54,7 @@ export function App({ pages = browserPages }: { pages?: PageComponents } = {}) {
         <Route path="/library/:slug" element={<Suspense fallback={null}><BookPage /></Suspense>} />
         <Route path="/lessons" element={<Suspense fallback={null}><LessonsPage /></Suspense>} />
         <Route path="/lessons/:slug" element={<Suspense fallback={null}><LessonsPage /></Suspense>} />
+        <Route path="/interview/:slug/:questionSlug" element={<EntryPage collectionIdOverride="interview" />} />
         <Route path="/:collectionId" element={<CollectionPage />} />
         <Route path="/:collectionId/:slug" element={<EntryPage />} />
         <Route path="*" element={<NotFoundPage />} />

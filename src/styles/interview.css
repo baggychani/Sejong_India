@@ -63,7 +63,8 @@
   overflow-wrap: anywhere;
 }
 
-.interview-entry .prose > h2 {
+.interview-entry .prose > h2,
+.interview-entry h1.interview-question-title {
   margin: 80px 0 24px;
   padding: 24px 28px;
   border-left: 3px solid var(--accent);
@@ -75,6 +76,40 @@
   letter-spacing: -.035em;
   word-break: keep-all;
 }
+
+.interview-entry h1.interview-question-title { margin: 20px 0 0; }
+
+.interview-question-list {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.interview-question-list a {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 26px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-raised);
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.8;
+  letter-spacing: -.025em;
+  text-decoration: none;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.interview-question-list a:hover { border-color: #8caaa0; background: #f1f6f2; }
+.interview-question-list .icon { flex: none; color: var(--accent); }
+.interview-back { margin: 40px 0 0; }
+.interview-back a { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); text-decoration: none; font-size: 14px; }
+.interview-entry .eyebrow span { margin: 0 6px; }
 
 .interview-entry .prose > h2:first-child {
   margin-top: 0;
@@ -165,7 +200,8 @@
 @media (max-width: 540px) {
   .interview-index .entry-list { grid-template-columns: 1fr; }
   .interview-entry .prose { margin-top: 24px; font-size: 16px; }
-  .interview-entry .prose > h2 { padding: 20px; }
+  .interview-entry .prose > h2, .interview-entry h1.interview-question-title { padding: 20px; }
+  .interview-question-list a { padding: 20px; gap: 16px; font-size: 16px; }
   .interview-entry .prose > blockquote { padding: 18px; }
   .interview-entry .prose > blockquote > ul { font-size: 15px; }
   .interview-entry .prose ul ul { font-size: 15px; padding-left: 18px; }

@@ -120,9 +120,10 @@ export function verifyContentContract(outDir, { datasets = {}, markdown = {} } =
     for (const row of records) check(row, contract.schema, contract.targets(row), file);
   }
   for (const file of globSync("content/**/*.md")) {
-    const [kind, name, extra] = relative("content", file).split(/[\\/]/);
+    const [kind, ...parts] = relative("content", file).split(/[\\/]/);
+    const name = parts.join("/");
     const contract = markdownContracts[kind];
-    assert(contract && !extra, `unclassified Markdown collection/path: ${file}`);
+    assert(contract && (parts.length === 1 || (kind === "study" && parts.length === 2)), `unclassified Markdown collection/path: ${file}`);
     const raw = markdown[file.replace(/\\/g, "/")] ?? readFileSync(file, "utf8");
     const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(raw);
     const meta = {};
