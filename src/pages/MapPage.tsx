@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router";
 import { mapSection, siteTitle } from "../site/sections";
 import { usePageTitle } from "../site/title";
 import { Icon } from "../site/Icon";
@@ -23,13 +24,20 @@ export function MapPage() {
   const [visible, setVisible] = useState(
     () => new Set(mapConfig.layers.filter((layer) => layer.visible).map((layer) => layer.id)),
   );
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [params, setParams] = useSearchParams();
+  const requestedPlace = params.get("place");
+  const selectedId = requestedPlace && details.has(requestedPlace) ? requestedPlace : null;
   const [selectingStates, setSelectingStates] = useState(false);
   const panel = useRef<HTMLElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
   const lastRowId = useRef<string | null>(null);
 
   usePageTitle(`${mapSection.title} · ${siteTitle}`);
+
+  useEffect(() => {
+    if (!selectedId || !instituteList.some(institute => institute.id === selectedId)) return;
+    setVisible(current => current.has("sejong") ? current : new Set(current).add("sejong"));
+  }, [selectedId]);
 
   useEffect(() => {
     if (!selectedId || !panel.current) return;
@@ -40,8 +48,20 @@ export function MapPage() {
     }
   }, [selectedId]);
 
+  function openPlace(id: string) {
+    setParams(current => {
+      const next = new URLSearchParams(current);
+      next.set("place", id);
+      return next;
+    });
+  }
+
   function showList() {
-    setSelectedId(null);
+    setParams(current => {
+      const next = new URLSearchParams(current);
+      next.delete("place");
+      return next;
+    }, { replace: true });
     requestAnimationFrame(() => {
       const rows = panel.current?.querySelectorAll<HTMLButtonElement>(".institute-list button");
       const target = Array.from(rows ?? []).find((row) => row.dataset.id === lastRowId.current);
@@ -81,7 +101,8 @@ export function MapPage() {
         selectedId={selectedId}
         onSelect={(id) => {
           lastRowId.current = null;
-          setSelectedId(id);
+          if (id) openPlace(id);
+          else showList();
         }}
         projection={mapConfig.projection}
         layers={mapConfig.layers.map((layer) => ({
@@ -109,7 +130,7 @@ export function MapPage() {
                     onClick={() => {
                       lastRowId.current = institute.id;
                       setVisible((current) => current.has("sejong") ? current : new Set(current).add("sejong"));
-                      setSelectedId(institute.id);
+                      openPlace(institute.id);
                     }}
                   >
                     <i className="row-pin"><Icon name="pin" /></i>

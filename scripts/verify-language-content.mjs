@@ -68,11 +68,43 @@ export function verifyLanguageContent(outDir) {
       if (id) {
         assert(!actual.has(id), `${language.id}: duplicate institute badge ${id}`);
         actual.set(id, Number(attribute(node, "data-rank")));
+        assert(attribute(node, "href")?.includes(`/bharat/map?place=${id}`), `${language.id}: badge ${id} missing map link`);
       }
       for (const child of node.childNodes ?? []) visit(child);
     }
     visit(parse(html, { scriptingEnabled: true }));
     assert.deepEqual(actual, expected.get(language.id), `${language.id}: incorrect regional rank badges`);
   }
-  console.log(`PASS: ${goals.length} in-card examples with no visible editorial labels; review state retained; top-two badges match complete ${census.year} profiles.`);
+  const mapDoc = parse(readFileSync(join(outDir, "bharat/map/index.html"), "utf8"), { scriptingEnabled: false });
+  const catalog = new Map(languages.map(language => [language.ko, language.id]));
+  const languageId = name => aliases[name] ?? catalog.get(name);
+  function findId(node, id) {
+    if (node.attrs?.some(attr => attr.name === "id" && attr.value === id)) return node;
+    for (const child of node.childNodes ?? []) {
+      const found = findId(child, id);
+      if (found) return found;
+    }
+  }
+  function hrefs(node, found = []) {
+    const href = attribute(node, "href");
+    if (href) found.push(href);
+    for (const child of node.childNodes ?? []) hrefs(child, found);
+    return found;
+  }
+  for (const institute of source("institutes")) {
+    const profile = census.profiles.find(profile => profile.placeIds.includes(institute.id));
+    if (!profile?.languages.length) continue;
+    const shown = profile.languages.slice(0, 3);
+    const hindiAt = profile.languages.findIndex(language => language.name === "힌디어");
+    if (hindiAt >= 3) shown.push(profile.languages[hindiAt]);
+    const record = findId(mapDoc, `institute-${institute.id}`);
+    assert(record, `missing institute reference ${institute.id}`);
+    const links = hrefs(record);
+    for (const language of shown) {
+      const id = languageId(language.name);
+      if (!id) continue;
+      assert(links.some(href => href.includes(`/bharat/languages/${id}`)), `${institute.id}: missing language link for ${language.name}`);
+    }
+  }
+  console.log(`PASS: ${goals.length} in-card examples with no visible editorial labels; review state retained; top-two badges match complete ${census.year} profiles; institute and language links connect.`);
 }

@@ -1,5 +1,7 @@
+import { Link } from "react-router";
 import census from "../../data/content/mother-tongues.json";
 import { Icon } from "../site/Icon";
+import { languageIdForName } from "../site/languages";
 
 const CENSUS_URL = "https://censusindia.gov.in/census.website/data/census-tables";
 const HINDI = "힌디어";
@@ -12,6 +14,14 @@ const percent = new Intl.NumberFormat("ko-KR", { minimumFractionDigits: 1, maxim
 
 function formatShare(sharePct: number) {
   return sharePct > 0 && sharePct < 0.05 ? "<0.1%" : `${percent.format(sharePct)}%`;
+}
+
+function TonguePill({ name, sharePct, className, label }: { name: string; sharePct: number; className: string; label?: string }) {
+  const id = languageIdForName(name);
+  const body = <><span>{name}</span><span className="tongue-share">{formatShare(sharePct)}</span></>;
+  return <li className={id ? undefined : className} aria-label={id ? undefined : label}>
+    {id ? <Link className={className} to={`/bharat/languages/${id}`} aria-label={label}>{body}</Link> : body}
+  </li>;
 }
 
 export function hasMotherTongues(placeId: string) {
@@ -34,16 +44,10 @@ export function MotherTongueRow({ placeId }: { placeId: string }) {
       <dd>
         <ul className="tongue-pills" aria-label={`${profile.area} 주민의 모어 상위 ${TOP}개`}>
           {top.map(({ name, sharePct }) => (
-            <li key={name} className={name === HINDI ? "tongue-pill is-hindi" : "tongue-pill"}>
-              <span>{name}</span>
-              <span className="tongue-share">{formatShare(sharePct)}</span>
-            </li>
+            <TonguePill key={name} name={name} sharePct={sharePct} className={name === HINDI ? "tongue-pill is-hindi" : "tongue-pill"} />
           ))}
           {trailingHindi && (
-            <li className="tongue-pill is-hindi is-trailing" aria-label={`힌디어 ${hindiRank + 1}위`}>
-              <span>{trailingHindi.name}</span>
-              <span className="tongue-share">{formatShare(trailingHindi.sharePct)}</span>
-            </li>
+            <TonguePill name={trailingHindi.name} sharePct={trailingHindi.sharePct} className="tongue-pill is-hindi is-trailing" label={`힌디어 ${hindiRank + 1}위`} />
           )}
         </ul>
       </dd>

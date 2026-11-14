@@ -115,6 +115,10 @@
 .tongue-pill.is-hindi { background: #fcecd3; color: #7a4310; box-shadow: inset 0 0 0 1px #f2c98c; }
 .tongue-pill.is-hindi .tongue-share { color: #9a5f22; }
 .tongue-pill.is-trailing { background: transparent; }
+a.tongue-pill { color: var(--ink); text-decoration: none; }
+a.tongue-pill.is-hindi { color: #7a4310; }
+a.tongue-pill:hover { background: #e4ebe7; }
+a.tongue-pill.is-hindi:hover { background: #f8e2c4; }
 .tongue-source { position: relative; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; color: #8a9791 !important; }
 .tongue-source .icon { width: 16px; height: 16px; }
 .tongue-source:hover, .tongue-source:focus-visible { color: var(--accent) !important; background: #eef4f0; }

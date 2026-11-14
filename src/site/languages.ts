@@ -14,4 +14,9 @@ export const languageFamilies: Record<string, string> = {
 export const languages = [...catalog].sort((a, b) =>
   (b.census2011GroupSpeakers ?? -1) - (a.census2011GroupSpeakers ?? -1) || a.en.localeCompare(b.en, "en"));
 export type Language = typeof languages[number];
+const censusNameAliases: Record<string, string> = { "마니푸리어(메이테이어)": "manipuri" };
+const languageIdsByName = new Map(languages.map(language => [language.ko, language.id]));
+export function languageIdForName(name: string) {
+  return censusNameAliases[name] ?? languageIdsByName.get(name);
+}
 export const interestLanguageIds = new Set(["hindi", "tamil"]);

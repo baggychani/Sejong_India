@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { goalMeaning, goalsByLanguage, regionalRankings } from "../site/languageGoals";
 import type { Language } from "../site/languages";
 
@@ -6,15 +7,16 @@ export function LanguageRegionBadges({ language }: { language: Language }) {
     .sort((a, b) => a.rank - b.rank || b.sharePct - a.sharePct);
   if (!rankings.length) return null;
   return <div className="language-regions" aria-label="세종학당 지역의 모어 비중 상위 2위">
-    {rankings.map(entry => <span className="language-region-badge" key={entry.instituteId}
+    {rankings.map(entry => <Link className="language-region-badge" key={entry.instituteId}
+      to={`/bharat/map?place=${entry.instituteId}`}
       data-institute={entry.instituteId} data-rank={entry.rank}
-      aria-label={`${entry.label} · 모어 ${entry.tied ? "공동 " : ""}${entry.rank}위 · ${entry.sharePct}% · ${entry.area} · ${entry.year} 인구조사`}
+      aria-label={`${entry.label} · 모어 ${entry.tied ? "공동 " : ""}${entry.rank}위 · ${entry.sharePct}% · ${entry.area} · ${entry.year} 인구조사 · 지도에서 이 학당 보기`}
       title={`${entry.area} · ${entry.year} 인구조사 · 모어 ${entry.tied ? "공동 " : ""}${entry.rank}위 · ${entry.sharePct}%`}>
       <span aria-hidden="true" className="region-rank">{entry.rank}</span>
       <span className="region-name">{entry.label}</span>
       <span className="region-share">{entry.sharePct.toFixed(1)}%</span>
       <noscript><span> · 모어 {entry.tied && "공동 "}{entry.rank}위 · {entry.area} · {entry.year} 인구조사</span></noscript>
-    </span>)}
+    </Link>)}
   </div>;
 }
 

@@ -65,6 +65,8 @@
 .language-region-badge[data-rank="2"] .region-rank { background: #d7e0db; color: #35584c; }
 .region-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .region-share { color: var(--muted); font-variant-numeric: tabular-nums; }
+a.language-region-badge { color: inherit; text-decoration: none; }
+a.language-region-badge:hover { border-color: #9eb5ad; }
 .language-goal { min-width: 0; padding: 16px 18px; border-radius: 12px; background: #f3f7f5; }
 .goal-native { margin: 0; font-family: "Nirmala UI", sans-serif; color: var(--ink); font-size: clamp(18px,1.7vw,22px); line-height: 1.65; overflow-wrap: anywhere; }
 .goal-romanization { margin: 10px 0 0; color: var(--muted); font-size: 15px; line-height: 1.6; overflow-wrap: anywhere; }
