@@ -26,6 +26,9 @@ export function verifyInterviewContent(outDir) {
     assert(prose, `${slug}: missing static section body`);
     const headings = (prose.childNodes ?? []).filter(node => node.tagName === "h2");
     assert.equal(headings.length, [...source.matchAll(/^## /gm)].length, `${slug}: question headings lost`);
+    const diagnoses = (prose.childNodes ?? []).filter(node => node.tagName === "blockquote")
+      .flatMap(node => node.childNodes ?? []).filter(node => node.tagName === "h3");
+    assert.equal(diagnoses.length, [...source.matchAll(/^> ### /gm)].length, `${slug}: diagnosis blocks lost`);
     const primaryPoints = (prose.childNodes ?? []).filter(node => node.tagName === "ul")
       .flatMap(node => node.childNodes ?? []).filter(node => node.tagName === "li");
     assert.equal(primaryPoints.length, [...source.matchAll(/^- /gm)].length, `${slug}: primary point hierarchy lost`);
