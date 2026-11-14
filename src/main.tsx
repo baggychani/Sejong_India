@@ -25,6 +25,20 @@ if (moved) {
   history.replaceState(null, "", base + moved.to.slice(1) + path.slice(moved.from.length) + location.search + location.hash);
 }
 
+// After a redeploy, an open tab may request page chunks that no longer exist.
+// Reload once to pick up the new build; the error boundary covers repeated failures.
+window.addEventListener("vite:preloadError", (event) => {
+  const key = "reloaded-for-chunk";
+  try {
+    if (sessionStorage.getItem(key) === location.pathname) return;
+    sessionStorage.setItem(key, location.pathname);
+  } catch {
+    return;
+  }
+  event.preventDefault();
+  location.reload();
+});
+
 createRoot(root).render(
   <StrictMode>
     <BrowserRouter basename={base}>

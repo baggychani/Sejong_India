@@ -1,7 +1,8 @@
 import { lazy, Suspense, useState } from "react";
 import { Icon } from "./site/Icon";
-import { Navigate, NavLink, Outlet, Route, Routes } from "react-router";
+import { Navigate, NavLink, Outlet, Route, Routes, useLocation } from "react-router";
 import { SiteShell } from "./shell/SiteShell";
+import { LoadErrorBoundary } from "./shell/LoadErrorBoundary";
 import { HomePage } from "./pages/HomePage";
 import { CollectionPage } from "./pages/CollectionPage";
 import { EntryPage } from "./pages/EntryPage";
@@ -30,8 +31,10 @@ function IndiaSection() {
 }
 
 export function App() {
+  const { pathname } = useLocation();
   return (
     <SiteShell>
+      <LoadErrorBoundary resetKey={pathname}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/bharat" element={<IndiaSection />}>
@@ -51,6 +54,7 @@ export function App() {
         <Route path="/:collectionId/:slug" element={<EntryPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      </LoadErrorBoundary>
     </SiteShell>
   );
 }
