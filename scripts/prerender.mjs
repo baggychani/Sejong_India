@@ -46,10 +46,10 @@ function pageOf(template, rendered, page, styles, siteUrl) {
     : readablePage(rendered.html, canonical).replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[#\n]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
   const tags = styles.filter(href => !html.includes(`href="${href}"`))
     .map(href => `<link rel="stylesheet" crossorigin href="${escapeHtml(href)}">`);
-  tags.push(`<link rel="canonical" href="${escapeHtml(canonical)}">`,
-    `<meta name="description" content="${escapeHtml(description)}">`);
+  tags.push(`<meta name="description" content="${escapeHtml(description)}">`);
   if (page.file !== "/404.html") {
-    tags.push(`<link rel="alternate" type="text/markdown" href="${escapeHtml(textUrl)}" title="텍스트로 읽기">`,
+    tags.push(`<link rel="canonical" href="${escapeHtml(canonical)}">`,
+      `<link rel="alternate" type="text/markdown" href="${escapeHtml(textUrl)}" title="텍스트로 읽기">`,
       `<link rel="sitemap" type="application/xml" href="${new URL("sitemap.xml", siteUrl).href}">`);
   } else {
     tags.push('<meta name="robots" content="noindex">');

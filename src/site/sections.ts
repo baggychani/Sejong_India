@@ -37,9 +37,24 @@ export function findCollection(id: string | undefined) {
 
 // Former public routes, also emitted as directories for shared GitHub Pages links.
 export const movedRoutes = [
+  { from: "/interview/classroom-management/encouraging-korean", to: "/interview/classroom/korean" },
+  { from: "/interview/classroom-management/inclusive-classroom", to: "/interview/classroom/hindi" },
+  { from: "/interview/classroom-management/participation-reluctance", to: "/interview/classroom/participation" },
+  { from: "/interview/classroom-management", to: "/interview/classroom" },
   { from: "/map/languages", to: "/bharat/languages" },
   { from: "/map", to: "/bharat/map" },
   { from: "/study", to: "/interview" },
 ];
+
+export function resolveMovedRoute(path: string) {
+  const visited = new Set<string>();
+  while (!visited.has(path)) {
+    visited.add(path);
+    const moved = movedRoutes.find(({ from }) => path === from || path.startsWith(from + "/"));
+    if (!moved) return path;
+    path = moved.to + path.slice(moved.from.length);
+  }
+  throw new Error(`Circular route migration: ${path}`);
+}
 
 export const contents = [mapSection, ...collections];

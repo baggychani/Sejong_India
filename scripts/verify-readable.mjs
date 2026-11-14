@@ -8,6 +8,7 @@ import { verifyContentContractGuards } from "./verify-content-contract-guards.mj
 import { parse } from "parse5";
 import { verifyLanguageContent } from "./verify-language-content.mjs";
 import { verifyInterviewContent } from "./verify-interview-content.mjs";
+import { verifyRoutes } from "./verify-routes.mjs";
 
 const outDir = process.argv[2] ?? "dist";
 const siteUrl = "https://baggychani.github.io/Sejong_India/";
@@ -83,3 +84,4 @@ verifyContentContract(outDir);
 verifyContentContractGuards(outDir);
 verifyLanguageContent(outDir);
 verifyInterviewContent(outDir);
+verifyRoutes(outDir);

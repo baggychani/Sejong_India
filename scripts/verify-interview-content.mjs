@@ -33,6 +33,9 @@ export function verifyInterviewContent(outDir) {
       assert(list, `${slug}: missing question list`);
       assert.equal(descendants(list).filter(node => node.tagName === "a").length, questionFiles.length, `${slug}: question list incomplete`);
     }
+    if (!slug.includes("/") && !questionFiles.length && !source.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "").trim()) {
+      assert(html.includes("아직 등록된 질문이 없습니다."), `${slug}: empty section must have a readable status`);
+    }
     if (slug.includes("/")) {
       assert(descendants(article).some(node => node.tagName === "a" && node.attrs?.some(attr => attr.name === "href" && attr.value.endsWith(parentRoute))), `${slug}: missing return to question list`);
       const siblingFiles = files.filter(name => name !== file && name.startsWith(`${slug.split("/")[0]}/`));

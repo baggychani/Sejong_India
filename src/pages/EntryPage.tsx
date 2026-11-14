@@ -50,6 +50,7 @@ export function EntryPage({ collectionIdOverride }: { collectionIdOverride?: str
           </li>)}
         </ul>
       ) : null}
+      {isInterview && !question && questions.length === 0 && !current.body && <p className="empty">아직 등록된 질문이 없습니다.</p>}
       <div className="prose">
         <ReactMarkdown components={isInterview ? interviewComponents : undefined}>{current.body}</ReactMarkdown>
       </div>

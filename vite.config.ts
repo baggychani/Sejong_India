@@ -4,7 +4,7 @@ import { globSync, mkdirSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 import catalog from "./data/content/languages.json";
 import textbooks from "./data/content/textbooks.json";
-import { collections, mapSection, movedRoutes } from "./src/site/sections";
+import { collections, mapSection, movedRoutes, resolveMovedRoute } from "./src/site/sections";
 import { fillHtml } from "./scripts/prerender.mjs";
 
 export default defineConfig(({ mode }) => {
@@ -32,10 +32,16 @@ export default defineConfig(({ mode }) => {
       }
       const renderPath = (route: string) => route === india ? india + "/map" : route;
       pages.push({ file: "/", renderPath: "/" }, ...routes.map(route => ({ file: route, renderPath: renderPath(route) })));
-      const aliases = movedRoutes.flatMap(({ from, to }) => routes
-        .filter(route => route === to || route.startsWith(to + "/"))
-        .map(route => ({ file: from + route.slice(to.length), renderPath: renderPath(route) })));
-      pages.push(...aliases);
+      // Expand reverse mappings until old links through multiple migrations
+      // (for example /study/classroom-management/...) have static HTML too.
+      const paths = new Set(routes);
+      for (const route of paths) {
+        for (const { from, to } of movedRoutes) {
+          if (route === to || route.startsWith(to + "/")) paths.add(from + route.slice(to.length));
+        }
+      }
+      pages.push(...[...paths].filter(route => !routes.includes(route))
+        .map(file => ({ file, renderPath: renderPath(resolveMovedRoute(file)) })));
       const entry = join(dir, "index.html");
       for (const page of pages) {
         if (page.file === "/") continue;
