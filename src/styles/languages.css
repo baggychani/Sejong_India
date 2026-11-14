@@ -56,7 +56,7 @@
 .language-name-block { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
 .language-name-block h1 { margin: 0 0 6px; }
 .language-name-block [lang=en] { font-size: 14px; color: var(--muted); }
-.language-regions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px; }
+.language-regions { display: grid; grid-template-columns: 1fr 1fr; width: min(100%, 348px); gap: 8px; margin-top: 28px; }
 .language-region-badge {
   display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 8px; min-width: 0;
   padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); font-size: 13px;
@@ -65,16 +65,16 @@
 .language-region-badge[data-rank="2"] .region-rank { background: #d7e0db; color: #35584c; }
 .region-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .region-share { color: var(--muted); font-variant-numeric: tabular-nums; }
-.language-goal { min-width: 0; padding: 2px 0 2px 28px; border-left: 1px solid var(--line); }
-.goal-native { margin: 0; font-family: "Nirmala UI", sans-serif; color: var(--ink); font-size: clamp(20px,2vw,26px); line-height: 1.65; overflow-wrap: anywhere; }
+.language-goal { min-width: 0; padding: 16px 18px; border-radius: 12px; background: #f3f7f5; }
+.goal-native { margin: 0; font-family: "Nirmala UI", sans-serif; color: var(--ink); font-size: clamp(18px,1.7vw,22px); line-height: 1.65; overflow-wrap: anywhere; }
 .goal-romanization { margin: 10px 0 0; color: var(--muted); font-size: 15px; line-height: 1.6; overflow-wrap: anywhere; }
 @media (max-width: 850px) {
   .language-identity { grid-template-columns: minmax(0,1fr); gap: 20px; }
-  .language-goal { padding: 18px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+  .language-goal { padding: 16px 18px; }
 }
 @media (max-width: 580px) {
   .language-identity { padding: 18px; gap: 18px; }
-  .language-regions { grid-template-columns: 1fr; }
+  .language-regions { grid-template-columns: 1fr; width: 100%; }
   .language-name-block { gap: 8px 20px; }
   .language-name-block h1 { font-size: 22px; }
   .language-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
