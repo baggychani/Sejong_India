@@ -47,6 +47,25 @@
 .language-identity { margin-top: 24px; border-radius: 18px; background: #e6f1eb; padding: clamp(24px,5vw,64px); }
 .language-identity .native-name { color: var(--accent); font-size: clamp(40px,7vw,72px); }
 .language-identity h1 { margin: 22px 0 6px; font-size: 28px; }
+.language-detail-page { padding-top: 32px; }
+.language-detail-page .language-identity { padding: 28px clamp(24px,4vw,48px); }
+.language-name-block { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 30px; }
+.language-name-block h1 { margin: 0 0 6px; }
+.language-regions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+.language-region-key { font-size: 12px; color: #41675c; margin-right: 3px; }
+.language-region-key small { font-size: 11px; margin-left: 4px; }
+.language-region-badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px 6px 7px; border: 1px solid #abcabf; border-radius: 999px; background: #ffffffa8; color: #244f40; font-size: 12px; white-space: nowrap; }
+.region-rank { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: #28664f; color: white; font-size: 10px; font-weight: 700; }
+.language-region-badge small { font-size: 10px; color: #6b726b; }
+.region-share { font-size: 11px; color: #5f776d; font-variant-numeric: tabular-nums; }
+.language-goal { padding: 36px 2px 0; max-width: 960px; }
+.goal-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
+.goal-heading h2 { margin: 0; color: var(--accent); font-size: 12px; font-weight: 650; letter-spacing: .06em; }
+.goal-review { margin-left: auto; color: #7e7463; font-size: 10px; border: 1px solid #dfd8c9; border-radius: 4px; padding: 3px 6px; }
+.goal-variant { font-size: 11px; color: var(--muted); }
+.goal-native { margin: 20px 0 12px; font-family: "Nirmala UI", sans-serif; font-size: clamp(25px,3.3vw,36px); line-height: 1.9; overflow-wrap: anywhere; }
+.goal-romanization { margin: 0; color: #475f55; font-size: clamp(16px,1.8vw,19px); line-height: 1.8; overflow-wrap: anywhere; }
+.goal-caption { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 18px; color: var(--muted); font-size: 12px; line-height: 1.6; }
 @media (max-width: 580px) {
   .language-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
   .language-card .native-name { font-size: clamp(19px,5vw,26px); min-height: 74px; }

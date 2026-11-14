@@ -6,6 +6,7 @@ import { verifyContentFields } from "./verify-content-fields.mjs";
 import { verifyContentContract } from "./content-contract.mjs";
 import { verifyContentContractGuards } from "./verify-content-contract-guards.mjs";
 import { parse } from "parse5";
+import { verifyLanguageContent } from "./verify-language-content.mjs";
 
 const outDir = process.argv[2] ?? "dist";
 const siteUrl = "https://baggychani.github.io/Sejong_India/";
@@ -76,3 +77,4 @@ console.log(`PASS: ${files.length} HTML pages readable without JavaScript; ${url
 verifyContentFields(outDir);
 verifyContentContract(outDir);
 verifyContentContractGuards(outDir);
+verifyLanguageContent(outDir);

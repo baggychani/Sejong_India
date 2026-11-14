@@ -1,6 +1,7 @@
 import { Link, useParams, useSearchParams } from "react-router";
 import { languageModes as modes, languageSources as sources, languageFamilies as families, languages, interestLanguageIds, type Language } from "../site/languages";
 import { LanguageFacts, LanguageReference } from "./LanguageReference";
+import { LanguageGoal, LanguageRegionBadges } from "./LanguageGoal";
 import { siteTitle } from "../site/sections";
 import { usePageTitle } from "../site/title";
 import { Icon } from "../site/Icon";
@@ -19,12 +20,16 @@ export default function LanguagePage() {
   const selected = languages.find(l => l.id === id);
   usePageTitle(id && !selected ? `없는 페이지 · ${siteTitle}` : `${selected?.ko ?? "언어"} · ${siteTitle}`);
   if (id && !selected) return <NotFoundPage />;
-  if (selected) return <article className="language-page">
+  if (selected) return <article className="language-page language-detail-page">
     <Link className="language-back" to={`/bharat/languages${query}`}>← 언어</Link>
     <header className="language-identity">
-      <NativeName language={selected} />
-      <h1>{selected.ko}</h1><span lang="en">{selected.en}</span>
+      <div className="language-name-block">
+        <NativeName language={selected} />
+        <div><h1>{selected.ko}</h1><span lang="en">{selected.en}</span></div>
+      </div>
+      <LanguageRegionBadges language={selected} />
     </header>
+    <LanguageGoal language={selected} />
     <noscript><section id={`language-${selected.id}`}><LanguageFacts language={selected} /></section></noscript>
   </article>;
 
