@@ -15,7 +15,7 @@ export const collections = [
   {
     id: "lessons",
     path: "/lessons",
-    title: "세종한국어 교안",
+    title: "세종학당 교안",
   },
   {
     id: "library",

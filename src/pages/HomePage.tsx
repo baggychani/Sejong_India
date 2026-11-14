@@ -6,7 +6,7 @@ import { geoConicEqualArea, geoPath } from "d3-geo";
 import type { GeoGeometryObjects } from "d3-geo";
 import country from "../../data/processed/india-country.json";
 import institutes from "../../data/content/institutes.json";
-import ksifLogo from "../assets/ksif-logo.svg";
+import ksifLogo from "../assets/ksif-logo.png";
 
 const countryGeometryOnly = country.features[0].geometry as GeoGeometryObjects;
 const projection = geoConicEqualArea().parallels([15, 32]).rotate([-82.5, 0])
@@ -38,8 +38,8 @@ export function HomePage() {
           </Link>
         ))}
       </nav>
-      <a className="recruitment-link" href="https://www.ksif.or.kr/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000001&menuNo=30101710" target="_blank" rel="noreferrer">
-        <img src={ksifLogo} alt="세종학당재단" />
+      <a className="recruitment-link" href="https://www.ksif.or.kr/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000001&menuNo=30101710" target="_blank" rel="noreferrer" aria-label="세종학당재단 파견교원 채용">
+        <img src={ksifLogo} alt="세종학당" />
         <span>파견교원 채용</span>
         <span aria-hidden="true">↗</span>
       </a>

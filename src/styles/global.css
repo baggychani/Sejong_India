@@ -196,12 +196,12 @@ h1 {
   border: 1px solid var(--line); border-radius: 12px; background: white;
   color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 600;
 }
-.recruitment-link img { width: 132px; height: 32px; object-fit: contain; }
+.recruitment-link img { display: block; width: 156px; height: auto; }
 .recruitment-link span:last-child { margin-left: auto; color: var(--accent); }
 .recruitment-link:hover { border-color: var(--accent); }
 @media (max-width: 400px) {
   .recruitment-link { gap: 12px; padding: 14px; }
-  .recruitment-link img { width: 110px; }
+  .recruitment-link img { width: 132px; }
 }
 .india-navigation {
   height: var(--india-nav-height); display: flex; align-items: stretch; gap: 24px;

@@ -15,7 +15,7 @@ function itemsFor(books: Book[], scale: number): Item[] {
   const items: Item[] = [];
   for (const book of books) {
     if (book.reading || book.pose === "face") {
-      items.push({ kind: "face", book, width: FACE_W * scale + 26 });
+      items.push({ kind: "face", book, width: Math.round(FACE_W * scale) + 26 });
     } else if (book.pose === "flat") {
       const last = items.at(-1);
       if (last?.kind === "stack" && last.books.length < 4) {
@@ -97,11 +97,11 @@ function Spine({ book, scale, onShow, basePath }: { book: Book; scale: number; b
 }
 
 function FaceOut({ book, scale, onShow, basePath }: { book: Book; scale: number; basePath: string; onShow: (book: Book) => void }) {
-  const style = { "--fw": `${FACE_W * scale}px`, "--c": book.spine, "--spine-ink": book.ink } as CSSProperties;
+  const style = { "--fw": `${Math.round(FACE_W * scale)}px`, "--c": book.spine, "--spine-ink": book.ink } as CSSProperties;
   return (
     <Link
       to={`${basePath}/${book.slug}`}
-      className="face-out"
+      className={book.cover ? "face-out has-cover" : "face-out"}
       style={style}
       aria-label={[book.title, book.author, book.reading && "읽는 중"].filter(Boolean).join(", ")}
       onMouseEnter={() => onShow(book)}
