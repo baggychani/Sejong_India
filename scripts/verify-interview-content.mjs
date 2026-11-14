@@ -46,6 +46,11 @@ export function verifyInterviewContent(outDir) {
     const diagnoses = (prose.childNodes ?? []).filter(node => node.tagName === "blockquote")
       .flatMap(node => node.childNodes ?? []).filter(node => node.tagName === "h3");
     assert.equal(diagnoses.length, [...source.matchAll(/^> ### /gm)].length, `${slug}: diagnosis blocks lost`);
+    if (source.includes("> ### 피해야 할 접근")) {
+      const caution = descendants(prose).find(node => node.tagName === "blockquote" && node.attrs?.some(attr => attr.name === "class" && attr.value === "interview-caution"));
+      assert(caution, `${slug}: missing caution section`);
+      assert(descendants(caution).some(node => node.tagName === "h3" && descendants(node).some(child => child.value === "피해야 할 접근")), `${slug}: caution needs a readable heading`);
+    }
     const primaryPoints = (prose.childNodes ?? []).filter(node => node.tagName === "ul")
       .flatMap(node => node.childNodes ?? []).filter(node => node.tagName === "li");
     assert.equal(primaryPoints.length, [...source.matchAll(/^- /gm)].length, `${slug}: primary point hierarchy lost`);
