@@ -142,3 +142,8 @@ img.book-hero-cover { display: block; height: auto; aspect-ratio: auto; }
 @media (prefers-reduced-motion: reduce) {
   .spine, .face-out { transition: none; }
 }
+.textbook-source {
+  display: inline-block; border: 1px solid var(--line); border-radius: 8px;
+  padding: 10px 14px; color: var(--accent); text-decoration: none; font-size: 14px;
+}
+.textbook-source:hover { background: #e6f1eb; }

@@ -5,9 +5,9 @@ import { findCollection, siteTitle } from "../site/sections";
 import { findEntry } from "../content/load";
 import { NotFoundPage } from "./NotFoundPage";
 
-export function EntryPage() {
+export function EntryPage({ collectionIdOverride }: { collectionIdOverride?: string } = {}) {
   const { collectionId, slug } = useParams();
-  const collection = findCollection(collectionId);
+  const collection = findCollection(collectionIdOverride ?? collectionId);
   const entry =
     collection && slug ? findEntry(collection.id, slug) : undefined;
 

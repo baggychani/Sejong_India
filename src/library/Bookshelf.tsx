@@ -66,7 +66,7 @@ function spineText(book: Book, scale: number) {
   return { size: Math.max(8.5, Math.min(max, room / perChar)), author: false };
 }
 
-function Spine({ book, scale, onShow }: { book: Book; scale: number; onShow: (book: Book) => void }) {
+function Spine({ book, scale, onShow, basePath }: { book: Book; scale: number; basePath: string; onShow: (book: Book) => void }) {
   const text = spineText(book, scale);
   const style = {
     "--h": `${book.height * scale}px`,
@@ -78,7 +78,7 @@ function Spine({ book, scale, onShow }: { book: Book; scale: number; onShow: (bo
   const label = [book.title, book.author, book.read && `${formatRead(book.read)}에 읽음`].filter(Boolean).join(", ");
   return (
     <Link
-      to={`/library/${book.slug}`}
+      to={`${basePath}/${book.slug}`}
       className={`spine v${book.variant} pose-${book.pose}`}
       style={style}
       aria-label={label}
@@ -96,11 +96,11 @@ function Spine({ book, scale, onShow }: { book: Book; scale: number; onShow: (bo
   );
 }
 
-function FaceOut({ book, scale, onShow }: { book: Book; scale: number; onShow: (book: Book) => void }) {
+function FaceOut({ book, scale, onShow, basePath }: { book: Book; scale: number; basePath: string; onShow: (book: Book) => void }) {
   const style = { "--fw": `${FACE_W * scale}px`, "--c": book.spine, "--spine-ink": book.ink } as CSSProperties;
   return (
     <Link
-      to={`/library/${book.slug}`}
+      to={`${basePath}/${book.slug}`}
       className="face-out"
       style={style}
       aria-label={[book.title, book.author, book.reading && "읽는 중"].filter(Boolean).join(", ")}
@@ -120,7 +120,7 @@ function FaceOut({ book, scale, onShow }: { book: Book; scale: number; onShow: (
   );
 }
 
-export function Bookshelf({ books }: { books: Book[] }) {
+export function Bookshelf({ books, basePath = "/library" }: { books: Book[]; basePath?: string }) {
   const caseRef = useRef<HTMLDivElement>(null);
   const [inner, setInner] = useState(0);
   const [shown, setShown] = useState<Book>();
@@ -153,12 +153,12 @@ export function Bookshelf({ books }: { books: Book[] }) {
           <div className="bay" key={index}>
             <div className="shelf-row">
               {row.map((item) => {
-                if (item.kind === "face") return <FaceOut key={item.book.slug} book={item.book} scale={scale} onShow={setShown} />;
-                if (item.kind === "spine") return <Spine key={item.book.slug} book={item.book} scale={scale} onShow={setShown} />;
+                if (item.kind === "face") return <FaceOut key={item.book.slug} book={item.book} scale={scale} onShow={setShown} basePath={basePath} />;
+                if (item.kind === "spine") return <Spine key={item.book.slug} book={item.book} scale={scale} onShow={setShown} basePath={basePath} />;
                 if (item.kind === "bookend") return <i key="bookend" className="bookend" aria-hidden="true" />;
                 return (
                   <div key={item.books[0].slug} className="book-stack">
-                    {item.books.map((book) => <Spine key={book.slug} book={book} scale={scale} onShow={setShown} />)}
+                    {item.books.map((book) => <Spine key={book.slug} book={book} scale={scale} onShow={setShown} basePath={basePath} />)}
                   </div>
                 );
               })}

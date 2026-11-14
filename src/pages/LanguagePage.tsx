@@ -69,7 +69,7 @@ export default function LanguagePage() {
       </div>}
       <div className="language-grid">
         {entries.map(l => <Link key={l.id} className="language-card" data-family={l.family} to={`/bharat/languages/${l.id}${query}`}>
-          {l.id === "hindi" && <span aria-label="관심 언어" role="img" title="관심 언어" className="language-bookmark">★</span>}
+          {(l.id === "hindi" || l.id === "tamil") && <span aria-label="관심 언어" role="img" title="관심 언어" className={l.id === "tamil" ? "language-bookmark is-tamil" : "language-bookmark"}>★</span>}
           <NativeName language={l} />
           <span className="language-caption"><strong>{l.ko}</strong><span lang="en">{l.en}</span><Icon name="arrow" /></span>
         </Link>)}

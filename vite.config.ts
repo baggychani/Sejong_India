@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import { globSync, mkdirSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 import catalog from "./data/content/languages.json";
+import textbooks from "./data/content/textbooks.json";
 import { collections, mapSection, movedRoutes } from "./src/site/sections";
 
 export default defineConfig(({ mode }) => ({
@@ -14,6 +15,7 @@ export default defineConfig(({ mode }) => ({
       if (mode !== "pages" || !dir) return;
       const india = mapSection.path;
       const routes = [india, india + "/map", india + "/languages", ...catalog.map(l => india + "/languages/" + l.id)];
+      routes.push(...textbooks.map(book => "/lessons/" + book.id));
       for (const { id, path } of collections) {
         routes.push(path);
         for (const name of globSync("*.md", { cwd: "content/" + id })) {

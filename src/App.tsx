@@ -11,6 +11,7 @@ const LibraryPage = lazy(() => import("./library/LibraryPage").then(({ LibraryPa
 const BookPage = lazy(() => import("./library/LibraryPage").then(({ BookPage }) => ({ default: BookPage })));
 const MapPage = lazy(() => import("./pages/MapPage").then(({ MapPage }) => ({ default: MapPage })));
 const LanguagePage = lazy(() => import("./pages/LanguagePage"));
+const LessonsPage = lazy(() => import("./pages/LessonsPage").then(({ LessonsPage }) => ({ default: LessonsPage })));
 
 function IndiaSection() {
   const [collapsed, setCollapsed] = useState(false);
@@ -44,6 +45,8 @@ export function App() {
         </Route>
         <Route path="/library" element={<Suspense fallback={null}><LibraryPage /></Suspense>} />
         <Route path="/library/:slug" element={<Suspense fallback={null}><BookPage /></Suspense>} />
+        <Route path="/lessons" element={<Suspense fallback={null}><LessonsPage /></Suspense>} />
+        <Route path="/lessons/:slug" element={<Suspense fallback={null}><LessonsPage /></Suspense>} />
         <Route path="/:collectionId" element={<CollectionPage />} />
         <Route path="/:collectionId/:slug" element={<EntryPage />} />
         <Route path="*" element={<NotFoundPage />} />

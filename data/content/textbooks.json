@@ -1,0 +1,72 @@
+[
+  {
+    "id": "sejong-1",
+    "level": "1",
+    "title": "세종학당 한국어 1",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningsejong/detail.do?menuSn=647&csCmsMastrSeq=15388&language=ko",
+    "cover": "1.png"
+  },
+  {
+    "id": "sejong-2",
+    "level": "2",
+    "title": "세종학당 한국어 2",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningsejong/detail.do?menuSn=647&csCmsMastrSeq=15389&language=ko",
+    "cover": "2.png"
+  },
+  {
+    "id": "sejong-3a",
+    "level": "3A",
+    "title": "세종학당 한국어 3A",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningsejong/detail.do?menuSn=647&csCmsMastrSeq=15390&language=ko",
+    "cover": "3a.png"
+  },
+  {
+    "id": "sejong-3b",
+    "level": "3B",
+    "title": "세종학당 한국어 3B",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningsejong/detail.do?menuSn=647&csCmsMastrSeq=15391&language=ko",
+    "cover": "3b.png"
+  },
+  {
+    "id": "sejong-4a",
+    "level": "4A",
+    "title": "세종학당 한국어 4A",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningsejong/detail.do?menuSn=647&csCmsMastrSeq=15392&language=ko",
+    "cover": "4a.png"
+  },
+  {
+    "id": "sejong-4b",
+    "level": "4B",
+    "title": "세종학당 한국어 4B",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningsejong/detail.do?menuSn=647&csCmsMastrSeq=15393&language=ko",
+    "cover": "4b.png"
+  },
+  {
+    "id": "sejong-5a",
+    "level": "5A",
+    "title": "세종학당 한국어 5A",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningcyber/detail.do?menuSn=647&csCmsMastrSeq=16098&language=ko",
+    "cover": "5a.jpg"
+  },
+  {
+    "id": "sejong-5b",
+    "level": "5B",
+    "title": "세종학당 한국어 5B",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningcyber/detail.do?menuSn=647&csCmsMastrSeq=16118&language=ko",
+    "cover": "5b.jpg"
+  },
+  {
+    "id": "sejong-6a",
+    "level": "6A",
+    "title": "세종학당 한국어 6A",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningcyber/detail.do?menuSn=647&csCmsMastrSeq=16119&language=ko",
+    "cover": "6a.jpg"
+  },
+  {
+    "id": "sejong-6b",
+    "level": "6B",
+    "title": "세종학당 한국어 6B",
+    "source": "https://nuri.iksi.or.kr/front/cms/contents/layout2/learningcyber/detail.do?menuSn=647&csCmsMastrSeq=16120&language=ko",
+    "cover": "6b.jpg"
+  }
+]
