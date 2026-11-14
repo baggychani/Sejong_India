@@ -110,7 +110,7 @@ function FaceOut({ book, scale, onShow, basePath }: { book: Book; scale: number;
       {book.reading && <span className="face-ribbon" aria-hidden="true">읽는 중</span>}
       <span className="face-name">{book.title}</span>
       {book.cover ? (
-        <img className="face-cover" src={book.cover} alt="" />
+        <img className="face-cover" src={book.cover} alt="" decoding="async" />
       ) : (
         <span className="face-cover is-blank" aria-hidden="true">
           <b>{book.title}</b>
@@ -141,7 +141,8 @@ export function Bookshelf({ books, basePath = "/library" }: { books: Book[]; bas
     return () => observer.disconnect();
   }, []);
 
-  const width = inner || (typeof window === "undefined" ? 960 : 0);
+  // The first browser render must match the generated HTML for hydration.
+  const width = inner || 960;
   const scale = width && width < 460 ? 0.86 : 1;
   const rows = width ? packRows(itemsFor(books, scale), width) : [[]];
   const caption = shown ?? (books.length === 1 ? books[0] : undefined);

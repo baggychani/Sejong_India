@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useState, type ComponentType } from "react";
 import { Icon } from "./site/Icon";
 import { Navigate, NavLink, Outlet, Route, Routes, useLocation } from "react-router";
 import { SiteShell } from "./shell/SiteShell";
@@ -30,7 +30,11 @@ function IndiaSection() {
   </div>;
 }
 
-export function App() {
+export type PageComponents = Record<"LibraryPage" | "BookPage" | "MapPage" | "LanguagePage" | "LessonsPage", ComponentType>;
+const browserPages: PageComponents = { LibraryPage, BookPage, MapPage, LanguagePage, LessonsPage };
+
+export function App({ pages = browserPages }: { pages?: PageComponents } = {}) {
+  const { LibraryPage, BookPage, MapPage, LanguagePage, LessonsPage } = pages;
   const { pathname } = useLocation();
   return (
     <SiteShell>

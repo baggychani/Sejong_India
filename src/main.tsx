@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import { App } from "./App";
 import { movedRoutes } from "./site/sections";
@@ -11,6 +11,7 @@ if (!root) {
 }
 
 const base = import.meta.env.BASE_URL;
+const initialPath = location.pathname;
 // Keep links shared before the move to directory URLs working.
 if (location.pathname === base && location.hash.startsWith("#/")) {
   const target = new URL(base + location.hash.slice(2), location.origin);
@@ -39,10 +40,19 @@ window.addEventListener("vite:preloadError", (event) => {
   location.reload();
 });
 
-createRoot(root).render(
+const app = (
   <StrictMode>
     <BrowserRouter basename={base}>
       <App />
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 );
+
+// Reuse the HTML built for this URL. Legacy redirects and unknown URLs can
+// contain a different page's HTML, so render those from scratch instead.
+const currentRoute = location.pathname.slice(base.length - 1).replace(/\/$/, "") || "/";
+if (root.hasChildNodes() && root.dataset.renderPath === currentRoute && location.pathname === initialPath && !location.search) {
+  hydrateRoot(root, app);
+} else {
+  createRoot(root).render(app);
+}

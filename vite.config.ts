@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
   const pages: { file: string; renderPath: string }[] = [];
   return {
   base,
+  build: { manifest: true },
   plugins: [react(), {
     name: "github-pages-direct-links",
     apply: "build",
@@ -46,7 +47,7 @@ export default defineConfig(({ mode }) => {
     },
     async closeBundle() {
       if (!outDir) return;
-      await fillHtml({ mode, base, pages, outDir });
+      await fillHtml({ mode, base, pages, outDir, siteUrl: "https://baggychani.github.io/Sejong_India/" });
     },
   }],
   server: {

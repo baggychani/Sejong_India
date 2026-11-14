@@ -1,39 +1,25 @@
 import { StrictMode } from "react";
-import { prerenderToNodeStream } from "react-dom/static";
+import { renderToString } from "react-dom/server";
 import { MemoryRouter } from "react-router";
 import { App } from "./App";
+import { LibraryPage, BookPage } from "./library/LibraryPage";
+import { LessonsPage } from "./pages/LessonsPage";
+import { MapPage } from "./pages/MapPage";
+import LanguagePage from "./pages/LanguagePage";
 import { renderedTitle, resetRenderedTitle } from "./site/title";
 
-export async function render(pathname: string, basename: string) {
+export function render(pathname: string, basename: string) {
   resetRenderedTitle();
   const prefix = basename === "/" ? "" : basename.replace(/\/$/, "");
   const location = `${prefix}${pathname === "/" ? "/" : pathname}`;
-  const errors: unknown[] = [];
-  const { prelude, postponed } = await prerenderToNodeStream(
+  // All page modules and content are already loaded at build time. A synchronous
+  // render leaves Suspense content visible in place, without stream reveal scripts.
+  const html = renderToString(
     <StrictMode>
       <MemoryRouter initialEntries={[location]} basename={prefix || "/"}>
-        <App />
+        <App pages={{ LibraryPage, BookPage, LessonsPage, MapPage, LanguagePage }} />
       </MemoryRouter>
     </StrictMode>,
-    {
-      onError(error) {
-        errors.push(error);
-      },
-    },
   );
-  if (postponed) throw new Error(`prerender incomplete: ${pathname}`);
-  if (errors.length > 0) throw errors[0];
-  const html = await readStream(prelude);
   return { html, title: renderedTitle() };
-}
-
-function readStream(stream: NodeJS.ReadableStream) {
-  return new Promise<string>((resolve, reject) => {
-    const chunks: Buffer[] = [];
-    stream.on("data", (chunk: Buffer | string) => {
-      chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
-    });
-    stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
-    stream.on("error", reject);
-  });
 }

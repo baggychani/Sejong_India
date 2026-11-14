@@ -4,7 +4,9 @@ import { contents, siteTitle } from "../site/sections";
 import { Icon } from "../site/Icon";
 
 export function SiteShell({ children }: { children: ReactNode }) {
-  const isHome = useLocation().pathname === "/";
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+  const textPath = import.meta.env.BASE_URL + pathname.replace(/^\/+|\/+$/g, "") + (isHome ? "index.md" : "/index.md");
   return (
     <div className="site">
       {!isHome && <header className="site-header">
@@ -20,6 +22,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </nav>
       </header>}
       <main className="site-main">{children}</main>
+      <footer className="text-version"><a href={textPath}>텍스트로 읽기</a></footer>
     </div>
   );
 }
