@@ -33,6 +33,7 @@ export function readablePage(html, url) {
     if (node.tagName === "img") return attribute(node, "alt") || "";
     if (node.tagName === "br") return "\n";
     if (node.tagName === "li") return `\n- ${inner}\n`;
+    if (["summary", "details"].includes(node.tagName)) return `\n\n${inner}\n\n`;
     if (["p", "div", "section", "article", "header", "nav", "ul", "ol", "dl", "dt", "dd", "tr"].includes(node.tagName)) return `\n${inner}\n`;
     return inner ? `${inner} ` : "";
   }

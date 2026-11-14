@@ -14,3 +14,4 @@ export const languageFamilies: Record<string, string> = {
 export const languages = [...catalog].sort((a, b) =>
   (b.census2011GroupSpeakers ?? -1) - (a.census2011GroupSpeakers ?? -1) || a.en.localeCompare(b.en, "en"));
 export type Language = typeof languages[number];
+export const interestLanguageIds = new Set(["hindi", "tamil"]);

@@ -1,5 +1,5 @@
 import { Link, useParams, useSearchParams } from "react-router";
-import { languageModes as modes, languageSources as sources, languageFamilies as families, languages, type Language } from "../site/languages";
+import { languageModes as modes, languageSources as sources, languageFamilies as families, languages, interestLanguageIds, type Language } from "../site/languages";
 import { LanguageFacts, LanguageReference } from "./LanguageReference";
 import { siteTitle } from "../site/sections";
 import { usePageTitle } from "../site/title";
@@ -45,6 +45,7 @@ export default function LanguagePage() {
           onClick={() => setParams(key === "speakers" ? {} : { group: key })}>{label}</button>)}
       </div>
     </header>
+    <p className="language-legend">★ 관심 언어: {languages.filter(language => interestLanguageIds.has(language.id)).map(language => language.ko).join(" · ")}</p>
     {[...groups].map(([label, entries]) => <section className="language-group" key={label}>
       {label && <div className="language-group-heading">
         <h2>{label} <small>{entries.length}{source && "개"}</small></h2>
@@ -54,7 +55,7 @@ export default function LanguagePage() {
       </div>}
       <div className="language-grid">
         {entries.map(l => <Link key={l.id} className="language-card" data-family={l.family} to={`/bharat/languages/${l.id}${query}`}>
-          {(l.id === "hindi" || l.id === "tamil") && <span aria-label="관심 언어" role="img" title="관심 언어" className={l.id === "tamil" ? "language-bookmark is-tamil" : "language-bookmark"}>★</span>}
+          {interestLanguageIds.has(l.id) && <span aria-label="관심 언어" role="img" title="관심 언어" className={l.id === "tamil" ? "language-bookmark is-tamil" : "language-bookmark"}>★</span>}
           <NativeName language={l} />
           <span className="language-caption"><strong>{l.ko}</strong><span lang="en">{l.en}</span><Icon name="arrow" /></span>
         </Link>)}

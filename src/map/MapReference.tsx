@@ -3,6 +3,7 @@ import cities from "../../data/content/cities.json";
 import rivers from "../../data/content/rivers.json";
 import landforms from "../../data/content/landforms.json";
 import census from "../../data/content/mother-tongues.json";
+import neighbors from "../../data/content/neighbors.json";
 import { details } from "./indiaModel";
 import { DetailCard } from "./details";
 
@@ -29,6 +30,10 @@ export function MapReference() {
         <p>{entry.summary}</p>
       </article>)}
     </section>)}
+    <section id="neighbor-reference">
+      <h2>지도에 표시한 주변 나라</h2>
+      <p>{neighbors.map(neighbor => neighbor.shortLabel).join(" · ")}</p>
+    </section>
     <section aria-labelledby="mother-tongue-reference-title">
       <h2 id="mother-tongue-reference-title">지역별 모어 분포 · {census.year}년</h2>
       <p>각 조사 지역에서 데이터에 수록된 모어 항목과 비율입니다. 학당 수강생이나 현재 주민의 언어 비율을 뜻하지 않습니다. 아래 수치는 데이터의 소수 자릿수를 유지했습니다.</p>
