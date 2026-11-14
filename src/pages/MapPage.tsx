@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { mapSection, siteTitle } from "../site/sections";
+import { usePageTitle } from "../site/title";
 import { Icon } from "../site/Icon";
 import { MapView } from "../map/MapView";
 import { DetailCard } from "../map/details";
@@ -27,9 +28,7 @@ export function MapPage() {
   const closeButton = useRef<HTMLButtonElement>(null);
   const lastRowId = useRef<string | null>(null);
 
-  useEffect(() => {
-    document.title = `${mapSection.title} · ${siteTitle}`;
-  }, []);
+  usePageTitle(`${mapSection.title} · ${siteTitle}`);
 
   useEffect(() => {
     if (!selectedId || !panel.current) return;

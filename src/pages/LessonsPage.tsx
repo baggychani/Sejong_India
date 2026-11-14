@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { Link, useParams } from "react-router";
+import { usePageTitle } from "../site/title";
 import textbooks from "../../data/content/textbooks.json";
 import { Bookshelf } from "../library/Bookshelf";
 import type { Book } from "../library/books";
@@ -22,9 +22,7 @@ export function LessonsPage() {
   const { slug } = useParams();
   const textbook = textbooks.find(book => book.id === slug);
   const book = books.find(book => book.slug === slug);
-  useEffect(() => {
-    document.title = `${textbook?.title ?? "교안"} · ${siteTitle}`;
-  }, [textbook]);
+  usePageTitle(`${textbook?.title ?? "교안"} · ${siteTitle}`);
   if (slug && !textbook) return <EntryPage collectionIdOverride="lessons" />;
   if (textbook && book) {
     const lessons = entriesFor("lessons").filter(entry => entry.meta.textbook === textbook.id);

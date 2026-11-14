@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import { Link, useParams } from "react-router";
 import ReactMarkdown from "react-markdown";
 import { findCollection, siteTitle } from "../site/sections";
+import { usePageTitle } from "../site/title";
 import { findEntry } from "../content/load";
 import { NotFoundPage } from "./NotFoundPage";
 
@@ -11,11 +11,7 @@ export function EntryPage({ collectionIdOverride }: { collectionIdOverride?: str
   const entry =
     collection && slug ? findEntry(collection.id, slug) : undefined;
 
-  useEffect(() => {
-    if (collection && entry) {
-      document.title = `${entry.title} · ${siteTitle}`;
-    }
-  }, [collection, entry]);
+  usePageTitle(collection && entry ? `${entry.title} · ${siteTitle}` : `없는 페이지 · ${siteTitle}`);
 
   if (!collection || !entry) {
     return <NotFoundPage />;

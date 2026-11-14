@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { findCollection, siteTitle } from "../site/sections";
+import { usePageTitle } from "../site/title";
 import { entriesFor } from "../content/load";
 import { NotFoundPage } from "./NotFoundPage";
 
@@ -8,11 +8,7 @@ export function CollectionPage() {
   const { collectionId } = useParams();
   const collection = findCollection(collectionId);
 
-  useEffect(() => {
-    if (collection) {
-      document.title = `${collection.title} · ${siteTitle}`;
-    }
-  }, [collection]);
+  usePageTitle(collection ? `${collection.title} · ${siteTitle}` : `없는 페이지 · ${siteTitle}`);
 
   if (!collection) {
     return <NotFoundPage />;

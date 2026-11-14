@@ -1,7 +1,8 @@
-import { useEffect, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 import { Link, useParams } from "react-router";
 import ReactMarkdown from "react-markdown";
 import { siteTitle } from "../site/sections";
+import { usePageTitle } from "../site/title";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { Bookshelf } from "./Bookshelf";
 import { allBooks, findBook, formatRead } from "./books";
@@ -9,9 +10,7 @@ import "../styles/library.css";
 
 export function LibraryPage() {
   const books = allBooks();
-  useEffect(() => {
-    document.title = `서재 · ${siteTitle}`;
-  }, []);
+  usePageTitle(`서재 · ${siteTitle}`);
 
   return (
     <article className="library">
@@ -28,9 +27,7 @@ export function BookPage() {
   const { slug } = useParams();
   const book = slug ? findBook(slug) : undefined;
 
-  useEffect(() => {
-    if (book) document.title = `${book.title} · ${siteTitle}`;
-  }, [book]);
+  usePageTitle(book ? `${book.title} · ${siteTitle}` : `없는 페이지 · ${siteTitle}`);
 
   if (!book) return <NotFoundPage />;
 

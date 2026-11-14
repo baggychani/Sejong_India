@@ -1,11 +1,9 @@
-import { useEffect } from "react";
 import { Link } from "react-router";
 import { siteTitle } from "../site/sections";
+import { usePageTitle } from "../site/title";
 
 export function NotFoundPage() {
-  useEffect(() => {
-    document.title = `없는 페이지 · ${siteTitle}`;
-  }, []);
+  usePageTitle(`없는 페이지 · ${siteTitle}`);
 
   return (
     <article className="reading">

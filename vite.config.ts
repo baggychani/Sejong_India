@@ -5,14 +5,21 @@ import { join } from "node:path";
 import catalog from "./data/content/languages.json";
 import textbooks from "./data/content/textbooks.json";
 import { collections, mapSection, movedRoutes } from "./src/site/sections";
+import { fillHtml } from "./scripts/prerender.mjs";
 
-export default defineConfig(({ mode }) => ({
-  base: mode === "pages" ? "/Sejong_India/" : "/",
+export default defineConfig(({ mode }) => {
+  const base = mode === "pages" ? "/Sejong_India/" : "/";
+  let outDir = "";
+  const pages: { file: string; renderPath: string }[] = [];
+  return {
+  base,
   plugins: [react(), {
     name: "github-pages-direct-links",
     apply: "build",
     writeBundle({ dir }) {
-      if (mode !== "pages" || !dir) return;
+      if (!dir) return;
+      outDir = dir;
+      pages.length = 0;
       const india = mapSection.path;
       const routes = [india, india + "/map", india + "/languages", ...catalog.map(l => india + "/languages/" + l.id)];
       routes.push(...textbooks.map(book => "/lessons/" + book.id));
@@ -22,19 +29,28 @@ export default defineConfig(({ mode }) => ({
           routes.push(path + "/" + name.slice(0, -3));
         }
       }
-      const entry = join(dir, "index.html");
+      const renderPath = (route: string) => route === india ? india + "/map" : route;
+      pages.push({ file: "/", renderPath: "/" }, ...routes.map(route => ({ file: route, renderPath: renderPath(route) })));
       const aliases = movedRoutes.flatMap(({ from, to }) => routes
         .filter(route => route === to || route.startsWith(to + "/"))
-        .map(route => from + route.slice(to.length)));
-      for (const route of [...routes, ...aliases]) {
-        const folder = join(dir, route);
+        .map(route => ({ file: from + route.slice(to.length), renderPath: renderPath(route) })));
+      pages.push(...aliases);
+      const entry = join(dir, "index.html");
+      for (const page of pages) {
+        if (page.file === "/") continue;
+        const folder = join(dir, page.file);
         mkdirSync(folder, { recursive: true });
         copyFileSync(entry, join(folder, "index.html"));
       }
       copyFileSync(entry, join(dir, "404.html"));
     },
+    async closeBundle() {
+      if (!outDir) return;
+      await fillHtml({ mode, base, pages, outDir });
+    },
   }],
   server: {
     port: 5173,
   },
-}));
+  };
+});

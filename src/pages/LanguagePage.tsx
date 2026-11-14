@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
 import catalog from "../../data/content/languages.json";
 import { siteTitle } from "../site/sections";
+import { usePageTitle } from "../site/title";
 import { Icon } from "../site/Icon";
 import { NotFoundPage } from "./NotFoundPage";
 import "../styles/languages.css";
@@ -31,9 +31,7 @@ export default function LanguagePage() {
   const mode = modes.find(([key]) => key === params.get("group"))?.[0] ?? "speakers";
   const query = mode === "speakers" ? "" : `?group=${mode}`;
   const selected = languages.find(l => l.id === id);
-  useEffect(() => {
-    if (!id || selected) document.title = `${selected?.ko ?? "언어"} · ${siteTitle}`;
-  }, [id, selected]);
+  usePageTitle(id && !selected ? `없는 페이지 · ${siteTitle}` : `${selected?.ko ?? "언어"} · ${siteTitle}`);
   if (id && !selected) return <NotFoundPage />;
   if (selected) return <article className="language-page">
     <Link className="language-back" to={`/bharat/languages${query}`}>← 언어</Link>

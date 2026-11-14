@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { Link } from "react-router";
 import { contents, siteTitle } from "../site/sections";
+import { usePageTitle } from "../site/title";
 import { Icon } from "../site/Icon";
 import { geoConicEqualArea, geoPath } from "d3-geo";
 import type { GeoGeometryObjects } from "d3-geo";
@@ -14,9 +14,7 @@ const projection = geoConicEqualArea().parallels([15, 32]).rotate([-82.5, 0])
 const silhouette = geoPath(projection)(countryGeometryOnly) ?? "";
 
 export function HomePage() {
-  useEffect(() => {
-    document.title = `${siteTitle}!`;
-  }, []);
+  usePageTitle(`${siteTitle}!`);
 
   return (
     <article className="home">

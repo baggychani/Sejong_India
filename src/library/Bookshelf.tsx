@@ -108,6 +108,7 @@ function FaceOut({ book, scale, onShow, basePath }: { book: Book; scale: number;
       onFocus={() => onShow(book)}
     >
       {book.reading && <span className="face-ribbon" aria-hidden="true">읽는 중</span>}
+      <span className="face-name">{book.title}</span>
       {book.cover ? (
         <img className="face-cover" src={book.cover} alt="" />
       ) : (
@@ -140,8 +141,9 @@ export function Bookshelf({ books, basePath = "/library" }: { books: Book[]; bas
     return () => observer.disconnect();
   }, []);
 
-  const scale = inner && inner < 460 ? 0.86 : 1;
-  const rows = inner ? packRows(itemsFor(books, scale), inner) : [[]];
+  const width = inner || (typeof window === "undefined" ? 960 : 0);
+  const scale = width && width < 460 ? 0.86 : 1;
+  const rows = width ? packRows(itemsFor(books, scale), width) : [[]];
   const caption = shown ?? (books.length === 1 ? books[0] : undefined);
 
   return (
