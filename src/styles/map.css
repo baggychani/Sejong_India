@@ -4,6 +4,18 @@
   height: calc(100dvh - var(--header-h) - var(--india-nav-height));
   min-height: 410px;
 }
+
+.map-reference { max-width: 1180px; margin: 24px auto; padding: 0 24px; line-height: 1.65; overflow-wrap: anywhere; }
+.map-reference summary { cursor: pointer; color: var(--accent); padding: 12px 0; }
+.map-reference section { margin: 24px 0; }
+.map-reference h2 { font-size: 23px; }
+.map-reference h3 { font-size: 18px; margin-bottom: 4px; }
+.map-reference details { border-top: 1px solid var(--line); }
+.map-reference .detail-card { padding: 12px 0 24px; }
+.map-reference article > p { margin-top: 4px; }
+.map-reference dl > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.map-reference dd { margin: 0; }
+.map-reference a { color: var(--accent); }
 .map-frame { position: relative; min-width: 0; container-type: inline-size; overflow: hidden; background: #c9e5ee; }
 .map-frame > svg { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
 .map-frame > svg:active { cursor: grabbing; }

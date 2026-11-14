@@ -22,7 +22,7 @@ export function readablePage(html, url) {
       || attribute(node, "hidden") !== undefined || attribute(node, "aria-hidden") === "true") return "";
     const inner = (node.childNodes ?? []).map(text).join("").trim();
     const heading = /^h([1-6])$/.exec(node.tagName ?? "");
-    if (heading) return `\n\n${"#".repeat(Number(heading[1]))} ${inner}\n\n`;
+    if (heading) return `\n\n${"#".repeat(Number(heading[1]))} ${inner.replace(/[ \t]+/g, " ")}\n\n`;
     if (node.tagName === "a") {
       const label = inner || attribute(node, "aria-label") || "";
       const href = attribute(node, "href");

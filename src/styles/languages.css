@@ -1,4 +1,13 @@
 .language-page { max-width: 1180px; margin: auto; padding: clamp(28px,5vw,64px) clamp(16px,4vw,48px) 72px; }
+.language-reference { margin-top: 32px; border-top: 1px solid var(--line); line-height: 1.7; overflow-wrap: anywhere; }
+.language-reference > summary { padding: 16px 0; cursor: pointer; color: var(--accent); }
+.language-reference h2 { margin-top: 32px; font-size: 24px; }
+.language-reference h3 { font-size: 18px; }
+.language-reference a { color: var(--accent); }
+.language-facts { margin: 24px 0; font-size: 14px; line-height: 1.6; }
+.language-facts > div { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 8px 0; border-top: 1px solid var(--line); }
+.language-facts dt { color: var(--muted); min-width: 12em; }
+.language-facts dd { margin: 0; }
 .language-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; }
 .language-page:has(.language-toolbar) { padding-top: 28px; }
 .language-toolbar + .language-group { margin-top: 16px; }

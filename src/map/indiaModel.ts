@@ -243,8 +243,10 @@ const instituteDetails: DetailRecord[] = institutes.map((institute) => ({
       value: [institute.city.ko, institute.city.en, institute.city.hi].filter(Boolean).join(" · "),
     },
     { label: "주소", value: institute.address },
+    { label: "위치 메모", value: institute.locationNote },
   ],
   links: [
+    ...institute.sources.map(source => ({ label: `${source.title} (확인: ${source.accessed})`, href: source.url })),
     ...(institute.homepage
       ? [{ label: "홈페이지 열기", href: institute.homepage }]
       : []),

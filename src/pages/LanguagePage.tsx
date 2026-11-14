@@ -1,25 +1,11 @@
 import { Link, useParams, useSearchParams } from "react-router";
-import catalog from "../../data/content/languages.json";
+import { languageModes as modes, languageSources as sources, languageFamilies as families, languages, type Language } from "../site/languages";
+import { LanguageFacts, LanguageReference } from "./LanguageReference";
 import { siteTitle } from "../site/sections";
 import { usePageTitle } from "../site/title";
 import { Icon } from "../site/Icon";
 import { NotFoundPage } from "./NotFoundPage";
 import "../styles/languages.css";
-
-const modes = [
-  ["speakers", "화자 많은 순"], ["family", "어족별"], ["constitution", "헌법 등재"], ["classical", "지정 고전어"],
-] as const;
-const sources = {
-  constitution: { heading: "헌법 등재", title: "인도 헌법 제8부속서 원문", href: "https://cdnbbsr.s3waas.gov.in/s380537a945c7aaa788ccfcdf1b99b5d8f/uploads/2023/07/202507081043003900.pdf#page=511" },
-  classical: { heading: "지정 고전어", title: "인도 문화부 고전어 지정 고시 원문", href: "https://egazette.gov.in/WriteReadData/2024/257710.pdf#page=2" },
-};
-const families: Record<string, string> = {
-  "Indo-European": "인도유럽어족", Dravidian: "드라비다어족",
-  "Sino-Tibetan": "중국티베트어족", Austroasiatic: "오스트로아시아어족",
-};
-const languages = [...catalog].sort((a, b) =>
-  (b.census2011GroupSpeakers ?? -1) - (a.census2011GroupSpeakers ?? -1) || a.en.localeCompare(b.en, "en"));
-type Language = typeof languages[number];
 
 function NativeName({ language }: { language: Language }) {
   return <bdi className="native-name" lang={language.tag} dir="auto">{language.native}</bdi>;
@@ -39,6 +25,7 @@ export default function LanguagePage() {
       <NativeName language={selected} />
       <h1>{selected.ko}</h1><span lang="en">{selected.en}</span>
     </header>
+    <section id={`language-${selected.id}`}><LanguageFacts language={selected} /></section>
   </article>;
 
   const groups = new Map<string, Language[]>();
@@ -73,5 +60,6 @@ export default function LanguagePage() {
         </Link>)}
       </div>
     </section>)}
+    <LanguageReference />
   </section>;
 }

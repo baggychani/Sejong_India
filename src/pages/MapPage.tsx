@@ -4,6 +4,7 @@ import { usePageTitle } from "../site/title";
 import { Icon } from "../site/Icon";
 import { MapView } from "../map/MapView";
 import { DetailCard } from "../map/details";
+import { MapReference } from "../map/MapReference";
 import {
   adminShapes,
   cityPoints,
@@ -61,6 +62,7 @@ export function MapPage() {
   const selected = selectedId ? details.get(selectedId) : undefined;
 
   return (
+    <>
     <div className="map-page">
       <MapView
         fit={fitGeometry}
@@ -124,5 +126,7 @@ export function MapPage() {
         )}
       </aside>
     </div>
+    <MapReference />
+    </>
   );
 }

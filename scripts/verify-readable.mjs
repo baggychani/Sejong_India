@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { readablePage } from "./readable-html.mjs";
+import { verifyContentFields } from "./verify-content-fields.mjs";
 
 const outDir = process.argv[2] ?? "dist";
 const siteUrl = "https://baggychani.github.io/Sejong_India/";
@@ -60,3 +61,4 @@ for (const url of urls) {
 }
 assert.equal(readablePage('<main><h1>A &amp; B</h1><a href="/x"><span>Link</span></a><script>ignore me</script><div hidden>hidden</div></main>', siteUrl), '# A & B\n\n[Link](https://baggychani.github.io/x)');
 console.log(`PASS: ${files.length} HTML pages readable without JavaScript; ${urls.length} unique sitemap URLs; all language, book and textbook links preserved; page CSS available initially.`);
+verifyContentFields(outDir);

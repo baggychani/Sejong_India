@@ -108,7 +108,7 @@ function FaceOut({ book, scale, onShow, basePath }: { book: Book; scale: number;
       onFocus={() => onShow(book)}
     >
       {book.reading && <span className="face-ribbon" aria-hidden="true">읽는 중</span>}
-      <span className="face-name">{book.title}</span>
+      <span className="face-name">{[book.title, book.author].filter(Boolean).join(" · ")}</span>
       {book.cover ? (
         <img className="face-cover" src={book.cover} alt="" decoding="async" />
       ) : (

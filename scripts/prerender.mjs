@@ -41,7 +41,9 @@ function pageOf(template, rendered, page, styles, siteUrl) {
   let html = template.replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(rendered.title)}</title>`);
   const canonical = new URL(page.renderPath.replace(/^\//, "") + (page.renderPath === "/" ? "" : "/"), siteUrl).href;
   const textUrl = new URL("index.md", canonical).href;
-  const description = readablePage(rendered.html, canonical).replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[#\n]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
+  const description = page.renderPath === "/bharat/map"
+    ? "인도 세종학당의 주소·운영기관과 도시·강·지형, 지역별 모어 분포를 살펴보는 지도입니다."
+    : readablePage(rendered.html, canonical).replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[#\n]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
   const tags = styles.filter(href => !html.includes(`href="${href}"`))
     .map(href => `<link rel="stylesheet" crossorigin href="${escapeHtml(href)}">`);
   tags.push(`<link rel="canonical" href="${escapeHtml(canonical)}">`,
