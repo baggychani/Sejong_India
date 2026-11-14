@@ -34,7 +34,7 @@ export function HomePage() {
         {contents.map((item) => (
           <Link key={item.id} to={item.path}>
             <Icon name={item.id} />
-            <strong>{item.title}{item.id === "map" && <> <span lang="hi">भारत</span></>}</strong>
+            <strong>{item.title}{item.id === "map" && <> <span lang="hi">भारत</span></>}{item.id === "hindi" && <> <span lang="hi">हिन्दी</span></>}</strong>
           </Link>
         ))}
       </nav>

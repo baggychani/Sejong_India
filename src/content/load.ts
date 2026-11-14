@@ -10,6 +10,11 @@ export type Entry = {
 };
 
 const files: Record<CollectionId, Record<string, string>> = {
+  hindi: import.meta.glob("../../content/hindi/*.md", {
+    query: "?raw",
+    import: "default",
+    eager: true,
+  }),
   study: import.meta.glob("../../content/study/*.md", {
     query: "?raw",
     import: "default",

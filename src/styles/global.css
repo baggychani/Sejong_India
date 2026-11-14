@@ -165,7 +165,7 @@ h1 {
 .home-cover h1 { font-size: clamp(38px, 5vw, 66px); color: #173e32; line-height: 1.14; font-weight: 800; letter-spacing: -.055em; }
 .home-cover h1 span { display: block; color: #176250; }
 .home-india { position: absolute; right: 5%; height: 83%; width: 36%; z-index: -1; }
-.toc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.toc { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
 .toc a { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 84px; padding: 12px; border: 1px solid var(--line); background: white; color: var(--ink); text-decoration: none; border-radius: 12px; }
 .toc strong { font-size: 17px; word-break: keep-all; }
 .toc [lang="hi"] { font-size: .9em; font-weight: 500; }
@@ -181,6 +181,7 @@ h1 {
   .site-header nav a { padding: 7px 9px; }
   .home { padding: 42px 18px; }
   .toc { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .toc a:first-child { grid-column: 1 / -1; }
   .home-cover { min-height: 230px; }
 }
 @media (max-width: 540px) {
@@ -201,8 +202,10 @@ h1 {
   color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 500;
 }
 .recruitment-link img { display: block; width: 124px; height: auto; }
-.recruitment-link span:last-child { color: var(--accent); }
-.recruitment-link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.recruitment-link span:last-child { color: var(--accent); transition: transform .15s; }
+.recruitment-link:hover { color: var(--accent); }
+.recruitment-link:hover span:first-of-type { text-decoration: underline; text-underline-offset: 4px; }
+.recruitment-link:hover span:last-child { transform: translate(2px, -2px); }
 .india-navigation {
   height: var(--india-nav-height); display: flex; align-items: stretch; gap: 24px;
   padding: 0 clamp(18px, 3vw, 40px); background: white; border-bottom: 1px solid var(--line);

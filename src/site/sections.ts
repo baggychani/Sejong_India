@@ -8,6 +8,11 @@ export const mapSection = {
 
 export const collections = [
   {
+    id: "hindi",
+    path: "/hindi",
+    title: "힌디어",
+  },
+  {
     id: "study",
     path: "/interview",
     title: "면접대비",
