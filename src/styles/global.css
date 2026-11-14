@@ -171,7 +171,7 @@ h1 {
 .toc [lang="hi"] { font-size: .9em; font-weight: 500; }
 .toc .icon { flex: none; color: var(--accent); }
 .toc .icon:first-child { width: 24px; height: 24px; }
-.toc .hindi-icon { display: block; width: 30px; height: 30px; background: currentColor; mask: url("../assets/hindi-icon.png") center / contain no-repeat; }
+.toc .hindi-icon { display: block; width: 24px; height: 24px; background: currentColor; mask: url("../assets/hindi-icon.png") center / contain no-repeat; }
 .toc a:first-child { background: var(--accent); border-color: var(--accent); color: white; }
 .toc a:first-child .icon { color: white; }
 .toc a:hover { box-shadow: 0 3px 10px #173e3218; border-color: #6c9585; }
