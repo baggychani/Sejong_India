@@ -3,360 +3,144 @@
     "id": "hindi",
     "text": "मेरा लक्ष्य भारत में कोरियाई भाषा पढ़ाना है।",
     "romanization": "Merā lakṣya Bhārat meṁ koriyāī bhāṣā paṛhānā hai.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "bengali",
     "text": "আমার লক্ষ্য ভারতে কোরিয়ান ভাষা শেখানো।",
     "romanization": "Āmār lakṣya Bhārate koriyān bhāṣā śekhāno.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "marathi",
-    "text": "भारतात कोरियन भाषा शिकवण्याचे माझे ध्येय आहे.",
-    "romanization": "Bhāratāt koriyan bhāṣā śikavaṇyāce mājhe dhyeya āhe.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "text": "भारतात कोरियन भाषा शिकवणे हे माझे ध्येय आहे.",
+    "romanization": "Bhāratāt koriyan bhāṣā śikavaṇe he mājhe dhyeya āhe.",
+    "variant": ""
   },
   {
     "id": "telugu",
     "text": "భారతదేశంలో కొరియన్ భాష నేర్పడమే నా లక్ష్యం.",
     "romanization": "Bhāratadēśaṁlō koriyan bhāṣa nērpaḍamē nā lakṣyaṁ.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "tamil",
     "text": "இந்தியாவில் கொரிய மொழியைக் கற்பிப்பதே எனது குறிக்கோள்.",
     "romanization": "Intiyāvil koriya moḻiyaik kaṟpippatē eṉatu kuṟikkōḷ.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "gujarati",
     "text": "મારું લક્ષ્ય ભારતમાં કોરિયન ભાષા શીખવવાનું છે.",
     "romanization": "Māruṁ lakṣya Bhāratmāṁ koriyan bhāṣā śīkhavavānuṁ che.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "urdu",
     "text": "میرا مقصد ہندوستان میں کورین زبان سکھانا ہے۔",
-    "romanization": "Merā maqsad Hindustān meñ koriyan zabān sikhānā hai.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "romanization": "Merā maqsad Hindustān meñ korīn zabān sikhānā hai.",
+    "variant": ""
   },
   {
     "id": "kannada",
     "text": "ಭಾರತದಲ್ಲಿ ಕೊರಿಯನ್ ಭಾಷೆಯನ್ನು ಕಲಿಸುವುದು ನನ್ನ ಗುರಿಯಾಗಿದೆ.",
     "romanization": "Bhāratadalli koriyan bhāṣeyannu kalisuvudu nanna guriyāgide.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "odia",
     "text": "ମୋର ଲକ୍ଷ୍ୟ ହେଉଛି ଭାରତରେ କୋରିଆନ୍ ଭାଷା ଶିଖାଇବା।",
     "romanization": "Mora lakṣya heuchi Bhāratare koriān bhāṣā śikhāibā.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "malayalam",
     "text": "ഇന്ത്യയിൽ കൊറിയൻ ഭാഷ പഠിപ്പിക്കുകയാണ് എന്റെ ലക്ഷ്യം.",
     "romanization": "Intyayil koṟiyan bhāṣa paṭhippikkukayāṇ eṉṟe lakṣyaṁ.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "punjabi",
     "text": "ਮੇਰਾ ਟੀਚਾ ਭਾਰਤ ਵਿੱਚ ਕੋਰੀਅਨ ਭਾਸ਼ਾ ਸਿਖਾਉਣਾ ਹੈ।",
     "romanization": "Merā ṭīcā Bhārat vicc korīan bhāśā sikhāuṇā hai.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "assamese",
     "text": "মোৰ লক্ষ্য ভাৰতত কোৰিয়ান ভাষা শিকোৱা।",
     "romanization": "Mor lakṣya Bhāratat koriyān bhāṣā śikowā.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "maithili",
     "text": "हमर लक्ष्य अछि जे भारत मे कोरियाई भाषा पढ़ाबी।",
     "romanization": "Hamar lakṣya achi je Bhārat me koriyāī bhāṣā paṛhābī.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "santali",
     "text": "ᱤᱧᱟᱜ ᱡᱚᱥ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱨᱮ ᱠᱚᱨᱤᱭᱟᱱ ᱯᱟᱹᱨᱥᱤ ᱪᱮᱪᱮᱫ ᱞᱟᱹᱜᱤᱫ ᱾",
-    "romanization": "Iñag jos do bhārot re koriyān pārsi ceched lāgid.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "specialist",
-      "note": "기계 초안의 배우다/가르치다 구분을 수정한 시안. 사역·문장 종결과 로마자 표기를 산탈리어 화자에게 검수해야 함.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "romanization": "Iñag jos do bhārot re koriyān pạrsi ceced lạgid.",
+    "variant": ""
   },
   {
     "id": "kashmiri",
     "text": "میٚون مقصد چھُ ہِندوستانَس مَنٛز کورِیَن زبان ہیٚچھناوُن۔",
     "romanization": "Myon maqsad chhu Hindustānas manz koriyan zabān hechnāvun.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "AI reconstruction",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "specialist",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "nepali",
     "text": "मेरो लक्ष्य भारतमा कोरियन भाषा सिकाउने हो।",
     "romanization": "Mero lakṣya Bhāratmā koriyan bhāṣā sikāune ho.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "sindhi",
     "text": "منهنجو مقصد هندستان ۾ ڪورين ٻولي سيکارڻ آهي.",
-    "romanization": "Munhinjo maqsad Hindustān meṁ koriyan bolī sikhāraṇ āhe.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "romanization": "Munhinjo maqsad Hindustān meṁ korīn b̤olī sīkāraṇ āhe.",
+    "variant": ""
   },
   {
     "id": "dogri",
     "text": "मेरा लक्ष्य भारत च कोरियाई भाशा सिखाना ऐ।",
     "romanization": "Merā lakṣya Bhārat ca koriyāī bhāśā sikhānā ai.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "konkani",
     "text": "भारतांत कोरियन भास शिकवप हो म्हजो हेत.",
     "romanization": "Bhāratānt koriyan bhās śikavap ho mhajo het.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "manipuri",
     "text": "ꯑꯩꯒꯤ ꯄꯥꯟꯗꯃꯗꯤ ꯚꯥꯔꯠꯇꯥ ꯀꯣꯔꯤꯌꯥꯒꯤ ꯂꯣꯜ ꯇꯝꯕꯤꯕꯅꯤ꯫",
     "romanization": "Aigi pāndamdi Bhārat-tā koriyāgi lol tambibani.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "specialist",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "bodo",
     "text": "आंनि थांखिआ भारोताव करियान राव फोरोंनाय।",
-    "romanization": "Āṁni thāṁkhiā Bhārotāw koriyān rāw phorōṁnāy.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "AI reconstruction",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "specialist",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "romanization": "Āṁni thāṁkhiā Bhārotāw kariyān rāw phorōṁnāy.",
+    "variant": ""
   },
   {
     "id": "sanskrit",
     "text": "मम लक्ष्यं भारते कोरियाभाषायाः शिक्षणम् अस्ति।",
     "romanization": "Mama lakṣyaṁ Bhārate koriyābhāṣāyāḥ śikṣaṇam asti.",
-    "variant": "",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "machine-assisted AI draft",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "native-review",
-      "note": "원어민 번역 검수와 로마자 표기 대조 전.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": ""
   },
   {
     "id": "pali",
     "text": "मम लक्खं भारतस्मिं कोरियभासं सिक्खापेतुं होति।",
     "romanization": "Mama lakkhaṁ Bhāratasmiṁ koriyabhāsaṁ sikkhāpetuṁ hoti.",
-    "variant": "현대 어휘를 포함한 재구성",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "AI reconstruction",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "specialist",
-      "note": "한국어·인도 명칭을 포함한 현대적 재구성. 어휘와 문법 전문 검수 필요.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": "현대 어휘를 포함한 재구성"
   },
   {
     "id": "prakrit",
     "text": "मम लक्खं भारअम्मि कोरिअभासं सिक्खावेउं।",
     "romanization": "Mama lakkhaṁ Bhāraammi koriabhāsaṁ sikkhāveuṁ.",
-    "variant": "마하라슈트리계 재구성",
-    "reviewStatus": "draft",
-    "editorial": {
-      "translationOrigin": "AI reconstruction",
-      "romanizationOrigin": "AI learning-oriented romanization; no formal standard compliance claimed",
-      "priority": "specialist",
-      "note": "프라크리트어 전체를 대표하지 않는 마하라슈트리계 시안. 격변화·부정사·현대 지명과 한국어 명칭을 전문 검수해야 함.",
-      "reviewedBy": null,
-      "reviewedAt": null
-    }
+    "variant": "마하라슈트리계 재구성"
   }
 ]

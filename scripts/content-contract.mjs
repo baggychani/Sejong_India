@@ -21,9 +21,7 @@ const geometry = {
 };
 const jsonContracts = {
   "language-goals": { targets: row => [[`bharat/languages/${row.id}`, `language-goal-${row.id}`]], schema: {
-    id: identity, text: publicValue(), romanization: publicValue(), variant: publicValue(),
-    reviewStatus: publicValue(value => value === "draft" ? "번역·전사 초안" : "검수 완료"),
-    editorial: technical("번역·전사 초안의 작성 방식과 검수 담당·이력을 관리하는 편집 메타데이터다. 검수 상태는 reviewStatus로 공개한다.") } },
+    id: identity, text: publicValue(), romanization: publicValue(), variant: publicValue() } },
   institutes: {
     targets: row => [["bharat/map", `institute-${row.id}`]],
     schema: { id: identity, names: name, operator: name, city: name, address: publicValue(),

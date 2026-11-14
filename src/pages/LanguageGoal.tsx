@@ -26,6 +26,6 @@ export function LanguageGoal({ language }: { language: Language }) {
   return <div className="language-goal" id={`language-goal-${language.id}`}>
     <p className="goal-native" lang={language.tag} dir="auto">{goal.text}</p>
     <p className="goal-romanization" lang={`${language.tag}-Latn`} dir="ltr">{goal.romanization}</p>
-    <noscript><p>{goalMeaning}</p><p>{goal.variant && `${goal.variant} · `}{goal.reviewStatus === "draft" ? "번역·전사 초안" : "검수 완료"}</p></noscript>
+    <noscript><p>{goalMeaning}</p>{goal.variant && <p>{goal.variant}</p>}</noscript>
   </div>;
 }

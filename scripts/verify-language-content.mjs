@@ -28,13 +28,13 @@ export function verifyLanguageContent(outDir) {
     assert(new RegExp(`\\p{Script=${scripts[goal.id]}}`, "u").test(goal.text), `${goal.id}: native script missing`);
     assert(/\p{Script=Latin}/u.test(goal.romanization), `${goal.id}: Latin reading missing`);
     assert(!/\p{Script=Hangul}/u.test(goal.romanization), `${goal.id}: Korean pronunciation is prohibited`);
-    assert(["draft", "reviewed"].includes(goal.reviewStatus), `${goal.id}: unknown review status`);
-    if (goal.reviewStatus === "reviewed") {
-      assert(goal.editorial.reviewedBy?.trim() && /^\d{4}-\d{2}-\d{2}$/.test(goal.editorial.reviewedAt), `${goal.id}: reviewed content needs reviewer and date`);
-    }
+    assert(!("reviewStatus" in goal) && !("editorial" in goal), `${goal.id}: editorial metadata must not return`);
     const html = readFileSync(join(outDir, `bharat/languages/${goal.id}/index.html`), "utf8");
     assert(html.includes(`id="language-goal-${goal.id}"`));
-    assert(html.includes(goal.reviewStatus === "draft" ? "번역·전사 초안" : "검수 완료"));
+    const markdown = readFileSync(join(outDir, `bharat/languages/${goal.id}/index.md`), "utf8");
+    for (const label of ["검수", "검토자", "Codex (AI)", "native-review", "reviewStatus", "reviewedBy"]) {
+      assert(!html.includes(label) && !markdown.includes(label), `${goal.id}: editorial metadata leaked into public content: ${label}`);
+    }
     assert(!html.includes('class="text-version"'), "AI footer must not return");
     const nodes = visibleNodes(parse(html, { scriptingEnabled: true }));
     const visibleText = nodes.filter(node => node.nodeName === "#text").map(node => node.value).join(" ");
@@ -106,5 +106,5 @@ export function verifyLanguageContent(outDir) {
       assert(links.some(href => href.includes(`/bharat/languages/${id}`)), `${institute.id}: missing language link for ${language.name}`);
     }
   }
-  console.log(`PASS: ${goals.length} in-card examples with no visible editorial labels; review state retained; top-two badges match complete ${census.year} profiles; institute and language links connect.`);
+  console.log(`PASS: ${goals.length} in-card examples without editorial metadata in source, HTML or Markdown; top-two badges match complete ${census.year} profiles; institute and language links connect.`);
 }
