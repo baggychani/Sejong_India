@@ -1,18 +1,19 @@
-import { goalMeaning, goalsByLanguage, regionalLeaders } from "../site/languageGoals";
+import { goalMeaning, goalsByLanguage, regionalRankings } from "../site/languageGoals";
 import type { Language } from "../site/languages";
 
 export function LanguageRegionBadges({ language }: { language: Language }) {
-  const leaders = regionalLeaders.filter(leader => leader.languageId === language.id);
-  if (!leaders.length) return null;
-  return <div className="language-regions" aria-label="세종학당 지역의 모어 1위">
-    <span className="language-region-key">지역 모어 1위 <small>{leaders[0].year}</small></span>
-    {leaders.map(leader => <span className="language-region-badge" key={leader.instituteId}
-      data-institute={leader.instituteId}
-      title={`${leader.area} · ${leader.year} 인구조사 · ${leader.sharePct}%${leader.tied ? " · 공동 1위" : ""}`}>
-      <span aria-hidden="true" className="region-rank">1</span>
-      {leader.label}{leader.broad && <small>광역</small>}
-      <span className="region-share">{leader.sharePct.toFixed(1)}%</span>
-      <noscript><span> · {leader.area} · {leader.year} 인구조사{leader.tied && " · 공동 1위"}</span></noscript>
+  const rankings = regionalRankings.filter(entry => entry.languageId === language.id)
+    .sort((a, b) => a.rank - b.rank || b.sharePct - a.sharePct);
+  if (!rankings.length) return null;
+  return <div className="language-regions" aria-label="세종학당 지역의 모어 비중 상위 3위">
+    {rankings.map(entry => <span className="language-region-badge" key={entry.instituteId}
+      data-institute={entry.instituteId} data-rank={entry.rank}
+      aria-label={`${entry.label} · 모어 ${entry.tied ? "공동 " : ""}${entry.rank}위 · ${entry.sharePct}% · ${entry.area} · ${entry.year} 인구조사`}
+      title={`${entry.area} · ${entry.year} 인구조사 · 모어 ${entry.tied ? "공동 " : ""}${entry.rank}위 · ${entry.sharePct}%`}>
+      <span aria-hidden="true" className="region-rank">{entry.rank}</span>
+      {entry.label}{entry.broad && <small>광역</small>}
+      <span className="region-share">{entry.sharePct.toFixed(1)}%</span>
+      <noscript><span> · 모어 {entry.tied && "공동 "}{entry.rank}위 · {entry.area} · {entry.year} 인구조사</span></noscript>
     </span>)}
   </div>;
 }
@@ -20,14 +21,10 @@ export function LanguageRegionBadges({ language }: { language: Language }) {
 export function LanguageGoal({ language }: { language: Language }) {
   const goal = goalsByLanguage.get(language.id);
   if (!goal) return null;
-  return <section className="language-goal" id={`language-goal-${language.id}`} aria-labelledby="goal-title">
-    <div className="goal-heading">
-      <h2 id="goal-title">나의 목표</h2>
-      {goal.variant && <span className="goal-variant">{goal.variant}</span>}
-      <span className="goal-review" title={goal.editorial.note}>{goal.reviewStatus === "draft" ? "번역·전사 초안" : "검수 완료"}</span>
-    </div>
+  return <div className="language-goal" id={`language-goal-${language.id}`}>
     <p className="goal-native" lang={language.tag} dir="auto">{goal.text}</p>
     <p className="goal-romanization" lang={`${language.tag}-Latn`} dir="ltr">{goal.romanization}</p>
-    <div className="goal-caption"><span>로마자 전사</span><span>{goalMeaning}</span></div>
-  </section>;
+    <p className="goal-meaning">{goalMeaning}</p>
+    <noscript><p>{goal.variant && `${goal.variant} · `}{goal.reviewStatus === "draft" ? "번역·전사 초안" : "검수 완료"}</p></noscript>
+  </div>;
 }

@@ -4,6 +4,12 @@ import { join } from "node:path";
 import { parse } from "parse5";
 
 const source = name => JSON.parse(readFileSync(`data/content/${name}.json`, "utf8"));
+const attribute = (node, name) => node.attrs?.find(attr => attr.name === name)?.value;
+const hasClass = (node, name) => attribute(node, "class")?.split(/\s+/).includes(name);
+function visibleNodes(node) {
+  if (node.tagName === "noscript") return [];
+  return [node, ...(node.childNodes ?? []).flatMap(visibleNodes)];
+}
 const scripts = {
   hindi: "Devanagari", bengali: "Bengali", marathi: "Devanagari", telugu: "Telugu", tamil: "Tamil",
   gujarati: "Gujarati", urdu: "Arabic", kannada: "Kannada", odia: "Oriya", malayalam: "Malayalam",
@@ -30,31 +36,43 @@ export function verifyLanguageContent(outDir) {
     assert(html.includes(`id="language-goal-${goal.id}"`));
     assert(html.includes(goal.reviewStatus === "draft" ? "번역·전사 초안" : "검수 완료"));
     assert(!html.includes('class="text-version"'), "AI footer must not return");
+    const nodes = visibleNodes(parse(html, { scriptingEnabled: true }));
+    const visibleText = nodes.filter(node => node.nodeName === "#text").map(node => node.value).join(" ");
+    for (const label of ["나의 목표", "로마자 전사", "번역·전사 초안", "검수 완료", "지역 모어 1위", "2011"]) {
+      assert(!visibleText.includes(label), `${goal.id}: unwanted visible label ${label}`);
+    }
+    const identity = nodes.find(node => hasClass(node, "language-identity"));
+    assert(identity && visibleNodes(identity).some(node => attribute(node, "id") === `language-goal-${goal.id}`), `${goal.id}: sentence must stay inside identity card`);
   }
 
   const census = source("mother-tongues");
   const aliases = { "마니푸리어(메이테이어)": "manipuri" };
-  const expected = new Map(languages.map(language => [language.id, new Set()]));
+  const expected = new Map(languages.map(language => [language.id, new Map()]));
   for (const institute of source("institutes")) {
     const profile = census.profiles.find(profile => profile.placeIds.includes(institute.id));
     if (!profile?.languages.length) continue;
-    const max = Math.max(...profile.languages.map(language => language.sharePct));
-    for (const top of profile.languages.filter(language => language.sharePct === max)) {
+    const sorted = [...profile.languages].sort((a, b) => b.sharePct - a.sharePct);
+    for (const top of sorted) {
+      const rank = sorted.findIndex(entry => entry.sharePct === top.sharePct) + 1;
+      if (rank > 3) continue;
       const id = aliases[top.name] ?? languages.find(language => language.ko === top.name)?.id;
-      assert(id, `unmapped regional leader ${top.name}`);
-      expected.get(id).add(institute.id);
+      if (!id) continue; // Unlisted languages retain their rank in the full profile.
+      expected.get(id).set(institute.id, rank);
     }
   }
   for (const language of languages) {
     const html = readFileSync(join(outDir, `bharat/languages/${language.id}/index.html`), "utf8");
-    const actual = new Set();
+    const actual = new Map();
     function visit(node) {
       const id = node.attrs?.find(attr => attr.name === "data-institute")?.value;
-      if (id) actual.add(id);
+      if (id) {
+        assert(!actual.has(id), `${language.id}: duplicate institute badge ${id}`);
+        actual.set(id, Number(attribute(node, "data-rank")));
+      }
       for (const child of node.childNodes ?? []) visit(child);
     }
     visit(parse(html, { scriptingEnabled: true }));
     assert.deepEqual(actual, expected.get(language.id), `${language.id}: incorrect regional rank badges`);
   }
-  console.log(`PASS: ${goals.length} native-script goals and Latin readings; review state required; regional badges match ${census.year} source data.`);
+  console.log(`PASS: ${goals.length} in-card examples with no visible editorial labels; review state retained; top-three badges match complete ${census.year} profiles.`);
 }

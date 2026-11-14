@@ -23,13 +23,15 @@ export default function LanguagePage() {
   if (selected) return <article className="language-page language-detail-page">
     <Link className="language-back" to={`/bharat/languages${query}`}>← 언어</Link>
     <header className="language-identity">
-      <div className="language-name-block">
-        <NativeName language={selected} />
-        <div><h1>{selected.ko}</h1><span lang="en">{selected.en}</span></div>
+      <div className="language-identity-summary">
+        <div className="language-name-block">
+          <NativeName language={selected} />
+          <div><h1>{selected.ko}</h1><span lang="en">{selected.en}</span></div>
+        </div>
+        <LanguageRegionBadges language={selected} />
       </div>
-      <LanguageRegionBadges language={selected} />
+      <LanguageGoal language={selected} />
     </header>
-    <LanguageGoal language={selected} />
     <noscript><section id={`language-${selected.id}`}><LanguageFacts language={selected} /></section></noscript>
   </article>;
 
