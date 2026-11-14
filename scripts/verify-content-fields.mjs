@@ -18,7 +18,7 @@ export function verifyContentFields(outDir) {
       if (id) { assert(!nodes.has(id), `${path}: duplicate id ${id}`); nodes.set(id, node); }
       for (const child of node.childNodes ?? []) visit(child);
     }
-    visit(parse(html));
+    visit(parse(html, { scriptingEnabled: false }));
     return id => {
       const node = nodes.get(id);
       assert(node, `${path}: missing static record ${id}`);

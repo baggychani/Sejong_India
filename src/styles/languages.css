@@ -1,5 +1,4 @@
 .language-page { max-width: 1180px; margin: auto; padding: clamp(28px,5vw,64px) clamp(16px,4vw,48px) 72px; }
-.language-legend { margin: 12px 0; color: var(--muted); font-size: 13px; }
 .language-reference { margin-top: 32px; border-top: 1px solid var(--line); line-height: 1.7; overflow-wrap: anywhere; }
 .language-reference > summary { padding: 16px 0; cursor: pointer; color: var(--accent); }
 .language-reference h2 { margin-top: 32px; font-size: 24px; }

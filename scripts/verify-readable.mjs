@@ -5,6 +5,7 @@ import { readablePage } from "./readable-html.mjs";
 import { verifyContentFields } from "./verify-content-fields.mjs";
 import { verifyContentContract } from "./content-contract.mjs";
 import { verifyContentContractGuards } from "./verify-content-contract-guards.mjs";
+import { parse } from "parse5";
 
 const outDir = process.argv[2] ?? "dist";
 const siteUrl = "https://baggychani.github.io/Sejong_India/";
@@ -20,6 +21,15 @@ function htmlFiles(folder) {
 const files = htmlFiles(outDir);
 for (const file of files) {
   const html = readFileSync(file, "utf8");
+  // AI fallbacks must not become new controls, tables or page height in the
+  // normal JavaScript-enabled browser. Parse noscript as that browser does.
+  const unwantedUi = new Set(["text-version", "map-reference", "language-reference", "language-facts", "language-legend"]);
+  function checkUi(node) {
+    const classes = node.attrs?.find(attr => attr.name === "class")?.value.split(/\s+/) ?? [];
+    assert(!classes.some(name => unwantedUi.has(name)), `${file}: AI reading support leaked into the visible UI`);
+    for (const child of node.childNodes ?? []) checkUi(child);
+  }
+  checkUi(parse(html, { scriptingEnabled: true }));
   assert(html.includes('data-render-path="'), `${file}: missing render identity`);
   assert(!/<template\b|<div hidden id="S:/.test(html), `${file}: script-dependent body`);
   assert(readablePage(html, siteUrl).length > 0, `${file}: no readable main`);

@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { languages, languageFamilies, languageSources, type Language } from "../site/languages";
+import { languages, languageFamilies, languageSources, interestLanguageIds, type Language } from "../site/languages";
 
 export function LanguageFacts({ language }: { language: Language }) {
   return <dl className="language-facts">
@@ -22,6 +22,7 @@ export function LanguageReference() {
   const classical = languages.filter(language => language.classical);
   return <details className="language-reference" id="language-reference">
     <summary>언어 정보와 분류별 목록 전체 보기</summary>
+    <p>★ 관심 언어: {languages.filter(language => interestLanguageIds.has(language.id)).map(language => language.ko).join(" · ")}</p>
     <p>화자 수는 2011년 인도 인구조사의 언어 집단 기준입니다. 개별 모어 기준과 다를 수 있으며, 자료가 없는 언어는 0명으로 표시하지 않습니다.</p>
     <p><a href="https://censusindia.gov.in/census.website/data/census-tables">인도 인구조사 원자료</a></p>
     <section id="language-speakers">

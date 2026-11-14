@@ -22,8 +22,6 @@ body {
   min-height: 100vh;
 }
 
-.text-version { max-width: 1180px; margin: 0 auto; padding: 12px 28px 24px; font-size: 13px; }
-.text-version a { color: var(--muted); text-underline-offset: 3px; }
 
 button,
 a {

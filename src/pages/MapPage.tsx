@@ -126,7 +126,7 @@ export function MapPage() {
         )}
       </aside>
     </div>
-    <MapReference />
+    <noscript><MapReference /></noscript>
     </>
   );
 }

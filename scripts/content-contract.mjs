@@ -74,7 +74,7 @@ export function verifyContentContract(outDir, { datasets = {}, markdown = {} } =
         if (node.attrs?.some(attr => attr.name === "id" && attr.value === id)) return node;
         for (const child of node.childNodes ?? []) { const found = find(child); if (found) return found; }
       }
-      const node = find(parse(html));
+      const node = find(parse(html, { scriptingEnabled: false }));
       assert(node, `missing contract target: ${key}`);
       source = `<main>${serializeOuter(node)}</main>`;
     }

@@ -25,7 +25,7 @@ export default function LanguagePage() {
       <NativeName language={selected} />
       <h1>{selected.ko}</h1><span lang="en">{selected.en}</span>
     </header>
-    <section id={`language-${selected.id}`}><LanguageFacts language={selected} /></section>
+    <noscript><section id={`language-${selected.id}`}><LanguageFacts language={selected} /></section></noscript>
   </article>;
 
   const groups = new Map<string, Language[]>();
@@ -45,7 +45,6 @@ export default function LanguagePage() {
           onClick={() => setParams(key === "speakers" ? {} : { group: key })}>{label}</button>)}
       </div>
     </header>
-    <p className="language-legend">★ 관심 언어: {languages.filter(language => interestLanguageIds.has(language.id)).map(language => language.ko).join(" · ")}</p>
     {[...groups].map(([label, entries]) => <section className="language-group" key={label}>
       {label && <div className="language-group-heading">
         <h2>{label} <small>{entries.length}{source && "개"}</small></h2>
@@ -61,6 +60,6 @@ export default function LanguagePage() {
         </Link>)}
       </div>
     </section>)}
-    <LanguageReference />
+    <noscript><LanguageReference /></noscript>
   </section>;
 }

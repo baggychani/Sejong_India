@@ -14,7 +14,9 @@ function find(node, tag) {
 
 // Extract the actual rendered main instead of maintaining a second content set.
 export function readablePage(html, url) {
-  const main = find(parse(html), "main");
+  // Read like a client that does not execute scripts, including semantic
+  // noscript fallbacks. Those fallbacks do not add controls to the normal UI.
+  const main = find(parse(html, { scriptingEnabled: false }), "main");
   if (!main) throw new Error(`page has no main content: ${url}`);
   function text(node) {
     if (node.nodeName === "#text") return node.value.replace(/\s+/g, " ");
