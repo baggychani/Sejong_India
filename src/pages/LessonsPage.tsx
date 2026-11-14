@@ -23,7 +23,7 @@ export function LessonsPage() {
   const textbook = textbooks.find(book => book.id === slug);
   const book = books.find(book => book.slug === slug);
   useEffect(() => {
-    document.title = `${textbook?.title ?? "세종학당 교안"} · ${siteTitle}`;
+    document.title = `${textbook?.title ?? "교안"} · ${siteTitle}`;
   }, [textbook]);
   if (slug && !textbook) return <EntryPage collectionIdOverride="lessons" />;
   if (textbook && book) {
