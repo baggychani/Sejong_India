@@ -38,12 +38,13 @@ export function HomePage() {
           </Link>
         ))}
       </nav>
+      <footer className="home-credit">
       <a className="recruitment-link" href="https://www.ksif.or.kr/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000001&menuNo=30101710" target="_blank" rel="noreferrer" aria-label="세종학당재단 파견교원 채용">
-        <img src={ksifLogo} alt="세종학당" />
+        <img src={ksifLogo} alt="세종학당재단" />
         <span>파견교원 채용</span>
         <span aria-hidden="true">↗</span>
       </a>
-      <footer className="home-credit"><small>© 2026 배기찬</small></footer>
+      <small>© 2026 배기찬</small></footer>
     </article>
   );
 }

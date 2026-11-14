@@ -1,5 +1,6 @@
 import { createWriteStream } from "node:fs";
-import { mkdir, stat } from "node:fs/promises";
+import { mkdir, stat, readFile, rename, rm } from "node:fs/promises";
+import { randomUUID } from "node:crypto";
 import path from "node:path";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
@@ -25,8 +26,8 @@ const sources = [
 
 async function alreadyDownloaded(filePath) {
   try {
-    const info = await stat(filePath);
-    return info.size > 1000;
+    const data = JSON.parse(await readFile(filePath, "utf8"));
+    return data.type === "FeatureCollection" && Array.isArray(data.features) && data.features.length > 0;
   } catch {
     return false;
   }
@@ -43,22 +44,28 @@ async function download(name) {
   let lastError = null;
   for (const toUrl of sources) {
     const url = toUrl(name);
+    const temporary = destination + "." + randomUUID() + ".part";
     console.log(`get ${url}`);
     try {
       const response = await fetch(url, {
+        signal: AbortSignal.timeout(120000),
         headers: { "User-Agent": "SejongIndiaPersonalStudy/0.1" },
         redirect: "follow",
       });
       if (!response.ok || !response.body) {
         throw new Error(`${response.status} ${response.statusText}`);
       }
-      await pipeline(Readable.fromWeb(response.body), createWriteStream(destination));
+      await pipeline(Readable.fromWeb(response.body), createWriteStream(temporary));
+      if (!await alreadyDownloaded(temporary)) throw new Error("Invalid or incomplete GeoJSON");
+      await rename(temporary, destination);
       const info = await stat(destination);
       console.log(`saved ${name} (${info.size} bytes)`);
       return;
     } catch (error) {
       lastError = error;
       console.warn(`failed ${url}: ${error instanceof Error ? error.message : error}`);
+    } finally {
+      await rm(temporary, { force: true });
     }
   }
   throw lastError ?? new Error(`could not download ${name}`);

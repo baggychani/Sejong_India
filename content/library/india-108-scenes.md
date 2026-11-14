@@ -6,4 +6,5 @@ pages: 640
 cover: india-108-scenes.jpg
 spine: "#286957"
 pose: 표지
+order: 2
 ---

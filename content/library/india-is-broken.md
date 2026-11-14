@@ -8,4 +8,5 @@ pages: 632
 cover: india-is-broken.jpg
 spine: "#000000"
 pose: 표지
+order: 1
 ---

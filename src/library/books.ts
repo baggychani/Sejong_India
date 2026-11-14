@@ -24,6 +24,7 @@ export type Book = {
   spine: string;
   ink: string;
   pages?: number;
+  shelfOrder?: number;
   /** Spine height in px before responsive scaling. */
   height: number;
   read?: string;
@@ -77,6 +78,7 @@ function toBook(entry: Entry): Book {
     spine,
     ink: meta.ink || (luminance(spine) > 0.36 ? "#2d2820" : "#f6eedd"),
     pages: Number.isSafeInteger(pages) && pages > 0 ? pages : undefined,
+    shelfOrder: meta.order?.trim() && Number.isFinite(Number(meta.order)) ? Number(meta.order) : undefined,
     height: 176 + (h % 37),
     read: meta.read || undefined,
     reading: meta.status === "읽는 중",
@@ -89,11 +91,12 @@ function toBook(entry: Entry): Book {
 
 let cache: Book[] | undefined;
 
-/** Books in shelf order: the ones being read first (face-out), then oldest read to newest. */
+/** Explicit shelf order takes priority, followed by reading status and completion date. */
 export function allBooks() {
   cache ??= entriesFor("library")
     .map(toBook)
     .sort((a, b) =>
+      (a.shelfOrder ?? Infinity) - (b.shelfOrder ?? Infinity) ||
       Number(b.reading) - Number(a.reading) ||
       (a.read ?? "9999").localeCompare(b.read ?? "9999") ||
       a.title.localeCompare(b.title, "ko"));
