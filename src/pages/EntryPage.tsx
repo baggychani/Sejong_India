@@ -4,6 +4,7 @@ import { findCollection, siteTitle } from "../site/sections";
 import { usePageTitle } from "../site/title";
 import { findEntry } from "../content/load";
 import { NotFoundPage } from "./NotFoundPage";
+import "../styles/interview.css";
 
 export function EntryPage({ collectionIdOverride }: { collectionIdOverride?: string } = {}) {
   const { collectionId, slug } = useParams();
@@ -18,7 +19,7 @@ export function EntryPage({ collectionIdOverride }: { collectionIdOverride?: str
   }
 
   return (
-    <article className="reading entry">
+    <article className={collection.id === "study" ? "reading entry interview-entry" : "reading entry"}>
       <p className="eyebrow">
         <Link to={collection.path}>{collection.title}</Link>
       </p>
