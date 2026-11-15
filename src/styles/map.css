@@ -106,7 +106,11 @@
 .allowance dd { font-weight: 650; font-variant-numeric: tabular-nums; }
 .allowance dd.unconfirmed { color: var(--muted); font-weight: 400; }
 .detail-card dt { color: var(--muted); }
-.detail-card dd { margin: 0; }
+.detail-card dd { position: relative; margin: 0; }
+.fact-note { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-left: 6px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: none; color: var(--muted); font: inherit; font-size: 11px; font-weight: 700; line-height: 1; vertical-align: 1px; cursor: help; }
+.fact-note:hover, .fact-note:focus { color: var(--accent); background: #eef4f0; }
+.fact-note [role="tooltip"] { position: absolute; left: 0; top: calc(100% + 4px); z-index: 2; width: max-content; max-width: 100%; padding: 6px 10px; border-radius: 7px; background: #24332f; color: #fff; font-size: 12px; font-weight: 500; line-height: 1.45; text-align: left; pointer-events: none; opacity: 0; transform: translateY(-2px); transition: opacity .12s, transform .12s; }
+.fact-note:hover [role="tooltip"], .fact-note:focus [role="tooltip"] { opacity: 1; transform: none; }
 .detail-card a { color: var(--accent); }
 .detail-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .detail-card dl + .detail-links { padding-top: 6px; }

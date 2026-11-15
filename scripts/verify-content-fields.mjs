@@ -50,7 +50,12 @@ export function verifyContentFields(outDir) {
   for (const state of states) {
     const record = map(`state-${state.id}`);
     record.expect(state.capital);
-    if (state.capitalNote) record.expect(state.capitalNote);
+    if (state.capitalNote) {
+      // 비고는 주도 칸에 문장으로 붙이지 않고 ? 버튼의 설명으로만 제공한다.
+      record.expect(state.capitalNote);
+      const note = allNodes(nodes.find(node => attr(node, "id") === `state-${state.id}`)).find(node => attr(node, "class") === "fact-note");
+      assert.equal(attr(note, "aria-label"), `비고: ${state.capitalNote}`, `${state.id}: capital note must be a ? button`);
+    }
     for (const city of state.majorCities ?? []) record.expect(city);
     const node = nodes.find(node => attr(node, "id") === `state-${state.id}`);
     const labels = allNodes(node).filter(node => node.tagName === "dt").map(node => allNodes(node).filter(child => child.nodeName === "#text").map(child => child.value).join(""));

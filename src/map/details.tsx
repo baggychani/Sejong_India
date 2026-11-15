@@ -8,7 +8,7 @@ export type DetailRecord = {
   title: string;
   subtitle: string;
   summary?: string;
-  facts?: { label: string; value: string }[];
+  facts?: { label: string; value: string; note?: string }[];
   allowances?: { housingManwon: number; hardshipManwon: number | null };
   links?: { label: string; href: string }[];
   emblem?: { src: string; caption: string; source: string };
@@ -67,7 +67,15 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
           {detail.facts?.map((fact) => (
             <div key={fact.label}>
               <dt>{fact.label}</dt>
-              <dd>{fact.label === "운영기관" ? operatorName(fact.value) : withSeasonMarks(fact.value)}</dd>
+              <dd>
+                {fact.label === "운영기관" ? operatorName(fact.value) : withSeasonMarks(fact.value)}
+                {fact.note && (
+                  <button type="button" className="fact-note" aria-label={`비고: ${fact.note}`}>
+                    <span aria-hidden="true">?</span>
+                    <span role="tooltip">{fact.note}</span>
+                  </button>
+                )}
+              </dd>
             </div>
           ))}
           {showTongues && <MotherTongueRow placeId={detail.id} />}
