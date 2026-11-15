@@ -6,6 +6,7 @@ import { LibraryPage, BookPage } from "./library/LibraryPage";
 import { LessonsPage } from "./pages/LessonsPage";
 import { MapPage } from "./pages/MapPage";
 import LanguagePage from "./pages/LanguagePage";
+import { ReligionPage } from "./pages/ReligionPage";
 import { renderedTitle, resetRenderedTitle } from "./site/title";
 
 export function render(pathname: string, basename: string) {
@@ -17,7 +18,7 @@ export function render(pathname: string, basename: string) {
   const html = renderToString(
     <StrictMode>
       <MemoryRouter initialEntries={[location]} basename={prefix || "/"}>
-        <App pages={{ LibraryPage, BookPage, LessonsPage, MapPage, LanguagePage }} />
+        <App pages={{ LibraryPage, BookPage, LessonsPage, MapPage, LanguagePage, ReligionPage }} />
       </MemoryRouter>
     </StrictMode>,
   );

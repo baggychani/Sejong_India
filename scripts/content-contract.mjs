@@ -20,6 +20,17 @@ const geometry = {
   label: layout, summary: publicValue(),
 };
 const jsonContracts = {
+  religions: { targets: () => [["bharat/religions", "religion-reference"], ["bharat/map", "religion-reference"]], schema: {
+    year: publicValue(), title: publicValue(), description: publicValue(), methodology: publicValue(),
+    groups: [{ id: identity, name: publicValue(), en: publicValue() }],
+    sources: [{ id: identity, title: publicValue(), url: publicValue(), downloadUrl: publicValue(), accessed: publicValue(),
+      sha256: technical("원본 XLS 다운로드의 무결성 확인을 위한 SHA-256 해시다.") }],
+    profiles: [{ id: identity, placeIds: technical("조사 지역과 지도 장소를 연결하는 키다. 지역명과 범위는 area, sourceAreas, note로 공개한다."),
+      area: publicValue(), sourceId: technical("공개 sources 레코드를 연결하는 내부 키다. 각 지역 표의 출처 링크는 레코드별 검사로 확인한다."),
+      sourceAreas: [publicValue()], note: publicValue(), population: publicValue(value => `${value.toLocaleString("ko-KR")}명`),
+      sourceRows: technical("공식 C-01 원본의 주·district·하위구역·도시·도농 행을 정확히 선택하는 코드다. 원자료 지역명과 집계 범위는 공개한다."),
+      religions: [{ id: identity, population: publicValue(value => `${value.toLocaleString("ko-KR")}명`) }] }],
+  } },
   states: { targets: row => [["bharat/map", `state-${row.id}`]], schema: {
     id: identity, capital: publicValue(), capitalNote: publicValue(), majorCities: [publicValue()],
     sources: [{ title: publicValue(), url: publicValue(), accessed: publicValue() }],

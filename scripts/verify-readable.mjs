@@ -9,6 +9,7 @@ import { parse } from "parse5";
 import { verifyLanguageContent } from "./verify-language-content.mjs";
 import { verifyInterviewContent } from "./verify-interview-content.mjs";
 import { verifyRoutes } from "./verify-routes.mjs";
+import { verifyReligionContent } from "./verify-religion-content.mjs";
 
 const outDir = process.argv[2] ?? "dist";
 const siteUrl = "https://baggychani.github.io/Sejong_India/";
@@ -85,3 +86,4 @@ verifyContentContractGuards(outDir);
 verifyLanguageContent(outDir);
 verifyInterviewContent(outDir);
 verifyRoutes(outDir);
+verifyReligionContent(outDir);

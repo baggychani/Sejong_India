@@ -14,6 +14,7 @@ const LibraryPage = lazy(() => import("./library/LibraryPage").then(({ LibraryPa
 const BookPage = lazy(() => import("./library/LibraryPage").then(({ BookPage }) => ({ default: BookPage })));
 const MapPage = lazy(() => import("./pages/MapPage").then(({ MapPage }) => ({ default: MapPage })));
 const LanguagePage = lazy(() => import("./pages/LanguagePage"));
+const ReligionPage = lazy(() => import("./pages/ReligionPage").then(({ ReligionPage }) => ({ default: ReligionPage })));
 const LessonsPage = lazy(() => import("./pages/LessonsPage").then(({ LessonsPage }) => ({ default: LessonsPage })));
 
 function IndiaSection() {
@@ -23,6 +24,7 @@ function IndiaSection() {
     <nav className="india-navigation" id="india-navigation" aria-label="인도" hidden={collapsed}>
       <NavLink to="map" end>지도</NavLink>
       <NavLink to="languages">언어</NavLink>
+      <NavLink to="religions">종교</NavLink>
     </nav>
     <button className="india-nav-toggle" aria-controls="india-navigation" aria-expanded={!collapsed}
       aria-label={label} title={label} onClick={() => setCollapsed(!collapsed)}>
@@ -32,11 +34,11 @@ function IndiaSection() {
   </div>;
 }
 
-export type PageComponents = Record<"LibraryPage" | "BookPage" | "MapPage" | "LanguagePage" | "LessonsPage", ComponentType>;
-const browserPages: PageComponents = { LibraryPage, BookPage, MapPage, LanguagePage, LessonsPage };
+export type PageComponents = Record<"LibraryPage" | "BookPage" | "MapPage" | "LanguagePage" | "ReligionPage" | "LessonsPage", ComponentType>;
+const browserPages: PageComponents = { LibraryPage, BookPage, MapPage, LanguagePage, ReligionPage, LessonsPage };
 
 export function App({ pages = browserPages }: { pages?: PageComponents } = {}) {
-  const { LibraryPage, BookPage, MapPage, LanguagePage, LessonsPage } = pages;
+  const { LibraryPage, BookPage, MapPage, LanguagePage, ReligionPage, LessonsPage } = pages;
   const { pathname } = useLocation();
   return (
     <SiteShell>
@@ -58,6 +60,7 @@ export function App({ pages = browserPages }: { pages?: PageComponents } = {}) {
           </Suspense>
         } />
         <Route path="languages/:id?" element={<Suspense fallback={null}><LanguagePage /></Suspense>} />
+        <Route path="religions" element={<Suspense fallback={null}><ReligionPage /></Suspense>} />
         </Route>
         <Route path="/library" element={<Suspense fallback={null}><LibraryPage /></Suspense>} />
         <Route path="/library/:slug" element={<Suspense fallback={null}><BookPage /></Suspense>} />

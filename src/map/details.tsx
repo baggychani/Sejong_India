@@ -1,4 +1,6 @@
 import { hasMotherTongues, MotherTongueRow } from "./MotherTongues";
+import { ReligionRow } from "./Religions";
+import { religionProfilesByPlace } from "../site/religions";
 
 export type DetailRecord = {
   id: string;
@@ -30,6 +32,7 @@ function withSeasonMarks(value: string) {
 
 export function DetailCard({ detail }: { detail: DetailRecord }) {
   const showTongues = hasMotherTongues(detail.id);
+  const showReligions = religionProfilesByPlace.has(detail.id);
   return (
     <article className="detail-card">
       <div className="detail-heading">
@@ -45,7 +48,7 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
       )}
       </div>
       {detail.summary && <p>{detail.summary}</p>}
-      {(detail.facts || showTongues || detail.allowances) && (
+      {(detail.facts || showTongues || showReligions || detail.allowances) && (
         <dl>
           {detail.allowances && (
             <>
@@ -68,6 +71,7 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
             </div>
           ))}
           {showTongues && <MotherTongueRow placeId={detail.id} />}
+          {showReligions && <ReligionRow placeId={detail.id} />}
         </dl>
       )}
       {detail.links && (

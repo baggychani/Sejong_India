@@ -17,6 +17,7 @@ function stylesFor(manifest, pathname, base) {
   const page = pathname.startsWith("/library") ? "src/library/LibraryPage.tsx"
     : pathname.startsWith("/lessons") ? "src/pages/LessonsPage.tsx"
     : pathname.startsWith("/bharat/languages") ? "src/pages/LanguagePage.tsx"
+    : pathname.startsWith("/bharat/religions") ? "src/pages/ReligionPage.tsx"
     : pathname.startsWith("/bharat/map") ? "src/pages/MapPage.tsx" : null;
   const css = new Set();
   const visited = new Set();

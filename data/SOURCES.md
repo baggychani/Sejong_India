@@ -1,5 +1,15 @@
 # 자료 출처
 
+## 종교별 인구 구성 (2026-11-15 추가)
+
+`data/content/religions.json`은 인도 Census 2011 C-01 공식 XLS의 남녀 합계 인원수에서 생성했다. 6대 종교, 기타 종교·신앙, 종교 미기재를 모두 보존한다. 원본 다운로드 URL·확인일·SHA-256과 선택한 행의 행정구역 코드를 데이터에 보존한다. 비율과 순위는 표시할 때 인원수에서 계산한다.
+
+전국·주 자료는 https://censusindia.gov.in/nada/index.php/catalog/11361 이다. 학당·도시 자료는 Bihar(11366), Karnataka(11378), Maharashtra(11382), Manipur(11383), Tamil Nadu(11392), West Bengal(11396)의 같은 C-01 표를 사용한다.
+
+학당 조사 지역은 기존 모어 자료의 연결 단위를 따른다. BBMP·파트나·임팔은 외곽 확장지(OG)를 포함한 합계 행을 사용하며 하위 부분 행을 더하지 않는다. 첸나이 VIT는 옛 칸치푸람 district 전체, 바라사트 학당은 Barasat-I 블록이고, 바라사트 도시와 별도다. 델리 학당은 델리 수도직할지 전체다. 현재 안드라프라데시·텔랑가나와 잠무 카슈미르·라다크에는 각각 분리 전 2011년 광역 참고치를 연결하고 이를 명시한다. 다드라 나가르하벨리 다만 디우는 2011년 두 직할지의 인원수를 합산했다.
+
+재생성: 원본을 `data/cache/religion-c01-india.xls` 및 `religion-c01-<catalog-id>.xls`로 받은 뒤 `node scripts/import-religions.mjs <SheetJS 모듈 경로>`를 실행한다. 표시는 `src/site/religions.ts`에서 공통 계산하며, 전체 정적 본문은 `ReligionReference`를 지도와 종교 페이지가 공유한다. `npm run check:readable`에 종교 데이터의 합계·지역 연결·중복 집계 방지·분모·순위·정적 HTML/Markdown 검사를 연결했다.
+
 확인 날짜는 2026-11-13이다.
 
 ## 지리 경계, 강, 지형 구역, 도시

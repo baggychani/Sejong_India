@@ -7,6 +7,7 @@ import neighbors from "../../data/content/neighbors.json";
 import states from "../../data/content/states.json";
 import { details } from "./indiaModel";
 import { DetailCard, seasonMarks } from "./details";
+import { ReligionReference } from "../pages/ReligionReference";
 
 /** Always in the HTML, including when the map's selected panel changes. */
 export function MapReference() {
@@ -63,5 +64,6 @@ export function MapReference() {
         </div>)}</dl>
       </details>)}
     </section>
+    <ReligionReference />
   </details>;
 }

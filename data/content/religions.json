@@ -1,0 +1,2530 @@
+{
+  "year": 2011,
+  "title": "종교별 인구 구성",
+  "description": "2011년 인도 인구조사 C-01. 지역 주민 전체의 종교별 인구 구성이며, 현재 비율이나 세종학당 수강생의 구성은 아닙니다.",
+  "methodology": "비율은 각 분류의 원자료 인원수를 해당 조사 지역의 전체 인구로 나누어 계산합니다. 화면의 비율은 소수점 한 자리로 반올림하며, 양수이지만 0.05% 미만이면 <0.1%로 표시합니다. 순위는 기타 종교·신앙을 포함한 실제 인원수로 계산하고, 종교 미기재는 순위에서 제외합니다. 같은 인원수는 공동 순위입니다. 종교 미기재는 무종교를 뜻하지 않습니다. M Corp.는 시 법인, M·MCI는 시 자치체, OG는 시 경계 밖의 외곽 확장지입니다.",
+  "groups": [
+    {
+      "id": "hindu",
+      "name": "힌두교",
+      "en": "Hindu"
+    },
+    {
+      "id": "muslim",
+      "name": "이슬람교",
+      "en": "Muslim"
+    },
+    {
+      "id": "christian",
+      "name": "기독교",
+      "en": "Christian"
+    },
+    {
+      "id": "sikh",
+      "name": "시크교",
+      "en": "Sikh"
+    },
+    {
+      "id": "buddhist",
+      "name": "불교",
+      "en": "Buddhist"
+    },
+    {
+      "id": "jain",
+      "name": "자이나교",
+      "en": "Jain"
+    },
+    {
+      "id": "other",
+      "name": "기타 종교·신앙",
+      "en": "Other religions and persuasions (incl.Unclassified Sect.)"
+    },
+    {
+      "id": "not-stated",
+      "name": "종교 미기재",
+      "en": "Religion not stated"
+    }
+  ],
+  "sources": [
+    {
+      "id": "india",
+      "title": "C-01: Population by religious community, India - 2011",
+      "url": "https://censusindia.gov.in/nada/index.php/catalog/11361",
+      "downloadUrl": "https://censusindia.gov.in/nada/index.php/catalog/11361/download/14474/DDW00C-01%20MDDS.XLS",
+      "sha256": "c3fee2bb235f4ef511d9aaeceaf5f8026b48908f813c6d1cc06413a6c8a0d9cd",
+      "accessed": "2026-11-15"
+    },
+    {
+      "id": "bihar",
+      "title": "C-01: Population by religious community, Bihar - 2011",
+      "url": "https://censusindia.gov.in/nada/index.php/catalog/11366",
+      "downloadUrl": "https://censusindia.gov.in/nada/index.php/catalog/11366/download/14479/DDW10C-01%20MDDS.XLS",
+      "sha256": "b00824a5382302263b8af81e4ed4d7165b92ac2782aaebce4760e6883527b737",
+      "accessed": "2026-11-15"
+    },
+    {
+      "id": "karnataka",
+      "title": "C-01: Population by religious community, Karnataka - 2011",
+      "url": "https://censusindia.gov.in/nada/index.php/catalog/11378",
+      "downloadUrl": "https://censusindia.gov.in/nada/index.php/catalog/11378/download/14491/DDW29C-01%20MDDS.XLS",
+      "sha256": "c0f40e1ede9d35e5e52357b759c58b6b2424223c202d97baabbeedfe05ad8e0a",
+      "accessed": "2026-11-15"
+    },
+    {
+      "id": "maharashtra",
+      "title": "C-01: Population by religious community, Maharashtra - 2011",
+      "url": "https://censusindia.gov.in/nada/index.php/catalog/11382",
+      "downloadUrl": "https://censusindia.gov.in/nada/index.php/catalog/11382/download/14495/DDW27C-01%20MDDS.XLS",
+      "sha256": "bce626419f500bd7e1525b74e2da64285e4a5c021b65cee7492b1ba6b62bb9bd",
+      "accessed": "2026-11-15"
+    },
+    {
+      "id": "manipur",
+      "title": "C-01: Population by religious community, Manipur - 2011",
+      "url": "https://censusindia.gov.in/nada/index.php/catalog/11383",
+      "downloadUrl": "https://censusindia.gov.in/nada/index.php/catalog/11383/download/14496/DDW14C-01%20MDDS.XLS",
+      "sha256": "5ec60bf78774f231838b65abd488fc9619f463c2d67f171ceeb2109684891ca3",
+      "accessed": "2026-11-15"
+    },
+    {
+      "id": "tamil-nadu",
+      "title": "C-01: Population by religious community, Tamil Nadu - 2011",
+      "url": "https://censusindia.gov.in/nada/index.php/catalog/11392",
+      "downloadUrl": "https://censusindia.gov.in/nada/index.php/catalog/11392/download/14505/DDW33C-01%20MDDS.XLS",
+      "sha256": "5766414c82e96d26f3c15d87e468742d7cb68a9fdfab5f9d5a41e5d1525dd7f2",
+      "accessed": "2026-11-15"
+    },
+    {
+      "id": "west-bengal",
+      "title": "C-01: Population by religious community, West Bengal - 2011",
+      "url": "https://censusindia.gov.in/nada/index.php/catalog/11396",
+      "downloadUrl": "https://censusindia.gov.in/nada/index.php/catalog/11396/download/14509/DDW19C-01%20MDDS.XLS",
+      "sha256": "723b9edf6254c86adac24e5ccd99efb74e044eac5ff31683910f05357ee179c9",
+      "accessed": "2026-11-15"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "india",
+      "placeIds": [],
+      "area": "인도 전국",
+      "sourceId": "india",
+      "sourceAreas": [
+        "INDIA"
+      ],
+      "sourceRows": [
+        {
+          "state": "00",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 1210854977,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 966257353
+        },
+        {
+          "id": "muslim",
+          "population": 172245158
+        },
+        {
+          "id": "christian",
+          "population": 27819588
+        },
+        {
+          "id": "sikh",
+          "population": 20833116
+        },
+        {
+          "id": "buddhist",
+          "population": 8442972
+        },
+        {
+          "id": "jain",
+          "population": 4451753
+        },
+        {
+          "id": "other",
+          "population": 7937734
+        },
+        {
+          "id": "not-stated",
+          "population": 2867303
+        }
+      ]
+    },
+    {
+      "id": "IN-DL",
+      "placeIds": [
+        "IN-DL",
+        "delhi-kcci"
+      ],
+      "area": "델리 수도직할지 전체",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - NCT OF DELHI"
+      ],
+      "sourceRows": [
+        {
+          "state": "07",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 16787941,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 13712100
+        },
+        {
+          "id": "muslim",
+          "population": 2158684
+        },
+        {
+          "id": "christian",
+          "population": 146093
+        },
+        {
+          "id": "sikh",
+          "population": 570581
+        },
+        {
+          "id": "buddhist",
+          "population": 18449
+        },
+        {
+          "id": "jain",
+          "population": 166231
+        },
+        {
+          "id": "other",
+          "population": 2197
+        },
+        {
+          "id": "not-stated",
+          "population": 13606
+        }
+      ]
+    },
+    {
+      "id": "IN-BR",
+      "placeIds": [
+        "IN-BR"
+      ],
+      "area": "비하르주",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - BIHAR"
+      ],
+      "sourceRows": [
+        {
+          "state": "10",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 104099452,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 86078686
+        },
+        {
+          "id": "muslim",
+          "population": 17557809
+        },
+        {
+          "id": "christian",
+          "population": 129247
+        },
+        {
+          "id": "sikh",
+          "population": 23779
+        },
+        {
+          "id": "buddhist",
+          "population": 25453
+        },
+        {
+          "id": "jain",
+          "population": 18914
+        },
+        {
+          "id": "other",
+          "population": 13437
+        },
+        {
+          "id": "not-stated",
+          "population": 252127
+        }
+      ]
+    },
+    {
+      "id": "IN-MN",
+      "placeIds": [
+        "IN-MN"
+      ],
+      "area": "마니푸르주",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - MANIPUR"
+      ],
+      "sourceRows": [
+        {
+          "state": "14",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 2855794,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 1181876
+        },
+        {
+          "id": "muslim",
+          "population": 239836
+        },
+        {
+          "id": "christian",
+          "population": 1179043
+        },
+        {
+          "id": "sikh",
+          "population": 1527
+        },
+        {
+          "id": "buddhist",
+          "population": 7084
+        },
+        {
+          "id": "jain",
+          "population": 1692
+        },
+        {
+          "id": "other",
+          "population": 233767
+        },
+        {
+          "id": "not-stated",
+          "population": 10969
+        }
+      ]
+    },
+    {
+      "id": "IN-WB",
+      "placeIds": [
+        "IN-WB"
+      ],
+      "area": "서벵골주",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - WEST BENGAL"
+      ],
+      "sourceRows": [
+        {
+          "state": "19",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 91276115,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 64385546
+        },
+        {
+          "id": "muslim",
+          "population": 24654825
+        },
+        {
+          "id": "christian",
+          "population": 658618
+        },
+        {
+          "id": "sikh",
+          "population": 63523
+        },
+        {
+          "id": "buddhist",
+          "population": 282898
+        },
+        {
+          "id": "jain",
+          "population": 60141
+        },
+        {
+          "id": "other",
+          "population": 942297
+        },
+        {
+          "id": "not-stated",
+          "population": 228267
+        }
+      ]
+    },
+    {
+      "id": "IN-MH",
+      "placeIds": [
+        "IN-MH"
+      ],
+      "area": "마하라슈트라주",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - MAHARASHTRA"
+      ],
+      "sourceRows": [
+        {
+          "state": "27",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 112374333,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 89703057
+        },
+        {
+          "id": "muslim",
+          "population": 12971152
+        },
+        {
+          "id": "christian",
+          "population": 1080073
+        },
+        {
+          "id": "sikh",
+          "population": 223247
+        },
+        {
+          "id": "buddhist",
+          "population": 6531200
+        },
+        {
+          "id": "jain",
+          "population": 1400349
+        },
+        {
+          "id": "other",
+          "population": 178965
+        },
+        {
+          "id": "not-stated",
+          "population": 286290
+        }
+      ]
+    },
+    {
+      "id": "IN-KA",
+      "placeIds": [
+        "IN-KA"
+      ],
+      "area": "카르나타카주",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - KARNATAKA"
+      ],
+      "sourceRows": [
+        {
+          "state": "29",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 61095297,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 51317472
+        },
+        {
+          "id": "muslim",
+          "population": 7893065
+        },
+        {
+          "id": "christian",
+          "population": 1142647
+        },
+        {
+          "id": "sikh",
+          "population": 28773
+        },
+        {
+          "id": "buddhist",
+          "population": 95710
+        },
+        {
+          "id": "jain",
+          "population": 440280
+        },
+        {
+          "id": "other",
+          "population": 11263
+        },
+        {
+          "id": "not-stated",
+          "population": 166087
+        }
+      ]
+    },
+    {
+      "id": "IN-TN",
+      "placeIds": [
+        "IN-TN"
+      ],
+      "area": "타밀나두주",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - TAMIL NADU"
+      ],
+      "sourceRows": [
+        {
+          "state": "33",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 72147030,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 63188168
+        },
+        {
+          "id": "muslim",
+          "population": 4229479
+        },
+        {
+          "id": "christian",
+          "population": 4418331
+        },
+        {
+          "id": "sikh",
+          "population": 14601
+        },
+        {
+          "id": "buddhist",
+          "population": 11186
+        },
+        {
+          "id": "jain",
+          "population": 89265
+        },
+        {
+          "id": "other",
+          "population": 7414
+        },
+        {
+          "id": "not-stated",
+          "population": 188586
+        }
+      ]
+    },
+    {
+      "id": "IN-AP",
+      "placeIds": [
+        "IN-AP",
+        "IN-TG"
+      ],
+      "area": "2011년 안드라프라데시주 (텔랑가나 포함)",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - ANDHRA PRADESH"
+      ],
+      "sourceRows": [
+        {
+          "state": "28",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "2011년 분리 전 안드라프라데시주 전체로, 현재 텔랑가나를 포함한 광역 참고치입니다. 현재 두 주의 개별 비율이 아닙니다.",
+      "population": 84580777,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 74824149
+        },
+        {
+          "id": "muslim",
+          "population": 8082412
+        },
+        {
+          "id": "christian",
+          "population": 1129784
+        },
+        {
+          "id": "sikh",
+          "population": 40244
+        },
+        {
+          "id": "buddhist",
+          "population": 36692
+        },
+        {
+          "id": "jain",
+          "population": 53849
+        },
+        {
+          "id": "other",
+          "population": 9547
+        },
+        {
+          "id": "not-stated",
+          "population": 404100
+        }
+      ]
+    },
+    {
+      "id": "IN-AR",
+      "placeIds": [
+        "IN-AR"
+      ],
+      "area": "아루나찰프라데시",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - ARUNACHAL PRADESH"
+      ],
+      "sourceRows": [
+        {
+          "state": "12",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 1383727,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 401876
+        },
+        {
+          "id": "muslim",
+          "population": 27045
+        },
+        {
+          "id": "christian",
+          "population": 418732
+        },
+        {
+          "id": "sikh",
+          "population": 3287
+        },
+        {
+          "id": "buddhist",
+          "population": 162815
+        },
+        {
+          "id": "jain",
+          "population": 771
+        },
+        {
+          "id": "other",
+          "population": 362553
+        },
+        {
+          "id": "not-stated",
+          "population": 6648
+        }
+      ]
+    },
+    {
+      "id": "IN-AS",
+      "placeIds": [
+        "IN-AS"
+      ],
+      "area": "아삼",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - ASSAM"
+      ],
+      "sourceRows": [
+        {
+          "state": "18",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 31205576,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 19180759
+        },
+        {
+          "id": "muslim",
+          "population": 10679345
+        },
+        {
+          "id": "christian",
+          "population": 1165867
+        },
+        {
+          "id": "sikh",
+          "population": 20672
+        },
+        {
+          "id": "buddhist",
+          "population": 54993
+        },
+        {
+          "id": "jain",
+          "population": 25949
+        },
+        {
+          "id": "other",
+          "population": 27118
+        },
+        {
+          "id": "not-stated",
+          "population": 50873
+        }
+      ]
+    },
+    {
+      "id": "IN-CT",
+      "placeIds": [
+        "IN-CT"
+      ],
+      "area": "차티스가르",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - CHHATTISGARH"
+      ],
+      "sourceRows": [
+        {
+          "state": "22",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 25545198,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 23819789
+        },
+        {
+          "id": "muslim",
+          "population": 514998
+        },
+        {
+          "id": "christian",
+          "population": 490542
+        },
+        {
+          "id": "sikh",
+          "population": 70036
+        },
+        {
+          "id": "buddhist",
+          "population": 70467
+        },
+        {
+          "id": "jain",
+          "population": 61510
+        },
+        {
+          "id": "other",
+          "population": 494594
+        },
+        {
+          "id": "not-stated",
+          "population": 23262
+        }
+      ]
+    },
+    {
+      "id": "IN-GA",
+      "placeIds": [
+        "IN-GA"
+      ],
+      "area": "고아",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - GOA"
+      ],
+      "sourceRows": [
+        {
+          "state": "30",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 1458545,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 963877
+        },
+        {
+          "id": "muslim",
+          "population": 121564
+        },
+        {
+          "id": "christian",
+          "population": 366130
+        },
+        {
+          "id": "sikh",
+          "population": 1473
+        },
+        {
+          "id": "buddhist",
+          "population": 1095
+        },
+        {
+          "id": "jain",
+          "population": 1109
+        },
+        {
+          "id": "other",
+          "population": 258
+        },
+        {
+          "id": "not-stated",
+          "population": 3039
+        }
+      ]
+    },
+    {
+      "id": "IN-GJ",
+      "placeIds": [
+        "IN-GJ"
+      ],
+      "area": "구자라트",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - GUJARAT"
+      ],
+      "sourceRows": [
+        {
+          "state": "24",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 60439692,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 53533988
+        },
+        {
+          "id": "muslim",
+          "population": 5846761
+        },
+        {
+          "id": "christian",
+          "population": 316178
+        },
+        {
+          "id": "sikh",
+          "population": 58246
+        },
+        {
+          "id": "buddhist",
+          "population": 30483
+        },
+        {
+          "id": "jain",
+          "population": 579654
+        },
+        {
+          "id": "other",
+          "population": 16480
+        },
+        {
+          "id": "not-stated",
+          "population": 57902
+        }
+      ]
+    },
+    {
+      "id": "IN-HR",
+      "placeIds": [
+        "IN-HR"
+      ],
+      "area": "하리아나",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - HARYANA"
+      ],
+      "sourceRows": [
+        {
+          "state": "06",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 25351462,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 22171128
+        },
+        {
+          "id": "muslim",
+          "population": 1781342
+        },
+        {
+          "id": "christian",
+          "population": 50353
+        },
+        {
+          "id": "sikh",
+          "population": 1243752
+        },
+        {
+          "id": "buddhist",
+          "population": 7514
+        },
+        {
+          "id": "jain",
+          "population": 52613
+        },
+        {
+          "id": "other",
+          "population": 2548
+        },
+        {
+          "id": "not-stated",
+          "population": 42212
+        }
+      ]
+    },
+    {
+      "id": "IN-HP",
+      "placeIds": [
+        "IN-HP"
+      ],
+      "area": "히마찰프라데시",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - HIMACHAL PRADESH"
+      ],
+      "sourceRows": [
+        {
+          "state": "02",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 6864602,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 6532765
+        },
+        {
+          "id": "muslim",
+          "population": 149881
+        },
+        {
+          "id": "christian",
+          "population": 12646
+        },
+        {
+          "id": "sikh",
+          "population": 79896
+        },
+        {
+          "id": "buddhist",
+          "population": 78659
+        },
+        {
+          "id": "jain",
+          "population": 1805
+        },
+        {
+          "id": "other",
+          "population": 856
+        },
+        {
+          "id": "not-stated",
+          "population": 8094
+        }
+      ]
+    },
+    {
+      "id": "IN-JH",
+      "placeIds": [
+        "IN-JH"
+      ],
+      "area": "자르칸드",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - JHARKHAND"
+      ],
+      "sourceRows": [
+        {
+          "state": "20",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 32988134,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 22376051
+        },
+        {
+          "id": "muslim",
+          "population": 4793994
+        },
+        {
+          "id": "christian",
+          "population": 1418608
+        },
+        {
+          "id": "sikh",
+          "population": 71422
+        },
+        {
+          "id": "buddhist",
+          "population": 8956
+        },
+        {
+          "id": "jain",
+          "population": 14974
+        },
+        {
+          "id": "other",
+          "population": 4235786
+        },
+        {
+          "id": "not-stated",
+          "population": 68343
+        }
+      ]
+    },
+    {
+      "id": "IN-KL",
+      "placeIds": [
+        "IN-KL"
+      ],
+      "area": "케랄라",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - KERALA"
+      ],
+      "sourceRows": [
+        {
+          "state": "32",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 33406061,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 18282492
+        },
+        {
+          "id": "muslim",
+          "population": 8873472
+        },
+        {
+          "id": "christian",
+          "population": 6141269
+        },
+        {
+          "id": "sikh",
+          "population": 3814
+        },
+        {
+          "id": "buddhist",
+          "population": 4752
+        },
+        {
+          "id": "jain",
+          "population": 4489
+        },
+        {
+          "id": "other",
+          "population": 7618
+        },
+        {
+          "id": "not-stated",
+          "population": 88155
+        }
+      ]
+    },
+    {
+      "id": "IN-MP",
+      "placeIds": [
+        "IN-MP"
+      ],
+      "area": "마디아프라데시",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - MADHYA PRADESH"
+      ],
+      "sourceRows": [
+        {
+          "state": "23",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 72626809,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 66007121
+        },
+        {
+          "id": "muslim",
+          "population": 4774695
+        },
+        {
+          "id": "christian",
+          "population": 213282
+        },
+        {
+          "id": "sikh",
+          "population": 151412
+        },
+        {
+          "id": "buddhist",
+          "population": 216052
+        },
+        {
+          "id": "jain",
+          "population": 567028
+        },
+        {
+          "id": "other",
+          "population": 599594
+        },
+        {
+          "id": "not-stated",
+          "population": 97625
+        }
+      ]
+    },
+    {
+      "id": "IN-ML",
+      "placeIds": [
+        "IN-ML"
+      ],
+      "area": "메갈라야",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - MEGHALAYA"
+      ],
+      "sourceRows": [
+        {
+          "state": "17",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 2966889,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 342078
+        },
+        {
+          "id": "muslim",
+          "population": 130399
+        },
+        {
+          "id": "christian",
+          "population": 2213027
+        },
+        {
+          "id": "sikh",
+          "population": 3045
+        },
+        {
+          "id": "buddhist",
+          "population": 9864
+        },
+        {
+          "id": "jain",
+          "population": 627
+        },
+        {
+          "id": "other",
+          "population": 258271
+        },
+        {
+          "id": "not-stated",
+          "population": 9578
+        }
+      ]
+    },
+    {
+      "id": "IN-MZ",
+      "placeIds": [
+        "IN-MZ"
+      ],
+      "area": "미조람",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - MIZORAM"
+      ],
+      "sourceRows": [
+        {
+          "state": "15",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 1097206,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 30136
+        },
+        {
+          "id": "muslim",
+          "population": 14832
+        },
+        {
+          "id": "christian",
+          "population": 956331
+        },
+        {
+          "id": "sikh",
+          "population": 286
+        },
+        {
+          "id": "buddhist",
+          "population": 93411
+        },
+        {
+          "id": "jain",
+          "population": 376
+        },
+        {
+          "id": "other",
+          "population": 808
+        },
+        {
+          "id": "not-stated",
+          "population": 1026
+        }
+      ]
+    },
+    {
+      "id": "IN-NL",
+      "placeIds": [
+        "IN-NL"
+      ],
+      "area": "나갈랜드",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - NAGALAND"
+      ],
+      "sourceRows": [
+        {
+          "state": "13",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 1978502,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 173054
+        },
+        {
+          "id": "muslim",
+          "population": 48963
+        },
+        {
+          "id": "christian",
+          "population": 1739651
+        },
+        {
+          "id": "sikh",
+          "population": 1890
+        },
+        {
+          "id": "buddhist",
+          "population": 6759
+        },
+        {
+          "id": "jain",
+          "population": 2655
+        },
+        {
+          "id": "other",
+          "population": 3214
+        },
+        {
+          "id": "not-stated",
+          "population": 2316
+        }
+      ]
+    },
+    {
+      "id": "IN-OR",
+      "placeIds": [
+        "IN-OR"
+      ],
+      "area": "오디샤",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - ODISHA"
+      ],
+      "sourceRows": [
+        {
+          "state": "21",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 41974218,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 39300341
+        },
+        {
+          "id": "muslim",
+          "population": 911670
+        },
+        {
+          "id": "christian",
+          "population": 1161708
+        },
+        {
+          "id": "sikh",
+          "population": 21991
+        },
+        {
+          "id": "buddhist",
+          "population": 13852
+        },
+        {
+          "id": "jain",
+          "population": 9420
+        },
+        {
+          "id": "other",
+          "population": 478317
+        },
+        {
+          "id": "not-stated",
+          "population": 76919
+        }
+      ]
+    },
+    {
+      "id": "IN-PB",
+      "placeIds": [
+        "IN-PB"
+      ],
+      "area": "펀자브",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - PUNJAB"
+      ],
+      "sourceRows": [
+        {
+          "state": "03",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 27743338,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 10678138
+        },
+        {
+          "id": "muslim",
+          "population": 535489
+        },
+        {
+          "id": "christian",
+          "population": 348230
+        },
+        {
+          "id": "sikh",
+          "population": 16004754
+        },
+        {
+          "id": "buddhist",
+          "population": 33237
+        },
+        {
+          "id": "jain",
+          "population": 45040
+        },
+        {
+          "id": "other",
+          "population": 10886
+        },
+        {
+          "id": "not-stated",
+          "population": 87564
+        }
+      ]
+    },
+    {
+      "id": "IN-RJ",
+      "placeIds": [
+        "IN-RJ"
+      ],
+      "area": "라자스탄",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - RAJASTHAN"
+      ],
+      "sourceRows": [
+        {
+          "state": "08",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 68548437,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 60657103
+        },
+        {
+          "id": "muslim",
+          "population": 6215377
+        },
+        {
+          "id": "christian",
+          "population": 96430
+        },
+        {
+          "id": "sikh",
+          "population": 872930
+        },
+        {
+          "id": "buddhist",
+          "population": 12185
+        },
+        {
+          "id": "jain",
+          "population": 622023
+        },
+        {
+          "id": "other",
+          "population": 4676
+        },
+        {
+          "id": "not-stated",
+          "population": 67713
+        }
+      ]
+    },
+    {
+      "id": "IN-SK",
+      "placeIds": [
+        "IN-SK"
+      ],
+      "area": "시킴",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - SIKKIM"
+      ],
+      "sourceRows": [
+        {
+          "state": "11",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 610577,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 352662
+        },
+        {
+          "id": "muslim",
+          "population": 9867
+        },
+        {
+          "id": "christian",
+          "population": 60522
+        },
+        {
+          "id": "sikh",
+          "population": 1868
+        },
+        {
+          "id": "buddhist",
+          "population": 167216
+        },
+        {
+          "id": "jain",
+          "population": 314
+        },
+        {
+          "id": "other",
+          "population": 16300
+        },
+        {
+          "id": "not-stated",
+          "population": 1828
+        }
+      ]
+    },
+    {
+      "id": "IN-TR",
+      "placeIds": [
+        "IN-TR"
+      ],
+      "area": "트리푸라",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - TRIPURA"
+      ],
+      "sourceRows": [
+        {
+          "state": "16",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 3673917,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 3063903
+        },
+        {
+          "id": "muslim",
+          "population": 316042
+        },
+        {
+          "id": "christian",
+          "population": 159882
+        },
+        {
+          "id": "sikh",
+          "population": 1070
+        },
+        {
+          "id": "buddhist",
+          "population": 125385
+        },
+        {
+          "id": "jain",
+          "population": 860
+        },
+        {
+          "id": "other",
+          "population": 1514
+        },
+        {
+          "id": "not-stated",
+          "population": 5261
+        }
+      ]
+    },
+    {
+      "id": "IN-UP",
+      "placeIds": [
+        "IN-UP"
+      ],
+      "area": "우타르프라데시",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - UTTAR PRADESH"
+      ],
+      "sourceRows": [
+        {
+          "state": "09",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 199812341,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 159312654
+        },
+        {
+          "id": "muslim",
+          "population": 38483967
+        },
+        {
+          "id": "christian",
+          "population": 356448
+        },
+        {
+          "id": "sikh",
+          "population": 643500
+        },
+        {
+          "id": "buddhist",
+          "population": 206285
+        },
+        {
+          "id": "jain",
+          "population": 213267
+        },
+        {
+          "id": "other",
+          "population": 13598
+        },
+        {
+          "id": "not-stated",
+          "population": 582622
+        }
+      ]
+    },
+    {
+      "id": "IN-UT",
+      "placeIds": [
+        "IN-UT"
+      ],
+      "area": "우타라칸드",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - UTTARAKHAND"
+      ],
+      "sourceRows": [
+        {
+          "state": "05",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 10086292,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 8368636
+        },
+        {
+          "id": "muslim",
+          "population": 1406825
+        },
+        {
+          "id": "christian",
+          "population": 37781
+        },
+        {
+          "id": "sikh",
+          "population": 236340
+        },
+        {
+          "id": "buddhist",
+          "population": 14926
+        },
+        {
+          "id": "jain",
+          "population": 9183
+        },
+        {
+          "id": "other",
+          "population": 993
+        },
+        {
+          "id": "not-stated",
+          "population": 11608
+        }
+      ]
+    },
+    {
+      "id": "IN-AN",
+      "placeIds": [
+        "IN-AN"
+      ],
+      "area": "안다만 니코바르 제도",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - ANDAMAN & NICOBAR ISLANDS"
+      ],
+      "sourceRows": [
+        {
+          "state": "35",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 380581,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 264296
+        },
+        {
+          "id": "muslim",
+          "population": 32413
+        },
+        {
+          "id": "christian",
+          "population": 80984
+        },
+        {
+          "id": "sikh",
+          "population": 1286
+        },
+        {
+          "id": "buddhist",
+          "population": 338
+        },
+        {
+          "id": "jain",
+          "population": 31
+        },
+        {
+          "id": "other",
+          "population": 564
+        },
+        {
+          "id": "not-stated",
+          "population": 669
+        }
+      ]
+    },
+    {
+      "id": "IN-CH",
+      "placeIds": [
+        "IN-CH"
+      ],
+      "area": "찬디가르",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - CHANDIGARH"
+      ],
+      "sourceRows": [
+        {
+          "state": "04",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 1055450,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 852574
+        },
+        {
+          "id": "muslim",
+          "population": 51447
+        },
+        {
+          "id": "christian",
+          "population": 8720
+        },
+        {
+          "id": "sikh",
+          "population": 138329
+        },
+        {
+          "id": "buddhist",
+          "population": 1160
+        },
+        {
+          "id": "jain",
+          "population": 1960
+        },
+        {
+          "id": "other",
+          "population": 246
+        },
+        {
+          "id": "not-stated",
+          "population": 1014
+        }
+      ]
+    },
+    {
+      "id": "IN-DH",
+      "placeIds": [
+        "IN-DH"
+      ],
+      "area": "다드라 나가르하벨리 다만 디우",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - DAMAN & DIU",
+        "State - DADRA & NAGAR HAVELI"
+      ],
+      "sourceRows": [
+        {
+          "state": "25",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        },
+        {
+          "state": "26",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "2011년 다만 디우와 다드라 나가르하벨리의 인원수를 합산해 계산했습니다.",
+      "population": 586956,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 543007
+        },
+        {
+          "id": "muslim",
+          "population": 32199
+        },
+        {
+          "id": "christian",
+          "population": 7933
+        },
+        {
+          "id": "sikh",
+          "population": 389
+        },
+        {
+          "id": "buddhist",
+          "population": 851
+        },
+        {
+          "id": "jain",
+          "population": 1473
+        },
+        {
+          "id": "other",
+          "population": 372
+        },
+        {
+          "id": "not-stated",
+          "population": 732
+        }
+      ]
+    },
+    {
+      "id": "IN-JK",
+      "placeIds": [
+        "IN-JK",
+        "IN-LA"
+      ],
+      "area": "2011년 잠무 카슈미르주 (라다크 포함)",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - JAMMU & KASHMIR"
+      ],
+      "sourceRows": [
+        {
+          "state": "01",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "2011년 분리 전 잠무 카슈미르주 전체로, 현재 라다크를 포함한 광역 참고치입니다. 현재 두 연방직할지의 개별 비율이 아닙니다.",
+      "population": 12541302,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 3566674
+        },
+        {
+          "id": "muslim",
+          "population": 8567485
+        },
+        {
+          "id": "christian",
+          "population": 35631
+        },
+        {
+          "id": "sikh",
+          "population": 234848
+        },
+        {
+          "id": "buddhist",
+          "population": 112584
+        },
+        {
+          "id": "jain",
+          "population": 2490
+        },
+        {
+          "id": "other",
+          "population": 1508
+        },
+        {
+          "id": "not-stated",
+          "population": 20082
+        }
+      ]
+    },
+    {
+      "id": "IN-LD",
+      "placeIds": [
+        "IN-LD"
+      ],
+      "area": "락샤드위프",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - LAKSHADWEEP"
+      ],
+      "sourceRows": [
+        {
+          "state": "31",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 64473,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 1788
+        },
+        {
+          "id": "muslim",
+          "population": 62268
+        },
+        {
+          "id": "christian",
+          "population": 317
+        },
+        {
+          "id": "sikh",
+          "population": 8
+        },
+        {
+          "id": "buddhist",
+          "population": 10
+        },
+        {
+          "id": "jain",
+          "population": 11
+        },
+        {
+          "id": "other",
+          "population": 7
+        },
+        {
+          "id": "not-stated",
+          "population": 64
+        }
+      ]
+    },
+    {
+      "id": "IN-PY",
+      "placeIds": [
+        "IN-PY"
+      ],
+      "area": "푸두체리",
+      "sourceId": "india",
+      "sourceAreas": [
+        "State - PUDUCHERRY"
+      ],
+      "sourceRows": [
+        {
+          "state": "34",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 1247953,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 1089409
+        },
+        {
+          "id": "muslim",
+          "population": 75556
+        },
+        {
+          "id": "christian",
+          "population": 78550
+        },
+        {
+          "id": "sikh",
+          "population": 297
+        },
+        {
+          "id": "buddhist",
+          "population": 451
+        },
+        {
+          "id": "jain",
+          "population": 1400
+        },
+        {
+          "id": "other",
+          "population": 168
+        },
+        {
+          "id": "not-stated",
+          "population": 2122
+        }
+      ]
+    },
+    {
+      "id": "bengaluru",
+      "placeIds": [
+        "bengaluru-cmr",
+        "Bengaluru"
+      ],
+      "area": "벵갈루루 시역 및 외곽 확장지",
+      "sourceId": "karnataka",
+      "sourceAreas": [
+        "BBMP (M Corp. + OG)"
+      ],
+      "sourceRows": [
+        {
+          "state": "29",
+          "district": "572",
+          "subdistrict": "00000",
+          "town": "803162",
+          "residence": "Urban"
+        }
+      ],
+      "note": "",
+      "population": 8495492,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 6700092
+        },
+        {
+          "id": "muslim",
+          "population": 1181077
+        },
+        {
+          "id": "christian",
+          "population": 476834
+        },
+        {
+          "id": "sikh",
+          "population": 12412
+        },
+        {
+          "id": "buddhist",
+          "population": 5150
+        },
+        {
+          "id": "jain",
+          "population": 82197
+        },
+        {
+          "id": "other",
+          "population": 486
+        },
+        {
+          "id": "not-stated",
+          "population": 37244
+        }
+      ]
+    },
+    {
+      "id": "chennai",
+      "placeIds": [
+        "chennai-inko",
+        "Chennai"
+      ],
+      "area": "첸나이 시역",
+      "sourceId": "tamil-nadu",
+      "sourceAreas": [
+        "Chennai (M Corp.)"
+      ],
+      "sourceRows": [
+        {
+          "state": "33",
+          "district": "603",
+          "subdistrict": "99999",
+          "town": "803339",
+          "residence": "Urban"
+        }
+      ],
+      "note": "",
+      "population": 4646732,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 3751322
+        },
+        {
+          "id": "muslim",
+          "population": 439270
+        },
+        {
+          "id": "christian",
+          "population": 358662
+        },
+        {
+          "id": "sikh",
+          "population": 2851
+        },
+        {
+          "id": "buddhist",
+          "population": 2804
+        },
+        {
+          "id": "jain",
+          "population": 51708
+        },
+        {
+          "id": "other",
+          "population": 1759
+        },
+        {
+          "id": "not-stated",
+          "population": 38356
+        }
+      ]
+    },
+    {
+      "id": "kancheepuram",
+      "placeIds": [
+        "chennai-vit"
+      ],
+      "area": "옛 칸치푸람구 전체 (광역 참고)",
+      "sourceId": "tamil-nadu",
+      "sourceAreas": [
+        "District - Kancheepuram"
+      ],
+      "sourceRows": [
+        {
+          "state": "33",
+          "district": "604",
+          "subdistrict": "00000",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "2011년 옛 칸치푸람 district 전체입니다. 학당 주변 동네나 현재 첸갈파투 district만의 비율이 아닙니다.",
+      "population": 3998252,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 3537399
+        },
+        {
+          "id": "muslim",
+          "population": 173785
+        },
+        {
+          "id": "christian",
+          "population": 256762
+        },
+        {
+          "id": "sikh",
+          "population": 1620
+        },
+        {
+          "id": "buddhist",
+          "population": 990
+        },
+        {
+          "id": "jain",
+          "population": 4962
+        },
+        {
+          "id": "other",
+          "population": 756
+        },
+        {
+          "id": "not-stated",
+          "population": 21978
+        }
+      ]
+    },
+    {
+      "id": "pune",
+      "placeIds": [
+        "pune-ikc",
+        "Pune"
+      ],
+      "area": "푸네 시역",
+      "sourceId": "maharashtra",
+      "sourceAreas": [
+        "Pune (M Corp.)"
+      ],
+      "sourceRows": [
+        {
+          "state": "27",
+          "district": "521",
+          "subdistrict": "04194",
+          "town": "802814",
+          "residence": "Urban"
+        }
+      ],
+      "note": "",
+      "population": 3124458,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 2481627
+        },
+        {
+          "id": "muslim",
+          "population": 344571
+        },
+        {
+          "id": "christian",
+          "population": 67808
+        },
+        {
+          "id": "sikh",
+          "population": 13558
+        },
+        {
+          "id": "buddhist",
+          "population": 123179
+        },
+        {
+          "id": "jain",
+          "population": 76441
+        },
+        {
+          "id": "other",
+          "population": 6368
+        },
+        {
+          "id": "not-stated",
+          "population": 10906
+        }
+      ]
+    },
+    {
+      "id": "patna",
+      "placeIds": [
+        "patna-anc",
+        "Patna"
+      ],
+      "area": "파트나 시역 및 외곽 확장지",
+      "sourceId": "bihar",
+      "sourceAreas": [
+        "Patna (M Corp. + OG)"
+      ],
+      "sourceRows": [
+        {
+          "state": "10",
+          "district": "230",
+          "subdistrict": "01400",
+          "town": "801373",
+          "residence": "Urban"
+        }
+      ],
+      "note": "",
+      "population": 1684297,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 1455059
+        },
+        {
+          "id": "muslim",
+          "population": 206581
+        },
+        {
+          "id": "christian",
+          "population": 8557
+        },
+        {
+          "id": "sikh",
+          "population": 3907
+        },
+        {
+          "id": "buddhist",
+          "population": 302
+        },
+        {
+          "id": "jain",
+          "population": 1516
+        },
+        {
+          "id": "other",
+          "population": 126
+        },
+        {
+          "id": "not-stated",
+          "population": 8249
+        }
+      ]
+    },
+    {
+      "id": "barasat-i",
+      "placeIds": [
+        "barasat-wbsu"
+      ],
+      "area": "바라사트 I 블록",
+      "sourceId": "west-bengal",
+      "sourceAreas": [
+        "Sub-District - Barasat - I"
+      ],
+      "sourceRows": [
+        {
+          "state": "19",
+          "district": "337",
+          "subdistrict": "02325",
+          "town": "000000",
+          "residence": "Total"
+        }
+      ],
+      "note": "",
+      "population": 294628,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 163302
+        },
+        {
+          "id": "muslim",
+          "population": 129870
+        },
+        {
+          "id": "christian",
+          "population": 778
+        },
+        {
+          "id": "sikh",
+          "population": 56
+        },
+        {
+          "id": "buddhist",
+          "population": 115
+        },
+        {
+          "id": "jain",
+          "population": 20
+        },
+        {
+          "id": "other",
+          "population": 7
+        },
+        {
+          "id": "not-stated",
+          "population": 480
+        }
+      ]
+    },
+    {
+      "id": "imphal",
+      "placeIds": [
+        "imphal-dm",
+        "Imphal"
+      ],
+      "area": "임팔 시역 및 외곽 확장지",
+      "sourceId": "manipur",
+      "sourceAreas": [
+        "Imphal (MCI + OG)"
+      ],
+      "sourceRows": [
+        {
+          "state": "14",
+          "district": "000",
+          "subdistrict": "00000",
+          "town": "801487",
+          "residence": "Urban"
+        }
+      ],
+      "note": "",
+      "population": 277196,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 193090
+        },
+        {
+          "id": "muslim",
+          "population": 9959
+        },
+        {
+          "id": "christian",
+          "population": 28643
+        },
+        {
+          "id": "sikh",
+          "population": 495
+        },
+        {
+          "id": "buddhist",
+          "population": 1500
+        },
+        {
+          "id": "jain",
+          "population": 1241
+        },
+        {
+          "id": "other",
+          "population": 39947
+        },
+        {
+          "id": "not-stated",
+          "population": 2321
+        }
+      ]
+    },
+    {
+      "id": "barasat",
+      "placeIds": [
+        "Barasat"
+      ],
+      "area": "바라사트 시역",
+      "sourceId": "west-bengal",
+      "sourceAreas": [
+        "Barasat (M)"
+      ],
+      "sourceRows": [
+        {
+          "state": "19",
+          "district": "337",
+          "subdistrict": "99999",
+          "town": "801707",
+          "residence": "Urban"
+        }
+      ],
+      "note": "",
+      "population": 278435,
+      "religions": [
+        {
+          "id": "hindu",
+          "population": 242878
+        },
+        {
+          "id": "muslim",
+          "population": 33360
+        },
+        {
+          "id": "christian",
+          "population": 675
+        },
+        {
+          "id": "sikh",
+          "population": 145
+        },
+        {
+          "id": "buddhist",
+          "population": 155
+        },
+        {
+          "id": "jain",
+          "population": 33
+        },
+        {
+          "id": "other",
+          "population": 29
+        },
+        {
+          "id": "not-stated",
+          "population": 1160
+        }
+      ]
+    }
+  ]
+}
