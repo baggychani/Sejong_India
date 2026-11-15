@@ -55,5 +55,51 @@ export function verifyReligionContent(outDir) {
   assert(html.includes('href="/Sejong_India/bharat/religions"'), "missing internal religion menu link");
   const rendered = nodes(parse(html, { scriptingEnabled: true }));
   assert(!rendered.some(node => attr(node, "id") === "religion-reference"), "full reference must remain inside noscript");
-  console.log(`PASS: ${census.profiles.length} religion profiles; complete mapped state/institute coverage; exact counts, denominators, ranking, scope and static tab data verified.`);
+
+  // 종교 목록·상세·지도 pill은 같은 원본에서 계산하고 서로 연결되어야 한다.
+  const pages = load("religion-pages");
+  const groupNames = new Map(census.groups.map(group => [group.id, group.name]));
+  const nation = census.profiles.find(profile => profile.id === "india");
+  const regions = census.profiles.filter(profile => profile.placeIds.some(id => id.startsWith("IN-")));
+  const count = (profile, group) => profile.religions.find(entry => entry.id === group).population;
+  const percent = (population, total) => { const share = population / total * 100; return share > 0 && share < 0.05 ? "<0.1%" : `${share.toFixed(1)}%`; };
+  assert.equal(new Set(pages.map(page => page.id)).size, pages.length, "duplicate religion page");
+  assert(!rendered.some(node => attr(node, "class")?.split(/\s+/).includes("religion-table")), "census tables stay out of the visible religion list");
+  for (const page of pages) {
+    assert.equal(groupNames.get(page.censusGroup), page.ko, `${page.id}: page name must match its census category`);
+    const tile = rendered.find(node => attr(node, "id") === `religion-page-${page.id}`);
+    assert(attr(tile, "href")?.endsWith(`/bharat/religions/${page.id}`), `${page.id}: list tile must link to its page`);
+    const detailHtml = readFileSync(join(outDir, `bharat/religions/${page.id}/index.html`), "utf8");
+    assert(detailHtml.split("</head>")[0].includes("ReligionPage-"), `${page.id}: page CSS must load before hydration`);
+    const text = normalize(readablePage(detailHtml, "https://example.org/"));
+    const population = count(nation, page.censusGroup);
+    for (const value of [page.ko, page.en, page.native, `${population.toLocaleString("ko-KR")}명`, percent(population, nation.population), `${census.year}년 인구조사`]) {
+      assert(text.includes(value), `${page.id}: detail page is missing ${value}`);
+    }
+    const expected = regions.map(profile => ({ profile, population: count(profile, page.censusGroup) }))
+      .sort((a, b) => b.population / b.profile.population - a.population / a.profile.population).slice(0, 3);
+    const badges = nodes(parse(detailHtml, { scriptingEnabled: true })).filter(node => attr(node, "data-place"));
+    assert.deepEqual(badges.map(node => attr(node, "data-place")), expected.map(entry => entry.profile.placeIds[0]), `${page.id}: wrong top regions`);
+    badges.forEach((badge, index) => {
+      const { profile, population } = expected[index];
+      assert(attr(badge, "href")?.includes(`/bharat/map?place=${encodeURIComponent(profile.placeIds[0])}`), `${page.id}: region badge must open the map`);
+      const label = normalize(readablePage(`<main>${serializeOuter(badge)}</main>`, "https://example.org/"));
+      assert(label.includes(profile.area) && label.includes(percent(population, profile.population)), `${page.id}: wrong region share for ${profile.id}`);
+    });
+  }
+  const mapDocument = nodes(parse(readFileSync(join(outDir, "bharat/map/index.html"), "utf8"), { scriptingEnabled: false }));
+  const pageByGroup = new Map(pages.map(page => [page.censusGroup, page.id]));
+  for (const [kind, list] of [["institute", load("institutes")], ["state", load("states")]]) {
+    for (const place of list) {
+      const record = mapDocument.find(node => attr(node, "id") === `${kind}-${place.id}`);
+      const links = nodes(record).map(node => attr(node, "href")).filter(Boolean);
+      const ranked = places.get(place.id).religions.filter(group => group.id !== "not-stated");
+      for (const group of ranked) {
+        const rank = 1 + ranked.filter(other => other.population > group.population).length;
+        const id = pageByGroup.get(group.id);
+        if (rank <= 3 && id) assert(links.some(href => href.endsWith(`/bharat/religions/${id}`)), `${place.id}: ${group.id} pill must link to its religion page`);
+      }
+    }
+  }
+  console.log(`PASS: ${census.profiles.length} religion profiles; complete mapped state/institute coverage; exact counts, denominators, ranking, scope and static tab data verified; ${pages.length} religion pages match the census and connect to the list and map pills.`);
 }

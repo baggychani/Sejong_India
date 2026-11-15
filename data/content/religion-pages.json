@@ -1,0 +1,42 @@
+[
+  {
+    "id": "hinduism",
+    "ko": "힌두교",
+    "en": "Hinduism",
+    "native": "हिन्दू धर्म",
+    "tag": "hi",
+    "censusGroup": "hindu"
+  },
+  {
+    "id": "islam",
+    "ko": "이슬람교",
+    "en": "Islam",
+    "native": "इस्लाम",
+    "tag": "hi",
+    "censusGroup": "muslim"
+  },
+  {
+    "id": "sikhism",
+    "ko": "시크교",
+    "en": "Sikhism",
+    "native": "ਸਿੱਖੀ",
+    "tag": "pa",
+    "censusGroup": "sikh"
+  },
+  {
+    "id": "jainism",
+    "ko": "자이나교",
+    "en": "Jainism",
+    "native": "जैन धर्म",
+    "tag": "hi",
+    "censusGroup": "jain"
+  },
+  {
+    "id": "buddhism",
+    "ko": "불교",
+    "en": "Buddhism",
+    "native": "बौद्ध धर्म",
+    "tag": "hi",
+    "censusGroup": "buddhist"
+  }
+]

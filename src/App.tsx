@@ -60,7 +60,7 @@ export function App({ pages = browserPages }: { pages?: PageComponents } = {}) {
           </Suspense>
         } />
         <Route path="languages/:id?" element={<Suspense fallback={null}><LanguagePage /></Suspense>} />
-        <Route path="religions" element={<Suspense fallback={null}><ReligionPage /></Suspense>} />
+        <Route path="religions/:id?" element={<Suspense fallback={null}><ReligionPage /></Suspense>} />
         </Route>
         <Route path="/library" element={<Suspense fallback={null}><LibraryPage /></Suspense>} />
         <Route path="/library/:slug" element={<Suspense fallback={null}><BookPage /></Suspense>} />

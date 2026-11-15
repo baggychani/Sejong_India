@@ -4,6 +4,7 @@ import { globSync, mkdirSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 import catalog from "./data/content/languages.json";
 import textbooks from "./data/content/textbooks.json";
+import religionPages from "./data/content/religion-pages.json";
 import { collections, learningSection, mapSection, movedRoutes, resolveMovedRoute } from "./src/site/sections";
 import { fillHtml } from "./scripts/prerender.mjs";
 
@@ -22,7 +23,8 @@ export default defineConfig(({ mode }) => {
       outDir = dir;
       pages.length = 0;
       const india = mapSection.path;
-      const routes = [india, india + "/map", india + "/languages", india + "/religions", ...catalog.map(l => india + "/languages/" + l.id)];
+      const routes = [india, india + "/map", india + "/languages", india + "/religions", ...catalog.map(l => india + "/languages/" + l.id),
+        ...religionPages.map(religion => india + "/religions/" + religion.id)];
       routes.push(...textbooks.map(book => "/lessons/" + book.id));
       routes.push(learningSection.path);
       for (const { id, path } of collections) {
