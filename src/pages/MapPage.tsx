@@ -6,6 +6,8 @@ import { Icon } from "../site/Icon";
 import { MapView } from "../map/MapView";
 import { DetailCard } from "../map/details";
 import { MapReference } from "../map/MapReference";
+import { QuizPanel, quizMapState, type QuizRun } from "../map/QuizPanel";
+import { makeQuiz } from "../map/quiz";
 import {
   adminShapes,
   cityPoints,
@@ -17,10 +19,15 @@ import {
   landformShapes,
   mapConfig,
   neighborShapes,
+  quizRegions,
   riverShapes,
 } from "../map/indiaModel";
 
+const quizNames = new Map(quizRegions.map(region => [region.id, region.name]));
+const newQuiz = (): QuizRun => ({ questions: makeQuiz(quizRegions), picks: [], index: 0 });
+
 export function MapPage() {
+  const [quiz, setQuiz] = useState<QuizRun | null>(null);
   const [visible, setVisible] = useState(
     () => new Set(mapConfig.layers.filter((layer) => layer.visible).map((layer) => layer.id)),
   );
@@ -80,10 +87,12 @@ export function MapPage() {
   }
 
   const selected = selectedId ? details.get(selectedId) : undefined;
+  // 한 문제에 답은 한 번만 받는다.
+  const answer = (id: string) => setQuiz(run => run && !run.picks[run.index] ? { ...run, picks: [...run.picks, id] } : run);
 
   return (
     <>
-    <div className="map-page">
+    <div className={quiz ? "map-page is-quiz" : "map-page"}>
       <MapView
         fit={fitGeometry}
         country={countryGeometryOnly}
@@ -98,7 +107,12 @@ export function MapPage() {
           if (!visible.has("admin")) setVisible((current) => new Set(current).add("admin"));
           setSelectingStates(!selectingStates);
         }}
-        selectedId={selectedId}
+        quiz={quiz ? quizMapState(quiz, quizNames, answer) : undefined}
+        onToggleQuiz={() => {
+          if (!quiz) showList();
+          setQuiz(quiz ? null : newQuiz());
+        }}
+        selectedId={quiz ? null : selectedId}
         onSelect={(id) => {
           lastRowId.current = null;
           if (id) openPlace(id);
@@ -113,7 +127,13 @@ export function MapPage() {
         onToggleLayer={toggle}
       />
       <aside ref={panel} className="detail" aria-label="장소 정보">
-        {selected ? (
+        {quiz ? (
+          <QuizPanel run={quiz} names={quizNames} onPick={answer}
+            onNext={() => setQuiz(run => run && { ...run, index: run.index + 1 })}
+            onRestart={() => setQuiz(newQuiz())}
+            onClose={() => setQuiz(null)}
+            onOpenPlace={(id) => { setQuiz(null); openPlace(id); }} />
+        ) : selected ? (
           <>
             <button ref={closeButton} className="back-to-list" onClick={showList}><Icon name="back" />학당 목록</button>
             <DetailCard key={selected.id} detail={selected} />

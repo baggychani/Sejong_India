@@ -11,11 +11,27 @@ type LayerControl = {
   pressed: boolean;
 };
 
+/** 퀴즈 중의 지도. 주 경계만 남기고 확대·이동을 잠근다. */
+export type QuizMapState = {
+  /** 이름을 맞혀야 하는, 지도에 강조할 곳. */
+  askedId: string | null;
+  /** 지도에서 한 곳을 눌러 답할 차례인지. */
+  pickable: boolean;
+  marks: Record<string, "correct" | "wrong">;
+  /** 답한 뒤 지도 위에 적을 이름. */
+  labels: Record<string, string>;
+  /** 좁은 화면에서 지도 위에 띄울 문제. */
+  prompt: string;
+  onPick: (id: string) => void;
+};
+
 type Props = MapViewProps & {
   layers: LayerControl[];
   onToggleLayer: (id: string) => void;
   selectingStates: boolean;
   onToggleStateSelection: () => void;
+  quiz?: QuizMapState;
+  onToggleQuiz: () => void;
 };
 
 export function MapView({
@@ -34,7 +50,10 @@ export function MapView({
   onToggleLayer,
   selectingStates,
   onToggleStateSelection,
+  quiz,
+  onToggleQuiz,
 }: Props) {
+  const locked = Boolean(quiz);
   const frameRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const zoomRef = useRef<ZoomBehavior<SVGSVGElement, unknown> | null>(null);
@@ -55,6 +74,13 @@ export function MapView({
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
+    if (locked) {
+      // 퀴즈 중에는 기본 화면으로 되돌리고 확대·이동 입력을 받지 않는다.
+      if (zoomRef.current) select(svg).call(zoomRef.current.transform, zoomIdentity);
+      select(svg).on(".zoom", null);
+      setTransform(zoomIdentity);
+      return;
+    }
     const behavior = zoom<SVGSVGElement, unknown>()
       .scaleExtent([1, 18])
       .on("zoom", (event) => {
@@ -67,7 +93,7 @@ export function MapView({
     return () => {
       select(svg).on(".zoom", null);
     };
-  }, [selectingStates]);
+  }, [selectingStates, locked]);
 
   const fitted = useRef(false);
   useEffect(() => {
@@ -108,6 +134,20 @@ export function MapView({
     [geographic],
   );
 
+  // 화면에서 너무 작거나 흩어져 누르기 어려운 곳은 퀴즈에서 동그라미로도 표시한다.
+  const compact = size.width < 500;
+  const quizSpots = useMemo(() => {
+    if (!draw) return [];
+    return boundaries.map(shape => {
+      const [[left, top], [right, bottom]] = draw.bounds(shape.geometry);
+      const area = draw.area(shape.geometry);
+      const [x, y] = draw.centroid(shape.geometry);
+      return { id: shape.id, x, y, small: area < (compact ? 110 : 220) || area / Math.max(1, (right - left) * (bottom - top)) < 0.12 };
+    });
+  }, [boundaries, draw, compact]);
+  const quizClass = (id: string) => !quiz ? "" : quiz.marks[id] ? ` is-${quiz.marks[id]}` : quiz.askedId === id ? " is-asked" : "";
+  const pick = quiz?.pickable ? (event: SyntheticEvent, id: string) => { event.stopPropagation(); quiz.onPick(id); } : undefined;
+
   function zoomBy(factor: number) {
     const svg = svgRef.current;
     const behavior = zoomRef.current;
@@ -140,8 +180,9 @@ export function MapView({
         ref={svgRef}
         role="group"
         aria-label="인도 지도"
-        className={selectingStates ? "selecting-states" : undefined}
+        className={quiz ? `quiz-mode${quiz.pickable ? " is-pickable" : ""}` : selectingStates ? "selecting-states" : undefined}
         onClick={(event) => {
+          if (quiz) return;
           // A near miss on land should leave the current place open.
           if (event.target instanceof Element && event.target.matches(".map-country")) return;
           onSelect(null);
@@ -159,17 +200,17 @@ export function MapView({
             <path className="map-country" d={draw(country) ?? undefined} />
             <path className="map-grid" d={draw(geoGraticule10()) ?? undefined} />
             {boundaries
-              .filter((shape) => visibleLayers.has(shape.layer))
+              .filter((shape) => quiz || visibleLayers.has(shape.layer))
               .map((shape) => (
                 <path
                   key={shape.id}
-                  className={`${shape.className}${shape.id === selectedId ? " selected" : ""}`}
+                  className={quiz ? `${shape.className}${quizClass(shape.id)}` : `${shape.className}${shape.id === selectedId ? " selected" : ""}`}
                   d={draw(shape.geometry) ?? undefined}
-                  onClick={selectingStates ? (event) => choose(event, shape.id) : undefined}
+                  onClick={quiz ? pick && ((event) => pick(event, shape.id)) : selectingStates ? (event) => choose(event, shape.id) : undefined}
                 />
               ))}
             {areas
-              .filter((shape) => visibleLayers.has(shape.layer))
+              .filter((shape) => !quiz && visibleLayers.has(shape.layer))
               .map((shape) => (
                 <path
                   key={shape.id}
@@ -179,8 +220,21 @@ export function MapView({
                 />
               ))}
             <path className="country-outline" d={draw(country) ?? undefined} />
+            {quiz && quizSpots.filter(spot => spot.small).map(spot => (
+              <g key={spot.id} className={`quiz-spot${quizClass(spot.id)}`} transform={`translate(${spot.x} ${spot.y})`}
+                onClick={pick && ((event) => pick(event, spot.id))}>
+                <circle className="quiz-spot-hit" r={compact ? 13 : 17} />
+                <circle className="quiz-spot-ring" r={compact ? 10 : 12} />
+                <circle className="quiz-spot-dot" r={compact ? 4.5 : 6} />
+              </g>
+            ))}
+            {quiz && quizSpots.filter(spot => quiz.labels[spot.id]).map(spot => (
+              <text key={spot.id} className={`quiz-label${quizClass(spot.id)}`} x={spot.x} y={spot.y - (spot.small ? 16 : 0)} textAnchor="middle" dy="0.32em">
+                {quiz.labels[spot.id]}
+              </text>
+            ))}
             {lines
-              .filter((shape) => visibleLayers.has(shape.layer))
+              .filter((shape) => !quiz && visibleLayers.has(shape.layer))
               .map((shape) => (
                 <g key={shape.id} onClick={(event) => choose(event, shape.id)}>
                   <path
@@ -193,7 +247,7 @@ export function MapView({
                   />
                 </g>
               ))}
-            {orderedPoints.map((point) => (
+            {!quiz && orderedPoints.map((point) => (
               <PointMark
                 key={point.id}
                 point={point}
@@ -203,7 +257,7 @@ export function MapView({
                 onChoose={choose}
               />
             ))}
-            <g className="map-labels">
+            {!quiz && <g className="map-labels">
               {[
                 { text: "인도", lon: 78.8, lat: 22.7, className: "country-name" },
                 { text: "아라비아해", lon: 71.1, lat: 14.3, className: "sea-name" },
@@ -262,13 +316,15 @@ export function MapView({
                   scale={scale}
                 />
               ))}
-            </g>
+            </g>}
           </g>
         ) : null}
       </svg>
       <a className="map-credit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a>
       <div className="map-controls">
-        <div className="map-toolbar">
+        <button className="quiz-toggle" type="button" aria-pressed={locked} onClick={onToggleQuiz}><span>퀴즈</span></button>
+        {quiz?.prompt && <p className="quiz-chip" aria-hidden="true">{quiz.prompt}</p>}
+        {!quiz && <div className="map-toolbar">
           <div className="map-layers" role="group" aria-label="지도 레이어">
             {layers.map((layer) => (
               <button
@@ -289,8 +345,8 @@ export function MapView({
           >
             <span>주 선택</span>
           </button>
-        </div>
-        <div className="map-zoom">
+        </div>}
+        {!quiz && <div className="map-zoom">
           <button type="button" onClick={() => zoomBy(1.45)} aria-label="확대">
             +
           </button>
@@ -300,7 +356,7 @@ export function MapView({
           <button type="button" onClick={resetView} aria-label="전체 보기">
             전체
           </button>
-        </div>
+        </div>}
       </div>
     </div>
   );

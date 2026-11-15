@@ -282,5 +282,11 @@ export const instituteList = institutes.map((institute) => ({
   place: `${institute.city.ko} · ${stateName(institute.stateId)}`,
 }));
 
+/** 퀴즈에 내는 주·연방직할지의 이름과 중심 좌표. */
+export const quizRegions = admin.features.map((feature) => {
+  const [lon, lat] = geoCentroid(feature);
+  return { id: text(feature.properties, ["iso_3166_2"]), name: text(feature.properties, ["name_ko", "name"]), lon, lat };
+});
+
 export const fitGeometry = countryGeometry;
 export const countryGeometryOnly = countryGeometry;
