@@ -228,12 +228,23 @@ h1 {
 .india-nav-toggle svg { width: 16px; transform: rotate(-90deg); }
 .is-collapsed .india-nav-toggle { top: 0; height: 25px; border-top: 0; border-radius: 0 0 8px 8px; }
 .is-collapsed .india-nav-toggle svg { transform: rotate(90deg); }
-.learning-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 40px 0 0; padding: 0; }
-.learning-list a { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 28px 24px; border: 1px solid var(--line); border-radius: 12px; background: white; color: var(--ink); text-decoration: none; font-size: 24px; font-weight: 650; }
+.learning-index { padding-bottom: 48px; }
+.learning-map { position: relative; isolation: isolate; aspect-ratio: 680 / 600; margin-top: 24px; }
+.learning-map-silhouette { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.learning-map-silhouette path { fill: #f2e7ce; stroke: #cdbd98; stroke-width: 1.2; stroke-linejoin: round; }
+.learning-list { list-style: none; margin: 0; padding: 0; }
+.learning-location { position: absolute; width: min(230px, 52%); transform: translate(-65%, -50%); }
+.learning-location-tamil { transform: translate(-35%, -50%); }
+.learning-list a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 18px; border: 1px solid var(--line); border-radius: 12px; background: white; color: var(--ink); text-decoration: none; font-size: 21px; font-weight: 650; box-shadow: 0 3px 12px #57492909; }
 .learning-list a:hover { border-color: var(--accent); background: #f2f7f3; }
 .learning-list .icon { flex: none; color: var(--accent); }
 .collection-label { display: inline-flex; flex-wrap: wrap; align-items: baseline; column-gap: .5em; row-gap: .2em; }
 .collection-native { color: var(--muted); font-size: .78em; font-weight: 450; letter-spacing: normal; line-height: 1.5; }
 .india-navigation .collection-label { flex-wrap: nowrap; }
 h1 .collection-native { font-size: .6em; }
-@media (max-width: 540px) { .learning-list { grid-template-columns: 1fr; gap: 12px; } }
+@media (max-width: 540px) {
+  .learning-map { margin-top: 32px; }
+  .learning-list a { padding: 17px 13px; gap: 8px; font-size: 18px; }
+  .learning-list .collection-label { flex-wrap: nowrap; column-gap: .4em; }
+  .learning-list .icon { width: 16px; height: 16px; }
+}

@@ -61,6 +61,19 @@ export function verifyRoutes(outDir) {
   assert(home.includes("언어 학습") && home.includes("/learn"), "home must link to the learning hub");
   assert(read(join(outDir, "index.html")).includes('class="icon hindi-icon"'), "home must retain the original Hindi glyph icon");
   const learning = readablePage(read(join(outDir, "learn/index.html")), base.href);
+  const learningNodes = nodes(parse(read(join(outDir, "learn/index.html"))));
+  const map = learningNodes.find(node => attribute(node, "class") === "learning-map-silhouette");
+  assert(map && attribute(map, "aria-hidden") === "true", "learning map must be decorative");
+  const positions = ["hindi", "tamil"].map(id => {
+    const location = learningNodes.find(node => attribute(node, "class")?.split(" ").includes(`learning-location-${id}`));
+    const style = attribute(location, "style");
+    const left = Number(style?.match(/left:([\d.]+)%/)?.[1]);
+    const top = Number(style?.match(/top:([\d.]+)%/)?.[1]);
+    assert(Number.isFinite(left) && Number.isFinite(top), `missing static map position: ${id}`);
+    return { left, top };
+  });
+  assert(positions[0].left < positions[1].left && positions[0].top < positions[1].top,
+    "Hindi must be west and north of Tamil on the learning map");
   for (const [id, title] of [["hindi", "힌디어"], ["tamil", "타밀어"]]) {
     const language = JSON.parse(readFileSync("data/content/languages.json", "utf8")).find(row => row.id === id);
     assert(learning.includes(language.native), `learning hub is missing native name: ${id}`);
