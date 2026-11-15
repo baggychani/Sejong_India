@@ -5,6 +5,10 @@ export type QuizRun = { questions: QuizQuestion[]; picks: string[]; index: numbe
 
 const isRight = (run: QuizRun, index: number) => run.picks[index] === run.questions[index].id;
 
+const questionPrompt = (question: QuizQuestion, names: ReadonlyMap<string, string>) => question.kind === "name"
+  ? "지도에 표시된 지역의 이름은 무엇인가요?"
+  : `지도에서 ${names.get(question.id)}의 위치를 찾아보세요.`;
+
 /** 지금 문제에서 지도에 무엇을 칠하고 무엇을 누를 수 있는지. */
 export function quizMapState(run: QuizRun, names: ReadonlyMap<string, string>, onPick: (id: string) => void): QuizMapState {
   const label = (ids: string[]) => Object.fromEntries(ids.map(id => [id, names.get(id) ?? ""]));
@@ -17,10 +21,10 @@ export function quizMapState(run: QuizRun, names: ReadonlyMap<string, string>, o
   const picked = run.picks[run.index];
   if (question.kind === "name") {
     // 맞고 틀림은 보기 버튼이 보여 준다. 지도에는 그곳의 이름만 적는다.
-    return { askedId: question.id, pickable: false, prompt: "여기는?", onPick, marks: {}, labels: picked ? label([question.id]) : {} };
+    return { askedId: question.id, pickable: false, prompt: questionPrompt(question, names), onPick, marks: {}, labels: picked ? label([question.id]) : {} };
   }
   const marks: QuizMapState["marks"] = !picked ? {} : picked === question.id ? { [question.id]: "correct" } : { [picked]: "wrong", [question.id]: "correct" };
-  return { askedId: null, pickable: !picked, prompt: names.get(question.id) ?? "", marks, labels: label(Object.keys(marks)), onPick };
+  return { askedId: null, pickable: !picked, prompt: questionPrompt(question, names), marks, labels: label(Object.keys(marks)), onPick };
 }
 
 export function QuizPanel({ run, names, onPick, onNext, onRestart, onClose, onOpenPlace }: {
@@ -52,9 +56,7 @@ export function QuizPanel({ run, names, onPick, onNext, onRestart, onClose, onOp
       </ul>}
       <button type="button" className="quiz-next" autoFocus onClick={onRestart}>다시</button>
     </> : <>
-      <h1 className="quiz-prompt">
-        {question!.kind === "name" ? "여기는?" : <>{names.get(question!.id)}<span>, 어디?</span></>}
-      </h1>
+      <h1 className="quiz-prompt">{questionPrompt(question!, names)}</h1>
       {question!.kind === "name" && <div className="quiz-choices">
         {question!.choices.map(id => <button type="button" key={id} disabled={Boolean(picked)} onClick={() => onPick(id)}
           className={!picked ? undefined : id === question!.id ? "is-correct" : id === picked ? "is-wrong" : undefined}>{names.get(id)}</button>)}

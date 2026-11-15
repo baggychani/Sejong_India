@@ -322,7 +322,7 @@ export function MapView({
       </svg>
       <a className="map-credit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a>
       <div className="map-controls">
-        <button className="quiz-toggle" type="button" aria-pressed={locked} onClick={onToggleQuiz}><span>퀴즈</span></button>
+        {!quiz && <button className="quiz-toggle" type="button" onClick={onToggleQuiz}><span>퀴즈 풀기</span></button>}
         {quiz?.prompt && <p className="quiz-chip" aria-hidden="true">{quiz.prompt}</p>}
         {!quiz && <div className="map-toolbar">
           <div className="map-layers" role="group" aria-label="지도 레이어">
