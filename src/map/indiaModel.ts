@@ -9,6 +9,7 @@ import landforms from "../../data/content/landforms.json";
 import neighbors from "../../data/content/neighbors.json";
 import countryFile from "../../data/processed/india-country.json";
 import adminFile from "../../data/processed/india-admin1.json";
+import states from "../../data/content/states.json";
 import neighborFile from "../../data/processed/neighbors.json";
 import riverFile from "../../data/processed/rivers.json";
 import landformFile from "../../data/processed/landforms.json";
@@ -90,6 +91,13 @@ function asLabel(textValue: string, layout: LabelLayout, at: [number, number]) {
 
 const country = countryFile as FeatureCollection;
 const admin = adminFile as FeatureCollection;
+const stateContent = new Map(states.map(state => [state.id, state]));
+const emblemFiles = import.meta.glob("../assets/state-emblems/*.png", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+function stateName(id: string) {
+  const feature = admin.features.find(feature => feature.properties.iso_3166_2 === id);
+  if (!feature) throw new Error(`Unknown institute state: ${id}`);
+  return text(feature.properties, ["name_ko", "name"]);
+}
 const neighborGeo = neighborFile as FeatureCollection;
 const riverGeo = riverFile as FeatureCollection;
 const landformGeo = landformFile as FeatureCollection;
@@ -196,12 +204,19 @@ const adminDetails: DetailRecord[] = admin.features.flatMap((feature) => {
   const en = text(feature.properties, ["name_en", "name"]);
   const hi = text(feature.properties, ["name_hi"]);
   const kind = unionTerritories.has(id) ? "연방직할지" : "주";
+  const content = stateContent.get(id);
+  if (!content) throw new Error(`Missing state content: ${id}`);
   return [
     {
       id,
       eyebrow: kind,
       title: ko,
       subtitle: [en, hi].filter(Boolean).join(" · "),
+      facts: [
+        { label: kind === "주" ? "주도" : "행정 중심지", value: [content.capital, content.capitalNote].filter(Boolean).join(" — ") },
+        ...(content.majorCities?.length ? [{ label: "주요도시", value: content.majorCities.join(" · ") }] : []),
+      ],
+      emblem: content.emblem ? { src: emblemFiles[`../assets/state-emblems/${content.emblem.file}`], caption: content.emblem.caption } : undefined,
     },
   ];
 });
@@ -240,7 +255,7 @@ const instituteDetails: DetailRecord[] = institutes.map((institute) => ({
     { label: "운영기관", value: `${institute.operator.ko} / ${institute.operator.en}` },
     {
       label: "도시",
-      value: [institute.city.ko, institute.city.en, institute.city.hi].filter(Boolean).join(" · "),
+      value: `${[institute.city.ko, institute.city.en, institute.city.hi].filter(Boolean).join(" · ")} / ${stateName(institute.stateId)}`,
     },
     { label: "주소", value: institute.address },
   ],
@@ -264,7 +279,7 @@ export const details = new Map<string, DetailRecord>(
 export const instituteList = institutes.map((institute) => ({
   id: institute.id,
   title: institute.names.ko,
-  place: institute.city.ko,
+  place: `${institute.city.ko} · ${stateName(institute.stateId)}`,
 }));
 
 export const fitGeometry = countryGeometry;

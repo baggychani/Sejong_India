@@ -20,11 +20,16 @@ const geometry = {
   label: layout, summary: publicValue(),
 };
 const jsonContracts = {
+  states: { targets: row => [["bharat/map", `state-${row.id}`]], schema: {
+    id: identity, capital: publicValue(), capitalNote: publicValue(), majorCities: [publicValue()],
+    sources: [{ title: publicValue(), url: publicValue(), accessed: publicValue() }],
+    emblem: { file: technical("주정부 문장 PNG 파일명이다. 의미와 출처는 caption 및 source로 검사한다."), caption: publicValue(), source: publicValue(), credit: publicValue(), license: publicValue() },
+  } },
   "language-goals": { targets: row => [[`bharat/languages/${row.id}`, `language-goal-${row.id}`]], schema: {
     id: identity, text: publicValue(), romanization: publicValue(), variant: publicValue() } },
   institutes: {
     targets: row => [["bharat/map", `institute-${row.id}`]],
-    schema: { id: identity, names: name, operator: name, city: name, address: publicValue(),
+    schema: { id: identity, stateId: technical("학당을 states 및 지도 행정구역에 연결하는 키다. 소속 주 이름은 레코드별 검사로 대조한다."), names: name, operator: name, city: name, address: publicValue(),
       locationNote: publicValue(), homepage: publicValue(), mapsQuery: publicValue(encodeURIComponent),
       allowances: { housingManwon: publicValue(value => `${value}만 원`), hardshipManwon: publicValue(value => value === null ? "미확인" : `${value}만 원`) },
       sources: [{ title: publicValue(), url: publicValue(), accessed: publicValue() }],

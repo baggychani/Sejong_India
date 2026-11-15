@@ -92,6 +92,9 @@
 .back-to-list { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 22px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 7px; background: white; color: var(--accent); cursor: pointer; }
 .back-to-list .icon { width: 15px; }
 .detail-card { line-height: 1.6; overflow-wrap: anywhere; }
+.detail-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.detail-heading > div { min-width: 0; }
+.state-emblem { flex: none; width: 88px; height: 88px; object-fit: contain; }
 .detail-eyebrow { color: var(--accent); font-size: 13px; font-weight: 700; margin: 0 0 6px; }
 .detail-subtitle { color: var(--muted); margin: 7px 0 20px; font-size: 14px; }
 .detail-card dl { display: grid; grid-template-columns: auto auto; margin: 22px 0; }

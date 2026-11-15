@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { parse, serializeOuter } from "parse5";
 import { readablePage } from "./readable-html.mjs";
+import { geoContains } from "d3-geo";
 
 const data = name => JSON.parse(readFileSync(`data/content/${name}.json`, "utf8"));
 const normalize = value => String(value).replace(/\s+/g, " ").trim();
@@ -36,8 +37,36 @@ export function verifyContentFields(outDir) {
 
   const map = page("bharat/map");
   const institutes = data("institutes");
+  const states = data("states");
+  const admin = JSON.parse(readFileSync("data/processed/india-admin1.json", "utf8")).features;
+  const stateIds = new Set(states.map(state => state.id));
+  assert.equal(stateIds.size, states.length, "duplicate state record");
+  assert.deepEqual([...stateIds].sort(), admin.map(feature => feature.properties.iso_3166_2).sort(), "state content must cover every mapped administrative area");
+  const staticHtml = parse(readFileSync(join(outDir, "bharat/map/index.html"), "utf8"), { scriptingEnabled: false });
+  const allNodes = node => [node, ...(node.childNodes ?? []).flatMap(allNodes)];
+  const attr = (node, key) => node.attrs?.find(attribute => attribute.name === key)?.value;
+  const nodes = allNodes(staticHtml);
+  for (const state of states) {
+    const record = map(`state-${state.id}`);
+    record.expect(state.capital);
+    if (state.capitalNote) record.expect(state.capitalNote);
+    for (const city of state.majorCities ?? []) record.expect(city);
+    const node = nodes.find(node => attr(node, "id") === `state-${state.id}`);
+    const labels = allNodes(node).filter(node => node.tagName === "dt").map(node => allNodes(node).filter(child => child.nodeName === "#text").map(child => child.value).join(""));
+    assert(["주도", "행정 중심지"].includes(labels[0]), `${state.id}: capital must precede mother tongues`);
+    assert.equal(labels.includes("주요도시"), Boolean(state.majorCities?.length), `${state.id}: major cities must be conditional`);
+    if (state.majorCities?.length) assert.equal(labels[1], "주요도시");
+    if (state.emblem) {
+      const emblem = allNodes(node).find(node => node.tagName === "img" && attr(node, "alt") === state.emblem.caption);
+      assert(attr(emblem, "src")?.includes("/assets/"), `${state.id}: emblem asset missing`);
+      for (const value of [state.emblem.caption, state.emblem.source, state.emblem.credit, state.emblem.license]) record.expect(value);
+    }
+  }
   for (const institute of institutes) {
     const record = map(`institute-${institute.id}`);
+    assert(stateIds.has(institute.stateId), `${institute.id}: unknown state link`);
+    assert(geoContains(admin.find(feature => feature.properties.iso_3166_2 === institute.stateId), [institute.lon, institute.lat]), `${institute.id}: institute point lies outside its assigned state`);
+    record.expect(admin.find(feature => feature.properties.iso_3166_2 === institute.stateId).properties.name_ko);
     for (const value of [
       ...Object.values(institute.names), ...Object.values(institute.operator), ...Object.values(institute.city),
       institute.address, institute.locationNote, institute.homepage,

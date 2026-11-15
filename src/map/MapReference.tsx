@@ -4,6 +4,7 @@ import rivers from "../../data/content/rivers.json";
 import landforms from "../../data/content/landforms.json";
 import census from "../../data/content/mother-tongues.json";
 import neighbors from "../../data/content/neighbors.json";
+import states from "../../data/content/states.json";
 import { details } from "./indiaModel";
 import { DetailCard } from "./details";
 
@@ -24,6 +25,14 @@ export function MapReference() {
           </li>)}
         </ul>}
       </details>)}
+    </section>
+    <section aria-labelledby="state-reference-title">
+      <h2 id="state-reference-title">주·연방직할지</h2>
+      {states.map(state => <article key={state.id} id={`state-${state.id}`}>
+        <DetailCard detail={details.get(state.id)!} />
+        {state.emblem && <p>{state.emblem.caption} · {state.emblem.credit} · {state.emblem.license} · <a href={state.emblem.source}>문장 출처</a></p>}
+        <ul>{state.sources.map(source => <li key={source.url}><a href={source.url}>{source.title}</a> · {source.accessed}</li>)}</ul>
+      </article>)}
     </section>
     {([
       ["cities", "도시", cities],

@@ -1,6 +1,7 @@
 [
   {
     "id": "delhi-kcci",
+    "stateId": "IN-DL",
     "allowances": { "housingManwon": 125, "hardshipManwon": 70 },
     "mapsQuery": "King Sejong Institute, Korean Cultural Centre India, New Delhi, India",
     "names": { "ko": "인도 한국문화원 세종학당", "en": "King Sejong Institute, Korean Cultural Centre India" },
@@ -21,6 +22,7 @@
   },
   {
     "id": "chennai-inko",
+    "stateId": "IN-TN",
     "allowances": { "housingManwon": 125, "hardshipManwon": 70 },
     "mapsQuery": "King Sejong Institute Chennai 1, InKo Centre, Chennai, India",
     "names": { "ko": "첸나이1 세종학당", "en": "King Sejong Institute Chennai 1" },
@@ -41,6 +43,7 @@
   },
   {
     "id": "chennai-vit",
+    "stateId": "IN-TN",
     "allowances": { "housingManwon": 125, "hardshipManwon": 70 },
     "mapsQuery": "King Sejong Institute Chennai 2, VIT Chennai, Melakottaiyur, India",
     "names": { "ko": "첸나이2 세종학당", "en": "King Sejong Institute Chennai 2" },
@@ -61,6 +64,7 @@
   },
   {
     "id": "barasat-wbsu",
+    "stateId": "IN-WB",
     "allowances": { "housingManwon": 125, "hardshipManwon": null },
     "mapsQuery": "King Sejong Institute, West Bengal State University, Barasat, India",
     "names": { "ko": "바라사트 세종학당", "en": "King Sejong Institute Barasat" },
@@ -82,6 +86,7 @@
   },
   {
     "id": "imphal-dm",
+    "stateId": "IN-MN",
     "allowances": { "housingManwon": 125, "hardshipManwon": null },
     "mapsQuery": "King Sejong Institute Imphal, DM College of Arts, Dhanamanjuri University, India",
     "names": { "ko": "임팔 세종학당", "en": "King Sejong Institute Imphal" },
@@ -101,6 +106,7 @@
   },
   {
     "id": "pune-ikc",
+    "stateId": "IN-MH",
     "allowances": { "housingManwon": 125, "hardshipManwon": null },
     "mapsQuery": "King Sejong Institute Pune, Indo Korean Center, Pune, India",
     "names": { "ko": "푸네 세종학당", "en": "King Sejong Institute Pune" },
@@ -121,6 +127,7 @@
   },
   {
     "id": "bengaluru-cmr",
+    "stateId": "IN-KA",
     "allowances": { "housingManwon": 125, "hardshipManwon": 60 },
     "mapsQuery": "King Sejong Institute Bengaluru, CMR University, Banaswadi, Bengaluru, India",
     "names": { "ko": "벵갈루루 세종학당", "en": "King Sejong Institute Bengaluru" },
@@ -140,6 +147,7 @@
   },
   {
     "id": "patna-anc",
+    "stateId": "IN-BR",
     "allowances": { "housingManwon": 125, "hardshipManwon": null },
     "mapsQuery": "King Sejong Institute Patna, Anugrah Narayan College, Patna, India",
     "names": { "ko": "파트나 세종학당", "en": "King Sejong Institute Patna" },

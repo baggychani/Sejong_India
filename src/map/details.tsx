@@ -9,6 +9,7 @@ export type DetailRecord = {
   facts?: { label: string; value: string }[];
   allowances?: { housingManwon: number; hardshipManwon: number | null };
   links?: { label: string; href: string }[];
+  emblem?: { src: string; caption: string };
 };
 
 const emphasizedOperator = /(부산외국어대학교|Busan University of Foreign Studies)/;
@@ -21,9 +22,14 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
   const showTongues = hasMotherTongues(detail.id);
   return (
     <article className="detail-card">
+      <div className="detail-heading">
+      <div>
       <p className="detail-eyebrow">{detail.eyebrow}</p>
       <h2>{detail.title}</h2>
       {detail.subtitle ? <p className="detail-subtitle">{detail.subtitle}</p> : null}
+      </div>
+      {detail.emblem && <img className="state-emblem" src={detail.emblem.src} alt={detail.emblem.caption} width="88" height="88" />}
+      </div>
       {detail.summary && <p>{detail.summary}</p>}
       {(detail.facts || showTongues || detail.allowances) && (
         <dl>

@@ -1,0 +1,478 @@
+[
+  {
+    "id": "IN-LA",
+    "capital": "레 · 카르길 / Leh · Kargil",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "라다크 행정부: 공동 주도",
+        "url": "https://heliservice.ladakh.gov.in/kargil",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "capitalNote": "레와 카르길은 공동 행정 중심지다."
+  },
+  {
+    "id": "IN-AR",
+    "capital": "이타나가르 / Itanagar",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-SK",
+    "capital": "강토크 / Gangtok",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-WB",
+    "capital": "콜카타 / Kolkata",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-AS",
+    "capital": "디스푸르 / Dispur",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-UT",
+    "capital": "데라둔 / Dehradun",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "capitalNote": "여름 입법 주도는 바라리사인(Bhararisain), 겨울 입법 주도는 데라둔이다."
+  },
+  {
+    "id": "IN-NL",
+    "capital": "코히마 / Kohima",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-MN",
+    "capital": "임팔 / Imphal",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-MZ",
+    "capital": "아이자울 / Aizawl",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-TR",
+    "capital": "아가르탈라 / Agartala",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-ML",
+    "capital": "실롱 / Shillong",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-PB",
+    "capital": "찬디가르 / Chandigarh",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "펀자브 주정부: 주도",
+        "url": "https://punjab.gov.in/",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "capitalNote": "찬디가르는 하리아나와 공유하는 주도이며, 별도의 연방직할지다."
+  },
+  {
+    "id": "IN-RJ",
+    "capital": "자이푸르 / Jaipur",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-GJ",
+    "capital": "간디나가르 / Gandhinagar",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-HP",
+    "capital": "심라 / Shimla",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "capitalNote": "겨울 입법 주도는 다람살라(Dharamshala)다."
+  },
+  {
+    "id": "IN-JK",
+    "capital": "스리나가르(여름) · 잠무(겨울) / Srinagar · Jammu",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-BR",
+    "capital": "파트나 / Patna",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "파트나 행정청: 지역 소개",
+        "url": "https://patna.nic.in/about-district/",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-UP",
+    "capital": "러크나우 / Lucknow",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-AP",
+    "capital": "아마라바티 / Amaravati",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-OR",
+    "capital": "부바네스와르 / Bhubaneswar",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-DH",
+    "capital": "다만 / Daman",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "다드라 나가르하벨리 다만 디우 행정부 FAQ",
+        "url": "https://ddd.gov.in/faqs/",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-MH",
+    "capital": "뭄바이 / Mumbai",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "마하라슈트라 주정부: 주요도시",
+        "url": "https://gr.maharashtra.gov.in/Site/Upload/Government%20Resolutions/Marathi/202507231227091709.pdf",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "capitalNote": "겨울 입법 주도는 나그푸르(Nagpur)다.",
+    "majorCities": [
+      "푸네 / Pune",
+      "나그푸르 / Nagpur"
+    ]
+  },
+  {
+    "id": "IN-GA",
+    "capital": "파나지 / Panaji",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-KA",
+    "capital": "벵갈루루 / Bengaluru",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-KL",
+    "capital": "티루바난타푸람 / Thiruvananthapuram",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "케랄라 관광청: 주도",
+        "url": "https://www.keralatourism.org/districts/",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "emblem": {
+      "file": "kl.png",
+      "caption": "케랄라 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Government_of_Kerala_Logo.svg",
+      "credit": "사용자 제공 PNG 원본; Wikimedia Commons의 문장 자료와 대조",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
+  },
+  {
+    "id": "IN-PY",
+    "capital": "푸두체리 / Puducherry",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-TN",
+    "capital": "첸나이 / Chennai",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "타밀나두 지방행정: 주요도시 교통 연결",
+        "url": "https://www.tnurbantree.tn.gov.in/pattukkottai/bus-stand-2/",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "majorCities": [
+      "코임바토르 / Coimbatore",
+      "마두라이 / Madurai"
+    ],
+    "emblem": {
+      "file": "tn.png",
+      "caption": "타밀나두 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:TamilNadu_Logo.svg",
+      "credit": "사용자 제공 PNG 원본; Wikimedia Commons의 문장 자료와 대조",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
+  },
+  {
+    "id": "IN-LD",
+    "capital": "카바라티 / Kavaratti",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-AN",
+    "capital": "스리 비자야 푸람 / Sri Vijaya Puram",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "안다만 니코바르 행정부: 주도 명칭",
+        "url": "https://andamannicobar.gov.in/about",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "capitalNote": "옛 이름은 포트블레어(Port Blair)다."
+  },
+  {
+    "id": "IN-JH",
+    "capital": "란치 / Ranchi",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-DL",
+    "capital": "뉴델리 / New Delhi",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-CH",
+    "capital": "찬디가르 / Chandigarh",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-MP",
+    "capital": "보팔 / Bhopal",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  },
+  {
+    "id": "IN-CT",
+    "capital": "라이푸르 / Raipur",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "차티스가르 주정부: 나바 라이푸르",
+        "url": "https://jansampark.cg.gov.in/Janman/EN_OCT2025/JanmanOct2025_eng.pdf",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "capitalNote": "나바 라이푸르 아탈 나가르(Nava Raipur Atal Nagar)에 주정부 행정기관이 있다."
+  },
+  {
+    "id": "IN-HR",
+    "capital": "찬디가르 / Chandigarh",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      },
+      {
+        "title": "찬디가르 행정청: 공동 주도",
+        "url": "https://chandigarh.gov.in/sites/default/files/documents/physical-setting.pdf",
+        "accessed": "2026-11-15"
+      }
+    ],
+    "capitalNote": "찬디가르는 펀자브와 공유하는 주도이며, 별도의 연방직할지다."
+  },
+  {
+    "id": "IN-TG",
+    "capital": "하이데라바드 / Hyderabad",
+    "sources": [
+      {
+        "title": "인도 주·연방직할지의 행정·입법 주도 목록",
+        "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
+        "accessed": "2026-11-15"
+      }
+    ]
+  }
+]
