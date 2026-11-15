@@ -228,3 +228,8 @@ h1 {
 .india-nav-toggle svg { width: 16px; transform: rotate(-90deg); }
 .is-collapsed .india-nav-toggle { top: 0; height: 25px; border-top: 0; border-radius: 0 0 8px 8px; }
 .is-collapsed .india-nav-toggle svg { transform: rotate(90deg); }
+.learning-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 40px 0 0; padding: 0; }
+.learning-list a { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 28px 24px; border: 1px solid var(--line); border-radius: 12px; background: white; color: var(--ink); text-decoration: none; font-size: 24px; font-weight: 650; }
+.learning-list a:hover { border-color: var(--accent); background: #f2f7f3; }
+.learning-list .icon { flex: none; color: var(--accent); }
+@media (max-width: 540px) { .learning-list { grid-template-columns: 1fr; gap: 12px; } }

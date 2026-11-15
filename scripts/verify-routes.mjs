@@ -46,6 +46,7 @@ export function verifyRoutes(outDir) {
     }
   }
   for (const [old, current] of [
+    ["/hindi", "/learn/hindi"],
     ["/study/classroom-management", "/interview/classroom"],
     ["/study/classroom-management/encouraging-korean", "/interview/classroom/korean"],
     ["/interview/classroom-management/inclusive-classroom", "/interview/classroom/hindi"],
@@ -54,6 +55,17 @@ export function verifyRoutes(outDir) {
     assert.equal(resolveMovedRoute(old), current, `incomplete legacy redirect: ${old}`);
     const html = read(join(outDir, old, "index.html"));
     assert(html.includes(`data-render-path="${current}"`), `missing static legacy content: ${old}`);
+  }
+  assert.equal(resolveMovedRoute("/hindi/example"), "/learn/hindi/example", "legacy Hindi article paths must migrate too");
+  const home = readablePage(read(join(outDir, "index.html")), base.href);
+  assert(home.includes("언어 익히기") && home.includes("/learn"), "home must link to the learning hub");
+  const learning = readablePage(read(join(outDir, "learn/index.html")), base.href);
+  for (const [id, title] of [["hindi", "힌디어"], ["tamil", "타밀어"]]) {
+    assert(learning.includes(title) && learning.includes(`/learn/${id}`), `learning hub is missing ${id}`);
+    const html = read(join(outDir, `learn/${id}/index.html`));
+    assert(readablePage(html, base.href).includes(`# ${title}`), `missing learning page title: ${id}`);
+    assert(read(join(outDir, `learn/${id}/index.md`)).includes(`# ${title}`), `missing learning page text: ${id}`);
+    assert(html.includes(`rel="canonical" href="${base}learn/${id}/"`), `incorrect learning canonical: ${id}`);
   }
   console.log(`PASS: ${checkedLinks} internal links/assets and ${checkedAliases} static aliases; chained legacy routes resolve to canonical pages.`);
 }

@@ -9,8 +9,13 @@ export const mapSection = {
 export const collections = [
   {
     id: "hindi",
-    path: "/hindi",
+    path: "/learn/hindi",
     title: "힌디어",
+  },
+  {
+    id: "tamil",
+    path: "/learn/tamil",
+    title: "타밀어",
   },
   {
     id: "study",
@@ -35,8 +40,12 @@ export function findCollection(id: string | undefined) {
   return collections.find((collection) => collection.path === "/" + id);
 }
 
+export const learningSection = { id: "learn", path: "/learn", title: "언어 익히기" } as const;
+export const learningCollections = collections.filter(collection => collection.path.startsWith(learningSection.path + "/"));
+
 // Former public routes, also emitted as directories for shared GitHub Pages links.
 export const movedRoutes = [
+  { from: "/hindi", to: "/learn/hindi" },
   { from: "/interview/classroom-management/encouraging-korean", to: "/interview/classroom/korean" },
   { from: "/interview/classroom-management/inclusive-classroom", to: "/interview/classroom/hindi" },
   { from: "/interview/classroom-management/participation-reluctance", to: "/interview/classroom/participation" },
@@ -57,4 +66,4 @@ export function resolveMovedRoute(path: string) {
   throw new Error(`Circular route migration: ${path}`);
 }
 
-export const contents = [mapSection, ...collections];
+export const contents = [mapSection, learningSection, ...collections.filter(collection => collection.id !== "hindi" && collection.id !== "tamil")];

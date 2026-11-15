@@ -6,9 +6,9 @@ import { NotFoundPage } from "./NotFoundPage";
 import { Icon } from "../site/Icon";
 import "../styles/interview.css";
 
-export function CollectionPage() {
+export function CollectionPage({ collectionIdOverride }: { collectionIdOverride?: string } = {}) {
   const { collectionId } = useParams();
-  const collection = findCollection(collectionId);
+  const collection = findCollection(collectionIdOverride ?? collectionId);
 
   usePageTitle(collection ? `${collection.title} · ${siteTitle}` : `없는 페이지 · ${siteTitle}`);
 

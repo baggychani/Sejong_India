@@ -7,6 +7,8 @@ import { HomePage } from "./pages/HomePage";
 import { CollectionPage } from "./pages/CollectionPage";
 import { EntryPage } from "./pages/EntryPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { LearningPage, LearningSection } from "./pages/LearningPage";
+import { learningCollections } from "./site/sections";
 
 const LibraryPage = lazy(() => import("./library/LibraryPage").then(({ LibraryPage }) => ({ default: LibraryPage })));
 const BookPage = lazy(() => import("./library/LibraryPage").then(({ BookPage }) => ({ default: BookPage })));
@@ -41,6 +43,13 @@ export function App({ pages = browserPages }: { pages?: PageComponents } = {}) {
       <LoadErrorBoundary resetKey={pathname}>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/learn" element={<LearningSection />}>
+          <Route index element={<LearningPage />} />
+          {learningCollections.map(collection => <Route key={collection.id}>
+            <Route path={collection.id} element={<CollectionPage collectionIdOverride={collection.path.slice(1)} />} />
+            <Route path={`${collection.id}/:slug`} element={<EntryPage collectionIdOverride={collection.path.slice(1)} />} />
+          </Route>)}
+        </Route>
         <Route path="/bharat" element={<IndiaSection />}>
         <Route index element={<Navigate to="map" replace />} />
         <Route path="map" element={

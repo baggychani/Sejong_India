@@ -4,7 +4,7 @@ import { globSync, mkdirSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 import catalog from "./data/content/languages.json";
 import textbooks from "./data/content/textbooks.json";
-import { collections, mapSection, movedRoutes, resolveMovedRoute } from "./src/site/sections";
+import { collections, learningSection, mapSection, movedRoutes, resolveMovedRoute } from "./src/site/sections";
 import { fillHtml } from "./scripts/prerender.mjs";
 
 export default defineConfig(({ mode }) => {
@@ -24,6 +24,7 @@ export default defineConfig(({ mode }) => {
       const india = mapSection.path;
       const routes = [india, india + "/map", india + "/languages", ...catalog.map(l => india + "/languages/" + l.id)];
       routes.push(...textbooks.map(book => "/lessons/" + book.id));
+      routes.push(learningSection.path);
       for (const { id, path } of collections) {
         routes.push(path);
         for (const name of globSync(id === "study" ? "**/*.md" : "*.md", { cwd: "content/" + id })) {

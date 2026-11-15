@@ -1,4 +1,5 @@
 const shapes = {
+  learn: <><path d="M3 4h7a2 2 0 0 1 2 2v15a4 4 0 0 0-4-2H3zm18 0h-7a2 2 0 0 0-2 2v15a4 4 0 0 1 4-2h5z"/><path d="M6 8h3m6 0h3M6 12h3m6 0h3"/></>,
   map: <><circle cx="12" cy="12" r="9.6"/>{Array.from({ length: 24 }, (_, i) => <path key={i} d="M12 3v7.5" transform={`rotate(${i * 15} 12 12)`} strokeWidth=".65"/>)}<circle cx="12" cy="12" r="1.6" fill="currentColor"/></>,
   study: <><path d="M13 13H8l-4 3v-3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2Z"/><path d="M18 8h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2v3l-4-3h-5a2 2 0 0 1-2-2"/><path d="M6 8h5"/></>,
   lessons: <><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6m-6 4h6m-6 4h3"/></>,
