@@ -7,6 +7,7 @@ import { geoContains } from "d3-geo";
 
 const data = name => JSON.parse(readFileSync(`data/content/${name}.json`, "utf8"));
 const normalize = value => String(value).replace(/\s+/g, " ").trim();
+const seasonMarks = { "☀️": "여름 주도", "❄️": "겨울 주도" };
 
 export function verifyContentFields(outDir) {
   let fields = 0;
@@ -56,9 +57,14 @@ export function verifyContentFields(outDir) {
     assert(["주도", "행정 중심지"].includes(labels[0]), `${state.id}: capital must precede mother tongues`);
     assert.equal(labels.includes("주요도시"), Boolean(state.majorCities?.length), `${state.id}: major cities must be conditional`);
     if (state.majorCities?.length) assert.equal(labels[1], "주요도시");
+    // 계절 주도는 글자가 아닌 표식으로 적고, 표식의 뜻은 같은 레코드 안에서 글로 읽혀야 한다.
+    assert(!/여름|겨울/.test(state.capital), `${state.id}: seasonal capitals use ☀️/❄️ marks, not words`);
+    for (const [mark, meaning] of Object.entries(seasonMarks)) if (state.capital.includes(mark)) record.expect(`${mark} ${meaning}`);
+    for (const city of state.majorCities ?? []) assert(!state.capital.includes(city), `${state.id}: ${city} is already listed as a capital`);
     if (state.emblem) {
       const emblem = allNodes(node).find(node => node.tagName === "img" && attr(node, "alt") === state.emblem.caption);
       assert(attr(emblem, "src")?.includes("/assets/"), `${state.id}: emblem asset missing`);
+      assert.equal(attr(emblem.parentNode, "href"), state.emblem.source, `${state.id}: emblem must link to its source`);
       for (const value of [state.emblem.caption, state.emblem.source, state.emblem.credit, state.emblem.license]) record.expect(value);
     }
   }

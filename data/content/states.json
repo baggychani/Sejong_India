@@ -1,7 +1,7 @@
 [
   {
     "id": "IN-LA",
-    "capital": "레 · 카르길 / Leh · Kargil",
+    "capital": "레 / Leh · 카르길 / Kargil",
     "sources": [
       {
         "title": "인도 주·연방직할지의 행정·입법 주도 목록",
@@ -13,8 +13,7 @@
         "url": "https://heliservice.ladakh.gov.in/kargil",
         "accessed": "2026-11-15"
       }
-    ],
-    "capitalNote": "레와 카르길은 공동 행정 중심지다."
+    ]
   },
   {
     "id": "IN-AR",
@@ -25,6 +24,9 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
+    ],
+    "majorCities": [
+      "타왕 / Tawang"
     ]
   },
   {
@@ -36,7 +38,14 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "sk.png",
+      "caption": "시킴 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Sikkim.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: 幻光尘",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-WB",
@@ -47,6 +56,11 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
+    ],
+    "majorCities": [
+      "실리구리 / Siliguri",
+      "다르질링 / Darjeeling",
+      "아산솔 / Asansol"
     ]
   },
   {
@@ -58,11 +72,24 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "capitalNote": "구와하티 안에 있는 구역이다.",
+    "majorCities": [
+      "구와하티 / Guwahati",
+      "디브루가르 / Dibrugarh",
+      "실차르 / Silchar"
+    ],
+    "emblem": {
+      "file": "as.png",
+      "caption": "아삼 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Assam.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of India",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-UT",
-    "capital": "데라둔 / Dehradun",
+    "capital": "데라둔 / Dehradun · 가이르사인 / Gairsain ☀️",
     "sources": [
       {
         "title": "인도 주·연방직할지의 행정·입법 주도 목록",
@@ -70,7 +97,18 @@
         "accessed": "2026-11-15"
       }
     ],
-    "capitalNote": "여름 입법 주도는 바라리사인(Bhararisain), 겨울 입법 주도는 데라둔이다."
+    "majorCities": [
+      "하리드와르 / Haridwar",
+      "리시케시 / Rishikesh",
+      "나이니탈 / Nainital"
+    ],
+    "emblem": {
+      "file": "ut.png",
+      "caption": "우타라칸드 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Uttarakhand.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of Uttarakhand",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-NL",
@@ -81,7 +119,17 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "디마푸르 / Dimapur"
+    ],
+    "emblem": {
+      "file": "nl.png",
+      "caption": "나갈랜드 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Nagaland.png",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Gurvinder Singh brar GSB",
+      "license": "CC0; 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-MN",
@@ -92,7 +140,14 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "mn.png",
+      "caption": "마니푸르 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Emblem_of_Manipur.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: ChiK",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-MZ",
@@ -103,7 +158,14 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "mz.png",
+      "caption": "미조람 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Mizoram.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Hardymk, Zscout370",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-TR",
@@ -114,7 +176,14 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "tr.png",
+      "caption": "트리푸라 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Emblem_of_Tripura.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: ChiK",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-ML",
@@ -125,7 +194,17 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "체라푼지 / Cherrapunji"
+    ],
+    "emblem": {
+      "file": "ml.png",
+      "caption": "메갈라야 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Meghalaya.png",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Parvatham Kishore",
+      "license": "CC BY-SA 4.0; 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-PB",
@@ -142,7 +221,19 @@
         "accessed": "2026-11-15"
       }
     ],
-    "capitalNote": "찬디가르는 하리아나와 공유하는 주도이며, 별도의 연방직할지다."
+    "capitalNote": "찬디가르는 하리아나와 공유하는 주도이며, 별도의 연방직할지다.",
+    "majorCities": [
+      "루디아나 / Ludhiana",
+      "암리차르 / Amritsar",
+      "잘란다르 / Jalandhar"
+    ],
+    "emblem": {
+      "file": "pb.png",
+      "caption": "펀자브 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_the_Government_Of_Punjab_(Black_On_White).svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of Punjab",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-RJ",
@@ -153,7 +244,19 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "조드푸르 / Jodhpur",
+      "우다이푸르 / Udaipur",
+      "코타 / Kota"
+    ],
+    "emblem": {
+      "file": "rj.png",
+      "caption": "라자스탄 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Emblem_Rajasthan.png",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Naahar",
+      "license": "CC BY-SA 4.0; 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-GJ",
@@ -164,11 +267,23 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "아마다바드 / Ahmedabad",
+      "수라트 / Surat",
+      "바도다라 / Vadodara"
+    ],
+    "emblem": {
+      "file": "gj.png",
+      "caption": "구자라트 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Government_Of_Gujarat_Seal_In_All_Languages.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Trikkiboy",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-HP",
-    "capital": "심라 / Shimla",
+    "capital": "심라 / Shimla · 다람살라 / Dharamshala ❄️",
     "sources": [
       {
         "title": "인도 주·연방직할지의 행정·입법 주도 목록",
@@ -176,18 +291,34 @@
         "accessed": "2026-11-15"
       }
     ],
-    "capitalNote": "겨울 입법 주도는 다람살라(Dharamshala)다."
+    "majorCities": [
+      "마날리 / Manali"
+    ],
+    "emblem": {
+      "file": "hp.png",
+      "caption": "히마찰프라데시 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Government_of_Himachal_Pradesh_logo.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: VNC200",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-JK",
-    "capital": "스리나가르(여름) · 잠무(겨울) / Srinagar · Jammu",
+    "capital": "스리나가르 / Srinagar ☀️ · 잠무 / Jammu ❄️",
     "sources": [
       {
         "title": "인도 주·연방직할지의 행정·입법 주도 목록",
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "jk.png",
+      "caption": "잠무 카슈미르 정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Government_of_Jammu_and_Kashmir.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Soumya-8974",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-BR",
@@ -203,7 +334,19 @@
         "url": "https://patna.nic.in/about-district/",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "가야 / Gaya",
+      "바갈푸르 / Bhagalpur",
+      "무자파르푸르 / Muzaffarpur"
+    ],
+    "emblem": {
+      "file": "br.png",
+      "caption": "비하르 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Government_of_Bihar_Emblem.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of Bihar",
+      "license": "Wikimedia Commons: EdictGov-India; 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-UP",
@@ -214,7 +357,20 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "칸푸르 / Kanpur",
+      "아그라 / Agra",
+      "바라나시 / Varanasi",
+      "노이다 / Noida"
+    ],
+    "emblem": {
+      "file": "up.png",
+      "caption": "우타르프라데시 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Uttar_Pradesh.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Furfur",
+      "license": "CC BY-SA 4.0; 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-AP",
@@ -225,7 +381,19 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "비샤카파트남 / Visakhapatnam",
+      "비자야와다 / Vijayawada",
+      "티루파티 / Tirupati"
+    ],
+    "emblem": {
+      "file": "ap.png",
+      "caption": "안드라프라데시 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Emblem_of_Andhra_Pradesh.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of Andhra Pradesh",
+      "license": "Wikimedia Commons: GODL-India; 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-OR",
@@ -236,7 +404,19 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "쿠타크 / Cuttack",
+      "푸리 / Puri",
+      "루르켈라 / Rourkela"
+    ],
+    "emblem": {
+      "file": "or.png",
+      "caption": "오디샤 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Odisha.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of Odisha",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-DH",
@@ -252,28 +432,33 @@
         "url": "https://ddd.gov.in/faqs/",
         "accessed": "2026-11-15"
       }
+    ],
+    "majorCities": [
+      "실바사 / Silvassa",
+      "디우 / Diu"
     ]
   },
   {
     "id": "IN-MH",
-    "capital": "뭄바이 / Mumbai",
+    "capital": "뭄바이 / Mumbai · 나그푸르 / Nagpur ❄️",
     "sources": [
       {
         "title": "인도 주·연방직할지의 행정·입법 주도 목록",
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
-      },
-      {
-        "title": "마하라슈트라 주정부: 주요도시",
-        "url": "https://gr.maharashtra.gov.in/Site/Upload/Government%20Resolutions/Marathi/202507231227091709.pdf",
-        "accessed": "2026-11-15"
       }
     ],
-    "capitalNote": "겨울 입법 주도는 나그푸르(Nagpur)다.",
     "majorCities": [
       "푸네 / Pune",
-      "나그푸르 / Nagpur"
-    ]
+      "나시크 / Nashik"
+    ],
+    "emblem": {
+      "file": "mh.png",
+      "caption": "마하라슈트라 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Maharashtra.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of Maharashtra",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-GA",
@@ -284,6 +469,10 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
+    ],
+    "majorCities": [
+      "마르가오 / Margao",
+      "바스쿠다가마 / Vasco da Gama"
     ]
   },
   {
@@ -295,7 +484,19 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "마이수루 / Mysuru",
+      "망갈루루 / Mangaluru",
+      "후블리 / Hubballi"
+    ],
+    "emblem": {
+      "file": "ka.png",
+      "caption": "카르나타카 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Karnataka.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of Karnataka",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-KL",
@@ -318,7 +519,11 @@
       "source": "https://commons.wikimedia.org/wiki/File:Government_of_Kerala_Logo.svg",
       "credit": "사용자 제공 PNG 원본; Wikimedia Commons의 문장 자료와 대조",
       "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
-    }
+    },
+    "majorCities": [
+      "코치 / Kochi",
+      "코지코드 / Kozhikode"
+    ]
   },
   {
     "id": "IN-PY",
@@ -395,6 +600,11 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
+    ],
+    "majorCities": [
+      "잠셰드푸르 / Jamshedpur",
+      "단바드 / Dhanbad",
+      "보카로 / Bokaro"
     ]
   },
   {
@@ -406,7 +616,14 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "dl.png",
+      "caption": "델리 정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_the_National_Capital_Territory_of_Delhi.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Hardymk, Sidheeq 외",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-CH",
@@ -417,7 +634,14 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "ch.png",
+      "caption": "찬디가르 행정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Chandigarh.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: ChiK",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-MP",
@@ -428,7 +652,19 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "인도르 / Indore",
+      "괄리오르 / Gwalior",
+      "자발푸르 / Jabalpur"
+    ],
+    "emblem": {
+      "file": "mp.png",
+      "caption": "마디아프라데시 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Emblem_of_Madhya_Pradesh.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: VNC200",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-CT",
@@ -445,7 +681,17 @@
         "accessed": "2026-11-15"
       }
     ],
-    "capitalNote": "나바 라이푸르 아탈 나가르(Nava Raipur Atal Nagar)에 주정부 행정기관이 있다."
+    "majorCities": [
+      "빌라이 / Bhilai",
+      "빌라스푸르 / Bilaspur"
+    ],
+    "emblem": {
+      "file": "ct.png",
+      "caption": "차티스가르 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Coat_of_arms_of_Chhattisgarh.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of Chhattisgarh",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-HR",
@@ -462,7 +708,18 @@
         "accessed": "2026-11-15"
       }
     ],
-    "capitalNote": "찬디가르는 펀자브와 공유하는 주도이며, 별도의 연방직할지다."
+    "capitalNote": "찬디가르는 펀자브와 공유하는 주도이며, 별도의 연방직할지다.",
+    "majorCities": [
+      "구루그람 / Gurugram",
+      "파리다바드 / Faridabad"
+    ],
+    "emblem": {
+      "file": "hr.png",
+      "caption": "하리아나 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Emblem_of_Haryana.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: VNC200",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-TG",
@@ -473,6 +730,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "majorCities": [
+      "와랑갈 / Warangal"
+    ],
+    "emblem": {
+      "file": "tg.png",
+      "caption": "텔랑가나 주정부 문장",
+      "source": "https://en.wikipedia.org/wiki/File:Emblem_of_Telangana.svg",
+      "credit": "영어 위키백과 파일의 PNG 렌더링; 작성자 표기: Turtle-bienhoa",
+      "license": "CC0; 정부 문장에 관한 별도 사용 제한 적용"
+    }
   }
 ]

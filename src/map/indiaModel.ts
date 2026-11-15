@@ -216,7 +216,7 @@ const adminDetails: DetailRecord[] = admin.features.flatMap((feature) => {
         { label: kind === "주" ? "주도" : "행정 중심지", value: [content.capital, content.capitalNote].filter(Boolean).join(" — ") },
         ...(content.majorCities?.length ? [{ label: "주요도시", value: content.majorCities.join(" · ") }] : []),
       ],
-      emblem: content.emblem ? { src: emblemFiles[`../assets/state-emblems/${content.emblem.file}`], caption: content.emblem.caption } : undefined,
+      emblem: content.emblem ? { src: emblemFiles[`../assets/state-emblems/${content.emblem.file}`], caption: content.emblem.caption, source: content.emblem.source } : undefined,
     },
   ];
 });

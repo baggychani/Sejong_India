@@ -6,7 +6,7 @@ import census from "../../data/content/mother-tongues.json";
 import neighbors from "../../data/content/neighbors.json";
 import states from "../../data/content/states.json";
 import { details } from "./indiaModel";
-import { DetailCard } from "./details";
+import { DetailCard, seasonMarks } from "./details";
 
 /** Always in the HTML, including when the map's selected panel changes. */
 export function MapReference() {
@@ -28,8 +28,10 @@ export function MapReference() {
     </section>
     <section aria-labelledby="state-reference-title">
       <h2 id="state-reference-title">주·연방직할지</h2>
+      <p>주요도시는 규모·경제·여행에서 널리 알려진 도시를 고른 것이며, 공식 지정이나 인구 순위가 아닙니다. 주도 칸에 적은 도시는 주요도시에 다시 적지 않습니다.</p>
       {states.map(state => <article key={state.id} id={`state-${state.id}`}>
         <DetailCard detail={details.get(state.id)!} />
+        {Object.entries(seasonMarks).filter(([mark]) => state.capital.includes(mark)).map(([mark, meaning]) => <p key={mark}>{mark} {meaning}</p>)}
         {state.emblem && <p>{state.emblem.caption} · {state.emblem.credit} · {state.emblem.license} · <a href={state.emblem.source}>문장 출처</a></p>}
         <ul>{state.sources.map(source => <li key={source.url}><a href={source.url}>{source.title}</a> · {source.accessed}</li>)}</ul>
       </article>)}

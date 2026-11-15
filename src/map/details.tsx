@@ -9,13 +9,23 @@ export type DetailRecord = {
   facts?: { label: string; value: string }[];
   allowances?: { housingManwon: number; hardshipManwon: number | null };
   links?: { label: string; href: string }[];
-  emblem?: { src: string; caption: string };
+  emblem?: { src: string; caption: string; source: string };
 };
 
 const emphasizedOperator = /(부산외국어대학교|Busan University of Foreign Studies)/;
 
 function operatorName(value: string) {
   return value.split(emphasizedOperator).map((part, i) => i % 2 ? <strong key={i}>{part}</strong> : part);
+}
+
+/** 계절에 따라 옮기는 주도의 표식. 뜻은 툴팁·접근성 이름과 비시각 읽기 경로의 범례로 제공한다. */
+export const seasonMarks: Record<string, string> = { "☀️": "여름 주도", "❄️": "겨울 주도" };
+const seasonMark = new RegExp(`(${Object.keys(seasonMarks).join("|")})`);
+
+function withSeasonMarks(value: string) {
+  return value.split(seasonMark).map((part, i) => i % 2
+    ? <span key={i} className="season-mark" role="img" aria-label={seasonMarks[part]} title={seasonMarks[part]}>{part}</span>
+    : part);
 }
 
 export function DetailCard({ detail }: { detail: DetailRecord }) {
@@ -28,7 +38,11 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
       <h2>{detail.title}</h2>
       {detail.subtitle ? <p className="detail-subtitle">{detail.subtitle}</p> : null}
       </div>
-      {detail.emblem && <img className="state-emblem" src={detail.emblem.src} alt={detail.emblem.caption} width="88" height="88" />}
+      {detail.emblem && (
+        <a className="state-emblem-link" href={detail.emblem.source} target="_blank" rel="noreferrer" title="문장 출처 열기">
+          <img className="state-emblem" src={detail.emblem.src} alt={detail.emblem.caption} width="88" height="88" />
+        </a>
+      )}
       </div>
       {detail.summary && <p>{detail.summary}</p>}
       {(detail.facts || showTongues || detail.allowances) && (
@@ -50,7 +64,7 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
           {detail.facts?.map((fact) => (
             <div key={fact.label}>
               <dt>{fact.label}</dt>
-              <dd>{fact.label === "운영기관" ? operatorName(fact.value) : fact.value}</dd>
+              <dd>{fact.label === "운영기관" ? operatorName(fact.value) : withSeasonMarks(fact.value)}</dd>
             </div>
           ))}
           {showTongues && <MotherTongueRow placeId={detail.id} />}
