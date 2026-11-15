@@ -106,6 +106,7 @@ export function ReligionMap({ religion }: { religion: ReligionPageEntry }) {
     </div>
     <figcaption>
       <span className="religion-map-scale" aria-hidden="true"><span>0%</span><i /><span>{formatReligionShare(regions[0].population, regions[0].profile.population)}</span></span>
+      <small>{religionCensus.year}년 인구조사</small>
     </figcaption>
     <noscript>
       <p>{religion.ko} 인구 비율이 높은 순 · {scope}</p>
