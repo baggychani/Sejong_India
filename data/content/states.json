@@ -13,7 +13,14 @@
         "url": "https://heliservice.ladakh.gov.in/kargil",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "la.png",
+      "caption": "라다크 행정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_Ladakh.png",
+      "credit": "Wikimedia Commons 파일의 PNG; 흰 배경을 투명하게 처리; 작성자 표기: Cordyceps-Zombie",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-AR",
@@ -27,7 +34,14 @@
     ],
     "majorCities": [
       "타왕 / Tawang"
-    ]
+    ],
+    "emblem": {
+      "file": "ar.png",
+      "caption": "아루나찰프라데시 주정부 문장",
+      "source": "https://en.wikipedia.org/wiki/File:Arunachal_Pradesh_Seal.svg",
+      "credit": "영어 위키백과 파일의 PNG 렌더링",
+      "license": "영어 위키백과: 비자유 이미지(Fair use) 표기; 비영리 개인 학습 사이트에서 식별용으로 사용"
+    }
   },
   {
     "id": "IN-SK",
@@ -61,7 +75,14 @@
       "실리구리 / Siliguri",
       "다르질링 / Darjeeling",
       "아산솔 / Asansol"
-    ]
+    ],
+    "emblem": {
+      "file": "wb.png",
+      "caption": "서벵골 주정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Seal_of_West_Bengal.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Government of West Bengal",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-AS",
@@ -436,7 +457,14 @@
     "majorCities": [
       "실바사 / Silvassa",
       "디우 / Diu"
-    ]
+    ],
+    "emblem": {
+      "file": "dh.png",
+      "caption": "다드라 나가르하벨리 다만 디우 행정부 문장",
+      "source": "https://en.wikipedia.org/wiki/File:Emblem_of_Dadra_and_Nagar_Haveli_and_Daman_and_Diu.png",
+      "credit": "영어 위키백과 파일의 PNG; 흰 배경을 투명하게 처리",
+      "license": "영어 위키백과: 비자유 이미지(Fair use) 표기; 비영리 개인 학습 사이트에서 식별용으로 사용"
+    }
   },
   {
     "id": "IN-MH",
@@ -473,7 +501,14 @@
     "majorCities": [
       "마르가오 / Margao",
       "바스쿠다가마 / Vasco da Gama"
-    ]
+    ],
+    "emblem": {
+      "file": "ga.png",
+      "caption": "고아 주정부 문장",
+      "source": "https://en.wikipedia.org/wiki/File:Emblem_of_Goa.svg",
+      "credit": "영어 위키백과 파일의 PNG 렌더링",
+      "license": "영어 위키백과: 비자유 이미지(Fair use) 표기; 비영리 개인 학습 사이트에서 식별용으로 사용"
+    }
   },
   {
     "id": "IN-KA",
@@ -534,7 +569,14 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "py.png",
+      "caption": "푸두체리 정부 문장",
+      "source": "https://commons.wikimedia.org/wiki/File:Emblem_of_the_Government_of_Puducherry.png",
+      "credit": "Wikimedia Commons 파일의 PNG; 흰 배경을 투명하게 처리; 작성자 표기: Government of the Union Territory of Puducherry in India",
+      "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-TN",
@@ -572,7 +614,14 @@
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       }
-    ]
+    ],
+    "emblem": {
+      "file": "ld.png",
+      "caption": "락샤드위프 행정부 문장",
+      "source": "https://en.wikipedia.org/wiki/File:Lakshadweep_Banner.png",
+      "credit": "영어 위키백과 파일의 PNG 렌더링",
+      "license": "영어 위키백과: 비자유 이미지(Fair use) 표기; 비영리 개인 학습 사이트에서 식별용으로 사용"
+    }
   },
   {
     "id": "IN-AN",
@@ -589,7 +638,14 @@
         "accessed": "2026-11-15"
       }
     ],
-    "capitalNote": "옛 이름은 포트블레어(Port Blair)다."
+    "capitalNote": "옛 이름은 포트블레어(Port Blair)다.",
+    "emblem": {
+      "file": "an.png",
+      "caption": "안다만 니코바르 행정부 문장",
+      "source": "https://en.wikipedia.org/wiki/File:Seal_of_Andaman_and_Nicobar_Islands.png",
+      "credit": "영어 위키백과 파일의 PNG; 흰 배경을 투명하게 처리; 작성자 표기: Administration of the Andaman and Nicobar Islands",
+      "license": "영어 위키백과: Public domain 표기; 정부 문장에 관한 별도 사용 제한 적용"
+    }
   },
   {
     "id": "IN-JH",
@@ -605,7 +661,14 @@
       "잠셰드푸르 / Jamshedpur",
       "단바드 / Dhanbad",
       "보카로 / Bokaro"
-    ]
+    ],
+    "emblem": {
+      "file": "jh.png",
+      "caption": "자르칸드 주정부 문장",
+      "source": "https://en.wikipedia.org/wiki/File:Emblem_of_Jharkhand_State.png",
+      "credit": "영어 위키백과 파일의 PNG 렌더링; 작성자 표기: Government of Jharkhand",
+      "license": "영어 위키백과: 비자유 이미지(Fair use) 표기; 비영리 개인 학습 사이트에서 식별용으로 사용"
+    }
   },
   {
     "id": "IN-DL",
