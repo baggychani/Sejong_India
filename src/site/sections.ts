@@ -40,7 +40,7 @@ export function findCollection(id: string | undefined) {
   return collections.find((collection) => collection.path === "/" + id);
 }
 
-export const learningSection = { id: "learn", path: "/learn", title: "언어 익히기" } as const;
+export const learningSection = { id: "learn", path: "/learn", title: "언어 학습" } as const;
 export const learningCollections = collections.filter(collection => collection.path.startsWith(learningSection.path + "/"));
 
 // Former public routes, also emitted as directories for shared GitHub Pages links.

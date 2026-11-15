@@ -4,6 +4,7 @@ import { usePageTitle } from "../site/title";
 import { entriesFor } from "../content/load";
 import { NotFoundPage } from "./NotFoundPage";
 import { Icon } from "../site/Icon";
+import { CollectionLabel } from "../site/CollectionLabel";
 import "../styles/interview.css";
 
 export function CollectionPage({ collectionIdOverride }: { collectionIdOverride?: string } = {}) {
@@ -20,7 +21,7 @@ export function CollectionPage({ collectionIdOverride }: { collectionIdOverride?
 
   return (
     <article className={collection.id === "study" ? "reading interview-index" : "reading"}>
-      <h1>{collection.title}</h1>
+      <h1><CollectionLabel collection={collection} /></h1>
       {entries.length === 0 ? (
         <p className="empty">아직 정리해 둔 글이 없다.</p>
       ) : (

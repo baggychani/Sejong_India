@@ -232,4 +232,8 @@ h1 {
 .learning-list a { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 28px 24px; border: 1px solid var(--line); border-radius: 12px; background: white; color: var(--ink); text-decoration: none; font-size: 24px; font-weight: 650; }
 .learning-list a:hover { border-color: var(--accent); background: #f2f7f3; }
 .learning-list .icon { flex: none; color: var(--accent); }
+.collection-label { display: inline-flex; flex-wrap: wrap; align-items: baseline; column-gap: .5em; row-gap: .2em; }
+.collection-native { color: var(--muted); font-size: .78em; font-weight: 450; letter-spacing: normal; line-height: 1.5; }
+.india-navigation .collection-label { flex-wrap: nowrap; }
+h1 .collection-native { font-size: .6em; }
 @media (max-width: 540px) { .learning-list { grid-template-columns: 1fr; gap: 12px; } }

@@ -6,6 +6,7 @@ import { findEntry } from "../content/load";
 import { NotFoundPage } from "./NotFoundPage";
 import { questionsFor } from "../content/interview";
 import { Icon } from "../site/Icon";
+import { CollectionLabel } from "../site/CollectionLabel";
 import "../styles/interview.css";
 
 const interviewComponents: Components = {
@@ -36,7 +37,7 @@ export function EntryPage({ collectionIdOverride }: { collectionIdOverride?: str
   return (
     <article className={isInterview ? "reading entry interview-entry" : "reading entry"}>
       <p className="eyebrow">
-        <Link to={collection.path}>{collection.title}</Link>
+        <Link to={collection.path}><CollectionLabel collection={collection} /></Link>
         {question && <> <span aria-hidden="true">/</span> <Link to={`${collection.path}/${entry.slug}`}>{entry.title}</Link></>}
       </p>
       <h1 className={question ? "interview-question-title" : undefined}>{current.title}</h1>

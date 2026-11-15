@@ -2,12 +2,13 @@ import { Link, NavLink, Outlet } from "react-router";
 import { learningCollections, learningSection, siteTitle } from "../site/sections";
 import { usePageTitle } from "../site/title";
 import { Icon } from "../site/Icon";
+import { CollectionLabel } from "../site/CollectionLabel";
 
 export function LearningSection() {
   return <>
     <nav className="india-navigation" aria-label={learningSection.title}>
       <NavLink to={learningSection.path} end>전체</NavLink>
-      {learningCollections.map(collection => <NavLink key={collection.id} to={collection.path}>{collection.title}</NavLink>)}
+      {learningCollections.map(collection => <NavLink key={collection.id} to={collection.path}><CollectionLabel collection={collection} /></NavLink>)}
     </nav>
     <Outlet />
   </>;
@@ -19,7 +20,7 @@ export function LearningPage() {
     <h1>{learningSection.title}</h1>
     <ul className="learning-list">
       {learningCollections.map(collection => <li key={collection.id}>
-        <Link to={collection.path}><span>{collection.title}</span><Icon name="arrow" /></Link>
+        <Link to={collection.path}><CollectionLabel collection={collection} /><Icon name="arrow" /></Link>
       </li>)}
     </ul>
   </article>;
