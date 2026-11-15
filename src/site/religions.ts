@@ -21,10 +21,18 @@ const groupPopulation = (profile: ReligionProfile, group: string) => profile.rel
 export function religionNationwide(page: ReligionPageEntry) {
   return { population: groupPopulation(nationwide, page.censusGroup), total: nationwide.population };
 }
-/** 이 종교의 인구 비율이 높은 주·연방직할지. 2011년 조사 단위를 그대로 쓴다. */
-export function topReligionRegions(page: ReligionPageEntry, count = 3) {
-  return regionProfiles.map(profile => ({ profile, population: groupPopulation(profile, page.censusGroup) }))
-    .sort((a, b) => b.population / b.profile.population - a.population / a.profile.population).slice(0, count);
+/** 주·연방직할지별 이 종교의 인구 비율, 높은 순. 2011년 조사 단위를 그대로 쓴다. */
+export function religionRegionShares(page: ReligionPageEntry) {
+  return regionProfiles.map(profile => {
+    const population = groupPopulation(profile, page.censusGroup);
+    return { profile, population, share: religionShare(population, profile.population) };
+  }).sort((a, b) => b.share - a.share);
+}
+const symbolFiles = import.meta.glob("../assets/religion-symbols/*.png", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+/** 상징 그림은 색을 입혀 쓰는 마스크 이미지다. */
+export function religionSymbolMask(page: ReligionPageEntry) {
+  const image = `url("${symbolFiles[`../assets/religion-symbols/${page.symbol.file}`]}")`;
+  return { maskImage: image, WebkitMaskImage: image };
 }
 export const numberOfPeople = (value: number) => `${value.toLocaleString("ko-KR")}명`;
 export const religionShare = (population: number, total: number) => population / total * 100;

@@ -3,40 +3,65 @@
     "id": "hinduism",
     "ko": "힌두교",
     "en": "Hinduism",
-    "native": "हिन्दू धर्म",
-    "tag": "hi",
-    "censusGroup": "hindu"
+    "censusGroup": "hindu",
+    "symbol": {
+      "file": "hinduism.png",
+      "name": "옴",
+      "source": "https://commons.wikimedia.org/wiki/File:Om_symbol.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: The Unicode Consortium",
+      "license": "Public domain"
+    }
   },
   {
     "id": "islam",
     "ko": "이슬람교",
     "en": "Islam",
-    "native": "इस्लाम",
-    "tag": "hi",
-    "censusGroup": "muslim"
+    "censusGroup": "muslim",
+    "symbol": {
+      "file": "islam.png",
+      "name": "초승달과 별",
+      "source": "https://commons.wikimedia.org/wiki/File:Star_and_Crescent.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Kbolino",
+      "license": "Public domain"
+    }
   },
   {
     "id": "sikhism",
     "ko": "시크교",
     "en": "Sikhism",
-    "native": "ਸਿੱਖੀ",
-    "tag": "pa",
-    "censusGroup": "sikh"
+    "censusGroup": "sikh",
+    "symbol": {
+      "file": "sikhism.png",
+      "name": "칸다",
+      "source": "https://commons.wikimedia.org/wiki/File:Khanda.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링",
+      "license": "Public domain"
+    }
   },
   {
     "id": "jainism",
     "ko": "자이나교",
     "en": "Jainism",
-    "native": "जैन धर्म",
-    "tag": "hi",
-    "censusGroup": "jain"
+    "censusGroup": "jain",
+    "symbol": {
+      "file": "jainism.png",
+      "name": "아힘사의 손",
+      "source": "https://commons.wikimedia.org/wiki/File:Ahimsa.svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링",
+      "license": "Public domain"
+    }
   },
   {
     "id": "buddhism",
     "ko": "불교",
     "en": "Buddhism",
-    "native": "बौद्ध धर्म",
-    "tag": "hi",
-    "censusGroup": "buddhist"
+    "censusGroup": "buddhist",
+    "symbol": {
+      "file": "buddhism.png",
+      "name": "법륜",
+      "source": "https://commons.wikimedia.org/wiki/File:Dharma_Wheel_(2).svg",
+      "credit": "Wikimedia Commons 파일의 PNG 렌더링; 작성자 표기: Shazz, Esteban.barahona",
+      "license": "Public domain"
+    }
   }
 ]

@@ -32,8 +32,9 @@ const jsonContracts = {
       religions: [{ id: identity, population: publicValue(value => `${value.toLocaleString("ko-KR")}명`) }] }],
   } },
   "religion-pages": { targets: row => [["bharat/religions", `religion-page-${row.id}`], [`bharat/religions/${row.id}`]], schema: {
-    id: identity, ko: publicValue(), en: publicValue(), native: publicValue(),
-    tag: technical("HTML lang 속성에 쓰는 언어 식별 코드다. 종교 이름은 별도 공개 필드다."),
+    id: identity, ko: publicValue(), en: publicValue(),
+    symbol: { file: technical("상징 그림 PNG 파일명이다. 그림의 이름과 출처는 name, source, credit, license로 검사한다."),
+      name: publicValue(), source: publicValue(), credit: publicValue(), license: publicValue() },
     censusGroup: technical("종교 페이지를 인구조사 분류에 연결하는 키다. 전국 인원수·비율과 상위 지역은 레코드별 검사로 대조한다.") } },
   states: { targets: row => [["bharat/map", `state-${row.id}`]], schema: {
     id: identity, capital: publicValue(), capitalNote: publicValue(), majorCities: [publicValue()],

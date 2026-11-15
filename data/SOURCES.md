@@ -8,7 +8,7 @@
 
 학당 조사 지역은 기존 모어 자료의 연결 단위를 따른다. BBMP·파트나·임팔은 외곽 확장지(OG)를 포함한 합계 행을 사용하며 하위 부분 행을 더하지 않는다. 첸나이 VIT는 옛 칸치푸람 district 전체, 바라사트 학당은 Barasat-I 블록이고, 바라사트 도시와 별도다. 델리 학당은 델리 수도직할지 전체다. 현재 안드라프라데시·텔랑가나와 잠무 카슈미르·라다크에는 각각 분리 전 2011년 광역 참고치를 연결하고 이를 명시한다. 다드라 나가르하벨리 다만 디우는 2011년 두 직할지의 인원수를 합산했다.
 
-종교 페이지 목록은 `data/content/religion-pages.json`에 직접 적는다(이름과 인구조사 분류 연결 키). 상세 페이지의 전국 비율과 비율 상위 3개 지역은 `religions.json`에서 계산하며 따로 저장하지 않는다. 지도 상세의 종교 pill은 목록에 있는 종교만 해당 페이지로 연결한다.
+종교 페이지 목록은 `data/content/religion-pages.json`에 직접 적는다(이름, 인구조사 분류 연결 키, 상징 그림의 이름·출처). 상징 그림은 Wikimedia Commons의 퍼블릭 도메인 파일을 PNG로 받아 `src/assets/religion-symbols/`에 두고, 모양만 마스크로 써서 종교별 색으로 칠한다. 상세 페이지의 전국 비율과 지역 분포 지도(주·연방직할지별 비율, 가장 진한 색이 그 종교의 최고 비율)는 `religions.json`에서 계산하며 따로 저장하지 않는다. 지도 상세의 종교 pill은 목록에 있는 종교만 해당 페이지로 연결한다.
 
 재생성: 원본을 `data/cache/religion-c01-india.xls` 및 `religion-c01-<catalog-id>.xls`로 받은 뒤 `node scripts/import-religions.mjs <SheetJS 모듈 경로>`를 실행한다. 표시는 `src/site/religions.ts`에서 공통 계산하며, 전체 정적 본문은 `ReligionReference`를 지도와 종교 페이지가 공유한다. `npm run check:readable`에 종교 데이터의 합계·지역 연결·중복 집계 방지·분모·순위·정적 HTML/Markdown 검사를 연결했다.
 

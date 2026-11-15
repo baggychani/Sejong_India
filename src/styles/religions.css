@@ -24,54 +24,69 @@
 .religion-source a { color: var(--accent); }
 @media (max-width: 440px) { .religion-card { padding: 14px 10px; } .religion-table { font-size: 12px; } .religion-table th, .religion-table td { padding: 9px 2px; } }
 
-/* 종교 목록과 상세 (언어 페이지와 같은 구성) */
-.religion-tiles { display: grid; grid-template-columns: repeat(auto-fill,minmax(min(100%,200px),1fr)); gap: 12px; }
-.religion-tile, .religion-identity { --wash: #edf1ee; --letter: #35584c; }
-[data-religion=hindu] { --wash: #fde3d6; --letter: #8f3210; }
-[data-religion=muslim] { --wash: #dcefe2; --letter: #155c38; }
+/* 종교 목록과 상세 */
+.religion-tiles { display: grid; grid-template-columns: repeat(auto-fill,minmax(min(100%,200px),1fr)); gap: 14px; }
+.religion-tile, .religion-identity, .religion-map { --wash: #edf1ee; --letter: #35584c; }
+[data-religion=hindu] { --wash: #fde3d6; --letter: #a23a12; }
+[data-religion=muslim] { --wash: #dcefe2; --letter: #17683f; }
 [data-religion=sikh] { --wash: #e3ebf8; --letter: #2f4f8f; }
-[data-religion=jain] { --wash: #f6efcf; --letter: #7a6414; }
-[data-religion=buddhist] { --wash: #f1dfe0; --letter: #7c2d3a; }
+[data-religion=jain] { --wash: #f6efcf; --letter: #856c10; }
+[data-religion=buddhist] { --wash: #f1dfe0; --letter: #86303f; }
+/* 상징 그림은 PNG의 모양만 빌려 종교 색으로 칠한다. */
+.religion-symbol {
+  display: block; background: var(--letter);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+}
 .religion-tile {
-  display: grid; grid-template-rows: 1fr auto; text-decoration: none; color: var(--ink); background: white;
-  border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+  display: grid; grid-template-rows: 1fr auto; aspect-ratio: 1 / 1.08; text-decoration: none; color: var(--ink);
+  background: white; border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
 }
 .religion-tile:hover, .religion-tile:focus-visible { border-color: var(--letter); }
-.religion-native { font-family: "Nirmala UI", sans-serif; font-weight: 500; }
-.religion-tile .religion-native { display: grid; place-content: center; min-height: 84px; padding: 10px; font-size: 27px; background: var(--wash); color: var(--letter); }
-.religion-caption { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 6px; padding: 12px 16px; }
-.religion-caption strong { font-size: 15px; }
+.religion-tile-art {
+  position: relative; overflow: hidden;
+  background: linear-gradient(155deg, color-mix(in srgb, var(--wash) 45%, white) 0%, var(--wash) 58%, color-mix(in srgb, var(--wash) 78%, var(--letter)) 130%);
+}
+.religion-tile-art .religion-symbol { position: absolute; inset: 20% 22%; opacity: .9; transition: transform .25s ease; }
+.religion-tile-art .religion-symbol.is-echo { inset: auto -34% -38% auto; width: 118%; height: 118%; opacity: .09; transform: rotate(-14deg); }
+.religion-tile:hover .religion-symbol:not(.is-echo), .religion-tile:focus-visible .religion-symbol:not(.is-echo) { transform: scale(1.06); }
+.religion-caption { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 6px; padding: 13px 16px; }
+.religion-caption strong { font-size: 16px; }
 .religion-caption span { grid-row: 2; font-size: 13px; color: var(--muted); }
 .religion-caption svg { grid-column: 2; grid-row: 1 / 3; width: 15px; color: var(--accent); }
 .religion-detail-page { padding-top: 32px; }
 .religion-back { color: var(--accent); font-size: 14px; text-decoration: none; }
 .religion-identity {
-  display: grid; grid-template-columns: minmax(240px, .9fr) minmax(260px, 1.1fr); align-items: center;
-  gap: 28px; margin-top: 24px; padding: 22px 26px; border: 1px solid var(--line); border-radius: 16px; background: white;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px; margin-top: 24px; padding: 22px 26px;
+  border: 1px solid var(--line); border-radius: 16px; background: white;
 }
-.religion-name-block { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; min-width: 0; }
-.religion-identity .religion-native { color: var(--letter); font-size: clamp(36px,4.6vw,58px); overflow-wrap: anywhere; }
-.religion-name-block h1 { margin: 0 0 6px; font-size: 24px; }
+.religion-identity .religion-symbol { flex: none; width: 68px; height: 68px; }
+.religion-name-block { flex: 1 1 auto; min-width: 0; }
+.religion-name-block h1 { margin: 0 0 4px; font-size: 26px; letter-spacing: -.03em; }
 .religion-name-block [lang=en] { font-size: 14px; color: var(--muted); }
-.religion-census { min-width: 0; padding: 16px 18px; border-radius: 12px; background: #f3f7f5; }
-.religion-nation { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0; }
-.religion-nation strong { font-size: 28px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.religion-nation { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-end; gap: 4px 12px; margin: 0; }
+.religion-nation strong { font-size: 30px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--letter); }
 .religion-nation span { font-size: 13px; color: var(--muted); }
-.religion-regions-label { margin: 16px 0 8px; font-size: 12px; color: var(--muted); }
-.religion-regions { display: grid; gap: 6px; }
-.religion-region-badge {
-  display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 8px; min-width: 0;
-  padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: white; color: var(--ink); font-size: 13px; text-decoration: none;
-}
-.religion-region-badge:hover { border-color: #9eb5ad; }
-.religion-region-badge .region-rank { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 4px; background: #d7e0db; color: #35584c; font-size: 11px; font-weight: 700; }
-.religion-region-badge[data-rank="1"] .region-rank { background: var(--accent); color: white; }
-.religion-region-badge .region-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.religion-region-badge .region-share { color: var(--muted); font-variant-numeric: tabular-nums; }
-@media (max-width: 850px) { .religion-identity { grid-template-columns: minmax(0,1fr); gap: 20px; } }
+.religion-section { margin-top: 36px; }
+.religion-section h2 { margin: 0 0 14px; font-size: 19px; }
+.religion-map { margin: 0; max-width: 520px; }
+.religion-map svg { display: block; width: 100%; height: auto; overflow: visible; }
+/* 옅은 지역끼리도 경계가 보이도록 흰 선이 아닌 반투명한 짙은 선을 쓴다. */
+.religion-map path { stroke: rgb(36 47 45 / .28); stroke-width: .6; stroke-linejoin: round; transition: stroke .12s; }
+.religion-map a:hover path, .religion-map a:focus-visible path { stroke: var(--ink); stroke-width: 1.2; }
+.religion-map a { outline: none; }
+.religion-map-tiny { stroke: rgb(36 47 45 / .45); stroke-width: .7; pointer-events: none; }
+.religion-map-label { pointer-events: none; }
+.religion-map-label line { stroke: var(--ink); stroke-width: .7; opacity: .55; }
+.religion-map-label circle { fill: white; stroke: var(--ink); stroke-width: 1.1; }
+.religion-map-label text { fill: var(--ink); font-weight: 650; letter-spacing: -.02em; paint-order: stroke; stroke: white; stroke-width: 3.2px; stroke-linejoin: round; }
+.religion-map figcaption { display: grid; gap: 8px; margin-top: 10px; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.religion-map-scale { display: flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; }
+.religion-map-scale i { flex: 0 1 180px; height: 9px; border-radius: 5px; border: 1px solid var(--line); background: linear-gradient(90deg, #f4f1ea, var(--letter)); }
 @media (max-width: 580px) {
   .religion-identity { padding: 18px; }
-  .religion-tiles { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
-  .religion-tile .religion-native { font-size: clamp(19px,5vw,25px); min-height: 74px; }
-  .religion-caption { padding: 10px; }
+  .religion-identity .religion-symbol { width: 54px; height: 54px; }
+  .religion-nation { justify-content: flex-start; flex-basis: 100%; }
+  .religion-tiles { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+  .religion-caption { padding: 10px 12px; }
 }

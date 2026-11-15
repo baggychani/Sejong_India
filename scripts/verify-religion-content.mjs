@@ -73,18 +73,39 @@ export function verifyReligionContent(outDir) {
     assert(detailHtml.split("</head>")[0].includes("ReligionPage-"), `${page.id}: page CSS must load before hydration`);
     const text = normalize(readablePage(detailHtml, "https://example.org/"));
     const population = count(nation, page.censusGroup);
-    for (const value of [page.ko, page.en, page.native, `${population.toLocaleString("ko-KR")}명`, percent(population, nation.population), `${census.year}년 인구조사`]) {
+    for (const value of [page.ko, page.en, `${population.toLocaleString("ko-KR")}명`, percent(population, nation.population), `${census.year}년 인구조사`]) {
       assert(text.includes(value), `${page.id}: detail page is missing ${value}`);
     }
+    // 종교 페이지는 언어 페이지가 아니다. 이름을 인도 문자로 다시 적지 않는다.
+    assert(!/\p{Script=Devanagari}|\p{Script=Gurmukhi}/u.test(text), `${page.id}: native-script names must not return`);
+    for (const html of [detailHtml, serializeOuter(tile)]) {
+      const symbol = nodes(parse(html, { scriptingEnabled: true })).find(node => attr(node, "class")?.split(/\s+/).includes("religion-symbol"));
+      assert(attr(symbol, "style")?.includes("/assets/"), `${page.id}: symbol image missing`);
+    }
+    // 분포는 표가 아니라 지도로 보여 준다. 지도의 색·이름표와 글 목록은 같은 계산에서 나와야 한다.
     const expected = regions.map(profile => ({ profile, population: count(profile, page.censusGroup) }))
-      .sort((a, b) => b.population / b.profile.population - a.population / a.profile.population).slice(0, 3);
-    const badges = nodes(parse(detailHtml, { scriptingEnabled: true })).filter(node => attr(node, "data-place"));
-    assert.deepEqual(badges.map(node => attr(node, "data-place")), expected.map(entry => entry.profile.placeIds[0]), `${page.id}: wrong top regions`);
-    badges.forEach((badge, index) => {
+      .sort((a, b) => b.population / b.profile.population - a.population / a.profile.population);
+    const detail = nodes(parse(detailHtml, { scriptingEnabled: false }));
+    const shares = new Map(detail.filter(node => attr(node, "data-place")).map(node => [attr(node, "data-place"), node]));
+    for (const { profile, population } of expected) {
+      for (const id of profile.placeIds.filter(id => id.startsWith("IN-"))) {
+        const shape = shares.get(id);
+        assert.equal(attr(shape, "data-share"), percent(population, profile.population), `${page.id}: wrong map share for ${id}`);
+        assert(attr(shape, "href")?.includes(`/bharat/map?place=${id}`), `${page.id}: map region ${id} must open the map`);
+      }
+    }
+    assert.equal(shares.size, load("states").length, `${page.id}: every state and territory must be drawn once`);
+    assert.deepEqual(detail.filter(node => attr(node, "data-label")).map(node => attr(node, "data-label")),
+      expected.slice(0, 5).map(entry => entry.profile.placeIds[0]), `${page.id}: map labels must name the highest-share regions`);
+    const list = detail.find(node => attr(node, "id") === `religion-regions-${page.id}`);
+    const items = nodes(list).filter(node => node.tagName === "li");
+    assert.deepEqual(items.map(node => attr(node, "data-region")), expected.map(entry => entry.profile.id), `${page.id}: text list must cover every region in share order`);
+    items.forEach((item, index) => {
       const { profile, population } = expected[index];
-      assert(attr(badge, "href")?.includes(`/bharat/map?place=${encodeURIComponent(profile.placeIds[0])}`), `${page.id}: region badge must open the map`);
-      const label = normalize(readablePage(`<main>${serializeOuter(badge)}</main>`, "https://example.org/"));
-      assert(label.includes(profile.area) && label.includes(percent(population, profile.population)), `${page.id}: wrong region share for ${profile.id}`);
+      const line = normalize(readablePage(`<main><ol>${serializeOuter(item)}</ol></main>`, "https://example.org/"));
+      for (const value of [profile.area, percent(population, profile.population), `${population.toLocaleString("ko-KR")}명`, profile.note].filter(Boolean)) {
+        assert(line.includes(value) && text.includes(line), `${page.id}: text list is missing ${value} for ${profile.id}`);
+      }
     });
   }
   const mapDocument = nodes(parse(readFileSync(join(outDir, "bharat/map/index.html"), "utf8"), { scriptingEnabled: false }));

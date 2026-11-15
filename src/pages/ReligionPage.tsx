@@ -1,38 +1,19 @@
 import { Link, useParams } from "react-router";
 import {
-  religionCensus, religionPages, religionNationwide, topReligionRegions, formatReligionShare, numberOfPeople,
+  religionCensus, religionPages, religionNationwide, religionSymbolMask, formatReligionShare, numberOfPeople,
   type ReligionPageEntry,
 } from "../site/religions";
 import { ReligionReference } from "./ReligionReference";
+import { ReligionMap } from "./ReligionMap";
 import { NotFoundPage } from "./NotFoundPage";
 import { Icon } from "../site/Icon";
 import { usePageTitle } from "../site/title";
 import { siteTitle } from "../site/sections";
 import "../styles/religions.css";
 
-function NativeName({ religion }: { religion: ReligionPageEntry }) {
-  return <bdi className="religion-native" lang={religion.tag} dir="auto">{religion.native}</bdi>;
-}
-
-/** 2011년 인구조사에서 계산한 전국 비율과, 이 종교의 비율이 높은 주·연방직할지. */
-function ReligionCensusSummary({ religion }: { religion: ReligionPageEntry }) {
-  const nation = religionNationwide(religion);
-  return <div className="religion-census" id={`religion-census-${religion.id}`}>
-    <p className="religion-nation">
-      <strong>{formatReligionShare(nation.population, nation.total)}</strong>
-      <span>인도 인구 중 · {numberOfPeople(nation.population)} · {religionCensus.year}년 인구조사</span>
-    </p>
-    <p className="religion-regions-label">비율이 높은 주·연방직할지</p>
-    <div className="religion-regions">
-      {topReligionRegions(religion).map(({ profile, population }, index) => <Link className="religion-region-badge" key={profile.id}
-        to={`/bharat/map?place=${encodeURIComponent(profile.placeIds[0])}`} data-place={profile.placeIds[0]} data-rank={index + 1}
-        title={`${profile.area} · ${religionCensus.year}년 인구조사 · 지역 주민 전체 기준 · 지도에서 보기`}>
-        <span aria-hidden="true" className="region-rank">{index + 1}</span>
-        <span className="region-name">{profile.area}</span>
-        <span className="region-share">{formatReligionShare(population, profile.population)}</span>
-      </Link>)}
-    </div>
-  </div>;
+/** 상징 그림의 이름과 출처. 그림은 장식이므로 글은 비시각 읽기 경로에 둔다. */
+function symbolCredit(religion: ReligionPageEntry) {
+  return `상징 그림: ${religion.symbol.name} · ${religion.symbol.credit} · ${religion.symbol.license}`;
 }
 
 export function ReligionPage() {
@@ -40,23 +21,36 @@ export function ReligionPage() {
   const selected = religionPages.find(religion => religion.id === id);
   usePageTitle(id && !selected ? `없는 페이지 · ${siteTitle}` : `${selected?.ko ?? "종교"} · ${siteTitle}`);
   if (id && !selected) return <NotFoundPage />;
-  if (selected) return <article className="religion-page religion-detail-page">
-    <Link className="religion-back" to="/bharat/religions">← 종교</Link>
-    <header className="religion-identity" data-religion={selected.censusGroup}>
-      <div className="religion-name-block">
-        <NativeName religion={selected} />
-        <div><h1>{selected.ko}</h1><span lang="en">{selected.en}</span></div>
-      </div>
-      <ReligionCensusSummary religion={selected} />
-    </header>
-  </article>;
+  if (selected) {
+    const nation = religionNationwide(selected);
+    return <article className="religion-page religion-detail-page">
+      <Link className="religion-back" to="/bharat/religions">← 종교</Link>
+      <header className="religion-identity" data-religion={selected.censusGroup}>
+        <span className="religion-symbol" aria-hidden="true" title={selected.symbol.name} style={religionSymbolMask(selected)} />
+        <div className="religion-name-block"><h1>{selected.ko}</h1><span lang="en">{selected.en}</span></div>
+        <p className="religion-nation">
+          <strong>{formatReligionShare(nation.population, nation.total)}</strong>
+          <span>인도 인구 중 · {numberOfPeople(nation.population)} · {religionCensus.year}년 인구조사</span>
+        </p>
+        <noscript><p>{symbolCredit(selected)} · <a href={selected.symbol.source}>그림 출처</a></p></noscript>
+      </header>
+      <section className="religion-section" aria-labelledby="religion-distribution-title">
+        <h2 id="religion-distribution-title">지역 분포</h2>
+        <ReligionMap religion={selected} />
+      </section>
+    </article>;
+  }
 
   return <section className="religion-page">
     <div className="religion-tiles">
       {religionPages.map(religion => <Link key={religion.id} className="religion-tile" id={`religion-page-${religion.id}`}
         data-religion={religion.censusGroup} to={`/bharat/religions/${religion.id}`}>
-        <NativeName religion={religion} />
+        <span className="religion-tile-art" aria-hidden="true">
+          <span className="religion-symbol is-echo" style={religionSymbolMask(religion)} />
+          <span className="religion-symbol" style={religionSymbolMask(religion)} />
+        </span>
         <span className="religion-caption"><strong>{religion.ko}</strong><span lang="en">{religion.en}</span><Icon name="arrow" /></span>
+        <noscript><span> · {symbolCredit(religion)} · {religion.symbol.source}</span></noscript>
       </Link>)}
     </div>
     {/* 2011년 인구조사 표는 화면에서 내렸다. 아래 주석의 코드를 되살리면 다시 나온다. */}
