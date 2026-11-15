@@ -30,7 +30,7 @@ export function ReligionPage() {
         <div className="religion-name-block"><h1>{selected.ko}</h1><span lang="en">{selected.en}</span></div>
         <p className="religion-nation">
           <strong>{formatReligionShare(nation.population, nation.total)}</strong>
-          <span>인도 인구 중 · {numberOfPeople(nation.population)} · {religionCensus.year}년 인구조사</span>
+          <noscript><span> · 인도 인구 중 · {numberOfPeople(nation.population)} · {religionCensus.year}년 인구조사</span></noscript>
         </p>
         <noscript><p>{symbolCredit(selected)} · <a href={selected.symbol.source}>그림 출처</a></p></noscript>
       </header>
@@ -42,6 +42,11 @@ export function ReligionPage() {
   }
 
   return <section className="religion-page">
+    <header className="religion-toolbar">
+      <div className="religion-modes" role="group" aria-label="종교 배열 순서">
+        <button aria-pressed={true} title={`${religionCensus.year}년 인도 인구조사 · 전국 신자 수`}>신자 많은 순</button>
+      </div>
+    </header>
     <div className="religion-tiles">
       {religionPages.map(religion => <Link key={religion.id} className="religion-tile" id={`religion-page-${religion.id}`}
         data-religion={religion.censusGroup} to={`/bharat/religions/${religion.id}`}>

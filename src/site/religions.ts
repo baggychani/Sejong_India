@@ -12,12 +12,13 @@ export const instituteReligionProfiles = institutes.map(institute => ({
   institute, profile: religionProfilesByPlace.get(institute.id)!,
 }));
 /** 사이트에 상세 페이지가 있는 종교. 인구조사 분류와는 censusGroup으로 연결한다. */
-export const religionPages = pages;
 export type ReligionPageEntry = typeof pages[number];
 export const religionPageByGroup = new Map(pages.map(page => [page.censusGroup, page]));
 const nationwide = census.profiles.find(profile => profile.id === "india")!;
 const regionProfiles = census.profiles.filter(profile => profile.placeIds.some(id => id.startsWith("IN-")));
 const groupPopulation = (profile: ReligionProfile, group: string) => profile.religions.find(entry => entry.id === group)!.population;
+/** 목록은 전국 신자 수가 많은 순으로 놓는다. */
+export const religionPages = [...pages].sort((a, b) => groupPopulation(nationwide, b.censusGroup) - groupPopulation(nationwide, a.censusGroup));
 export function religionNationwide(page: ReligionPageEntry) {
   return { population: groupPopulation(nationwide, page.censusGroup), total: nationwide.population };
 }

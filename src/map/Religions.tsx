@@ -9,7 +9,7 @@ export function ReligionRow({ placeId }: { placeId: string }) {
   const profile = religionProfilesByPlace.get(placeId);
   if (!profile) return null;
   const source = religionSources.get(profile.sourceId)!;
-  const label = `${profile.area} · ${religionCensus.year}년 인구조사 · 지역 주민 전체 기준 · 소수점 한 자리 반올림${profile.note ? ` · ${profile.note}` : ""}`;
+  const label = `${profile.area} · ${religionCensus.year} 인구조사`;
   return <div className="tongue-row">
     <dt>종교</dt>
     <dd><ul className="tongue-pills" aria-label={label} title={label}>

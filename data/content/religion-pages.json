@@ -4,6 +4,7 @@
     "ko": "힌두교",
     "en": "Hinduism",
     "censusGroup": "hindu",
+    "mapLabels": false,
     "symbol": {
       "file": "hinduism.png",
       "name": "옴",

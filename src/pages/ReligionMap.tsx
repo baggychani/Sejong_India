@@ -1,4 +1,5 @@
 import { geoMercator, geoPath, type GeoGeometryObjects, type GeoPermissibleObjects } from "d3-geo";
+import { useState } from "react";
 import { Link } from "react-router";
 import adminFile from "../../data/processed/india-admin1.json";
 import { religionCensus, religionRegionShares, formatReligionShare, numberOfPeople, type ReligionPageEntry } from "../site/religions";
@@ -6,7 +7,7 @@ import { religionCensus, religionRegionShares, formatReligionShare, numberOfPeop
 const WIDTH = 420;
 const HEIGHT = 470;
 const LABELS = 5;
-const FONT = 12.5;
+const FONT = 11.5;
 
 type Feature = { type: "Feature"; properties: Record<string, string | number | null>; geometry: GeoGeometryObjects };
 const admin = adminFile as unknown as { type: "FeatureCollection"; features: Feature[] };
@@ -63,27 +64,33 @@ export function ReligionMap({ religion }: { religion: ReligionPageEntry }) {
   const byPlace = new Map(regions.flatMap(region => region.profile.placeIds.map(id => [id, region] as const)));
   const fill = (share: number) => `color-mix(in srgb, var(--letter) ${Math.round(share / max * 100)}%, #f4f1ea)`;
   const shareOf = (region: typeof regions[number]) => formatReligionShare(region.population, region.profile.population);
-  const tip = (shape: typeof shapes[number], region: typeof regions[number]) =>
-    `${shape.name} ${shareOf(region)} · ${region.profile.area} · ${religionCensus.year}년 인구조사${region.profile.note ? ` · ${region.profile.note}` : ""}`;
-  const labels = placeLabels(regions.slice(0, LABELS).map(region => {
+  const [hovered, setHovered] = useState<string | null>(null);
+  const hover = (id: string) => ({
+    onMouseEnter: () => setHovered(id), onFocus: () => setHovered(id),
+    onMouseLeave: () => setHovered(null), onBlur: () => setHovered(null),
+  });
+  const shown = hovered ? shapeById.get(hovered) : undefined;
+  const labels = religion.mapLabels === false ? [] : placeLabels(regions.slice(0, LABELS).map(region => {
     const shape = shapeById.get(region.profile.placeIds[0])!;
     return { id: shape.id, x: shape.x, y: shape.y, text: `${shape.name} ${shareOf(region)}` };
   }));
   const scope = `${religionCensus.year}년 인구조사 · 지역 주민 전체 기준 · 당시 행정구역의 수치를 현재 지도에 칠함`;
   return <figure className="religion-map" data-religion={religion.censusGroup}>
+    <div className="religion-map-stage">
     <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="img" aria-label={`${religion.ko} 인구 비율 지도 · ${scope}`}>
       {shapes.map(shape => {
         const region = byPlace.get(shape.id)!;
-        return <Link key={shape.id} to={`/bharat/map?place=${shape.id}`} data-place={shape.id} data-share={shareOf(region)}>
-          <path d={shape.d} style={{ fill: fill(region.share) }}><title>{tip(shape, region)}</title></path>
+        return <Link key={shape.id} to={`/bharat/map?place=${shape.id}`} data-place={shape.id} data-share={shareOf(region)}
+          aria-label={`${shape.name} ${shareOf(region)}`} {...hover(shape.id)}>
+          <path d={shape.d} style={{ fill: fill(region.share) }} />
         </Link>;
       })}
       {/* 너무 작아 색이 안 보이는 지역은 같은 색의 점으로 한 번 더 표시한다. */}
       {shapes.filter(shape => shape.tiny).map(shape => {
         const region = byPlace.get(shape.id)!;
-        return <circle key={shape.id} className="religion-map-tiny" cx={shape.x} cy={shape.y} r="4.5" style={{ fill: fill(region.share) }}>
-          <title>{tip(shape, region)}</title>
-        </circle>;
+        return <Link key={shape.id} to={`/bharat/map?place=${shape.id}`} tabIndex={-1} aria-hidden="true" {...hover(shape.id)}>
+          <circle className="religion-map-tiny" cx={shape.x} cy={shape.y} r="4.5" style={{ fill: fill(region.share) }} />
+        </Link>;
       })}
       {labels.map(label => <g key={label.id} className="religion-map-label" data-label={label.id}>
         {label.leader && <line x1={label.leader.x} y1={label.leader.y} x2={shapeById.get(label.id)!.x} y2={shapeById.get(label.id)!.y} />}
@@ -92,9 +99,13 @@ export function ReligionMap({ religion }: { religion: ReligionPageEntry }) {
         <text x={label.x} y={label.y} textAnchor={label.anchor} fontSize={FONT}>{label.text}</text>
       </g>)}
     </svg>
+    {/* 올려 둔 지역의 이름과 비율. 전체 수치는 아래 noscript 목록에 글로 있다. */}
+    {shown && <p className="religion-map-tip" style={{ left: `${shown.x / WIDTH * 100}%`, top: `${shown.y / HEIGHT * 100}%` }}>
+      <span>{shown.name}</span><strong>{shareOf(byPlace.get(shown.id)!)}</strong>
+    </p>}
+    </div>
     <figcaption>
       <span className="religion-map-scale" aria-hidden="true"><span>0%</span><i /><span>{formatReligionShare(regions[0].population, regions[0].profile.population)}</span></span>
-      <span>색이 진할수록 비율이 높습니다. 이름은 비율이 가장 높은 {labels.length}곳입니다. {scope}.</span>
     </figcaption>
     <noscript>
       <p>{religion.ko} 인구 비율이 높은 순 · {scope}</p>

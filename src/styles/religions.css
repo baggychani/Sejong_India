@@ -48,7 +48,7 @@
   background: linear-gradient(155deg, color-mix(in srgb, var(--wash) 45%, white) 0%, var(--wash) 58%, color-mix(in srgb, var(--wash) 78%, var(--letter)) 130%);
 }
 .religion-tile-art .religion-symbol { position: absolute; inset: 20% 22%; opacity: .9; transition: transform .25s ease; }
-.religion-tile-art .religion-symbol.is-echo { inset: auto -34% -38% auto; width: 118%; height: 118%; opacity: .09; transform: rotate(-14deg); }
+.religion-tile-art .religion-symbol.is-echo { inset: auto -34% -38% auto; width: 118%; height: 118%; opacity: .04; transform: rotate(-14deg); }
 .religion-tile:hover .religion-symbol:not(.is-echo), .religion-tile:focus-visible .religion-symbol:not(.is-echo) { transform: scale(1.06); }
 .religion-caption { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 6px; padding: 13px 16px; }
 .religion-caption strong { font-size: 16px; }
@@ -70,12 +70,22 @@
 .religion-section { margin-top: 36px; }
 .religion-section h2 { margin: 0 0 14px; font-size: 19px; }
 .religion-map { margin: 0; max-width: 520px; }
+.religion-toolbar { display: flex; margin-bottom: 16px; }
+.religion-modes button[aria-pressed=true] { cursor: default; }
+.religion-map-stage { position: relative; }
+.religion-map-tip {
+  position: absolute; z-index: 2; display: flex; align-items: baseline; gap: 8px; margin: 0; padding: 7px 12px;
+  transform: translate(-50%, calc(-100% - 12px)); border: 1px solid var(--line); border-radius: 10px; background: white;
+  box-shadow: 0 8px 24px rgb(36 47 45 / .14); font-size: 13px; font-weight: 600; white-space: nowrap; pointer-events: none;
+}
+.religion-map-tip strong { color: var(--letter); font-size: 15px; font-variant-numeric: tabular-nums; }
 .religion-map svg { display: block; width: 100%; height: auto; overflow: visible; }
 /* 옅은 지역끼리도 경계가 보이도록 흰 선이 아닌 반투명한 짙은 선을 쓴다. */
 .religion-map path { stroke: rgb(36 47 45 / .28); stroke-width: .6; stroke-linejoin: round; transition: stroke .12s; }
 .religion-map a:hover path, .religion-map a:focus-visible path { stroke: var(--ink); stroke-width: 1.2; }
 .religion-map a { outline: none; }
-.religion-map-tiny { stroke: rgb(36 47 45 / .45); stroke-width: .7; pointer-events: none; }
+.religion-map-tiny { stroke: rgb(36 47 45 / .45); stroke-width: .7; }
+.religion-map a:hover .religion-map-tiny { stroke: var(--ink); stroke-width: 1.2; }
 .religion-map-label { pointer-events: none; }
 .religion-map-label line { stroke: var(--ink); stroke-width: .7; opacity: .55; }
 .religion-map-label circle { fill: white; stroke: var(--ink); stroke-width: 1.1; }

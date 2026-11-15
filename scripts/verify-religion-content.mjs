@@ -65,6 +65,9 @@ export function verifyReligionContent(outDir) {
   const percent = (population, total) => { const share = population / total * 100; return share > 0 && share < 0.05 ? "<0.1%" : `${share.toFixed(1)}%`; };
   assert.equal(new Set(pages.map(page => page.id)).size, pages.length, "duplicate religion page");
   assert(!rendered.some(node => attr(node, "class")?.split(/\s+/).includes("religion-table")), "census tables stay out of the visible religion list");
+  // 목록은 전국 신자 수가 많은 순이다.
+  const tileOrder = rendered.map(node => attr(node, "id")).filter(id => id?.startsWith("religion-page-"));
+  assert.deepEqual(tileOrder, [...pages].sort((a, b) => count(nation, b.censusGroup) - count(nation, a.censusGroup)).map(page => `religion-page-${page.id}`), "religion tiles must follow nationwide population");
   for (const page of pages) {
     assert.equal(groupNames.get(page.censusGroup), page.ko, `${page.id}: page name must match its census category`);
     const tile = rendered.find(node => attr(node, "id") === `religion-page-${page.id}`);
@@ -96,7 +99,7 @@ export function verifyReligionContent(outDir) {
     }
     assert.equal(shares.size, load("states").length, `${page.id}: every state and territory must be drawn once`);
     assert.deepEqual(detail.filter(node => attr(node, "data-label")).map(node => attr(node, "data-label")),
-      expected.slice(0, 5).map(entry => entry.profile.placeIds[0]), `${page.id}: map labels must name the highest-share regions`);
+      page.mapLabels === false ? [] : expected.slice(0, 5).map(entry => entry.profile.placeIds[0]), `${page.id}: map labels must name the highest-share regions`);
     const list = detail.find(node => attr(node, "id") === `religion-regions-${page.id}`);
     const items = nodes(list).filter(node => node.tagName === "li");
     assert.deepEqual(items.map(node => attr(node, "data-region")), expected.map(entry => entry.profile.id), `${page.id}: text list must cover every region in share order`);

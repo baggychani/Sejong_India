@@ -42,7 +42,7 @@ export function LessonsPage() {
     </article>;
   }
   return <article className="library">
-    <header className="library-head"><h1>세종학당 한국어</h1><p>{books.length}권</p></header>
+    <header className="library-head"><h1>세종학당 한국어</h1></header>
     <Bookshelf books={books} basePath="/lessons" />
   </article>;
 }

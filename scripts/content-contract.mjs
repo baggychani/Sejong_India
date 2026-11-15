@@ -33,6 +33,7 @@ const jsonContracts = {
   } },
   "religion-pages": { targets: row => [["bharat/religions", `religion-page-${row.id}`], [`bharat/religions/${row.id}`]], schema: {
     id: identity, ko: publicValue(), en: publicValue(),
+    mapLabels: technical("분포 지도에 상위 지역 이름표를 붙일지 정하는 표시 옵션이다. 지역별 수치는 글 목록으로 검사한다."),
     symbol: { file: technical("상징 그림 PNG 파일명이다. 그림의 이름과 출처는 name, source, credit, license로 검사한다."),
       name: publicValue(), source: publicValue(), credit: publicValue(), license: publicValue() },
     censusGroup: technical("종교 페이지를 인구조사 분류에 연결하는 키다. 전국 인원수·비율과 상위 지역은 레코드별 검사로 대조한다.") } },
