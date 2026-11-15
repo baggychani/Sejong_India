@@ -28,7 +28,7 @@ export function LearningSection() {
   return <>
     <nav className="india-navigation" aria-label={learningSection.title}>
       <NavLink to={learningSection.path} end>전체</NavLink>
-      {learningCollections.map(collection => <NavLink key={collection.id} to={collection.path}><CollectionLabel collection={collection} /></NavLink>)}
+      {learningCollections.map(collection => <NavLink key={collection.id} to={collection.path}>{collection.title}</NavLink>)}
     </nav>
     <Outlet />
   </>;
@@ -37,7 +37,7 @@ export function LearningSection() {
 export function LearningPage() {
   usePageTitle(`${learningSection.title} · ${siteTitle}`);
   return <article className="reading learning-index">
-    <h1>{learningSection.title}</h1>
+    <h1 className="learning-heading">{learningSection.title}</h1>
     <div className="learning-map">
     <svg className="learning-map-silhouette" viewBox={`0 0 ${mapWidth} ${mapHeight}`} aria-hidden="true" focusable="false">
       <path d={silhouette} />

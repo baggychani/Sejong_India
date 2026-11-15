@@ -62,6 +62,10 @@ export function verifyRoutes(outDir) {
   assert(read(join(outDir, "index.html")).includes('class="icon hindi-icon"'), "home must retain the original Hindi glyph icon");
   const learning = readablePage(read(join(outDir, "learn/index.html")), base.href);
   const learningNodes = nodes(parse(read(join(outDir, "learn/index.html"))));
+  const learningNav = learningNodes.find(node => node.tagName === "nav" && attribute(node, "aria-label") === "언어 학습");
+  const navLabels = nodes(learningNav).filter(node => node.tagName === "a").map(node => nodes(node).filter(child => child.nodeName === "#text").map(child => child.value).join(""));
+  assert.deepEqual(navLabels, ["전체", "힌디어", "타밀어"], "learning navigation must keep Korean-only labels");
+  assert(learningNodes.some(node => node.tagName === "h1" && attribute(node, "class") === "learning-heading"), "learning page must retain an accessible heading without visual space");
   const map = learningNodes.find(node => attribute(node, "class") === "learning-map-silhouette");
   assert(map && attribute(map, "aria-hidden") === "true", "learning map must be decorative");
   const positions = ["hindi", "tamil"].map(id => {
