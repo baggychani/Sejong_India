@@ -134,8 +134,9 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
 /* 단어 퀴즈 */
 .wq-text b, .wq-text small[lang=hi], .wq-missed [lang=hi] { font-family: "Nirmala UI", "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif; }
 .word-card.wq-card { padding-inline: clamp(16px, 4vw, 40px); }
-.wq-setup { justify-items: center; gap: 24px; padding-block: clamp(36px, 7vw, 60px); }
+.wq-setup { justify-items: center; gap: 30px; padding-block: clamp(32px, 6vw, 48px); }
 .wq-title { margin: 0; font-size: clamp(24px, 3vw, 30px); letter-spacing: -.04em; }
+.wq-count-setting { display: grid; justify-items: center; gap: 16px; }
 .wq-stepper { display: flex; align-items: center; gap: 18px; }
 .wq-stepper button { width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--accent); font: inherit; font-size: 22px; line-height: 1; cursor: pointer; transition: border-color .12s, background .12s; }
 .wq-stepper button:not(:disabled):hover { border-color: var(--accent); background: #f3f8f5; }
@@ -143,10 +144,24 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
 .wq-stepper output { display: grid; justify-items: center; min-width: 112px; }
 .wq-stepper strong { font-size: 64px; line-height: 1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
 .wq-stepper span { margin-top: 6px; color: var(--muted); font-size: 13px; }
-.wq-presets { display: flex; gap: 3px; padding: 4px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
-.wq-presets button { padding: 8px 14px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
-.wq-presets button[aria-pressed=true] { background: var(--accent); color: #fff; }
-.wq-hints { margin: -6px 0 0; color: var(--muted); font-size: 13px; }
+.wq-presets { display: flex; gap: 6px; }
+.wq-presets button { min-width: 44px; min-height: 40px; padding: 8px 13px; border: 0; border-radius: 9px; background: transparent; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; transition: background .15s, color .15s; }
+.wq-presets button:hover { background: #f4f7f5; color: var(--accent); }
+.wq-presets button[aria-pressed=true] { background: #eaf3ee; color: var(--accent); font-weight: 700; }
+.wq-settings, .wq-setup-actions { width: min(100%, 320px); }
+.wq-settings { padding-block: 10px; border-block: 1px solid var(--line); }
+.wq-setting-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding-left: 4px; }
+.wq-setting-row label { font-size: 14px; font-weight: 600; }
+.wq-select { position: relative; }
+.wq-select select { appearance: none; min-height: 42px; padding: 10px 35px 10px 15px; border: 1px solid transparent; border-radius: 9px; background: #f3f7f4; color: var(--accent); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s, border-color .15s; }
+.wq-select select:hover { background: #eaf3ee; border-color: #d5e4db; }
+.wq-select svg { position: absolute; top: 50%; right: 12px; width: 14px; height: 14px; transform: translateY(-50%); fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.wq-duration-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 0 0 4px; }
+.wq-duration-row > span { color: var(--muted); font-size: 13px; white-space: nowrap; }
+.wq-setup-actions { display: grid; gap: 12px; text-align: center; }
+.wq-setup-actions .word-primary { min-height: 48px; border-radius: 12px; }
+.wq-hints { margin: 0; color: var(--muted); font-size: 12px; }
+.wq-setup :is(button, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .wq-bar { height: 4px; margin: -6px 0 14px; border-radius: 2px; background: #e3e8e4; overflow: hidden; }
 .wq-bar i { display: block; height: 100%; border-radius: 2px; background: var(--accent); transition: width .25s ease; }
 .wq-prompt { display: grid; justify-items: center; align-content: center; gap: 2px; min-height: clamp(150px, 24vw, 196px); }
@@ -194,10 +209,10 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
 }
 
 /* 단어 퀴즈: 시간 제한 */
-.wq-stepper.is-small { gap: 14px; margin-top: -8px; }
-.wq-stepper.is-small button { width: 36px; height: 36px; font-size: 19px; }
-.wq-stepper.is-small output { min-width: 124px; }
-.wq-stepper.is-small strong { font-size: 26px; letter-spacing: -.03em; line-height: 1.2; }
+.wq-stepper.is-small { gap: 2px; }
+.wq-stepper.is-small button { width: 40px; height: 40px; border-color: transparent; border-radius: 9px; font-size: 19px; }
+.wq-stepper.is-small output { min-width: 84px; }
+.wq-stepper.is-small strong { font-size: 16px; letter-spacing: -.03em; line-height: 1.2; }
 .wq-clock { display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px 5px 8px; border-radius: 999px; background: #eef4f0; color: var(--accent); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; transition: background .2s, color .2s; }
 .wq-clock svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .wq-clock.is-low { background: #fcebe7; color: #b53a24; animation: wq-pulse .9s ease-in-out infinite; }

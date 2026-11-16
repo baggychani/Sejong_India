@@ -10,10 +10,10 @@ const byId = new Map(words.map(word => [word.id, word]));
 const total = words.length;
 const presets = [...new Set([10, 20, 50, total].filter(size => size <= total))];
 
-/** 시간 제한: 없음 / 문제마다 / 퀴즈 전체. seconds는 그 단위의 초. */
+/** 시간 제한: 없음 / 문항당 / 퀴즈 전체. seconds는 그 단위의 초. */
 type LimitMode = "off" | "each" | "total";
 type Limit = { mode: LimitMode; seconds: number };
-const limitModes: [LimitMode, string][] = [["off", "시간 제한 없음"], ["each", "문제마다"], ["total", "전체 시간"]];
+const limitModes: [LimitMode, string][] = [["off", "제한 없음"], ["each", "문항당"], ["total", "퀴즈 전체"]];
 const EACH = { min: 5, max: 60, step: 5, start: 10 };
 const TOTAL = { min: 30, max: 3600, step: 30 };
 /** 전체 시간의 기본값: 문항당 10초꼴을 30초 단위로 맞춘다. */
@@ -133,18 +133,34 @@ export function HindiWordQuizPage() {
     {header}
     <div className="word-card wq-card wq-setup">
       <h1 className="wq-title">단어 퀴즈</h1>
-      <Stepper label="문항 수" value={count} text={String(count)} unit="문항" min={MIN_QUESTIONS} max={total} step={5} onChange={chooseCount} />
-      <div className="wq-presets">
-        {presets.map(preset => <button type="button" key={preset} aria-pressed={count === preset} onClick={() => chooseCount(preset)}>{preset === total ? "전체" : preset}</button>)}
+      <div className="wq-count-setting">
+        <Stepper label="문항 수" value={count} text={String(count)} unit="문항" min={MIN_QUESTIONS} max={total} step={5} onChange={chooseCount} />
+        <div className="wq-presets" role="group" aria-label="문항 수 빠른 선택">
+          {presets.map(preset => <button type="button" key={preset} aria-pressed={count === preset} onClick={() => chooseCount(preset)}>{preset === total ? "전체" : preset}</button>)}
+        </div>
       </div>
-      <div className="wq-presets" role="group" aria-label="시간 제한">
-        {limitModes.map(([key, label]) => <button type="button" key={key} aria-pressed={mode === key} onClick={() => setMode(key)}>{label}</button>)}
+      <div className="wq-settings">
+        <div className="wq-setting-row">
+          <label htmlFor="wq-limit-mode">시간 제한</label>
+          <div className="wq-select">
+            <select id="wq-limit-mode" value={mode} onChange={event => setMode(event.target.value as LimitMode)}>
+              {limitModes.map(([key, label]) => <option key={key} value={key}>{label}</option>)}
+            </select>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 6.5 3.5 3.5 3.5-3.5" /></svg>
+          </div>
+        </div>
+        {mode !== "off" && <div className="wq-duration-row">
+          <span>{mode === "each" ? "문항당" : "제한 시간"}</span>
+          {mode === "each"
+            ? <Stepper small label="문항당 제한 시간" value={each} text={spoken(each)} min={EACH.min} max={EACH.max} step={EACH.step} onChange={setEach} />
+            : <Stepper small label="퀴즈 전체 제한 시간" value={totalSeconds} text={spoken(totalSeconds)} min={TOTAL.min} max={TOTAL.max} step={TOTAL.step} onChange={setTotalChoice} />}
+        </div>}
       </div>
-      {mode === "each" && <Stepper small label="문제마다 주는 시간" value={each} text={spoken(each)} min={EACH.min} max={EACH.max} step={EACH.step} onChange={setEach} />}
-      {mode === "total" && <Stepper small label="전체 시간" value={totalSeconds} text={spoken(totalSeconds)} min={TOTAL.min} max={TOTAL.max} step={TOTAL.step} onChange={setTotalChoice} />}
-      <p className="wq-hints">힌트 {hintBudget(count)}회</p>
-      <button type="button" className="word-primary" autoFocus
-        onClick={() => begin(count, { mode, seconds: mode === "each" ? each : mode === "total" ? totalSeconds : 0 })}>시작</button>
+      <div className="wq-setup-actions">
+        <button type="button" className="word-primary"
+          onClick={() => begin(count, { mode, seconds: mode === "each" ? each : mode === "total" ? totalSeconds : 0 })}>퀴즈 시작</button>
+        <p className="wq-hints">힌트 {hintBudget(count)}회</p>
+      </div>
     </div>
   </article>;
 

@@ -82,7 +82,12 @@ export function verifyHindiWords(outDir) {
   assert.deepEqual(retry.map(question => question.id).sort(), ["ghar", "nam", "pani"], "retry asks only the missed words");
   const hindi = readFileSync(join(outDir, "learn/hindi/index.html"), "utf8");
   assert(hindi.includes('/learn/hindi/words/quiz"'), "Hindi page must link to the word quiz");
-  assert(readFileSync(join(outDir, "learn/hindi/words/quiz/index.html"), "utf8").includes("wq-setup"), "word quiz page must be prerendered with its setup screen");
+  const quizHtml = readFileSync(join(outDir, "learn/hindi/words/quiz/index.html"), "utf8");
+  assert(quizHtml.includes("wq-setup"), "word quiz page must be prerendered with its setup screen");
+  const quizText = readFileSync(join(outDir, "learn/hindi/words/quiz/index.md"), "utf8");
+  for (const label of ["시간 제한", "제한 없음", "문항당", "퀴즈 전체", "퀴즈 시작"]) {
+    assert(readablePage(quizHtml, "https://example.org/").includes(label) && quizText.includes(label), `quiz setup option missing from HTML or text: ${label}`);
+  }
   // 데바나가리 익히기: 글자표의 모든 글자와 로마자가 연습을 시작하지 않아도 글로 읽혀야 한다.
   const script = readablePage(readFileSync(join(outDir, "learn/hindi/script/index.html"), "utf8"), "https://example.org/");
   for (const [glyph, roman] of [...Object.entries(LETTERS.vowels), ...Object.entries(LETTERS.consonants)]) {
