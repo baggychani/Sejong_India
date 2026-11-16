@@ -212,11 +212,12 @@ const adminDetails: DetailRecord[] = admin.features.flatMap((feature) => {
       eyebrow: kind,
       title: ko,
       subtitle: [en, hi, content.names?.ta].filter(Boolean).join(" · "),
+      description: content.description,
       facts: [
         { label: kind === "주" ? "주도" : "행정 중심지", value: content.capital, note: content.capitalNote },
         ...(content.majorCities?.length ? [{ label: "주요도시", value: content.majorCities.join(" · ") }] : []),
       ],
-      emblem: content.emblem ? { src: emblemFiles[`../assets/state-emblems/${content.emblem.file}`], caption: content.emblem.caption, source: content.emblem.source } : undefined,
+      emblem: content.emblem ? { src: emblemFiles[`../assets/state-emblems/${content.emblem.file}`], caption: content.emblem.caption } : undefined,
     },
   ];
 });

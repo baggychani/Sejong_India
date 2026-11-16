@@ -78,7 +78,7 @@
 .map-zoom button { width: 34px; height: 34px; font-size: 20px; line-height: 1; }
 .map-zoom button:last-child { font-size: 12px; }
 .map-credit { position: absolute; bottom: 1px; left: 5px; font-size: 10px; color: #43616b; text-decoration: none; }
-.detail { overflow: auto; border-left: 1px solid var(--line); background: #fff; padding: 28px clamp(20px, 2vw, 36px) 36px; scroll-margin-top: var(--header-h); }
+.detail { min-width: 0; min-height: 0; overflow: auto; overscroll-behavior-y: contain; border-left: 1px solid var(--line); background: #fff; padding: 28px clamp(20px, 2vw, 36px) 36px; scroll-margin-top: var(--header-h); }
 .list-heading { display: flex; align-items: baseline; gap: 10px; padding-bottom: 18px; border-bottom: 2px solid #30483e; }
 .list-heading h1, .detail-card h2 { margin: 0; font-size: clamp(25px, 2.3vw, 34px); line-height: 1.25; letter-spacing: -.045em; }
 .list-heading span { color: var(--accent); font-size: 15px; font-weight: 700; }
@@ -94,8 +94,10 @@
 .detail-card { line-height: 1.6; overflow-wrap: anywhere; }
 .detail-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
 .detail-heading > div { min-width: 0; }
-.state-emblem-link { flex: none; line-height: 0; }
 .state-emblem { flex: none; width: 88px; height: 88px; object-fit: contain; }
+.detail-description { margin-top: 22px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 10px; background: #f5f7f4; font-size: 14px; line-height: 1.75; word-break: keep-all; overflow-wrap: anywhere; }
+.detail-description p { margin: 0; }
+.detail-description p + p { margin-top: 14px; }
 .season-mark { cursor: help; }
 .detail-eyebrow { color: var(--accent); font-size: 13px; font-weight: 700; margin: 0 0 6px; }
 .detail-subtitle { color: var(--muted); margin: 7px 0 20px; font-size: 14px; }
@@ -146,7 +148,7 @@ a.tongue-pill.is-muslim:hover { background: #cde7d6; }
 @media (max-width: 800px) {
   .map-page { height: auto; grid-template-columns: 1fr; }
   .map-frame { height: clamp(390px, 66dvh, 650px); }
-  .detail { border-left: 0; border-top: 1px solid var(--line); }
+  .detail { border-left: 0; border-top: 1px solid var(--line); overscroll-behavior-y: auto; }
 }
 @container (max-width: 485px) {
   .map-toolbar { left: 8px; bottom: 16px; gap: 5px; }

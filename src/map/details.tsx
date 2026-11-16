@@ -8,10 +8,11 @@ export type DetailRecord = {
   title: string;
   subtitle: string;
   summary?: string;
+  description?: string[];
   facts?: { label: string; value: string; note?: string }[];
   allowances?: { housingManwon: number; hardshipManwon: number | null };
   links?: { label: string; href: string }[];
-  emblem?: { src: string; caption: string; source: string };
+  emblem?: { src: string; caption: string };
 };
 
 const emphasizedOperator = /(부산외국어대학교|Busan University of Foreign Studies)/;
@@ -42,9 +43,7 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
       {detail.subtitle ? <p className="detail-subtitle">{detail.subtitle}</p> : null}
       </div>
       {detail.emblem && (
-        <a className="state-emblem-link" href={detail.emblem.source} target="_blank" rel="noreferrer" title="문장 출처 열기">
-          <img className="state-emblem" src={detail.emblem.src} alt={detail.emblem.caption} width="88" height="88" />
-        </a>
+        <img className="state-emblem" src={detail.emblem.src} alt={detail.emblem.caption} width="88" height="88" />
       )}
       </div>
       {detail.summary && <p>{detail.summary}</p>}
@@ -82,6 +81,11 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
           {showReligions && <ReligionRow placeId={detail.id} />}
         </dl>
       )}
+      {detail.description?.length ? (
+        <div className="detail-description">
+          {detail.description.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+        </div>
+      ) : null}
       {detail.links && (
         <div className="detail-links">
           {detail.links.map(({ label, href }) => (

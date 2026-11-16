@@ -69,8 +69,20 @@ export function verifyContentFields(outDir) {
     if (state.emblem) {
       const emblem = allNodes(node).find(node => node.tagName === "img" && attr(node, "alt") === state.emblem.caption);
       assert(attr(emblem, "src")?.includes("/assets/"), `${state.id}: emblem asset missing`);
-      assert.equal(attr(emblem.parentNode, "href"), state.emblem.source, `${state.id}: emblem must link to its source`);
+      for (let ancestor = emblem.parentNode; ancestor; ancestor = ancestor.parentNode) {
+        assert.notEqual(ancestor.tagName, "a", `${state.id}: emblem must not be a link`);
+      }
       for (const value of [state.emblem.caption, state.emblem.source, state.emblem.credit, state.emblem.license]) record.expect(value);
+    }
+    const description = allNodes(node).find(child => attr(child, "class") === "detail-description");
+    assert.equal(Boolean(description), Boolean(state.description?.length), `${state.id}: description box must follow source data`);
+    if (description) {
+      const paragraphs = description.childNodes.filter(child => child.tagName === "p");
+      assert.equal(paragraphs.length, state.description.length, `${state.id}: description paragraphs must be preserved`);
+      for (const paragraph of state.description) record.expect(paragraph);
+      const siblings = description.parentNode.childNodes.filter(child => child.tagName);
+      assert.equal(siblings[siblings.indexOf(description) - 1]?.tagName, "dl", `${state.id}: description must follow the facts, outside the table`);
+      assert(!allNodes(description).some(child => /^h[1-6]$/.test(child.tagName)), `${state.id}: description must not have an added heading`);
     }
   }
   for (const institute of institutes) {
