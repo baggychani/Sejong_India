@@ -14,7 +14,7 @@ export function HindiWordsEntry() {
         <b lang="hi">{akshara.text}</b><i>{aksharaRoman(akshara)}</i>
       </span>)}
     </span>
-    <span className="words-entry-text"><strong>뜯어 읽는 단어장</strong><small>{words.length} 단어</small></span>
+    <span className="words-entry-text"><strong>단어 공부하기</strong><small>{words.length} 단어</small></span>
     <Icon name="arrow" />
   </Link>;
 }

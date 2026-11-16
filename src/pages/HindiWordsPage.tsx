@@ -21,6 +21,10 @@ const why = (part: Part) => part.silent && part.rule ? SILENT_RULES[part.rule] :
 const wordVerdicts = (card: Card) => card.reading.flat().flatMap(akshara => akshara.parts
   .flatMap(part => part.verdict ? [`${akshara.text}: ${part.verdict}`] : []));
 
+/** 팁에서 부호 이름을 눈에 띄게 한다. */
+const TERMS = /(아누스와라|찬드라빈두|비사르가)/;
+const tipText = (text: string) => text.split(TERMS).map((piece, index) => index % 2 ? <b key={index}>{piece}</b> : piece);
+
 const kindClass = (part: Part) => `k-${part.kind}${part.silent ? " is-silent" : ""}`;
 
 /** 소리 끈 스피커. 발음하지 않는 기본 모음 칸에 붙는다. */
@@ -75,7 +79,7 @@ function AksharaTile({ akshara }: { akshara: Akshara }) {
       <span className="unit-roman">{part.roman}</span>
       {why(part) && <span className={tip === index ? "unit-why is-open" : "unit-why"} aria-hidden="true"
         onClick={event => { event.stopPropagation(); setTip(tip === index ? null : index); }}>
-        ?<span className="unit-tip">{why(part)}</span>
+        ?<span className="unit-tip">{tipText(why(part)!)}</span>
       </span>}
     </span>) : <span className="unit">
       <span className="unit-glyph" lang="hi">{akshara.text}</span>
@@ -145,6 +149,11 @@ function WordCard({ card, last, onNext }: { card: Card; last: boolean; onNext: (
         </Fragment>)}
       </p>}
     </div>
+    {/* 뒷면: 뜻과 함께 로마자 전사를 보여 준다. 뜯어 놓은 동안에는 칸마다 전사가 있으므로 뺀다. */}
+    <p className="word-roman">{shown && !split ? card.reading.map((word, index) => <Fragment key={index}>
+      {index > 0 && " "}
+      {word.flatMap(akshara => akshara.parts).filter(part => !part.silent).map((part, at) => <span className={kindClass(part)} key={at}>{part.roman}</span>)}
+    </Fragment>) : "\u00A0"}</p>
     <p className="word-meaning" aria-live="polite">{shown ? card.meaning : " "}</p>
     <div className="word-actions">
       <button type="button" className="word-ghost" aria-pressed={split} onClick={() => toggleSplit(!split)}>뜯어보기</button>
