@@ -43,6 +43,8 @@ const jsonContracts = {
     sources: [{ title: publicValue(), url: publicValue(), accessed: publicValue() }],
     emblem: { file: technical("주정부 문장 PNG 파일명이다. 의미와 출처는 caption 및 source로 검사한다."), caption: publicValue(), source: publicValue(), credit: publicValue(), license: publicValue() },
   } },
+  "hindi-words": { targets: row => [["learn/hindi/words", `hindi-word-${row.id}`]], schema: {
+    id: identity, word: publicValue(), roman: publicValue(), meaning: publicValue() } },
   "language-goals": { targets: row => [[`bharat/languages/${row.id}`, `language-goal-${row.id}`]], schema: {
     id: identity, text: publicValue(), romanization: publicValue(), variant: publicValue() } },
   institutes: {

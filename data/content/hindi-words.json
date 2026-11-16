@@ -1,0 +1,22 @@
+[
+  { "id": "namaste", "word": "नमस्ते", "roman": "namaste", "meaning": "안녕하세요" },
+  { "id": "namaskar", "word": "नमस्कार", "roman": "namaskār", "meaning": "안녕하십니까" },
+  { "id": "dhanyavad", "word": "धन्यवाद", "roman": "dhanyavād", "meaning": "감사합니다" },
+  { "id": "shukriya", "word": "शुक्रिया", "roman": "śukriyā", "meaning": "고마워요" },
+  { "id": "han", "word": "हाँ", "roman": "hām̐", "meaning": "네" },
+  { "id": "nahin", "word": "नहीं", "roman": "nahīṃ", "meaning": "아니요" },
+  { "id": "ji", "word": "जी", "roman": "jī", "meaning": "네 (공손한 대답)" },
+  { "id": "thik-hai", "word": "ठीक है", "roman": "ṭhīk hai", "meaning": "괜찮아요" },
+  { "id": "maf-kijie", "word": "माफ़ कीजिए", "roman": "māf kījie", "meaning": "죄송합니다" },
+  { "id": "kripaya", "word": "कृपया", "roman": "kṛpayā", "meaning": "부디" },
+  { "id": "pani", "word": "पानी", "roman": "pānī", "meaning": "물" },
+  { "id": "khana", "word": "खाना", "roman": "khānā", "meaning": "음식" },
+  { "id": "chay", "word": "चाय", "roman": "cāy", "meaning": "차" },
+  { "id": "nam", "word": "नाम", "roman": "nām", "meaning": "이름" },
+  { "id": "main", "word": "मैं", "roman": "maiṃ", "meaning": "나" },
+  { "id": "ap", "word": "आप", "roman": "āp", "meaning": "당신" },
+  { "id": "accha", "word": "अच्छा", "roman": "acchā", "meaning": "좋아요" },
+  { "id": "phir-milenge", "word": "फिर मिलेंगे", "roman": "phir mileṃge", "meaning": "또 만나요" },
+  { "id": "shubh-ratri", "word": "शुभ रात्रि", "roman": "śubh rātri", "meaning": "안녕히 주무세요" },
+  { "id": "svagat", "word": "स्वागत", "roman": "svāgat", "meaning": "환영합니다" }
+]

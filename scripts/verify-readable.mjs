@@ -10,6 +10,7 @@ import { verifyLanguageContent } from "./verify-language-content.mjs";
 import { verifyInterviewContent } from "./verify-interview-content.mjs";
 import { verifyRoutes } from "./verify-routes.mjs";
 import { verifyQuiz } from "./verify-quiz.mjs";
+import { verifyHindiWords } from "./verify-hindi-words.mjs";
 import { verifyReligionContent } from "./verify-religion-content.mjs";
 
 const outDir = process.argv[2] ?? "dist";
@@ -90,3 +91,4 @@ verifyInterviewContent(outDir);
 verifyRoutes(outDir);
 verifyReligionContent(outDir);
 verifyQuiz(outDir);
+verifyHindiWords(outDir);

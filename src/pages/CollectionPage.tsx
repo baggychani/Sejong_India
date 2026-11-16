@@ -18,12 +18,17 @@ export function CollectionPage({ collectionIdOverride }: { collectionIdOverride?
   }
 
   const entries = entriesFor(collection.id);
+  // 글이 아닌 학습 도구로 가는 입구.
+  const tools = collection.id === "hindi" ? [{ to: "/learn/hindi/words", title: "단어 공부" }] : [];
 
   return (
     <article className={collection.id === "study" ? "reading interview-index" : "reading"}>
       <h1><CollectionLabel collection={collection} /></h1>
+      {tools.length > 0 && <ul className="entry-list">
+        {tools.map(tool => <li key={tool.to}><Link to={tool.to}>{tool.title}</Link></li>)}
+      </ul>}
       {entries.length === 0 ? (
-        <p className="empty">아직 정리해 둔 글이 없다.</p>
+        tools.length > 0 ? null : <p className="empty">아직 정리해 둔 글이 없다.</p>
       ) : (
         <ul className="entry-list">
           {entries.map((entry) => (
