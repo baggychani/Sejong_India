@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import words from "../../data/content/hindi-words.json";
-import { aksharaRoman, MARK_NOTES, partNote, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
+import { aksharaRoman, KEPT_FINAL_A, MARK_NOTES, partNote, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
 import { fadeIn, fadeOut, flyFrom, ghost, resize, slideIn, slideOut, spot, still, type Spot } from "../learn/morph";
 import { usePageTitle } from "../site/title";
 import { siteTitle } from "../site/sections";
@@ -17,9 +17,9 @@ const wordRules = (card: Card) => [...new Set(card.reading.flat().flatMap(akshar
 /** ? 에 띄울 설명: 발음하지 않는 /a/의 규칙, 또는 비음 부호가 무엇인지. */
 const why = (part: Part) => part.silent && part.rule ? SILENT_RULES[part.rule] : partNote(part);
 
-/** 한 낱말의 부호 판정(아누스와라가 실제로 내는 소리). */
+/** 한 낱말의 판정(아누스와라가 실제로 내는 소리, 남는 끝 /a/). */
 const wordVerdicts = (card: Card) => card.reading.flat().flatMap(akshara => akshara.parts
-  .flatMap(part => part.verdict ? [`${akshara.text}: ${part.verdict}`] : []));
+  .flatMap(part => part.verdict ? [`${part.kind === "mark" ? "아누스와라" : "끝 /a/"} ${akshara.text}: ${part.verdict}`] : []));
 
 /** 팁에서 부호 이름을 눈에 띄게 한다. */
 const TERMS = /(아누스와라|찬드라빈두|비사르가)/;
@@ -221,10 +221,10 @@ export function HindiWordsPage() {
     <noscript>
       <h1>힌디어 단어</h1>
       <p>로마자는 IAST 표기다. 글자에는 있지만 발음하지 않는 기본 모음 /a/는 로마자에 적지 않았다. 괄호 안은 음절 덩어리별 읽기다.</p>
-      <p>발음하지 않는 /a/의 규칙: {Object.values(SILENT_RULES).join(" ")}</p>
+      <p>발음하지 않는 /a/의 규칙: {Object.values(SILENT_RULES).join(" ")} {KEPT_FINAL_A}</p>
       <p>비음·기음 부호: {Object.values(MARK_NOTES).join(" ")}</p>
       <ul>{cards.map(card => <li key={card.id} id={`hindi-word-${card.id}`}>
-        <span lang="hi">{card.word}</span> · {card.roman} · {card.meaning} ({card.reading.map(word => word.map(akshara => `${akshara.text} ${aksharaRoman(akshara)}`).join(", ")).join(" / ")}){wordRules(card).map(rule => ` 묵음 /a/: ${rule}`).join("")}{wordVerdicts(card).map(verdict => ` 아누스와라 ${verdict}`).join("")}
+        <span lang="hi">{card.word}</span> · {card.roman} · {card.meaning} ({card.reading.map(word => word.map(akshara => `${akshara.text} ${aksharaRoman(akshara)}`).join(", ")).join(" / ")}){wordRules(card).map(rule => ` 묵음 /a/: ${rule}`).join("")}{wordVerdicts(card).map(verdict => ` ${verdict}`).join("")}
       </li>)}</ul>
     </noscript>
   </article>;

@@ -14,6 +14,9 @@ export const SILENT_RULES: Record<SilentRule, string> = {
   final: "단어 끝 자음 뒤의 /a/는 발음하지 않는다.",
   medial: "앞뒤에 모음이 있는 두 자음 사이에 낀 /a/는 발음하지 않는다. (모음-자음-/a/-자음-모음)",
 };
+/** 단어 끝인데도 /a/가 남는 경우. 로마자에 끝 a가 적힌 단어에서 역산한다. */
+export const KEPT_FINAL_A = "단어 끝 /a/는 보통 발음하지 않지만, 끝이 자음 묶음이고 마지막 자음이 /y/·/r/·/l/·/v/이면 /a/를 약하게 발음한다.";
+const KEEPS_FINAL_A = new Set(["य", "र", "ल", "व"]);
 /** 비음·기음 부호가 무엇인지. 쪼갠 화면의 ? 에서 보여 준다. */
 export const MARK_NOTES: Record<string, string> = {
   "\u0902": "아누스와라. 뒤 자음과 같은 자리에서 나는 콧소리다. 뒤에 자음이 없거나 입을 막는 자음이 아니면 앞의 모음을 콧소리로 낸다.",
@@ -116,6 +119,16 @@ function markSilent(aksharas: Akshara[], target: string, word: string) {
 function classifySilent(aksharas: Akshara[]) {
   const voiced = (akshara?: Akshara) => akshara?.parts.some(part => ["vowel", "sign", "inherent"].includes(part.kind) && !part.silent);
   aksharas.forEach((akshara, at) => {
+    const kept = akshara.parts.find(item => item.kind === "inherent" && !item.silent);
+    if (kept && at === aksharas.length - 1) {
+      // 끝 자음 묶음(예: त्र)의 마지막 자음이 y·r·l·v이면 끝 /a/가 약하게 남는다.
+      const consonants = akshara.parts.filter(item => item.kind === "half" || item.kind === "consonant");
+      const last = consonants.at(-1);
+      if (consonants.length > 1 && last && KEEPS_FINAL_A.has(last.glyph)) {
+        kept.note = KEPT_FINAL_A;
+        kept.verdict = `이 단어의 경우, 끝 자음 묶음 /${consonants.map(item => item.roman).join("")}/의 마지막이 /${last.roman}/이므로 /a/를 약하게 발음한다.`;
+      }
+    }
     const part = akshara.parts.find(item => item.kind === "inherent" && item.silent);
     if (!part) return;
     if (at === aksharas.length - 1) { part.rule = "final"; return; }

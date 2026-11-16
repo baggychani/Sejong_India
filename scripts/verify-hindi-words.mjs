@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { aksharaRoman, MARK_NOTES, readWord, SILENT_RULES } from "../src/learn/devanagari.ts";
+import { aksharaRoman, KEPT_FINAL_A, MARK_NOTES, readWord, SILENT_RULES } from "../src/learn/devanagari.ts";
 import { readablePage } from "./readable-html.mjs";
 
 export function verifyHindiWords(outDir) {
@@ -40,15 +40,26 @@ export function verifyHindiWords(outDir) {
   assert.deepEqual(verdicts("संसार", "saṃsār"), ["이 단어의 경우, 뒤 자음 /s/가 입을 완전히 막지 않는 소리(마찰음)이므로 앞의 모음을 콧소리로 발음한다."]);
   assert.deepEqual(verdicts("संयम", "saṃyam"), ["이 단어의 경우, 뒤 자음 /y/가 입을 완전히 막지 않는 소리(접근음)이므로 앞의 모음을 콧소리로 발음한다."]);
   assert.deepEqual(verdicts("नहीं", "nahīṃ"), ["이 단어의 경우, 단어의 끝이므로 앞의 모음을 콧소리로 발음한다."]);
+  // 남는 끝 /a/: 끝 자음 묶음의 마지막이 y·r·l·v이면 남고, 막는 소리로 끝나면 빠진다.
+  assert.deepEqual(verdicts("छात्र", "chātra"), ["이 단어의 경우, 끝 자음 묶음 /tr/의 마지막이 /r/이므로 /a/를 약하게 발음한다."]);
+  assert.deepEqual(verdicts("वाक्य", "vākya"), ["이 단어의 경우, 끝 자음 묶음 /ky/의 마지막이 /y/이므로 /a/를 약하게 발음한다."]);
+  assert.deepEqual(verdicts("शब्द", "śabd"), []);
+  assert.deepEqual(verdicts("दोस्त", "dost"), []);
   // 단어장의 아누스와라는 모두 판정이 나야 하고, 그 판정이 읽기 경로에도 있어야 한다.
   const judged = words.flatMap(word => readWord(word.word, word.roman).flat().flatMap(akshara => akshara.parts
     .filter(part => part.kind === "mark" && part.glyph.endsWith("ं"))
     .map(part => { assert(part.verdict, `${word.id}: anusvara sound not judged`); return `${akshara.text}: ${part.verdict}`; })));
 
+  // 단어장에서 끝 /a/가 남는 단어는 모두 규칙으로 설명되어야 한다.
+  for (const word of words) for (const group of readWord(word.word, word.roman)) {
+    const end = group.at(-1).parts.find(part => part.kind === "inherent" && !part.silent);
+    if (end && group.length > 1) assert(end.verdict, `${word.id}: word-final /a/ is kept without a rule`);
+    if (end?.verdict) judged.push(`${group.at(-1).text}: ${end.verdict}`);
+  }
   const page = readablePage(readFileSync(join(outDir, "learn/hindi/words/index.html"), "utf8"), "https://example.org/");
   for (const word of words) for (const value of [word.word, word.roman, word.meaning]) assert(page.includes(value.normalize("NFC")) || page.includes(value), `${word.id}: ${value} missing from the reading path`);
-  for (const rule of [...Object.values(SILENT_RULES), ...Object.values(MARK_NOTES)]) assert(page.includes(rule), `letter note missing from the reading path: ${rule}`);
-  for (const verdict of judged) assert(page.includes(verdict), `anusvara verdict missing from the reading path: ${verdict}`);
+  for (const rule of [...Object.values(SILENT_RULES), KEPT_FINAL_A, ...Object.values(MARK_NOTES)]) assert(page.includes(rule), `letter note missing from the reading path: ${rule}`);
+  for (const verdict of judged) assert(page.includes(verdict), `letter verdict missing from the reading path: ${verdict}`);
   assert(readFileSync(join(outDir, "learn/hindi/index.html"), "utf8").includes('/learn/hindi/words"'), "Hindi page must link to the word study page");
   console.log(`PASS: ${words.length} Hindi words split into letters that rebuild the word and its romanization; study page linked and readable without JavaScript.`);
 }
