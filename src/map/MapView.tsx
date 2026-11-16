@@ -3,6 +3,7 @@ import { geoConicEqualArea, geoGraticule10, geoPath } from "d3-geo";
 import { select } from "d3-selection";
 import { zoom, zoomIdentity, type ZoomBehavior } from "d3-zoom";
 import type { MapLabel, MapPoint, MapViewProps } from "./types";
+import type { PartCallout } from "./indiaModel";
 import "../styles/map.css";
 
 type LayerControl = {
@@ -32,6 +33,7 @@ type Props = MapViewProps & {
   onToggleStateSelection: () => void;
   quiz?: QuizMapState;
   onToggleQuiz: () => void;
+  callouts?: PartCallout[];
 };
 
 export function MapView({
@@ -52,6 +54,7 @@ export function MapView({
   onToggleStateSelection,
   quiz,
   onToggleQuiz,
+  callouts = [],
 }: Props) {
   const locked = Boolean(quiz);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -312,6 +315,17 @@ export function MapView({
                   label={point.label}
                   className={`map-label point-label${point.layer === "sejong" ? " map-label-institute" : ""}${point.id === selectedId ? " selected" : ""}`}
                   onChoose={(event) => choose(event, point.id)}
+                  project={geographic}
+                  scale={scale}
+                />
+              ))}
+              {callouts.map((part) => (
+                <PlacedLabel
+                  key={part.name}
+                  lon={part.lon}
+                  lat={part.lat}
+                  label={part.label}
+                  className="map-label map-label-part"
                   project={geographic}
                   scale={scale}
                 />

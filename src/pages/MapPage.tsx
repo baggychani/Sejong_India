@@ -19,6 +19,7 @@ import {
   landformShapes,
   mapConfig,
   neighborShapes,
+  partCallouts,
   quizRegions,
   riverShapes,
 } from "../map/indiaModel";
@@ -113,6 +114,7 @@ export function MapPage() {
           setQuiz(quiz ? null : newQuiz());
         }}
         selectedId={quiz ? null : selectedId}
+        callouts={quiz || !selectedId ? [] : partCallouts.get(selectedId) ?? []}
         onSelect={(id) => {
           lastRowId.current = null;
           if (id) openPlace(id);

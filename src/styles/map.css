@@ -50,6 +50,7 @@
 .map-label { font-size: 12px; fill: #30413a; paint-order: stroke; stroke: #fff9e9; stroke-width: 3px; stroke-linejoin: round; pointer-events: none; }
 .map-label.point-label { pointer-events: auto; cursor: pointer; }
 .map-label-institute { fill: #792e24; font-size: 13px; font-weight: 700; }
+.map-label-part { font-size: 13px; font-weight: 700; }
 .point-label.selected { text-decoration: underline; }
 .map-label-neighbor { fill: #707668; font-size: 12px; stroke: #edece1; }
 .map-label-river { fill: #26677b; font-size: 11px; }
@@ -172,7 +173,7 @@ a.tongue-pill.is-muslim:hover { background: #cde7d6; }
   .tongue-pill { gap: 5px; height: 26px; padding: 0 9px; font-size: 13px; }
   .tongue-share { font-size: 12px; }
   .map-label-neighbor { font-size: 11px; }
-  .map-label-institute { font-size: 12px; }
+  .map-label-institute, .map-label-part { font-size: 12px; }
   .sea-name { font-size: 12px; }
 }
 

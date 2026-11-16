@@ -581,7 +581,24 @@
   {
     "id": "IN-PY",
     "capital": "푸두체리 / Puducherry",
+    "description": [
+      {
+        "text": "푸두체리 연방직할지는 서로 떨어져 있는 네 지역으로 이루어져 있다. 푸두체리와 카라이칼은 타밀나두에 둘러싸인 동해안이고, 마헤는 케랄람에 둘러싸인 서해안이며, 야남은 안드라프라데시 동고다바리 쪽에 붙어 있다.",
+        "keywords": ["푸두체리", "카라이칼", "마헤", "야남"]
+      }
+    ],
+    "parts": [
+      { "name": "푸두체리", "at": [79.768, 11.916], "label": { "dx": 20, "dy": -16, "anchor": "start", "leader": true } },
+      { "name": "카라이칼", "at": [79.776, 10.895], "label": { "dx": 20, "dy": 16, "anchor": "start", "leader": true } },
+      { "name": "마헤", "at": [75.537, 11.702], "label": { "dx": -18, "dy": -10, "anchor": "end", "leader": true } },
+      { "name": "야남", "at": [82.21, 16.73], "label": { "dx": 18, "dy": -14, "anchor": "start", "leader": true } }
+    ],
     "sources": [
+      {
+        "title": "푸두체리 정부: 연방직할지의 네 지역",
+        "url": "https://py.gov.in/about-puducherry",
+        "accessed": "2026-11-16"
+      },
       {
         "title": "인도 주·연방직할지의 행정·입법 주도 목록",
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",

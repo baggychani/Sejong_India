@@ -1,6 +1,6 @@
 import { geoCentroid, type GeoGeometryObjects } from "d3-geo";
 import type { DetailRecord } from "./details";
-import type { MapPoint, MapShape } from "./types";
+import type { MapLabel, MapPoint, MapShape } from "./types";
 import indiaMap from "../../data/maps/india.json";
 import cities from "../../data/content/cities.json";
 import institutes from "../../data/content/institutes.json";
@@ -288,6 +288,18 @@ export const quizRegions = admin.features.map((feature) => {
   const [lon, lat] = geoCentroid(feature);
   return { id: text(feature.properties, ["iso_3166_2"]), name: text(feature.properties, ["name_ko", "name"]), lon, lat };
 });
+
+export type PartCallout = { name: string; lon: number; lat: number; label: MapLabel };
+
+export const partCallouts = new Map<string, PartCallout[]>(states.flatMap((state) => {
+  if (!("parts" in state) || !state.parts) return [];
+  return [[state.id, state.parts.map((part) => ({
+    name: part.name,
+    lon: part.at[0],
+    lat: part.at[1],
+    label: { text: part.name, ...layout(part.label) },
+  }))]];
+}));
 
 export const fitGeometry = countryGeometry;
 export const countryGeometryOnly = countryGeometry;

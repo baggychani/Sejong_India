@@ -2,6 +2,7 @@ import { mkdir, writeFile, readFile } from "node:fs/promises";
 import path from "node:path";
 import mapshaper from "mapshaper";
 import { geoArea } from "d3-geo";
+import { fixPuducherryGeometry } from "./puducherry-geometry.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const cache = path.join(root, "data", "cache", "natural-earth", "v5.1.2");
@@ -152,6 +153,11 @@ const polygonFiles = [
 for (const filePath of polygonFiles) {
   await orientPolygons(filePath);
 }
+
+await fixPuducherryGeometry(
+  path.join(processed, "india-admin1.json"),
+  path.join(raw, "india-admin1.geojson"),
+);
 
 const placesGeo = JSON.parse(await readFile(path.join(raw, "places.geojson"), "utf8"));
 const placeIndex = placesGeo.features.map((feature) => {
