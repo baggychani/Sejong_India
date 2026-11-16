@@ -1,7 +1,8 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import words from "../../data/content/hindi-words.json";
-import { aksharaRoman, KEPT_FINAL_A, MARK_NOTES, partNote, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
+import { aksharaRoman, KEPT_FINAL_A, MARK_NOTES, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
+import { Explanation, type ExplanationNote } from "../learn/Explanation";
 import { fadeIn, fadeOut, flyFrom, ghost, resize, slideIn, slideOut, spot, still, type Spot } from "../learn/morph";
 import { usePageTitle } from "../site/title";
 import { siteTitle } from "../site/sections";
@@ -14,16 +15,20 @@ type Card = typeof cards[number];
 const wordRules = (card: Card) => [...new Set(card.reading.flat().flatMap(akshara => akshara.parts)
   .flatMap(part => part.silent && part.rule ? [SILENT_RULES[part.rule]] : []))];
 
-/** ? 에 띄울 설명: 발음하지 않는 /a/의 규칙, 또는 비음 부호가 무엇인지. */
-const why = (part: Part) => part.silent && part.rule ? SILENT_RULES[part.rule] : partNote(part);
+/** Keep the complete rule and this word's application as separate paragraphs. */
+const why = (part: Part): ExplanationNote | undefined => {
+  const text = part.silent && part.rule ? SILENT_RULES[part.rule] : part.note;
+  if (!text) return;
+  return {
+    title: part.kind === "inherent" ? (part.silent ? "발음하지 않는 /a/" : "끝 /a/의 발음") : text.split(".")[0],
+    paragraphs: [text],
+    application: part.verdict,
+  };
+};
 
 /** 한 낱말의 판정(아누스와라가 실제로 내는 소리, 남는 끝 /a/). */
 const wordVerdicts = (card: Card) => card.reading.flat().flatMap(akshara => akshara.parts
   .flatMap(part => part.verdict ? [`${part.kind === "mark" ? "아누스와라" : "끝 /a/"} ${akshara.text}: ${part.verdict}`] : []));
-
-/** 팁에서 부호 이름을 눈에 띄게 한다. */
-const TERMS = /(아누스와라|찬드라빈두|비사르가)/;
-const tipText = (text: string) => text.split(TERMS).map((piece, index) => index % 2 ? <b key={index}>{piece}</b> : piece);
 
 const kindClass = (part: Part) => `k-${part.kind}${part.silent ? " is-silent" : ""}`;
 
@@ -36,9 +41,8 @@ const MuteIcon = () => <svg className="unit-mute" viewBox="0 0 20 20" aria-hidde
 /** 음절 덩어리 하나. 누르면 자음·모음 부호로 갈라진다. */
 function AksharaTile({ akshara }: { akshara: Akshara }) {
   const [open, setOpen] = useState(false);
-  const [tip, setTip] = useState<number | null>(null);
   const single = akshara.parts.length === 1;
-  const ref = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const before = useRef<{ width: number; glyph?: Spot } | null>(null);
   const busy = useRef(false);
 
@@ -69,25 +73,26 @@ function AksharaTile({ akshara }: { akshara: Akshara }) {
     busy.current = false;
   };
 
-  return <button type="button" ref={ref} data-akshara="" className={open ? "akshara is-open" : "akshara"} aria-expanded={single ? undefined : open}
-    disabled={single} onClick={toggle}>
+  return <div ref={ref} data-akshara="" className={open ? "akshara is-open" : "akshara"}>
+    <button type="button" className="akshara-toggle" aria-label={`${akshara.text} ${open ? "합치기" : "나누기"}`}
+      aria-expanded={single ? undefined : open} disabled={single} onClick={toggle} />
     <span className="akshara-box" aria-hidden="true" />
-    {open ? akshara.parts.map((part, index) => <span className={`unit ${kindClass(part)}`} key={index}>
+    {open ? akshara.parts.map((part, index) => {
+      const note = why(part);
+      return <div className={`unit ${kindClass(part)}`} key={index}>
       {part.silent
         ? <span className="unit-glyph" aria-label={part.rule ? `발음 안 함. ${SILENT_RULES[part.rule]}` : "발음 안 함"} role="img"><MuteIcon /></span>
         : <span className="unit-glyph" lang="hi">{part.glyph}</span>}
       <span className="unit-roman">{part.roman}</span>
-      {why(part) && <span className={tip === index ? "unit-why is-open" : "unit-why"} aria-hidden="true"
-        onClick={event => { event.stopPropagation(); setTip(tip === index ? null : index); }}>
-        ?<span className="unit-tip">{tipText(why(part)!)}</span>
-      </span>}
-    </span>) : <span className="unit">
+      {note && <Explanation note={note} className="unit-why" />}
+    </div>;
+    }) : <div className="unit">
       <span className="unit-glyph" lang="hi">{akshara.text}</span>
       <span className="unit-roman">
         {akshara.parts.filter(part => !part.silent).map((part, index) => <span className={kindClass(part)} key={index}>{part.roman}</span>)}
       </span>
-    </span>}
-  </button>;
+    </div>}
+  </div>;
 }
 
 function WordCard({ card, last, onNext }: { card: Card; last: boolean; onNext: () => void }) {

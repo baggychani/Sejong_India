@@ -45,6 +45,10 @@ const jsonContracts = {
   } },
   "hindi-words": { targets: row => [["learn/hindi/words", `hindi-word-${row.id}`]], schema: {
     id: identity, word: publicValue(), roman: publicValue(), meaning: publicValue() } },
+  "hindi-letter-notes": { targets: row => [["learn/hindi/script", `hindi-letter-note-${row.id}`]], schema: {
+    id: identity, glyph: publicValue(), title: publicValue(), paragraphs: [publicValue()],
+    examples: [{ word: publicValue(), roman: publicValue(), meaning: publicValue() }],
+    sources: [{ title: publicValue(), url: publicValue() }] } },
   "language-goals": { targets: row => [[`bharat/languages/${row.id}`, `language-goal-${row.id}`]], schema: {
     id: identity, text: publicValue(), romanization: publicValue(), variant: publicValue() } },
   institutes: {

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { parse } from "parse5";
 import { aksharaRoman, KEPT_FINAL_A, LETTERS, MARK_NOTES, readWord, SILENT_RULES } from "../src/learn/devanagari.ts";
 import { readablePage } from "./readable-html.mjs";
 import { hintBudget, makeWordQuiz, similarWords } from "../src/learn/wordQuiz.ts";
@@ -89,7 +90,28 @@ export function verifyHindiWords(outDir) {
     assert(readablePage(quizHtml, "https://example.org/").includes(label) && quizText.includes(label), `quiz setup option missing from HTML or text: ${label}`);
   }
   // 데바나가리 익히기: 글자표의 모든 글자와 로마자가 연습을 시작하지 않아도 글로 읽혀야 한다.
-  const script = readablePage(readFileSync(join(outDir, "learn/hindi/script/index.html"), "utf8"), "https://example.org/");
+  const scriptHtml = readFileSync(join(outDir, "learn/hindi/script/index.html"), "utf8");
+  const script = readablePage(scriptHtml, "https://example.org/");
+  const notes = JSON.parse(readFileSync("data/content/hindi-letter-notes.json", "utf8"));
+  assert.equal(new Set(notes.map(note => note.glyph)).size, notes.length, "letter explanations must have unique glyphs");
+  const walk = node => [node, ...(node.childNodes ?? []).flatMap(walk)];
+  const attr = (node, name) => node.attrs?.find(item => item.name === name)?.value;
+  const nodes = walk(parse(scriptHtml, { scriptingEnabled: false }));
+  const tiles = nodes.filter(node => attr(node, "class")?.split(" ").includes("sc-tile"));
+  for (const tile of tiles) {
+    const glyph = tile.childNodes.find(node => node.tagName === "b")?.childNodes.map(node => node.value ?? "").join("");
+    const trigger = tile.childNodes.find(node => attr(node, "popovertarget"));
+    assert.equal(Boolean(trigger), notes.some(note => note.glyph === glyph), `${glyph}: help must be attached only to a letter with an explanation`);
+    if (trigger) {
+      assert.equal(trigger.tagName, "button", `${glyph}: help must be keyboard accessible`);
+      const panel = nodes.find(node => attr(node, "id") === attr(trigger, "popovertarget"));
+      assert(panel && attr(panel, "popover") === "auto" && attr(panel, "role") === "dialog", `${glyph}: help must target a dismissible explanation panel`);
+      for (let parent = trigger.parentNode; parent; parent = parent.parentNode) assert.notEqual(parent.tagName, "button", "help buttons must not be nested in buttons");
+    }
+  }
+  // Reading content is complete but must not add visible paragraphs in normal browsing.
+  const visibleNodes = walk(parse(scriptHtml, { scriptingEnabled: true }));
+  for (const note of notes) assert(!visibleNodes.some(node => attr(node, "id") === `hindi-letter-note-${note.id}`), "letter reading fallback leaked into the visible page");
   for (const [glyph, roman] of [...Object.entries(LETTERS.vowels), ...Object.entries(LETTERS.consonants)]) {
     assert(script.includes(glyph) && script.includes(roman), `script page is missing ${glyph} ${roman}`);
   }

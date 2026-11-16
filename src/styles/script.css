@@ -29,11 +29,12 @@
 /* 글자 한 칸: 큰 글자 아래 로마자 */
 .sc-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 8px; margin-top: 12px; }
 .sc-section > .sc-tiles { margin-top: 18px; }
-.sc-tile { display: grid; justify-items: center; padding: 8px 4px 11px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
-.sc-tile b { font-size: 36px; font-weight: 500; line-height: 1.5; color: var(--ink); }
-.sc-tile i { font-style: normal; font-size: 15px; font-weight: 650; color: #b4531a; }
-.sc-tile.is-consonant i { color: var(--ink); }
-.sc-tile i em { font-style: normal; font-weight: 500; color: #d39a72; }
+.sc-tile { position: relative; display: grid; justify-items: center; padding: 8px 4px 11px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.sc-tile-help { position: absolute; top: 5px; right: 5px; }
+.sc-tile > b { font-size: 36px; font-weight: 500; line-height: 1.5; color: var(--ink); }
+.sc-tile > i { font-style: normal; font-size: 15px; font-weight: 650; color: #b4531a; }
+.sc-tile.is-consonant > i { color: var(--ink); }
+.sc-tile > i em { font-style: normal; font-weight: 500; color: #d39a72; }
 
 /* 첫 줄은 세 쌍, 둘째 줄은 나머지 다섯 모음. 쌍은 하나의 테두리로 묶는다. */
 .sc-vowels { max-width: 880px; margin-top: 18px; display: grid; gap: 14px; }

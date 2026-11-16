@@ -1,6 +1,8 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router";
 import { LETTERS } from "../learn/devanagari";
+import letterNotes from "../../data/content/hindi-letter-notes.json";
+import { Explanation, ExplanationContent } from "../learn/Explanation";
 import { usePageTitle } from "../site/title";
 import { siteTitle } from "../site/sections";
 import "../styles/script.css";
@@ -9,6 +11,7 @@ const VIRAMA = "्";
 const NUKTA = "़";
 const RING = "◌";
 const { consonants, dotted, vowels, signs, marks, places } = LETTERS;
+const notesByGlyph = new Map(letterNotes.map(note => [note.glyph, note]));
 
 type Item = { glyph: string; roman: string };
 const vowelItems: Item[] = Object.entries(vowels).map(([glyph, roman]) => ({ glyph, roman }));
@@ -122,7 +125,11 @@ function Section({ id, title, count, note, make, children }: { id: string; title
 
 /** 글자 한 칸. 자음은 기본 모음 a를 옅게 붙여 보여 준다. */
 function Tile({ glyph, roman, inherent }: { glyph: string; roman: string; inherent?: boolean }) {
-  return <span className={inherent ? "sc-tile is-consonant" : "sc-tile"}><b lang="hi">{glyph}</b><i>{roman}{inherent && <em>a</em>}</i></span>;
+  const note = notesByGlyph.get(glyph);
+  return <div className={inherent ? "sc-tile is-consonant" : "sc-tile"}>
+    <b lang="hi">{glyph}</b><i>{roman}{inherent && <em>a</em>}</i>
+    {note && <Explanation note={note} className="sc-tile-help" />}
+  </div>;
 }
 
 /** 자음 하나와 모음 부호 하나를 직접 골라 붙여 본다. 둘 다 고르기 전에는 결과가 없다. */
@@ -239,5 +246,8 @@ export function HindiScriptPage() {
       <noscript>{tabs.filter(([id]) => id !== active).map(([id]) => parts[id])}</noscript>
     </div>
     </div>
+    <noscript>{letterNotes.map(note => <section key={note.id} id={`hindi-letter-note-${note.id}`}>
+      <ExplanationContent note={note} />
+    </section>)}</noscript>
   </article>;
 }

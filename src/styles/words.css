@@ -68,16 +68,17 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
   position: absolute; inset: 0; z-index: -1; border: 1px solid var(--line); border-radius: 14px; background: #fbfaf6;
   transition: border-color .12s, background .12s;
 }
-.akshara:not(:disabled):hover .akshara-box, .akshara:not(:disabled):focus-visible .akshara-box { border-color: var(--accent); }
-.akshara:focus-visible { outline: none; }
-.akshara:disabled { cursor: default; }
+.akshara:has(.akshara-toggle:not(:disabled)):hover .akshara-box, .akshara:focus-within .akshara-box { border-color: var(--accent); }
+.akshara-toggle { position: absolute; inset: 0; z-index: 1; width: 100%; padding: 0; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
+.akshara-toggle:disabled { cursor: default; }
+.akshara-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .akshara.is-open .akshara-box { border-style: dashed; border-color: #a9bdb4; background: #fff; }
 .akshara.is-morphing { overflow: hidden; }
 .akshara-ghost { position: absolute; left: 50%; margin: 0; pointer-events: none; }
 /* 큰 낱말도 음절 덩어리 단위로 그려 두어 뜯을 때 각 덩어리가 제자리에서 움직인다. */
 .wb-word { white-space: nowrap; }
 .wb-ak { display: inline-block; }
-.unit { display: grid; justify-items: center; align-content: start; gap: 2px; min-width: 44px; padding: 0 5px; }
+.unit { position: relative; display: grid; justify-items: center; align-content: start; gap: 2px; min-width: 44px; padding: 0 5px; pointer-events: none; }
 .akshara.is-open .unit + .unit { border-left: 1px dashed var(--line); }
 .unit-glyph { font-size: clamp(32px, 7vw, 48px); line-height: 1.55; }
 .unit-roman { font-size: 16px; font-weight: 650; letter-spacing: .01em; line-height: 1.3; }
@@ -95,20 +96,8 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
 .unit.k-inherent.is-silent .unit-roman { color: #bcc3bf; font-weight: 500; }
 .unit-mute { width: .62em; height: .62em; }
 .unit-mute .mute-body { fill: #9aa39f; }
-/* 묵음 a 규칙: 모서리 ? 에 마우스를 올리거나 눌러서 본다. */
-.unit.is-silent, .unit.k-mark { position: relative; }
-.unit.k-mark .unit-why { background: #2b6c8f; }
-.unit-why {
-  position: absolute; top: -9px; right: -9px; display: grid; place-items: center; width: 18px; height: 18px;
-  border-radius: 50%; background: #6f7a75; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; cursor: help;
-}
-.unit-tip {
-  position: absolute; bottom: calc(100% + 8px); left: 50%; z-index: 2; width: max-content; max-width: 220px; padding: 7px 10px;
-  border-radius: 8px; background: #26302d; color: #fff; font-size: 13px; font-weight: 500; line-height: 1.4; text-align: left; white-space: pre-line;
-  transform: translateX(-50%); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .12s;
-}
-.unit-tip b { color: #ffd166; font-weight: 700; }
-.unit-why:hover .unit-tip, .unit-why.is-open .unit-tip { opacity: 1; visibility: visible; }
+/* All explanations, including pronounced a, anchor to their own component cell. */
+.unit-why { position: absolute; z-index: 2; top: -4px; right: 0; }
 .unit-mute .mute-x { fill: none; stroke: #c4553f; stroke-width: 2.2; stroke-linecap: round; }
 
 /* 뜻 보기 ↔ O·X 버튼이 바뀌어도 줄 높이가 같도록 버튼 높이를 맞춘다. */
