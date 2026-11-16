@@ -16,8 +16,8 @@ export const SILENT_RULES: Record<SilentRule, string> = {
 };
 /** 비음·기음 부호가 무엇인지. 쪼갠 화면의 ? 에서 보여 준다. */
 export const MARK_NOTES: Record<string, string> = {
-  "\u0902": "아누스와라. 뒤 자음과 같은 자리에서 나는 콧소리다. 뒤에 자음이 없거나 파열음이 아니면 앞의 모음을 콧소리로 낸다.",
-  "\u0901": "찬드라빈두. 모음을 콧소리로 낸다. 자음 소리는 더하지 않는다.",
+  "\u0902": "아누스와라. 뒤 자음과 같은 자리에서 나는 콧소리다. 뒤에 자음이 없거나 입을 막는 자음이 아니면 앞의 모음을 콧소리로 낸다.",
+  "\u0901": "찬드라빈두. 모음을 콧소리로 낸다.",
   "\u0903": "비사르가. 모음 뒤에 숨을 가볍게 내쉬는 h 소리다.",
 };
 export type Akshara = { text: string; parts: Part[] };
@@ -125,20 +125,21 @@ function classifySilent(aksharas: Akshara[]) {
   });
 }
 
-// 아누스와라 뒤 파열음·비음 → 그 자음의 소리와 같은 자리의 콧소리.
-// 표에 없는 자음(y r l v ś ṣ s h)과 단어 끝에서는 앞 모음을 콧소리로 낸다.
-const NASAL_PLACES: [string[], string][] = [
-  [["क/k", "ख/kʰ", "ग/g", "घ/gʱ", "ङ/ŋ"], "ŋ"],
-  [["च/tʃ", "छ/tʃʰ", "ज/dʒ", "झ/dʒʱ", "ञ/ɲ"], "ɲ"],
-  [["ट/ʈ", "ठ/ʈʰ", "ड/ɖ", "ढ/ɖʱ", "ण/ɳ"], "ɳ"],
-  [["त/t", "थ/tʰ", "द/d", "ध/dʱ", "न/n"], "n"],
-  [["प/p", "फ/pʰ", "ब/b", "भ/bʱ", "म/m"], "m"],
+// 아누스와라 뒤에 입을 막는 자음(자음표 다섯 줄)이 오면 그 줄의 콧소리가 된다.
+// 소리는 단어장 칸 아래와 같은 로마자로 적는다.
+const NASAL_PLACES: [string, string, string][] = [
+  ["연구개음", "कखगघङ", "ङ"],
+  ["경구개음", "चछजझञ", "ञ"],
+  ["권설음", "टठडढण", "ण"],
+  ["치음", "तथदधन", "न"],
+  ["양순음", "पफबभम", "म"],
 ];
-const STOP_NASAL = new Map(NASAL_PLACES.flatMap(([letters, nasal]) => letters.map(entry => {
-  const [letter, sound] = entry.split("/");
-  return [letter, { sound, nasal }] as const;
-})));
-const OTHER_SOUNDS: Record<string, string> = { य: "j", र: "r", ल: "l", व: "ʋ", श: "ʃ", ष: "ʂ", स: "s", ह: "ɦ" };
+const STOP_NASAL = new Map(NASAL_PLACES.flatMap(([place, letters, nasal]) => Array.from(letters).map(letter => [letter, { place, nasal }] as const)));
+// 입을 완전히 막지 않는 자음 앞에서는 앞 모음을 콧소리로 낸다. 값은 소리의 종류와 그 로마자에 붙는 조사.
+const OPEN_CONSONANTS: Record<string, [string, string]> = {
+  य: ["접근음", "가"], व: ["접근음", "가"], र: ["탄음", "이"], ल: ["설측음", "이"],
+  श: ["마찰음", "가"], ष: ["마찰음", "가"], स: ["마찰음", "가"], ह: ["마찰음", "가"],
+};
 const ANUSVARA = "ं";
 
 /** 아누스와라마다 뒤 글자를 보고 실제 소리를 정한다. 정할 수 없으면(점 찍은 글자 등) 비워 둔다. */
@@ -151,8 +152,9 @@ function judgeAnusvara(aksharas: Akshara[]) {
     if ((next.kind !== "consonant" && next.kind !== "half") || next.glyph.includes(NUKTA)) return;
     const letter = Array.from(next.glyph)[0];
     const stop = STOP_NASAL.get(letter);
-    if (stop) mark.verdict = `이 단어의 경우, 뒤 자음이 /${stop.sound}/ 소리라서 같은 자리의 /${stop.nasal}/ 소리로 발음한다.`;
-    else if (OTHER_SOUNDS[letter]) mark.verdict = `이 단어의 경우, 뒤 자음이 /${OTHER_SOUNDS[letter]}/ 소리라서 앞의 모음을 콧소리로 발음한다.`;
+    const open = OPEN_CONSONANTS[letter];
+    if (stop) mark.verdict = `이 단어의 경우, 뒤 자음이 /${CONSONANTS[letter]}/이므로 같은 자리(${stop.place})의 /${CONSONANTS[stop.nasal]}/(${stop.nasal})으로 발음한다.`;
+    else if (open) mark.verdict = `이 단어의 경우, 뒤 자음 /${CONSONANTS[letter]}/${open[1]} 입을 완전히 막지 않는 소리(${open[0]})이므로 앞의 모음을 콧소리로 발음한다.`;
   });
 }
 

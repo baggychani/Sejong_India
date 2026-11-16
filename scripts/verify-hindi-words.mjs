@@ -32,12 +32,13 @@ export function verifyHindiWords(outDir) {
   assert.deepEqual(rules("नमस्ते", "namaste"), []);
   // 아누스와라 판정: 뒤 파열음과 같은 자리의 콧소리 / 그 밖의 자음·단어 끝은 앞 모음을 콧소리로
   const verdicts = (word, roman) => readWord(word, roman)[0].flatMap(akshara => akshara.parts.flatMap(part => part.verdict ? [part.verdict] : []));
-  assert.deepEqual(verdicts("मिलेंगे", "mileṃge"), ["이 단어의 경우, 뒤 자음이 /g/ 소리라서 같은 자리의 /ŋ/ 소리로 발음한다."]);
-  assert.deepEqual(verdicts("हिंदी", "hiṃdī"), ["이 단어의 경우, 뒤 자음이 /d/ 소리라서 같은 자리의 /n/ 소리로 발음한다."]);
-  assert.deepEqual(verdicts("लंबा", "laṃbā"), ["이 단어의 경우, 뒤 자음이 /b/ 소리라서 같은 자리의 /m/ 소리로 발음한다."]);
-  assert.deepEqual(verdicts("ठंडा", "ṭhaṃḍā"), ["이 단어의 경우, 뒤 자음이 /ɖ/ 소리라서 같은 자리의 /ɳ/ 소리로 발음한다."]);
-  assert.deepEqual(verdicts("पंजाब", "paṃjāb"), ["이 단어의 경우, 뒤 자음이 /dʒ/ 소리라서 같은 자리의 /ɲ/ 소리로 발음한다."]);
-  assert.deepEqual(verdicts("संसार", "saṃsār"), ["이 단어의 경우, 뒤 자음이 /s/ 소리라서 앞의 모음을 콧소리로 발음한다."]);
+  assert.deepEqual(verdicts("मिलेंगे", "mileṃge"), ["이 단어의 경우, 뒤 자음이 /g/이므로 같은 자리(연구개음)의 /ṅ/(ङ)으로 발음한다."]);
+  assert.deepEqual(verdicts("पंजाब", "paṃjāb"), ["이 단어의 경우, 뒤 자음이 /j/이므로 같은 자리(경구개음)의 /ñ/(ञ)으로 발음한다."]);
+  assert.deepEqual(verdicts("ठंडा", "ṭhaṃḍā"), ["이 단어의 경우, 뒤 자음이 /ḍ/이므로 같은 자리(권설음)의 /ṇ/(ण)으로 발음한다."]);
+  assert.deepEqual(verdicts("हिंदी", "hiṃdī"), ["이 단어의 경우, 뒤 자음이 /d/이므로 같은 자리(치음)의 /n/(न)으로 발음한다."]);
+  assert.deepEqual(verdicts("लंबा", "laṃbā"), ["이 단어의 경우, 뒤 자음이 /b/이므로 같은 자리(양순음)의 /m/(म)으로 발음한다."]);
+  assert.deepEqual(verdicts("संसार", "saṃsār"), ["이 단어의 경우, 뒤 자음 /s/가 입을 완전히 막지 않는 소리(마찰음)이므로 앞의 모음을 콧소리로 발음한다."]);
+  assert.deepEqual(verdicts("संयम", "saṃyam"), ["이 단어의 경우, 뒤 자음 /y/가 입을 완전히 막지 않는 소리(접근음)이므로 앞의 모음을 콧소리로 발음한다."]);
   assert.deepEqual(verdicts("नहीं", "nahīṃ"), ["이 단어의 경우, 단어의 끝이므로 앞의 모음을 콧소리로 발음한다."]);
   // 단어장의 아누스와라는 모두 판정이 나야 하고, 그 판정이 읽기 경로에도 있어야 한다.
   const judged = words.flatMap(word => readWord(word.word, word.roman).flat().flatMap(akshara => akshara.parts
