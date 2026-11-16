@@ -38,7 +38,7 @@ const jsonContracts = {
       name: publicValue(), source: publicValue(), credit: publicValue(), license: publicValue() },
     censusGroup: technical("종교 페이지를 인구조사 분류에 연결하는 키다. 전국 인원수·비율과 상위 지역은 레코드별 검사로 대조한다.") } },
   states: { targets: row => [["bharat/map", `state-${row.id}`]], schema: {
-    id: identity, names: name, capital: publicValue(), capitalNote: publicValue(), majorCities: [publicValue()], description: [publicValue()],
+    id: identity, names: name, capital: publicValue(), capitalNote: publicValue(), majorCities: [publicValue()], description: [{ text: publicValue(), keywords: [publicValue()] }],
     sources: [{ title: publicValue(), url: publicValue(), accessed: publicValue() }],
     emblem: { file: technical("주정부 문장 PNG 파일명이다. 의미와 출처는 caption 및 source로 검사한다."), caption: publicValue(), source: publicValue(), credit: publicValue(), license: publicValue() },
   } },

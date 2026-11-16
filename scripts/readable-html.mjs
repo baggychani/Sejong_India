@@ -22,7 +22,10 @@ export function readablePage(html, url) {
     if (node.nodeName === "#text") return node.value.replace(/\s+/g, " ");
     if (["script", "style", "svg", "template"].includes(node.tagName)
       || attribute(node, "hidden") !== undefined || attribute(node, "aria-hidden") === "true") return "";
-    const inner = (node.childNodes ?? []).map(text).join("").trim();
+    const content = (node.childNodes ?? []).map(text).join("");
+    // Inline emphasis must not insert spaces before Korean particles or punctuation.
+    if (["strong", "em", "u"].includes(node.tagName)) return content;
+    const inner = content.trim();
     const heading = /^h([1-6])$/.exec(node.tagName ?? "");
     if (heading) return `\n\n${"#".repeat(Number(heading[1]))} ${inner.replace(/[ \t]+/g, " ")}\n\n`;
     if (node.tagName === "a") {

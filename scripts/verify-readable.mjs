@@ -77,6 +77,7 @@ for (const url of urls) {
   assert(read("llms.txt").includes(new URL("index.md", url).href));
 }
 assert.equal(readablePage('<main><h1>A &amp; B</h1><a href="/x"><span>Link</span></a><script>ignore me</script><div hidden>hidden</div></main>', siteUrl), '# A & B\n\n[Link](https://baggychani.github.io/x)');
+assert.equal(readablePage('<main><details><summary>더 알아보기</summary><ul><li><strong>퐁갈</strong>(Pongal)은 축제다.</li><li><strong>북동몬순</strong>이 찾아온다.</li></ul></details></main>', siteUrl), '더 알아보기\n\n- 퐁갈(Pongal)은 축제다.\n\n- 북동몬순이 찾아온다.');
 const mapBundle = readdirSync(join(outDir, "assets")).filter(name => name.endsWith(".js")).map(name => readFileSync(join(outDir, "assets", name), "utf8")).join("\n");
 assert(mapBundle.includes("홈페이지 열기") && mapBundle.includes("Google 지도에서 검색"), "map actions missing from the client bundle");
 assert(!mapBundle.includes("(확인:"), "source access dates must not be map detail buttons");

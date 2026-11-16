@@ -1,6 +1,7 @@
 import { hasMotherTongues, MotherTongueRow } from "./MotherTongues";
 import { ReligionRow } from "./Religions";
 import { religionProfilesByPlace } from "../site/religions";
+import { Icon } from "../site/Icon";
 
 export type DetailRecord = {
   id: string;
@@ -8,7 +9,7 @@ export type DetailRecord = {
   title: string;
   subtitle: string;
   summary?: string;
-  description?: string[];
+  description?: { text: string; keywords?: string[] }[];
   facts?: { label: string; value: string; note?: string }[];
   allowances?: { housingManwon: number; hardshipManwon: number | null };
   links?: { label: string; href: string }[];
@@ -19,6 +20,14 @@ const emphasizedOperator = /(부산외국어대학교|Busan University of Foreig
 
 function operatorName(value: string) {
   return value.split(emphasizedOperator).map((part, i) => i % 2 ? <strong key={i}>{part}</strong> : part);
+}
+
+function descriptionText(text: string, keywords: string[] = []) {
+  if (!keywords.length) return text;
+  const pattern = new RegExp(`(${keywords.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "g");
+  return text.split(pattern).map((part, index) => index % 2
+    ? <strong className="description-keyword" key={index}>{part}</strong>
+    : part);
 }
 
 /** 계절에 따라 옮기는 주도의 표식. 뜻은 툴팁·접근성 이름과 비시각 읽기 경로의 범례로 제공한다. */
@@ -82,9 +91,16 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
         </dl>
       )}
       {detail.description?.length ? (
-        <div className="detail-description">
-          {detail.description.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-        </div>
+        <details key={detail.id} className="detail-description">
+          <summary>
+            <span className="description-expand">더 알아보기</span>
+            <span className="description-collapse">접기</span>
+            <Icon name="arrow" />
+          </summary>
+          <ul>
+            {detail.description.map((item, index) => <li key={index}>{descriptionText(item.text, item.keywords)}</li>)}
+          </ul>
+        </details>
       ) : null}
       {detail.links && (
         <div className="detail-links">

@@ -77,9 +77,23 @@ export function verifyContentFields(outDir) {
     const description = allNodes(node).find(child => attr(child, "class") === "detail-description");
     assert.equal(Boolean(description), Boolean(state.description?.length), `${state.id}: description box must follow source data`);
     if (description) {
-      const paragraphs = description.childNodes.filter(child => child.tagName === "p");
-      assert.equal(paragraphs.length, state.description.length, `${state.id}: description paragraphs must be preserved`);
-      for (const paragraph of state.description) record.expect(paragraph);
+      assert.equal(description.tagName, "details", `${state.id}: description must use a native disclosure`);
+      assert.equal(attr(description, "open"), undefined, `${state.id}: description must start collapsed`);
+      assert.equal(description.childNodes.find(child => child.tagName)?.tagName, "summary", `${state.id}: disclosure needs a keyboard-accessible summary`);
+      const list = description.childNodes.find(child => child.tagName === "ul");
+      assert(list, `${state.id}: description must be a bullet list`);
+      const items = list.childNodes.filter(child => child.tagName === "li");
+      assert.equal(items.length, state.description.length, `${state.id}: every sentence needs its own bullet`);
+      state.description.forEach((item, index) => {
+        record.expect(item.text);
+        const itemText = allNodes(items[index]).filter(child => child.nodeName === "#text").map(child => child.value).join("");
+        assert.equal(itemText, item.text, `${state.id}: bullet text must preserve the source sentence`);
+        const keywords = allNodes(items[index]).filter(child => child.tagName === "strong" && attr(child, "class") === "description-keyword");
+        for (const keyword of item.keywords ?? []) {
+          assert(keyword && item.text.includes(keyword), `${state.id}: keyword must occur in its sentence`);
+          assert(keywords.some(child => child.childNodes.map(text => text.value ?? "").join("") === keyword), `${state.id}: missing keyword emphasis: ${keyword}`);
+        }
+      });
       const siblings = description.parentNode.childNodes.filter(child => child.tagName);
       assert.equal(siblings[siblings.indexOf(description) - 1]?.tagName, "dl", `${state.id}: description must follow the facts, outside the table`);
       assert(!allNodes(description).some(child => /^h[1-6]$/.test(child.tagName)), `${state.id}: description must not have an added heading`);
