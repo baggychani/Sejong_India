@@ -103,14 +103,14 @@ function Drill({ make, onClose }: { make: Maker; onClose: () => void }) {
 
 /* ───────── 화면 ───────── */
 
-function Section({ id, title, count, note, make, children }: { id: string; title: string; count?: number; note: ReactNode; make: Maker; children: ReactNode }) {
+function Section({ id, title, count, note, make, children }: { id: string; title: string; count?: number; note?: ReactNode; make: Maker; children: ReactNode }) {
   const [drilling, setDrilling] = useState(false);
   return <section className="sc-section" id={id} aria-labelledby={`${id}-title`}>
     <header className="sc-head">
       <h2 id={`${id}-title`}>{title}{count !== undefined && <small>{count}</small>}</h2>
       <button type="button" className="word-ghost sc-practice" aria-pressed={drilling} onClick={() => setDrilling(!drilling)}>연습</button>
     </header>
-    <p className="sc-note">{note}</p>
+    {note && <p className="sc-note">{note}</p>}
     {drilling ? <Drill make={make} onClose={() => setDrilling(false)} /> : children}
   </section>;
 }
@@ -120,48 +120,47 @@ function Tile({ glyph, roman, inherent }: { glyph: string; roman: string; inhere
   return <span className={inherent ? "sc-tile is-consonant" : "sc-tile"}><b lang="hi">{glyph}</b><i>{roman}{inherent && <em>a</em>}</i></span>;
 }
 
-/** 자음 하나와 모음 부호 하나를 골라 붙여 본다. */
+/** 자음 하나와 모음 부호 하나를 직접 골라 붙여 본다. 둘 다 고르기 전에는 결과가 없다. */
 function Builder() {
-  const [consonant, setConsonant] = useState("क");
-  const [sign, setSign] = useState("ा");
+  const [consonant, setConsonant] = useState<string | null>(null);
+  // null: 아직 고르지 않음. "": 부호 없이 기본 모음 a.
+  const [sign, setSign] = useState<string | null>(null);
   const endings = [{ sign: "", label: RING, roman: "a" }, ...Object.entries(signs).map(([key, roman]) => ({ sign: key, label: RING + key, roman })),
     { sign: VIRAMA, label: RING + VIRAMA, roman: "" }];
-  const vowel = sign === VIRAMA ? "" : sign ? signs[sign] : "a";
+  const done = consonant !== null && sign !== null;
   return <div className="sc-builder">
     <div className="sc-result" aria-live="polite">
-      <p className="sc-result-glyph" lang="hi">{syllable(consonant, sign)}</p>
-      <p className="sc-formula"><b lang="hi">{consonant}</b>+<b lang="hi">{sign ? RING + sign : RING}</b></p>
-      <p className="sc-result-roman"><span>{consonants[consonant]}</span><span className="is-vowel">{vowel}</span></p>
+      <p className="sc-result-glyph" lang="hi">{done ? syllable(consonant, sign) : "\u00A0"}</p>
+      <p className="sc-formula">
+        <b className={consonant === null ? "is-empty" : undefined} lang="hi">{consonant ?? "\u00A0"}</b>+
+        <b className={sign === null ? "is-empty" : undefined} lang="hi">{sign === null ? "\u00A0" : sign ? RING + sign : RING}</b>
+      </p>
+      <p className="sc-result-roman">{done ? <><span>{consonants[consonant]}</span><span className="is-vowel">{sign === VIRAMA ? "" : sign ? signs[sign] : "a"}</span></> : "\u00A0"}</p>
     </div>
     <div className="sc-picks" role="group" aria-label="자음">
       {Object.keys(consonants).map(letter => <button type="button" key={letter} lang="hi" aria-pressed={letter === consonant} onClick={() => setConsonant(letter)}>{letter}</button>)}
     </div>
     <div className="sc-picks is-signs" role="group" aria-label="모음 부호">
       {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-pressed={ending.sign === sign} onClick={() => setSign(ending.sign)}>
-        <span lang="hi">{ending.label}</span><small>{ending.sign === VIRAMA ? "없음" : ending.roman}</small>
+        <span lang="hi">{ending.label}</span><small>{ending.roman || "\u00A0"}</small>
       </button>)}
     </div>
   </div>;
 }
 
-const sections = [["vowels", "모음"], ["consonants", "자음"], ["signs", "모음 부호"], ["combine", "합치기"]] as const;
+// 네 부분은 한 번에 하나씩 본다. 탭의 글자는 그 부분의 대표 글자다.
+const tabs = [["vowels", "모음", "अ"], ["consonants", "자음", "क"], ["signs", "모음 부호", RING + "\u093E"], ["combine", "합치기", "की"]] as const;
+type TabId = typeof tabs[number][0];
 
 export function HindiScriptPage() {
   usePageTitle(`데바나가리 익히기 · 힌디어 · ${siteTitle}`);
-  return <article className="script-page">
-    <header className="words-head"><Link className="words-back" to="/learn/hindi">← 힌디어</Link></header>
-    <h1 className="script-title">데바나가리 익히기</h1>
-    <nav className="script-nav" aria-label="글자 종류">
-      {sections.map(([id, title]) => <a key={id} href={`#${id}`}>{title}</a>)}
-    </nav>
-
-    <Section id="vowels" title="모음" count={vowelItems.length} make={fromList(vowelItems)}
-      note="낱말의 첫머리나 다른 모음 뒤에서는 모음을 이 글자로 쓴다. 로마자 위의 줄(ā, ī, ū)은 길게 내는 소리다.">
+  const [active, setActive] = useState<TabId>("vowels");
+  const parts: Record<TabId, ReactNode> = {
+    vowels: <Section key="vowels" id="vowels" title="모음" count={vowelItems.length} make={fromList(vowelItems)}>
       <div className="sc-tiles">{vowelItems.map(item => <Tile key={item.glyph} {...item} />)}</div>
-    </Section>
+    </Section>,
 
-    <Section id="consonants" title="자음" count={consonantItems.length} make={fromList(consonantItems.map(item => ({ glyph: item.glyph, roman: `${item.roman}a` })))}
-      note="자음 글자에는 기본 모음 a가 들어 있다. क는 k가 아니라 ka다. 유기음은 숨을 세게 내쉬며 내는 소리로, 로마자에서는 h를 붙여 적는다.">
+    consonants: <Section key="consonants" id="consonants" title="자음" count={consonantItems.length} make={fromList(consonantItems.map(item => ({ glyph: item.glyph, roman: `${item.roman}a` })))}>
       <div className="sc-grid">
         <div className="sc-row sc-cols" aria-hidden="true"><span className="sc-place" />{columns.map(column => <span key={column}>{column}</span>)}</div>
         {stopRows.map(row => <div className="sc-row" key={row.place}>
@@ -177,9 +176,9 @@ export function HindiScriptPage() {
         <h3>점을 찍어 만든 글자</h3>
         <div className="sc-tiles">{dottedItems.map(item => <Tile key={item.glyph} glyph={item.glyph} roman={item.roman} inherent />)}</div>
       </div>
-    </Section>
+    </Section>,
 
-    <Section id="signs" title="모음 부호" count={signItems.length} make={fromList([...signItems.map(item => ({ glyph: RING + item.sign, roman: item.roman })), ...markItems])}
+    signs: <Section key="signs" id="signs" title="모음 부호" count={signItems.length} make={fromList([...signItems.map(item => ({ glyph: RING + item.sign, roman: item.roman })), ...markItems])}
       note="자음 뒤에 오는 모음은 글자 대신 부호로 자음에 붙인다. 부호가 없으면 기본 모음 a다. ◌는 자음이 놓이는 자리다.">
       <div className="sc-signs">
         <div className="sc-sign"><b lang="hi">क</b><span><i lang="hi">अ</i>부호 없음</span><em>ka</em></div>
@@ -193,14 +192,13 @@ export function HindiScriptPage() {
         <h3>그 밖의 부호</h3>
         <div className="sc-signs">
           {markItems.map(item => <div className="sc-sign" key={item.glyph}><b lang="hi">{item.glyph}</b><span>{item.name}</span><em>{item.roman}</em></div>)}
-          <div className="sc-sign"><b lang="hi">{RING + VIRAMA}</b><span>비라마</span><em>모음 없음</em></div>
-          <div className="sc-sign"><b lang="hi">{RING + NUKTA}</b><span>누크타</span><em>소리를 바꾸는 점</em></div>
+          <div className="sc-sign"><b lang="hi">{RING + VIRAMA}</b><span>비라마</span></div>
+          <div className="sc-sign"><b lang="hi">{RING + NUKTA}</b><span>누크타</span></div>
         </div>
       </div>
-    </Section>
+    </Section>,
 
-    <Section id="combine" title="합치기" make={combined}
-      note="자음 하나와 모음 부호 하나를 골라 붙여 본다. 자음끼리 붙일 때는 앞 자음의 모음을 떼고(비라마) 뒤 자음에 이어 쓴다.">
+    combine: <Section key="combine" id="combine" title="합치기" make={combined}>
       <Builder />
       <div className="sc-group">
         <h3>자음끼리 합치기</h3>
@@ -210,6 +208,18 @@ export function HindiScriptPage() {
           </div>)}
         </div>
       </div>
-    </Section>
+    </Section>,
+  };
+  return <article className="script-page">
+    <header className="words-head"><Link className="words-back" to="/learn/hindi">← 힌디어</Link></header>
+    <h1 className="script-title">데바나가리 익히기</h1>
+    <div className="script-tabs" role="tablist" aria-label="글자 종류">
+      {tabs.map(([id, title, glyph]) => <button type="button" role="tab" key={id} aria-selected={active === id} onClick={() => setActive(id)}>
+        <b lang="hi" aria-hidden="true">{glyph}</b><span>{title}</span>
+      </button>)}
+    </div>
+    {parts[active]}
+    {/* 고르지 않은 부분도 스크립트 없이 읽을 수 있게 둔다. */}
+    <noscript>{tabs.filter(([id]) => id !== active).map(([id]) => parts[id])}</noscript>
   </article>;
 }
