@@ -2,6 +2,7 @@
 export const lessonPlanForm = {
   slug: "plan-form",
   title: "교안 양식",
+  context: "세종학당재단 면접",
   source: "세종학당재단 공고 제2026-34호 붙임 「교안 양식(참고용)」",
   header: [
     { label: "권/과", value: "" },

@@ -155,27 +155,27 @@ img.book-hero-cover { display: block; height: auto; aspect-ratio: auto; }
 
 /* 교안 양식: 책장에 기대어 세운 A4 한 장 */
 .plan-sheet-link {
-  position: relative; flex: none; align-self: flex-end; width: var(--fw); aspect-ratio: 210 / 297; margin: 0 13px 0 auto;
-  background: linear-gradient(175deg, #fff 0%, #fbfaf5 70%, #f1eee4 100%); color: #3b4441; text-decoration: none;
-  box-shadow: 0 0 0 .5px rgb(60 40 20 / .22), 7px 6px 14px -6px rgb(60 40 20 / .45);
-  transform: rotate(-2.2deg); transform-origin: bottom left; transition: transform .18s ease;
+  /* 종이는 선반 윗면에 닿아 있다. 기울인 상태는 왼쪽 아래 모서리를 축으로 돌려 그 모서리가 선반에 남고,
+     세우면 들어 올리지 않고 그 자리에서 바로 선다. */
+  position: relative; flex: none; align-self: flex-end; width: var(--fw); aspect-ratio: 210 / 297; margin: 0 16px 0 auto;
+  background: linear-gradient(175deg, #fff 0%, #fbfaf5 70%, #f1eee4 100%); text-decoration: none;
+  box-shadow: 0 0 0 .5px rgb(60 40 20 / .22), 7px 4px 12px -6px rgb(60 40 20 / .45);
+  transform: translateY(3px) rotate(-2.2deg); transform-origin: 0 100%; backface-visibility: hidden;
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1);
 }
-.plan-sheet-link::after { content: ""; position: absolute; left: 6px; right: -8px; bottom: -4px; height: 7px; background: radial-gradient(closest-side, rgb(var(--cast) / .45), transparent); z-index: -1; }
-.plan-sheet-link:hover, .plan-sheet-link:focus-visible { transform: rotate(0deg) translateY(-8px); }
-.sheet-art { position: absolute; inset: 9% 9% 8%; display: grid; grid-template-rows: auto repeat(3, 4.5%) 6% repeat(5, 1fr); gap: 0; }
-.sheet-art b { margin-bottom: 9%; font-size: calc(var(--fw) * .085); letter-spacing: -.02em; line-height: 1; }
-.sheet-art i { border: .5px solid #9aa39f; border-top: 0; background: linear-gradient(90deg, #dfe2e0 0 18%, transparent 18%); box-shadow: inset calc(var(--fw) * .148) 0 0 -0.5px transparent; }
-.sheet-art b + i { border-top: .5px solid #9aa39f; }
-.sheet-art .sheet-head { background: #d4d8d5; }
-.sheet-art .sheet-stage { background:
-  linear-gradient(90deg, #dfe2e0 0 18%, transparent 18%),
-  linear-gradient(90deg, transparent calc(18% - .5px), #9aa39f calc(18% - .5px) 18%, transparent 18% calc(58% - .5px), #9aa39f calc(58% - .5px) 58%, transparent 58% calc(82% - .5px), #9aa39f calc(82% - .5px) 82%, transparent 82% calc(91% - .5px), #9aa39f calc(91% - .5px) 91%, transparent 91%); }
+.plan-sheet-link:hover, .plan-sheet-link:focus-visible { transform: translateY(3px) rotate(0deg); }
+.sheet-art { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sheet-art text { font-size: 15px; font-weight: 700; letter-spacing: -.02em; fill: #2f3835; }
+.sheet-shade { fill: #e3e6e4; }
+.sheet-shade.is-head { fill: #d3d7d5; }
+.sheet-line { fill: none; stroke: #7f8a86; stroke-width: 1; }
 @media (prefers-reduced-motion: reduce) { .plan-sheet-link { transition: none; } }
 
 /* 교안 양식 페이지 */
 .plan-form-page { max-width: 900px; margin: 0 auto; padding: 56px 28px 120px; }
 .plan-sheet { margin-top: 18px; padding: clamp(22px, 5vw, 56px) clamp(16px, 4.5vw, 52px) clamp(28px, 6vw, 64px); background: #fff; border: 1px solid var(--line); border-radius: 3px; box-shadow: 0 18px 40px -22px rgb(60 40 20 / .35); }
 .plan-sheet h1 { margin: 0 0 clamp(18px, 3vw, 30px); font-size: clamp(24px, 3.2vw, 32px); letter-spacing: -.03em; }
+.plan-sheet h1 small { margin-left: 4px; font-size: 14px; font-weight: 500; letter-spacing: -.01em; color: var(--muted); }
 .plan-table-scroll { overflow-x: auto; }
 .plan-table { width: 100%; min-width: 560px; border-collapse: collapse; table-layout: fixed; font-size: 14px; }
 .plan-table th, .plan-table td { height: 46px; padding: 8px 10px; border: 1px solid #3b4441; text-align: center; vertical-align: middle; word-break: keep-all; }

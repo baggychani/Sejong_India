@@ -1,16 +1,24 @@
 import { Link } from "react-router";
 import { lessonPlanForm as form } from "../site/lessonPlanForm";
 
-/** 책장에 세워 둔 A4 한 장. 양식의 뼈대만 작게 그린다. */
+/** 책장에 세워 둔 A4 한 장. 기울여도 선이 깨지지 않게 벡터로 양식의 뼈대만 그린다. */
 export function LessonPlanSheetArt() {
-  return <span className="sheet-art" aria-hidden="true">
-    <b>{form.title}</b>
-    <i className="sheet-top" />
-    <i className="sheet-top" />
-    <i className="sheet-top" />
-    <i className="sheet-head" />
-    {form.stages.map(stage => <i className="sheet-stage" key={stage} />)}
-  </span>;
+  const left = 20, right = 190, top = 54, thin = 9, head = 12, bottom = 277;
+  const stageTop = top + thin * 4 + head;
+  const stageHeight = (bottom - stageTop) / form.stages.length;
+  const columns = [50, 120, 160, 174];
+  return <svg className="sheet-art" viewBox="0 0 210 297" aria-hidden="true">
+    <text x={left} y="38">{form.title}</text>
+    <rect className="sheet-shade" x={left} y={top} width={columns[0] - left} height={bottom - top} />
+    <rect className="sheet-shade is-head" x={left} y={top + thin * 4} width={right - left} height={head} />
+    <rect className="sheet-line" x={left} y={top} width={right - left} height={bottom - top} />
+    {[1, 2, 3, 4].map(row => <line className="sheet-line" key={row} x1={left} x2={right} y1={top + thin * row} y2={top + thin * row} />)}
+    <line className="sheet-line" x1={left} x2={right} y1={stageTop} y2={stageTop} />
+    {form.stages.slice(1).map((stage, index) => <line className="sheet-line" key={stage} x1={left} x2={right}
+      y1={stageTop + stageHeight * (index + 1)} y2={stageTop + stageHeight * (index + 1)} />)}
+    <line className="sheet-line" x1={columns[0]} x2={columns[0]} y1={top} y2={bottom} />
+    {columns.slice(1).map(x => <line className="sheet-line" key={x} x1={x} x2={x} y1={top + thin * 4} y2={bottom} />)}
+  </svg>;
 }
 
 export function LessonPlanFormPage() {
@@ -18,7 +26,7 @@ export function LessonPlanFormPage() {
   return <article className="plan-form-page">
     <p className="eyebrow"><Link to="/lessons">교안</Link></p>
     <div className="plan-sheet">
-      <h1>{form.title}</h1>
+      <h1>{form.title} <small>({form.context})</small></h1>
       <div className="plan-table-scroll">
         <table className="plan-table">
           <colgroup><col className="plan-col-stage" /><col className="plan-col-who" /><col /><col /><col /><col /><col className="plan-col-time" /><col className="plan-col-note" /></colgroup>

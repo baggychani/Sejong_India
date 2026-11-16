@@ -54,7 +54,7 @@ export function verifyQuiz(outDir) {
   assert(shelf.includes(`/lessons/${lessonPlanForm.slug}"`) && shelf.includes('class="plan-sheet-link"'), "lesson plan sheet missing from the shelf");
   const formText = readablePage(readFileSync(join(outDir, `lessons/${lessonPlanForm.slug}/index.html`), "utf8"), "https://example.org/");
   const formMarkdown = readFileSync(join(outDir, `lessons/${lessonPlanForm.slug}/index.md`), "utf8");
-  for (const value of [lessonPlanForm.title, lessonPlanForm.source, ...lessonPlanForm.header.flatMap(cell => [cell.label, cell.value]), ...lessonPlanForm.rows,
+  for (const value of [lessonPlanForm.title, lessonPlanForm.context, lessonPlanForm.source, ...lessonPlanForm.header.flatMap(cell => [cell.label, cell.value]), ...lessonPlanForm.rows,
     lessonPlanForm.materials.label, ...lessonPlanForm.materials.who, ...lessonPlanForm.columns, ...lessonPlanForm.stages].filter(Boolean)) {
     assert(formText.includes(value) && formMarkdown.includes(value), `lesson plan form is missing ${value}`);
   }
