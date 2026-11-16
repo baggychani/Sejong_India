@@ -35,7 +35,7 @@ export function MapPage() {
   const [params, setParams] = useSearchParams();
   const requestedPlace = params.get("place");
   const selectedId = requestedPlace && details.has(requestedPlace) ? requestedPlace : null;
-  const [selectingStates, setSelectingStates] = useState(false);
+  const [selectingStates, setSelectingStates] = useState(true);
   const panel = useRef<HTMLElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
   const lastRowId = useRef<string | null>(null);

@@ -66,7 +66,7 @@
 .map-controls .state-selection { display: grid; pointer-events: auto; padding: 4px; background: #fff; border: 1px solid #889f9959; border-radius: 12px; font-size: 13px; white-space: nowrap; box-shadow: 0 2px 9px #264b4b14; }
 .state-selection span { display: grid; place-items: center; padding-inline: 8px; border-radius: 8px; }
 .state-selection:hover span { background: #f0f4f1; }
-.state-selection[aria-pressed="true"] span { background: var(--accent); color: white; }
+.state-selection[aria-pressed="true"] span { color: #175642; background: #e8f3ec; }
 .map-layers button { display: flex; align-items: center; gap: 6px; padding: 9px; font-size: 13px; }
 .map-layers button[aria-pressed="true"] { color: #175642; background: #e8f3ec; }
 .map-layers button:hover, .map-zoom button:hover { background: #f0f4f1; }
