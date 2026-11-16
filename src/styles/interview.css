@@ -32,6 +32,11 @@
   background: #f1f6f2;
 }
 
+.interview-index .entry-list a > span {
+  min-width: 0;
+  line-height: 1.45;
+}
+
 .interview-index .entry-list .icon {
   flex: none;
   color: var(--accent);

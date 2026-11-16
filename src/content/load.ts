@@ -66,7 +66,12 @@ function load(collectionId: CollectionId) {
   if (existing) return existing;
   const entries = Object.entries(files[collectionId])
     .map(([filePath, raw]) => parseEntry(filePath, raw))
-    .sort((a, b) => a.title.localeCompare(b.title, "ko"));
+    .sort((a, b) => {
+      const orderA = Number(a.meta.order);
+      const orderB = Number(b.meta.order);
+      if (Number.isFinite(orderA) && Number.isFinite(orderB) && orderA !== orderB) return orderA - orderB;
+      return a.title.localeCompare(b.title, "ko");
+    });
   cache.set(collectionId, entries);
   return entries;
 }

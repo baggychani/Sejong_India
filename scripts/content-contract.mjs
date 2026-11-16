@@ -81,7 +81,9 @@ const markdownContracts = {
   library: { route: "library", schema: { ...entryFields, author: publicValue(), subtitle: publicValue(), translator: publicValue(), publisher: publicValue(), pages: publicValue(), status: publicValue(),
     read: publicValue(value => { const [y, m, d] = value.split("-"); return [y && `${y}년`, m && `${Number(m)}월`, d && `${Number(d)}일`].filter(Boolean).join(" "); }),
     cover: jsonContracts.textbooks.schema.cover, spine: technical("책등의 배경색이다."), ink: technical("책등 글자색이다."), pose: technical("책장의 진열 방식이다."), order: technical("서재의 표시 순서를 지정하는 정렬 값이다.") } },
-  hindi: { route: "learn/hindi", schema: entryFields }, tamil: { route: "learn/tamil", schema: entryFields }, study: { route: "interview", schema: entryFields }, lessons: { route: "lessons", schema: entryFields },
+  hindi: { route: "learn/hindi", schema: entryFields }, tamil: { route: "learn/tamil", schema: entryFields },
+  study: { route: "interview", schema: { ...entryFields, order: technical("면접 섹션의 표시 순서다. 보이는 이름은 title로 검사한다.") } },
+  lessons: { route: "lessons", schema: entryFields },
 };
 const normalize = value => String(value).replace(/\s+/g, " ").trim();
 

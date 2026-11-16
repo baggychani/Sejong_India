@@ -28,7 +28,7 @@ export function CollectionPage({ collectionIdOverride }: { collectionIdOverride?
         <ul className="entry-list">
           {entries.map((entry) => (
             <li key={entry.slug}>
-              <Link to={`${collection.path}/${entry.slug}`}>{entry.title}{collection.id === "study" && <Icon name="arrow" />}</Link>
+              <Link to={`${collection.path}/${entry.slug}`}>{collection.id === "study" ? <span>{entry.title}</span> : entry.title}{collection.id === "study" && <Icon name="arrow" />}</Link>
               {entry.summary ? <p>{entry.summary}</p> : null}
             </li>
           ))}
