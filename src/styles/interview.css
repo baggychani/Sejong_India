@@ -21,8 +21,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  min-height: 88px;
-  padding: 26px;
+  min-height: 80px;
+  padding: 22px 26px;
   font-weight: 650;
   border-radius: inherit;
 }
