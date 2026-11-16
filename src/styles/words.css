@@ -27,7 +27,8 @@
 .word-stage { display: grid; place-items: center; min-height: clamp(190px, 32vw, 250px); }
 .word-big, .unit-glyph, .word-missed [lang=hi] { font-family: "Nirmala UI", "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif; }
 .word-big { margin: 0; font-size: clamp(50px, 11vw, 92px); line-height: 1.4; text-align: center; color: var(--ink); }
-.word-meaning { min-height: 1.5em; margin: 0; text-align: center; font-size: clamp(20px, 3vw, 26px); font-weight: 700; letter-spacing: -.03em; }
+/* 뜻 한 줄 자리를 미리 잡아 두어 뜻이 나와도 카드 높이가 그대로다. */
+.word-meaning { height: 1.5em; line-height: 1.5; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; font-size: clamp(20px, 3vw, 26px); font-weight: 700; letter-spacing: -.03em; }
 
 /* 뜯어보기: 낱말 → 음절 덩어리 → 자음·모음 부호 */
 .word-breakdown { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 14px 30px; }
@@ -59,12 +60,13 @@
 .unit-mute .mute-body { fill: #9aa39f; }
 .unit-mute .mute-x { fill: none; stroke: #c4553f; stroke-width: 2.2; stroke-linecap: round; }
 
-.word-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; }
-.word-ghost, .word-primary, .word-mark { font: inherit; cursor: pointer; border-radius: 12px; }
-.word-ghost { padding: 11px 18px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-size: 14px; font-weight: 600; }
+/* 뜻 보기 ↔ O·X 버튼이 바뀌어도 줄 높이가 같도록 버튼 높이를 맞춘다. */
+.word-actions { min-height: 46px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; }
+.word-ghost, .word-primary, .word-mark { box-sizing: border-box; height: 46px; font: inherit; cursor: pointer; border-radius: 12px; }
+.word-ghost { padding: 0 18px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-size: 14px; font-weight: 600; }
 .word-ghost:hover { border-color: #a9bdb4; }
 .word-ghost[aria-pressed=true] { border-color: #b9cfc5; background: #eef4f0; color: var(--accent); }
-.word-primary { padding: 12px 28px; border: 0; background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; }
+.word-primary { padding: 0 28px; border: 0; background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; }
 .word-primary:hover { background: #124f40; }
 .word-mark { display: grid; place-items: center; width: 56px; height: 46px; border: 1px solid; }
 .word-mark svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
