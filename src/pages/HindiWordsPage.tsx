@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import words from "../../data/content/hindi-words.json";
 import { aksharaRoman, readWord, type Akshara, type Part } from "../learn/devanagari";
@@ -21,6 +21,12 @@ function shuffled<T>(items: readonly T[]) {
 
 const kindClass = (part: Part) => `k-${part.kind}${part.silent ? " is-silent" : ""}`;
 
+/** 소리 끈 스피커. 발음하지 않는 기본 모음 칸에 붙는다. */
+const MuteIcon = () => <svg className="unit-mute" viewBox="0 0 20 20" aria-hidden="true">
+  <path className="mute-body" d="M3 7.5h3l4-3.5v12l-4-3.5H3z" />
+  <path className="mute-x" d="M13 7.5l5 5M18 7.5l-5 5" />
+</svg>;
+
 /** 음절 덩어리 하나. 누르면 자음·모음 부호로 갈라진다. */
 function AksharaTile({ akshara }: { akshara: Akshara }) {
   const [open, setOpen] = useState(false);
@@ -28,7 +34,9 @@ function AksharaTile({ akshara }: { akshara: Akshara }) {
   return <button type="button" className={open ? "akshara is-open" : "akshara"} aria-expanded={single ? undefined : open}
     disabled={single} onClick={() => setOpen(!open)}>
     {open ? akshara.parts.map((part, index) => <span className={`unit ${kindClass(part)}`} key={index}>
-      <span className="unit-glyph" lang="hi">{part.glyph}</span>
+      {part.silent
+        ? <span className="unit-glyph" aria-label="발음 안 함" role="img"><MuteIcon /></span>
+        : <span className="unit-glyph" lang="hi">{part.glyph}</span>}
       <span className="unit-roman">{part.roman}</span>
     </span>) : <span className="unit">
       <span className="unit-glyph" lang="hi">{akshara.text}</span>
@@ -42,7 +50,7 @@ function AksharaTile({ akshara }: { akshara: Akshara }) {
 function WordCard({ card, onMark }: { card: Card; onMark: (known: boolean) => void }) {
   const [split, setSplit] = useState(false);
   const [shown, setShown] = useState(false);
-  return <div className="word-card">
+  return <>
     <div className="word-stage">
       {split ? <div className="word-breakdown">
         {card.reading.map((word, index) => <div className="word-group" key={index}>
@@ -50,7 +58,7 @@ function WordCard({ card, onMark }: { card: Card; onMark: (known: boolean) => vo
         </div>)}
       </div> : <p className="word-big" lang="hi">{card.word}</p>}
     </div>
-    <p className="word-meaning" aria-live="polite">{shown ? card.meaning : " "}</p>
+    <p className="word-meaning" aria-live="polite">{shown ? card.meaning : " "}</p>
     <div className="word-actions">
       <button type="button" className="word-ghost" aria-pressed={split} onClick={() => setSplit(!split)}>뜯어보기</button>
       {shown ? <>
@@ -60,37 +68,79 @@ function WordCard({ card, onMark }: { card: Card; onMark: (known: boolean) => vo
         <button type="button" className="word-mark is-correct" aria-label="알았어요" autoFocus onClick={() => onMark(true)}>
           <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.5" /></svg>
         </button>
-      </> : <button type="button" className="word-primary" autoFocus onClick={() => setShown(true)}>뜻 보기</button>}
+      </> : <button type="button" className="word-primary" autoFocus onClick={() => { setShown(true); setSplit(false); }}>뜻 보기</button>}
     </div>
-  </div>;
+  </>;
+}
+
+function NavArrow({ dir, disabled, onClick }: { dir: "prev" | "next"; disabled: boolean; onClick: () => void }) {
+  return <button type="button" className={`word-nav is-${dir}`} aria-label={dir === "prev" ? "이전 단어" : "다음 단어"}
+    disabled={disabled} onClick={onClick}>
+    <svg viewBox="0 0 20 20" aria-hidden="true"><path d={dir === "prev" ? "M12.5 4.5L7 10l5.5 5.5" : "M7.5 4.5L13 10l-5.5 5.5"} /></svg>
+  </button>;
 }
 
 export function HindiWordsPage() {
   usePageTitle(`단어 공부 · 힌디어 · ${siteTitle}`);
   // 첫 화면은 미리 만든 HTML과 같아야 하므로 원본 순서로 시작하고, 다시 할 때 섞는다.
   const [deck, setDeck] = useState(() => cards.map(card => card.id));
-  const [marks, setMarks] = useState<boolean[]>([]);
-  const index = marks.length;
+  // 단어장이므로 O·X 표시는 선택이다. 표시하지 않은 칸은 비워 둔다.
+  const [marks, setMarks] = useState<(boolean | undefined)[]>([]);
+  const [index, setIndex] = useState(0);
   const finished = index >= deck.length;
   const missed = deck.filter((_, at) => marks[at] === false).map(id => cardById.get(id)!);
-  const restart = (ids: string[]) => { setDeck(shuffled(ids)); setMarks([]); };
+  const restart = (ids: string[]) => { setDeck(shuffled(ids)); setMarks([]); setIndex(0); };
+  const go = (to: number) => setIndex(Math.max(0, Math.min(deck.length, to)));
+  const mark = (known: boolean) => {
+    const next = [...marks];
+    next[index] = known;
+    setMarks(next);
+    go(index + 1);
+  };
+  const touchX = useRef<number | null>(null);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (event.key === "ArrowLeft") go(index - 1);
+      else if (event.key === "ArrowRight") go(index + 1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
+
   return <article className="words-page">
     <header className="words-head">
       <Link className="words-back" to="/learn/hindi">← 힌디어</Link>
       <ol className="words-steps" aria-label={`${Math.min(index + 1, deck.length)} / ${deck.length}`}>
-        {deck.map((id, at) => <li key={id} className={at < index ? (marks[at] ? "is-correct" : "is-wrong") : at === index ? "is-current" : undefined} />)}
+        {deck.map((id, at) => <li key={id}>
+          <button type="button" aria-label={`${at + 1}번째 단어`} aria-current={at === index ? "step" : undefined}
+            className={[at === index && "is-current", marks[at] === true && "is-correct", marks[at] === false && "is-wrong"].filter(Boolean).join(" ") || undefined}
+            onClick={() => go(at)} />
+        </li>)}
       </ol>
     </header>
-    {finished ? <div className="word-card">
-      <p className="word-score"><strong>{marks.filter(Boolean).length}</strong><span>/ {deck.length}</span></p>
-      {missed.length > 0 && <ul className="word-missed">
-        {missed.map(card => <li key={card.id}><span lang="hi">{card.word}</span><small>{card.roman}</small><b>{card.meaning}</b></li>)}
-      </ul>}
-      <div className="word-actions">
-        {missed.length > 0 && <button type="button" className="word-ghost" onClick={() => restart(missed.map(card => card.id))}>틀린 것만</button>}
-        <button type="button" className="word-primary" autoFocus onClick={() => restart(cards.map(card => card.id))}>다시</button>
-      </div>
-    </div> : <WordCard key={`${deck[index]}-${index}`} card={cardById.get(deck[index])!} onMark={known => setMarks([...marks, known])} />}
+    <div className="word-card"
+      onTouchStart={event => { touchX.current = event.touches[0].clientX; }}
+      onTouchEnd={event => {
+        if (touchX.current === null) return;
+        const dx = event.changedTouches[0].clientX - touchX.current;
+        touchX.current = null;
+        if (Math.abs(dx) > 60) go(index + (dx < 0 ? 1 : -1));
+      }}>
+      <NavArrow dir="prev" disabled={index === 0} onClick={() => go(index - 1)} />
+      {finished ? <>
+        <p className="word-score"><strong>{marks.filter(known => known === true).length}</strong><span>/ {deck.length}</span></p>
+        {missed.length > 0 && <ul className="word-missed">
+          {missed.map(card => <li key={card.id}><span lang="hi">{card.word}</span><small>{card.roman}</small><b>{card.meaning}</b></li>)}
+        </ul>}
+        <div className="word-actions">
+          {missed.length > 0 && <button type="button" className="word-ghost" onClick={() => restart(missed.map(card => card.id))}>틀린 것만</button>}
+          <button type="button" className="word-primary" autoFocus onClick={() => restart(cards.map(card => card.id))}>다시</button>
+        </div>
+      </> : <WordCard key={`${deck[index]}-${index}`} card={cardById.get(deck[index])!} onMark={mark} />}
+      <NavArrow dir="next" disabled={finished} onClick={() => go(index + 1)} />
+    </div>
     <noscript>
       <h1>힌디어 단어</h1>
       <p>로마자는 IAST 표기다. 글자에는 있지만 발음하지 않는 기본 모음 a는 로마자에 적지 않았다. 괄호 안은 음절 덩어리별 읽기다.</p>
