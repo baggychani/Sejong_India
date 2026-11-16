@@ -230,7 +230,7 @@ export function MapView({
             ))}
             {quiz && quizSpots.filter(spot => quiz.labels[spot.id]).map(spot => (
               <text key={spot.id} className={`quiz-label${quizClass(spot.id)}`} x={spot.x} y={spot.y - (spot.small ? 16 : 0)} textAnchor="middle" dy="0.32em">
-                {quiz.labels[spot.id]}
+                {quiz.marks[spot.id] === "correct" ? "○ " : quiz.marks[spot.id] === "wrong" ? "✕ " : ""}{quiz.labels[spot.id]}
               </text>
             ))}
             {lines

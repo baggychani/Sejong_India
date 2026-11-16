@@ -7,6 +7,7 @@ import textbooks from "./data/content/textbooks.json";
 import religionPages from "./data/content/religion-pages.json";
 import { collections, learningSection, mapSection, movedRoutes, resolveMovedRoute } from "./src/site/sections";
 import { fillHtml } from "./scripts/prerender.mjs";
+import { lessonPlanForm } from "./src/site/lessonPlanForm";
 
 export default defineConfig(({ mode }) => {
   const base = mode === "pages" ? "/Sejong_India/" : "/";
@@ -25,7 +26,7 @@ export default defineConfig(({ mode }) => {
       const india = mapSection.path;
       const routes = [india, india + "/map", india + "/languages", india + "/religions", ...catalog.map(l => india + "/languages/" + l.id),
         ...religionPages.map(religion => india + "/religions/" + religion.id)];
-      routes.push(...textbooks.map(book => "/lessons/" + book.id));
+      routes.push(...textbooks.map(book => "/lessons/" + book.id), "/lessons/" + lessonPlanForm.slug);
       routes.push(learningSection.path);
       for (const { id, path } of collections) {
         routes.push(path);

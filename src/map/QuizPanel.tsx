@@ -59,7 +59,11 @@ export function QuizPanel({ run, names, onPick, onNext, onRestart, onClose, onOp
       <h1 className="quiz-prompt">{questionPrompt(question!, names)}</h1>
       {question!.kind === "name" && <div className="quiz-choices">
         {question!.choices.map(id => <button type="button" key={id} disabled={Boolean(picked)} onClick={() => onPick(id)}
-          className={!picked ? undefined : id === question!.id ? "is-correct" : id === picked ? "is-wrong" : undefined}>{names.get(id)}</button>)}
+          className={!picked ? undefined : id === question!.id ? "is-correct" : id === picked ? "is-wrong" : undefined}>
+          {names.get(id)}
+          {picked && id === question!.id && <svg className="quiz-mark" viewBox="0 0 20 20" aria-label="정답"><circle cx="10" cy="10" r="6.5" /></svg>}
+          {picked && id === picked && id !== question!.id && <svg className="quiz-mark" viewBox="0 0 20 20" aria-label="오답"><path d="M4.5 4.5l11 11M15.5 4.5l-11 11" /></svg>}
+        </button>)}
       </div>}
       {picked && <button type="button" className="quiz-next" autoFocus onClick={onNext}>{run.index === QUIZ_LENGTH - 1 ? "결과" : "다음"}</button>}
     </>}

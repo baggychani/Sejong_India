@@ -6,6 +6,8 @@ import type { Book } from "../library/books";
 import { entriesFor } from "../content/load";
 import { EntryPage } from "./EntryPage";
 import { siteTitle } from "../site/sections";
+import { lessonPlanForm } from "../site/lessonPlanForm";
+import { LessonPlanFormPage, LessonPlanSheetArt } from "./LessonPlanFormPage";
 import "../styles/library.css";
 
 const covers = import.meta.glob<string>("../../content/textbooks/covers/*", {
@@ -22,7 +24,9 @@ export function LessonsPage() {
   const { slug } = useParams();
   const textbook = textbooks.find(book => book.id === slug);
   const book = books.find(book => book.slug === slug);
-  usePageTitle(`${textbook?.title ?? "교안"} · ${siteTitle}`);
+  const isForm = slug === lessonPlanForm.slug;
+  usePageTitle(`${isForm ? lessonPlanForm.title : textbook?.title ?? "교안"} · ${siteTitle}`);
+  if (isForm) return <LessonPlanFormPage />;
   if (slug && !textbook) return <EntryPage collectionIdOverride="lessons" />;
   if (textbook && book) {
     const lessons = entriesFor("lessons").filter(entry => entry.meta.textbook === textbook.id);
@@ -43,6 +47,6 @@ export function LessonsPage() {
   }
   return <article className="library">
     <header className="library-head"><h1>세종학당 한국어</h1></header>
-    <Bookshelf books={books} basePath="/lessons" />
+    <Bookshelf books={books} basePath="/lessons" sheet={{ slug: lessonPlanForm.slug, title: lessonPlanForm.title, art: <LessonPlanSheetArt /> }} />
   </article>;
 }

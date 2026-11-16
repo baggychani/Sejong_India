@@ -236,3 +236,7 @@ a.tongue-pill.is-muslim:hover { background: #cde7d6; }
   .quiz-choices button { padding: 12px; font-size: 15px; }
   .quiz-score strong { font-size: 56px; }
 }
+
+/* 퀴즈 보기의 O·X */
+.quiz-choices button { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.quiz-mark { flex: none; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }

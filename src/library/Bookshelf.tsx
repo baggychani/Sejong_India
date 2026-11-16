@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router";
 import { formatRead, spineWidth, type Book } from "./books";
 
@@ -6,7 +6,11 @@ type Item =
   | { kind: "face"; book: Book; width: number }
   | { kind: "spine"; book: Book; width: number }
   | { kind: "stack"; books: Book[]; width: number }
-  | { kind: "bookend"; width: number };
+  | { kind: "bookend"; width: number }
+  | { kind: "sheet"; width: number };
+
+/** 책이 아닌 종이 한 장. 마지막 선반의 오른쪽 끝에 세워 둔다. */
+export type ShelfSheet = { slug: string; title: string; art: ReactNode };
 
 const FACE_W = 128;
 const ROW_GAP = 2;
@@ -121,10 +125,10 @@ function FaceOut({ book, scale, onShow, basePath }: { book: Book; scale: number;
   );
 }
 
-export function Bookshelf({ books, basePath = "/library" }: { books: Book[]; basePath?: string }) {
+export function Bookshelf({ books, basePath = "/library", sheet }: { books: Book[]; basePath?: string; sheet?: ShelfSheet }) {
   const caseRef = useRef<HTMLDivElement>(null);
   const [inner, setInner] = useState(0);
-  const [shown, setShown] = useState<Book>();
+  const [shown, setShown] = useState<Pick<Book, "title"> & Partial<Book>>();
 
   useLayoutEffect(() => {
     const el = caseRef.current;
@@ -145,6 +149,13 @@ export function Bookshelf({ books, basePath = "/library" }: { books: Book[]; bas
   const width = inner || 960;
   const scale = width && width < 460 ? 0.86 : 1;
   const rows = width ? packRows(itemsFor(books, scale), width) : [[]];
+  if (sheet) {
+    // 마지막 선반에 자리가 없으면 새 선반에 둔다.
+    const item: Item = { kind: "sheet", width: Math.round(FACE_W * scale) + 26 };
+    const last = rows.at(-1)!;
+    const used = last.reduce((sum, entry) => sum + entry.width + ROW_GAP, 0);
+    if (used + item.width > width) rows.push([item]); else last.push(item);
+  }
   const caption = shown ?? (books.length === 1 ? books[0] : undefined);
 
   return (
@@ -159,6 +170,9 @@ export function Bookshelf({ books, basePath = "/library" }: { books: Book[]; bas
                 if (item.kind === "face") return <FaceOut key={item.book.slug} book={item.book} scale={scale} onShow={setShown} basePath={basePath} />;
                 if (item.kind === "spine") return <Spine key={item.book.slug} book={item.book} scale={scale} onShow={setShown} basePath={basePath} />;
                 if (item.kind === "bookend") return <i key="bookend" className="bookend" aria-hidden="true" />;
+                if (item.kind === "sheet") return <Link key="sheet" to={`${basePath}/${sheet!.slug}`} className="plan-sheet-link"
+                  style={{ "--fw": `${Math.round(FACE_W * scale)}px` } as CSSProperties} aria-label={sheet!.title}
+                  onMouseEnter={() => setShown({ title: sheet!.title })} onFocus={() => setShown({ title: sheet!.title })}>{sheet!.art}</Link>;
                 return (
                   <div key={item.books[0].slug} className="book-stack">
                     {item.books.map((book) => <Spine key={book.slug} book={book} scale={scale} onShow={setShown} basePath={basePath} />)}
