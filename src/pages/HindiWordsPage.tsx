@@ -212,7 +212,7 @@ export function HindiWordsPage() {
     <noscript>
       <h1>힌디어 단어</h1>
       <p>로마자는 IAST 표기다. 글자에는 있지만 발음하지 않는 기본 모음 /a/는 로마자에 적지 않았다. 괄호 안은 음절 덩어리별 읽기다.</p>
-      <p>발음하지 않는 /a/의 규칙(V는 모음, C는 자음): {Object.values(SILENT_RULES).join(" ")}</p>
+      <p>발음하지 않는 /a/의 규칙: {Object.values(SILENT_RULES).join(" ")}</p>
       <p>비음·기음 부호: {Object.values(MARK_NOTES).join(" ")}</p>
       <ul>{cards.map(card => <li key={card.id} id={`hindi-word-${card.id}`}>
         <span lang="hi">{card.word}</span> · {card.roman} · {card.meaning} ({card.reading.map(word => word.map(akshara => `${akshara.text} ${aksharaRoman(akshara)}`).join(", ")).join(" / ")}){wordRules(card).map(rule => ` 묵음 /a/: ${rule}`).join("")}{wordVerdicts(card).map(verdict => ` 아누스와라 ${verdict}`).join("")}

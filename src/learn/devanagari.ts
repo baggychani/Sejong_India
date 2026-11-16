@@ -8,21 +8,21 @@
 export type PartKind = "consonant" | "half" | "vowel" | "sign" | "inherent" | "mark";
 export type Part = { kind: PartKind; glyph: string; roman: string; silent?: boolean; rule?: SilentRule; note?: string; verdict?: string };
 
-/** 소리 나지 않는 기본 모음 a가 어느 규칙에 해당하는지. V는 모음, C는 자음. */
+/** 소리 나지 않는 기본 모음 a가 어느 규칙에 해당하는지. */
 export type SilentRule = "final" | "medial";
 export const SILENT_RULES: Record<SilentRule, string> = {
-  final: "단어 끝 C 뒤의 /a/는 발음하지 않는다.",
-  medial: "VCaCV에서 가운데 /a/는 발음하지 않는다.",
+  final: "단어 끝 자음 뒤의 /a/는 발음하지 않는다.",
+  medial: "앞뒤에 모음이 있는 두 자음 사이에 낀 /a/는 발음하지 않는다. (모음-자음-/a/-자음-모음)",
 };
 /** 비음·기음 부호가 무엇인지. 쪼갠 화면의 ? 에서 보여 준다. */
 export const MARK_NOTES: Record<string, string> = {
-  "\u0902": "아누스와라. 뒤 C와 같은 자리에서 나는 콧소리다. 뒤 C가 없거나 파열음이 아니면 앞 V를 콧소리로 낸다.",
+  "\u0902": "아누스와라. 뒤 자음과 같은 자리에서 나는 콧소리다. 뒤에 자음이 없거나 파열음이 아니면 앞의 모음을 콧소리로 낸다.",
   "\u0901": "찬드라빈두. 모음을 콧소리로 낸다. 자음 소리는 더하지 않는다.",
   "\u0903": "비사르가. 모음 뒤에 숨을 가볍게 내쉬는 h 소리다.",
 };
 export type Akshara = { text: string; parts: Part[] };
 /** 부호 설명 다음 줄에 이 칸의 판정을 붙인다. 화면의 ? 에서 보여 준다. */
-export const partNote = (part: Part) => part.verdict ? `${part.note}\n이 단어: ${part.verdict}` : part.note;
+export const partNote = (part: Part) => part.verdict ? `${part.note}\n${part.verdict}` : part.note;
 
 const VIRAMA = "्";
 const NUKTA = "़";
@@ -147,12 +147,12 @@ function judgeAnusvara(aksharas: Akshara[]) {
     const mark = akshara.parts.find(part => part.kind === "mark" && part.glyph.endsWith(ANUSVARA));
     if (!mark) return;
     const next = aksharas[at + 1]?.parts[0];
-    if (!next) { mark.verdict = "단어 끝 → 앞 V를 콧소리로"; return; }
+    if (!next) { mark.verdict = "이 단어의 경우, 단어의 끝이므로 앞의 모음을 콧소리로 발음한다."; return; }
     if ((next.kind !== "consonant" && next.kind !== "half") || next.glyph.includes(NUKTA)) return;
     const letter = Array.from(next.glyph)[0];
     const stop = STOP_NASAL.get(letter);
-    if (stop) mark.verdict = `뒤 C가 /${stop.sound}/ → /${stop.nasal}/`;
-    else if (OTHER_SOUNDS[letter]) mark.verdict = `뒤 C가 /${OTHER_SOUNDS[letter]}/ → 앞 V를 콧소리로`;
+    if (stop) mark.verdict = `이 단어의 경우, 뒤 자음이 /${stop.sound}/ 소리라서 같은 자리의 /${stop.nasal}/ 소리로 발음한다.`;
+    else if (OTHER_SOUNDS[letter]) mark.verdict = `이 단어의 경우, 뒤 자음이 /${OTHER_SOUNDS[letter]}/ 소리라서 앞의 모음을 콧소리로 발음한다.`;
   });
 }
 

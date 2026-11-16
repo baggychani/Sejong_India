@@ -25,20 +25,20 @@ export function verifyHindiWords(outDir) {
   const [nam] = readWord("नाम", "nām");
   assert.deepEqual(nam[1].parts.map(part => [part.kind, Boolean(part.silent)]), [["consonant", false], ["inherent", true]]);
   assert.throws(() => readWord("नाम", "nom"), /does not match/);
-  // 묵음 a 규칙: 단어 끝 / VCaCV / 자음이 뭉치면 남김
+  // 묵음 a 규칙: 단어 끝 / 모음-자음-a-자음-모음 / 자음이 뭉치면 남김
   const rules = (word, roman) => readWord(word, roman)[0].flatMap(akshara => akshara.parts.filter(part => part.silent).map(part => part.rule));
   assert.deepEqual(rules("नाम", "nām"), ["final"]);
   assert.deepEqual(rules("लड़का", "laṛkā"), ["medial"]);
   assert.deepEqual(rules("नमस्ते", "namaste"), []);
   // 아누스와라 판정: 뒤 파열음과 같은 자리의 콧소리 / 그 밖의 자음·단어 끝은 앞 모음을 콧소리로
   const verdicts = (word, roman) => readWord(word, roman)[0].flatMap(akshara => akshara.parts.flatMap(part => part.verdict ? [part.verdict] : []));
-  assert.deepEqual(verdicts("मिलेंगे", "mileṃge"), ["뒤 C가 /g/ → /ŋ/"]);
-  assert.deepEqual(verdicts("हिंदी", "hiṃdī"), ["뒤 C가 /d/ → /n/"]);
-  assert.deepEqual(verdicts("लंबा", "laṃbā"), ["뒤 C가 /b/ → /m/"]);
-  assert.deepEqual(verdicts("ठंडा", "ṭhaṃḍā"), ["뒤 C가 /ɖ/ → /ɳ/"]);
-  assert.deepEqual(verdicts("पंजाब", "paṃjāb"), ["뒤 C가 /dʒ/ → /ɲ/"]);
-  assert.deepEqual(verdicts("संसार", "saṃsār"), ["뒤 C가 /s/ → 앞 V를 콧소리로"]);
-  assert.deepEqual(verdicts("नहीं", "nahīṃ"), ["단어 끝 → 앞 V를 콧소리로"]);
+  assert.deepEqual(verdicts("मिलेंगे", "mileṃge"), ["이 단어의 경우, 뒤 자음이 /g/ 소리라서 같은 자리의 /ŋ/ 소리로 발음한다."]);
+  assert.deepEqual(verdicts("हिंदी", "hiṃdī"), ["이 단어의 경우, 뒤 자음이 /d/ 소리라서 같은 자리의 /n/ 소리로 발음한다."]);
+  assert.deepEqual(verdicts("लंबा", "laṃbā"), ["이 단어의 경우, 뒤 자음이 /b/ 소리라서 같은 자리의 /m/ 소리로 발음한다."]);
+  assert.deepEqual(verdicts("ठंडा", "ṭhaṃḍā"), ["이 단어의 경우, 뒤 자음이 /ɖ/ 소리라서 같은 자리의 /ɳ/ 소리로 발음한다."]);
+  assert.deepEqual(verdicts("पंजाब", "paṃjāb"), ["이 단어의 경우, 뒤 자음이 /dʒ/ 소리라서 같은 자리의 /ɲ/ 소리로 발음한다."]);
+  assert.deepEqual(verdicts("संसार", "saṃsār"), ["이 단어의 경우, 뒤 자음이 /s/ 소리라서 앞의 모음을 콧소리로 발음한다."]);
+  assert.deepEqual(verdicts("नहीं", "nahīṃ"), ["이 단어의 경우, 단어의 끝이므로 앞의 모음을 콧소리로 발음한다."]);
   // 단어장의 아누스와라는 모두 판정이 나야 하고, 그 판정이 읽기 경로에도 있어야 한다.
   const judged = words.flatMap(word => readWord(word.word, word.roman).flat().flatMap(akshara => akshara.parts
     .filter(part => part.kind === "mark" && part.glyph.endsWith("ं"))
