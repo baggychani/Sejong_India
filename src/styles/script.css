@@ -37,11 +37,14 @@
 .sc-tile i em { font-style: normal; font-weight: 500; color: #d39a72; }
 
 /* 첫 줄은 세 쌍, 둘째 줄은 나머지 다섯 모음. 쌍은 하나의 테두리로 묶는다. */
-.sc-vowels { max-width: 660px; margin-top: 18px; display: grid; gap: 12px; }
+.sc-vowels { max-width: 880px; margin-top: 18px; display: grid; gap: 14px; }
+.sc-vowels .sc-tile { padding: 18px 6px 20px; gap: 6px; }
+.sc-vowels .sc-tile b { font-size: 48px; }
+.sc-vowels .sc-tile i { font-size: 16px; }
 .sc-vowel-pairs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.sc-vowel-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid #c9ddd1; border-radius: 14px; background: #f3f8f5; overflow: hidden; }
+.sc-vowel-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 14px; background: #fff; overflow: hidden; }
 .sc-vowel-pair .sc-tile { min-width: 0; border: 0; border-radius: 0; background: transparent; }
-.sc-vowel-pair .sc-tile + .sc-tile { border-left: 1px solid #dce9e1; }
+.sc-vowel-pair .sc-tile + .sc-tile { border-left: 1px solid var(--line); }
 .sc-vowel-rest { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
 
 /* 자음표: 줄은 소리 내는 자리, 칸은 소리 내는 방법 */
@@ -108,6 +111,9 @@
 }
 @media (max-width: 560px) {
   .sc-vowel-pairs, .sc-vowel-rest { gap: 6px; }
+  .sc-vowels .sc-tile { padding: 14px 3px 16px; gap: 4px; }
+  .sc-vowels .sc-tile b { font-size: 34px; }
+  .sc-vowels .sc-tile i { font-size: 14px; }
   .sc-tiles { grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 6px; }
   .sc-tile b, .sc-sign b { font-size: 30px; }
   /* 좁은 화면에서는 자리 이름을 줄 위로 올리고 다섯 칸을 꽉 채운다. */
