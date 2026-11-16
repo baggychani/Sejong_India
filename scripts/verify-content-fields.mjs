@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { parse, serializeOuter } from "parse5";
 import { readablePage } from "./readable-html.mjs";
 import { geoContains } from "d3-geo";
+import adminData from "../src/map/adminData.ts";
 
 const data = name => JSON.parse(readFileSync(`data/content/${name}.json`, "utf8"));
 const normalize = value => String(value).replace(/\s+/g, " ").trim();
@@ -39,7 +40,7 @@ export function verifyContentFields(outDir) {
   const map = page("bharat/map");
   const institutes = data("institutes");
   const states = data("states");
-  const admin = JSON.parse(readFileSync("data/processed/india-admin1.json", "utf8")).features;
+  const admin = adminData.features;
   const stateIds = new Set(states.map(state => state.id));
   assert.equal(stateIds.size, states.length, "duplicate state record");
   assert.deepEqual([...stateIds].sort(), admin.map(feature => feature.properties.iso_3166_2).sort(), "state content must cover every mapped administrative area");

@@ -5,6 +5,7 @@ import { geoCentroid } from "d3-geo";
 import { lessonPlanForm } from "../src/site/lessonPlanForm.ts";
 import { readablePage } from "./readable-html.mjs";
 import { makeQuiz, quizWeight, QUIZ_LENGTH } from "../src/map/quiz.ts";
+import adminData from "../src/map/adminData.ts";
 
 // 난수를 고정해 같은 검사가 매번 같은 문제지를 본다.
 function seeded(seed) {
@@ -15,12 +16,13 @@ function seeded(seed) {
 }
 
 export function verifyQuiz(outDir) {
-  const admin = JSON.parse(readFileSync("data/processed/india-admin1.json", "utf8")).features;
+  const admin = adminData.features;
   const regions = admin.map(feature => {
     const [lon, lat] = geoCentroid(feature);
     return { id: feature.properties.iso_3166_2, name: feature.properties.name_ko, lon, lat };
   });
   assert.equal(new Set(regions.map(region => region.name)).size, regions.length, "quiz answers need distinct names");
+  assert.equal(regions.find(region => region.id === "IN-KL").name, "케랄람", "quiz prompts, choices and results must use the current state name");
   const ids = new Set(regions.map(region => region.id));
   const asked = new Map();
   const ROUNDS = 3000;

@@ -4,7 +4,7 @@ import rivers from "../../data/content/rivers.json";
 import landforms from "../../data/content/landforms.json";
 import census from "../../data/content/mother-tongues.json";
 import neighbors from "../../data/content/neighbors.json";
-import states from "../../data/content/states.json";
+import states from "../../data/content/states.json" with { type: "json" };
 import { details } from "./indiaModel";
 import { DetailCard, seasonMarks } from "./details";
 import { ReligionReference } from "../pages/ReligionReference";

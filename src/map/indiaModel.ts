@@ -8,8 +8,8 @@ import rivers from "../../data/content/rivers.json";
 import landforms from "../../data/content/landforms.json";
 import neighbors from "../../data/content/neighbors.json";
 import countryFile from "../../data/processed/india-country.json";
-import adminFile from "../../data/processed/india-admin1.json";
-import states from "../../data/content/states.json";
+import adminFile from "./adminData";
+import states from "../../data/content/states.json" with { type: "json" };
 import neighborFile from "../../data/processed/neighbors.json";
 import riverFile from "../../data/processed/rivers.json";
 import landformFile from "../../data/processed/landforms.json";
@@ -211,7 +211,7 @@ const adminDetails: DetailRecord[] = admin.features.flatMap((feature) => {
       id,
       eyebrow: kind,
       title: ko,
-      subtitle: [en, hi, content.names?.ta].filter(Boolean).join(" · "),
+      subtitle: [en, hi, content.names?.ta, content.names?.ml].filter(Boolean).join(" · "),
       description: content.description,
       facts: [
         { label: kind === "주" ? "주도" : "행정 중심지", value: content.capital, note: content.capitalNote },

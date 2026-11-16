@@ -535,22 +535,40 @@
   },
   {
     "id": "IN-KL",
+    "names": { "ko": "케랄람", "en": "Keralam", "hi": "केरलम", "ml": "കേരളം" },
     "capital": "티루바난타푸람 / Thiruvananthapuram",
+    "description": [
+      { "text": "케랄람(കേരളം, Keralam)은 인도 남서부의 말라얄람어 사용 지역으로, 말라얄람어 고유 명칭을 반영해 2026년 8월 25일 기존 케랄라(Kerala)에서 공식 개칭되었다. 명칭에는 ‘코코넛의 땅’이라는 어원설이 있다.", "keywords": ["말라얄람어"] },
+      { "text": "인도의 대표적인 사회개발 모범지역인 ‘케랄라 모델’로 유명하다. 오랜 교육·보건 투자와 사회개혁의 결과로 문해율과 기대수명이 인도 최고 수준이며, 다차원빈곤율은 가장 낮다.", "keywords": ["케랄라 모델"] },
+      { "text": "후추 등 향신료 무역이 활발했던 말라바르 해안의 중심지로, 바닷길을 따라 중동·유럽 상인들이 일찍부터 드나들었다. 이슬람교와 기독교가 일찍 유입되어 힌두교와 함께 큰 영향력을 유지하고 있다. 1498년 향신료 루트를 찾아 바스쿠 다 가마가 도착한 코지코드(캘리컷)도 이곳에 있다.", "keywords": ["향신료 무역"] },
+      { "text": "교육 수준은 높지만 주 내 대규모 제조업 기반이 부족해, 많은 인력이 걸프 지역 등 해외로 취업해 본국 가족에게 송금하는 경제 구조가 발달해 있다. 해외 송금이 지역 경제를 지탱하는 동시에 높은 청년 실업률과 인재 유출은 과제로 남아 있다.", "keywords": ["송금"] },
+      { "text": "아라비아해 연안의 수로·석호 지형인 백워터(Backwaters)와 매년 8~9월 열리는 수확 축제 오남(ഓണം, Onam)이 유명하다.", "keywords": ["백워터", "오남"] }
+    ],
     "sources": [
+      {
+        "title": "인도 공영방송: 케랄람 공식 개칭 및 2026년 8월 25일 시행",
+        "url": "https://newsonair.gov.in/hi/the-ministry-of-home-affairs-has-officially-changed-the-name-of-the-state-of-kerala-to-keralam/",
+        "accessed": "2026-11-16"
+      },
+      {
+        "title": "영국 지명위원회: 인도 지명 자료 (2026년 케랄람 개칭)",
+        "url": "https://assets.publishing.service.gov.uk/media/6ab67e78997a4b2950ccef41/India_Toponymic_Factfile.pdf",
+        "accessed": "2026-11-16"
+      },
       {
         "title": "인도 주·연방직할지의 행정·입법 주도 목록",
         "url": "https://en.wikipedia.org/wiki/List_of_state_and_union_territory_capitals_in_India",
         "accessed": "2026-11-15"
       },
       {
-        "title": "케랄라 관광청: 주도",
+        "title": "케랄람 관광청: 주도",
         "url": "https://www.keralatourism.org/districts/",
         "accessed": "2026-11-15"
       }
     ],
     "emblem": {
       "file": "kl.png",
-      "caption": "케랄라 주정부 문장",
+      "caption": "케랄람 주정부 문장",
       "source": "https://commons.wikimedia.org/wiki/File:Government_of_Kerala_Logo.svg",
       "credit": "사용자 제공 PNG 원본; Wikimedia Commons의 문장 자료와 대조",
       "license": "Wikimedia Commons: Public domain (India); 정부 문장에 관한 별도 사용 제한 적용"

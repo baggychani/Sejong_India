@@ -1,7 +1,7 @@
 import { geoMercator, geoPath, type GeoGeometryObjects, type GeoPermissibleObjects } from "d3-geo";
 import { useState } from "react";
 import { Link } from "react-router";
-import adminFile from "../../data/processed/india-admin1.json";
+import adminFile from "../map/adminData";
 import { religionCensus, religionRegionShares, formatReligionShare, numberOfPeople, type ReligionPageEntry } from "../site/religions";
 
 const WIDTH = 420;
