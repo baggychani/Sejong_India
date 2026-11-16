@@ -129,6 +129,11 @@ function Builder() {
     { sign: VIRAMA, label: RING + VIRAMA, roman: "" }];
   const done = consonant !== null && sign !== null;
   return <div className="sc-builder">
+    <div className="sc-picks is-consonants" role="group" aria-label="자음">
+      {[...stopRows, ...otherRows].map(row => <div className="sc-pick-row" key={row.place}>
+        {row.letters.map(letter => <button type="button" key={letter} lang="hi" aria-pressed={letter === consonant} onClick={() => setConsonant(letter)}>{letter}</button>)}
+      </div>)}
+    </div>
     <div className="sc-result" aria-live="polite">
       <p className="sc-result-glyph" lang="hi">{done ? syllable(consonant, sign) : "\u00A0"}</p>
       <p className="sc-formula">
@@ -136,9 +141,6 @@ function Builder() {
         <b className={sign === null ? "is-empty" : undefined} lang="hi">{sign === null ? "\u00A0" : sign ? RING + sign : RING}</b>
       </p>
       <p className="sc-result-roman">{done ? <><span>{consonants[consonant]}</span><span className="is-vowel">{sign === VIRAMA ? "" : sign ? signs[sign] : "a"}</span></> : "\u00A0"}</p>
-    </div>
-    <div className="sc-picks" role="group" aria-label="자음">
-      {Object.keys(consonants).map(letter => <button type="button" key={letter} lang="hi" aria-pressed={letter === consonant} onClick={() => setConsonant(letter)}>{letter}</button>)}
     </div>
     <div className="sc-picks is-signs" role="group" aria-label="모음 부호">
       {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-pressed={ending.sign === sign} onClick={() => setSign(ending.sign)}>
@@ -149,7 +151,7 @@ function Builder() {
 }
 
 // 네 부분은 한 번에 하나씩 본다. 탭의 글자는 그 부분의 대표 글자다.
-const tabs = [["vowels", "모음", "अ"], ["consonants", "자음", "क"], ["signs", "모음 부호", RING + "\u093E"], ["combine", "합치기", "की"]] as const;
+const tabs = [["vowels", "모음", "अ"], ["consonants", "자음", "क"], ["signs", "모음 부호", RING + "\u093E"], ["combine", "마트라", "की"]] as const;
 type TabId = typeof tabs[number][0];
 
 export function HindiScriptPage() {
@@ -198,7 +200,7 @@ export function HindiScriptPage() {
       </div>
     </Section>,
 
-    combine: <Section key="combine" id="combine" title="합치기" make={combined}>
+    combine: <Section key="combine" id="combine" title="마트라" make={combined}>
       <Builder />
       <div className="sc-group">
         <h3>자음끼리 합치기</h3>
@@ -213,13 +215,17 @@ export function HindiScriptPage() {
   return <article className="script-page">
     <header className="words-head"><Link className="words-back" to="/learn/hindi">← 힌디어</Link></header>
     <h1 className="script-title">데바나가리 익히기</h1>
+    <div className="script-layout">
     <div className="script-tabs" role="tablist" aria-label="글자 종류">
       {tabs.map(([id, title, glyph]) => <button type="button" role="tab" key={id} aria-selected={active === id} onClick={() => setActive(id)}>
         <b lang="hi" aria-hidden="true">{glyph}</b><span>{title}</span>
       </button>)}
     </div>
-    {parts[active]}
-    {/* 고르지 않은 부분도 스크립트 없이 읽을 수 있게 둔다. */}
-    <noscript>{tabs.filter(([id]) => id !== active).map(([id]) => parts[id])}</noscript>
+    <div className="script-body">
+      {parts[active]}
+      {/* 고르지 않은 부분도 스크립트 없이 읽을 수 있게 둔다. */}
+      <noscript>{tabs.filter(([id]) => id !== active).map(([id]) => parts[id])}</noscript>
+    </div>
+    </div>
   </article>;
 }
