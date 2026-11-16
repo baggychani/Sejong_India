@@ -11,7 +11,7 @@ import { readablePage } from "./readable-html.mjs";
 // the record's actual HTML and Markdown; technical exemptions need a reason.
 const publicValue = (format = value => value == null ? "" : String(value)) => ({ kind: "public", format });
 const technical = reason => ({ kind: "technical", reason });
-const name = { ko: publicValue(), en: publicValue(), hi: publicValue() };
+const name = { ko: publicValue(), en: publicValue(), hi: publicValue(), ta: publicValue() };
 const identity = technical("레코드와 URL을 연결하는 내부 식별자다.");
 const layout = technical("지도 라벨의 위치·정렬·연결선 배치 설정이다.");
 const coordinates = technical("지도 도형과 점을 그리기 위한 좌표다.");
@@ -38,7 +38,7 @@ const jsonContracts = {
       name: publicValue(), source: publicValue(), credit: publicValue(), license: publicValue() },
     censusGroup: technical("종교 페이지를 인구조사 분류에 연결하는 키다. 전국 인원수·비율과 상위 지역은 레코드별 검사로 대조한다.") } },
   states: { targets: row => [["bharat/map", `state-${row.id}`]], schema: {
-    id: identity, capital: publicValue(), capitalNote: publicValue(), majorCities: [publicValue()],
+    id: identity, names: name, capital: publicValue(), capitalNote: publicValue(), majorCities: [publicValue()],
     sources: [{ title: publicValue(), url: publicValue(), accessed: publicValue() }],
     emblem: { file: technical("주정부 문장 PNG 파일명이다. 의미와 출처는 caption 및 source로 검사한다."), caption: publicValue(), source: publicValue(), credit: publicValue(), license: publicValue() },
   } },

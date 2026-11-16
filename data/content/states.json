@@ -580,6 +580,7 @@
   },
   {
     "id": "IN-TN",
+    "names": { "ta": "தமிழ்நாடு" },
     "capital": "첸나이 / Chennai",
     "sources": [
       {

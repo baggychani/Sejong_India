@@ -45,7 +45,7 @@ export function MapReference() {
       <h2>{title} {entries.length}곳</h2>
       {entries.map(entry => <article key={entry.id} id={`${key}-${encodeURIComponent(entry.id)}`}>
         <h3>{entry.names.ko}</h3>
-        <p>{[entry.names.en, entry.names.hi].filter(Boolean).join(" · ")}</p>
+        <p>{details.get(entry.id)!.subtitle}</p>
         <p>{entry.summary}</p>
       </article>)}
     </section>)}

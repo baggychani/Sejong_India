@@ -211,7 +211,7 @@ const adminDetails: DetailRecord[] = admin.features.flatMap((feature) => {
       id,
       eyebrow: kind,
       title: ko,
-      subtitle: [en, hi].filter(Boolean).join(" · "),
+      subtitle: [en, hi, content.names?.ta].filter(Boolean).join(" · "),
       facts: [
         { label: kind === "주" ? "주도" : "행정 중심지", value: content.capital, note: content.capitalNote },
         ...(content.majorCities?.length ? [{ label: "주요도시", value: content.majorCities.join(" · ") }] : []),
@@ -241,7 +241,7 @@ const cityDetails: DetailRecord[] = cities.map((city) => ({
   id: city.id,
   eyebrow: "도시",
   title: city.names.ko,
-  subtitle: [city.names.en, city.names.hi].filter(Boolean).join(" · "),
+  subtitle: [city.names.en, city.names.hi, city.names.ta].filter(Boolean).join(" · "),
   summary: city.summary,
 }));
 
@@ -255,7 +255,7 @@ const instituteDetails: DetailRecord[] = institutes.map((institute) => ({
     { label: "운영기관", value: `${institute.operator.ko} / ${institute.operator.en}` },
     {
       label: "도시",
-      value: `${[institute.city.ko, institute.city.en, institute.city.hi].filter(Boolean).join(" · ")} / ${stateName(institute.stateId)}`,
+      value: `${[institute.city.ko, institute.city.en, institute.city.hi, institute.city.ta].filter(Boolean).join(" · ")} | ${stateName(institute.stateId)}`,
     },
     { label: "주소", value: institute.address },
   ],
@@ -279,7 +279,7 @@ export const details = new Map<string, DetailRecord>(
 export const instituteList = institutes.map((institute) => ({
   id: institute.id,
   title: institute.names.ko,
-  place: `${institute.city.ko} · ${stateName(institute.stateId)}`,
+  place: `${institute.city.ko} | ${stateName(institute.stateId)}`,
 }));
 
 /** 퀴즈에 내는 주·연방직할지의 이름과 중심 좌표. */

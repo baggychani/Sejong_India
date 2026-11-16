@@ -77,7 +77,8 @@ export function verifyContentFields(outDir) {
     const record = map(`institute-${institute.id}`);
     assert(stateIds.has(institute.stateId), `${institute.id}: unknown state link`);
     assert(geoContains(admin.find(feature => feature.properties.iso_3166_2 === institute.stateId), [institute.lon, institute.lat]), `${institute.id}: institute point lies outside its assigned state`);
-    record.expect(admin.find(feature => feature.properties.iso_3166_2 === institute.stateId).properties.name_ko);
+    const stateName = admin.find(feature => feature.properties.iso_3166_2 === institute.stateId).properties.name_ko;
+    record.expect(`${[institute.city.ko, institute.city.en, institute.city.hi, institute.city.ta].filter(Boolean).join(" · ")} | ${stateName}`);
     for (const value of [
       ...Object.values(institute.names), ...Object.values(institute.operator), ...Object.values(institute.city),
       institute.address, institute.locationNote, institute.homepage,
