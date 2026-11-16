@@ -77,20 +77,19 @@ export function verifyContentFields(outDir) {
     const description = allNodes(node).find(child => attr(child, "class") === "detail-description");
     assert.equal(Boolean(description), Boolean(state.description?.length), `${state.id}: description box must follow source data`);
     if (description) {
-      assert.equal(description.tagName, "details", `${state.id}: description must use a native disclosure`);
-      assert.equal(attr(description, "open"), undefined, `${state.id}: description must start collapsed`);
-      assert.equal(description.childNodes.find(child => child.tagName)?.tagName, "summary", `${state.id}: disclosure needs a keyboard-accessible summary`);
+      assert.equal(description.tagName, "div", `${state.id}: description must be always visible`);
+      assert(!allNodes(description).some(child => ["details", "summary", "button"].includes(child.tagName)), `${state.id}: description must not have disclosure controls`);
       const list = description.childNodes.find(child => child.tagName === "ul");
       assert(list, `${state.id}: description must be a bullet list`);
       const items = list.childNodes.filter(child => child.tagName === "li");
-      assert.equal(items.length, state.description.length, `${state.id}: every sentence needs its own bullet`);
+      assert.equal(items.length, state.description.length, `${state.id}: each source paragraph needs one bullet`);
       state.description.forEach((item, index) => {
         record.expect(item.text);
         const itemText = allNodes(items[index]).filter(child => child.nodeName === "#text").map(child => child.value).join("");
-        assert.equal(itemText, item.text, `${state.id}: bullet text must preserve the source sentence`);
+        assert.equal(itemText, item.text, `${state.id}: bullet text must preserve the complete source paragraph`);
         const keywords = allNodes(items[index]).filter(child => child.tagName === "strong" && attr(child, "class") === "description-keyword");
         for (const keyword of item.keywords ?? []) {
-          assert(keyword && item.text.includes(keyword), `${state.id}: keyword must occur in its sentence`);
+          assert(keyword && item.text.includes(keyword), `${state.id}: keyword must occur in its paragraph`);
           assert(keywords.some(child => child.childNodes.map(text => text.value ?? "").join("") === keyword), `${state.id}: missing keyword emphasis: ${keyword}`);
         }
       });

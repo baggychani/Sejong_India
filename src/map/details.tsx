@@ -1,7 +1,6 @@
 import { hasMotherTongues, MotherTongueRow } from "./MotherTongues";
 import { ReligionRow } from "./Religions";
 import { religionProfilesByPlace } from "../site/religions";
-import { Icon } from "../site/Icon";
 
 export type DetailRecord = {
   id: string;
@@ -91,16 +90,11 @@ export function DetailCard({ detail }: { detail: DetailRecord }) {
         </dl>
       )}
       {detail.description?.length ? (
-        <details key={detail.id} className="detail-description">
-          <summary>
-            <span className="description-expand">더 알아보기</span>
-            <span className="description-collapse">접기</span>
-            <Icon name="arrow" />
-          </summary>
+        <div className="detail-description">
           <ul>
             {detail.description.map((item, index) => <li key={index}>{descriptionText(item.text, item.keywords)}</li>)}
           </ul>
-        </details>
+        </div>
       ) : null}
       {detail.links && (
         <div className="detail-links">

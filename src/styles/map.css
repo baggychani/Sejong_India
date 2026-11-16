@@ -95,19 +95,10 @@
 .detail-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
 .detail-heading > div { min-width: 0; }
 .state-emblem { flex: none; width: 88px; height: 88px; object-fit: contain; }
-.detail-description { margin-top: 22px; border: 1px solid var(--line); border-radius: 10px; background: #f5f7f4; font-size: 14px; line-height: 1.75; word-break: keep-all; overflow-wrap: anywhere; }
-.detail-description > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 18px; border-radius: 9px; color: var(--accent); font-weight: 650; list-style: none; cursor: pointer; }
-.detail-description > summary::-webkit-details-marker { display: none; }
-.detail-description > summary:hover { background: #eaf0e9; }
-.detail-description > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.detail-description > summary .icon { flex: none; width: 16px; height: 16px; transform: rotate(90deg); }
-.detail-description[open] > summary { border-bottom: 1px solid var(--line); border-radius: 9px 9px 0 0; }
-.detail-description[open] > summary .icon { transform: rotate(-90deg); }
-.detail-description .description-collapse, .detail-description[open] .description-expand { display: none; }
-.detail-description[open] .description-collapse { display: inline; }
+.detail-description { margin-top: 34px; border: 1px solid var(--line); border-radius: 10px; background: #f5f7f4; font-size: 14px; line-height: 1.75; word-break: keep-all; overflow-wrap: anywhere; }
 .detail-description > ul { margin: 0; padding: 16px 20px 18px 36px; list-style: disc; }
 .detail-description > ul > li { padding-left: 4px; }
-.detail-description > ul > li + li { margin-top: 10px; }
+.detail-description > ul > li + li { margin-top: 14px; }
 .detail-description > ul > li::marker { color: var(--accent); font-size: .85em; }
 .description-keyword { font-weight: 650; text-decoration: underline; text-decoration-color: #739980; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
 .season-mark { cursor: help; }
