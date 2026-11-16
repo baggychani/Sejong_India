@@ -6,13 +6,19 @@
  * sign: 자음에 붙는 모음 부호 · inherent: 부호가 없을 때 따라오는 기본 모음 a · mark: 비음·기음 부호
  */
 export type PartKind = "consonant" | "half" | "vowel" | "sign" | "inherent" | "mark";
-export type Part = { kind: PartKind; glyph: string; roman: string; silent?: boolean; rule?: SilentRule };
+export type Part = { kind: PartKind; glyph: string; roman: string; silent?: boolean; rule?: SilentRule; note?: string };
 
 /** 소리 나지 않는 기본 모음 a가 어느 규칙에 해당하는지. V는 모음, C는 자음. */
 export type SilentRule = "final" | "medial";
 export const SILENT_RULES: Record<SilentRule, string> = {
-  final: "단어 끝 C 뒤의 a는 발음하지 않는다.",
-  medial: "VCaCV에서 가운데 a는 발음하지 않는다.",
+  final: "단어 끝 C 뒤의 /a/는 발음하지 않는다.",
+  medial: "VCaCV에서 가운데 /a/는 발음하지 않는다.",
+};
+/** 비음·기음 부호가 무엇인지. 쪼갠 화면의 ? 에서 보여 준다. */
+export const MARK_NOTES: Record<string, string> = {
+  "\u0902": "아누스와라. 뒤 자음과 같은 자리의 콧소리(n·m 등)를 낸다. 윗줄에 모음 부호가 있으면 찬드라빈두 대신 써서 모음을 콧소리로 낸다.",
+  "\u0901": "찬드라빈두. 모음을 콧소리로 낸다. 자음 소리는 더하지 않는다.",
+  "\u0903": "비사르가. 모음 뒤에 숨을 가볍게 내쉬는 h 소리다.",
 };
 export type Akshara = { text: string; parts: Part[] };
 
@@ -78,7 +84,7 @@ function parseWord(word: string): Akshara[] {
       throw new Error(`unsupported Devanagari letter in ${word}: ${chars[i]}`);
     }
     while (MARKS[chars[i]]) {
-      parts.push({ kind: "mark", glyph: PLACEHOLDER + chars[i], roman: MARKS[chars[i]] });
+      parts.push({ kind: "mark", glyph: PLACEHOLDER + chars[i], roman: MARKS[chars[i]], note: MARK_NOTES[chars[i]] });
       i++;
     }
     aksharas.push({ text: chars.slice(start, i).join(""), parts });

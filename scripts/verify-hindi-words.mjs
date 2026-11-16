@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { aksharaRoman, readWord, SILENT_RULES } from "../src/learn/devanagari.ts";
+import { aksharaRoman, MARK_NOTES, readWord, SILENT_RULES } from "../src/learn/devanagari.ts";
 import { readablePage } from "./readable-html.mjs";
 
 export function verifyHindiWords(outDir) {
@@ -33,7 +33,7 @@ export function verifyHindiWords(outDir) {
 
   const page = readablePage(readFileSync(join(outDir, "learn/hindi/words/index.html"), "utf8"), "https://example.org/");
   for (const word of words) for (const value of [word.word, word.roman, word.meaning]) assert(page.includes(value.normalize("NFC")) || page.includes(value), `${word.id}: ${value} missing from the reading path`);
-  for (const rule of Object.values(SILENT_RULES)) assert(page.includes(rule), `silent-a rule missing from the reading path: ${rule}`);
+  for (const rule of [...Object.values(SILENT_RULES), ...Object.values(MARK_NOTES)]) assert(page.includes(rule), `letter note missing from the reading path: ${rule}`);
   assert(readFileSync(join(outDir, "learn/hindi/index.html"), "utf8").includes('/learn/hindi/words"'), "Hindi page must link to the word study page");
   console.log(`PASS: ${words.length} Hindi words split into letters that rebuild the word and its romanization; study page linked and readable without JavaScript.`);
 }

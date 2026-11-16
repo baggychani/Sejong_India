@@ -5,6 +5,7 @@ import { entriesFor } from "../content/load";
 import { NotFoundPage } from "./NotFoundPage";
 import { Icon } from "../site/Icon";
 import { CollectionLabel } from "../site/CollectionLabel";
+import { HindiWordsEntry } from "./HindiWordsEntry";
 import "../styles/interview.css";
 
 export function CollectionPage({ collectionIdOverride }: { collectionIdOverride?: string } = {}) {
@@ -18,17 +19,15 @@ export function CollectionPage({ collectionIdOverride }: { collectionIdOverride?
   }
 
   const entries = entriesFor(collection.id);
-  // 글이 아닌 학습 도구로 가는 입구.
-  const tools = collection.id === "hindi" ? [{ to: "/learn/hindi/words", title: "단어 공부" }] : [];
+  // 글이 아닌 학습 도구로 가는 입구가 있는 곳.
+  const hasTools = collection.id === "hindi";
 
   return (
     <article className={collection.id === "study" ? "reading interview-index" : "reading"}>
       <h1><CollectionLabel collection={collection} /></h1>
-      {tools.length > 0 && <ul className="entry-list">
-        {tools.map(tool => <li key={tool.to}><Link to={tool.to}>{tool.title}</Link></li>)}
-      </ul>}
+      {hasTools && <HindiWordsEntry />}
       {entries.length === 0 ? (
-        tools.length > 0 ? null : <p className="empty">아직 정리해 둔 글이 없다.</p>
+        hasTools ? null : <p className="empty">아직 정리해 둔 글이 없다.</p>
       ) : (
         <ul className="entry-list">
           {entries.map((entry) => (

@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import words from "../../data/content/hindi-words.json";
-import { aksharaRoman, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
+import { aksharaRoman, MARK_NOTES, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
 import { fadeIn, fadeOut, flyFrom, ghost, resize, slideIn, slideOut, spot, still, type Spot } from "../learn/morph";
 import { usePageTitle } from "../site/title";
 import { siteTitle } from "../site/sections";
@@ -9,20 +9,13 @@ import "../styles/words.css";
 
 const cards = words.map(word => ({ ...word, reading: readWord(word.word, word.roman) }));
 type Card = typeof cards[number];
-const cardById = new Map(cards.map(card => [card.id, card]));
-
-function shuffled<T>(items: readonly T[]) {
-  const result = [...items];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
 
 /** 한 낱말에 나온 묵음 a 규칙 문장들(중복 없이). */
 const wordRules = (card: Card) => [...new Set(card.reading.flat().flatMap(akshara => akshara.parts)
   .flatMap(part => part.silent && part.rule ? [SILENT_RULES[part.rule]] : []))];
+
+/** ? 에 띄울 설명: 발음하지 않는 /a/의 규칙, 또는 비음 부호가 무엇인지. */
+const why = (part: Part) => part.silent && part.rule ? SILENT_RULES[part.rule] : part.note;
 
 const kindClass = (part: Part) => `k-${part.kind}${part.silent ? " is-silent" : ""}`;
 
@@ -35,7 +28,7 @@ const MuteIcon = () => <svg className="unit-mute" viewBox="0 0 20 20" aria-hidde
 /** 음절 덩어리 하나. 누르면 자음·모음 부호로 갈라진다. */
 function AksharaTile({ akshara }: { akshara: Akshara }) {
   const [open, setOpen] = useState(false);
-  const [tip, setTip] = useState(false);
+  const [tip, setTip] = useState<number | null>(null);
   const single = akshara.parts.length === 1;
   const ref = useRef<HTMLButtonElement>(null);
   const before = useRef<{ width: number; glyph?: Spot } | null>(null);
@@ -76,9 +69,9 @@ function AksharaTile({ akshara }: { akshara: Akshara }) {
         ? <span className="unit-glyph" aria-label={part.rule ? `발음 안 함. ${SILENT_RULES[part.rule]}` : "발음 안 함"} role="img"><MuteIcon /></span>
         : <span className="unit-glyph" lang="hi">{part.glyph}</span>}
       <span className="unit-roman">{part.roman}</span>
-      {part.silent && part.rule && <span className={tip ? "unit-why is-open" : "unit-why"} aria-hidden="true"
-        onClick={event => { event.stopPropagation(); setTip(!tip); }}>
-        ?<span className="unit-tip">{SILENT_RULES[part.rule]}</span>
+      {why(part) && <span className={tip === index ? "unit-why is-open" : "unit-why"} aria-hidden="true"
+        onClick={event => { event.stopPropagation(); setTip(tip === index ? null : index); }}>
+        ?<span className="unit-tip">{why(part)}</span>
       </span>}
     </span>) : <span className="unit">
       <span className="unit-glyph" lang="hi">{akshara.text}</span>
@@ -89,7 +82,7 @@ function AksharaTile({ akshara }: { akshara: Akshara }) {
   </button>;
 }
 
-function WordCard({ card, onMark }: { card: Card; onMark: (known: boolean) => void }) {
+function WordCard({ card, last, onNext }: { card: Card; last: boolean; onNext: () => void }) {
   const [split, setSplit] = useState(false);
   const [shown, setShown] = useState(false);
   const stage = useRef<HTMLDivElement>(null);
@@ -151,14 +144,9 @@ function WordCard({ card, onMark }: { card: Card; onMark: (known: boolean) => vo
     <p className="word-meaning" aria-live="polite">{shown ? card.meaning : " "}</p>
     <div className="word-actions">
       <button type="button" className="word-ghost" aria-pressed={split} onClick={() => toggleSplit(!split)}>뜯어보기</button>
-      {shown ? <>
-        <button type="button" className="word-mark is-wrong" aria-label="몰랐어요" onClick={() => onMark(false)}>
-          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 4.5l11 11M15.5 4.5l-11 11" /></svg>
-        </button>
-        <button type="button" className="word-mark is-correct" aria-label="알았어요" autoFocus onClick={() => onMark(true)}>
-          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.5" /></svg>
-        </button>
-      </> : <button type="button" className="word-primary" autoFocus onClick={() => { setShown(true); toggleSplit(false); }}>뜻 보기</button>}
+      {shown
+        ? <button type="button" className="word-primary" autoFocus onClick={onNext}>{last ? "처음으로" : "다음"}</button>
+        : <button type="button" className="word-primary" autoFocus onClick={() => { setShown(true); toggleSplit(false); }}>뜻 보기</button>}
     </div>
   </>;
 }
@@ -171,27 +159,16 @@ function NavArrow({ dir, disabled, onClick }: { dir: "prev" | "next"; disabled: 
 }
 
 export function HindiWordsPage() {
-  usePageTitle(`단어 공부 · 힌디어 · ${siteTitle}`);
-  // 첫 화면은 미리 만든 HTML과 같아야 하므로 원본 순서로 시작하고, 다시 할 때 섞는다.
-  const [deck, setDeck] = useState(() => cards.map(card => card.id));
-  // 단어장이므로 O·X 표시는 선택이다. 표시하지 않은 칸은 비워 둔다.
-  const [marks, setMarks] = useState<(boolean | undefined)[]>([]);
+  usePageTitle(`단어장 · 힌디어 · ${siteTitle}`);
+  // 외우는 단어장이다. 맞고 틀림을 매기는 퀴즈는 따로 만든다.
   const [index, setIndex] = useState(0);
-  const finished = index >= deck.length;
-  const missed = deck.filter((_, at) => marks[at] === false).map(id => cardById.get(id)!);
-  const restart = (ids: string[]) => { setDeck(shuffled(ids)); setMarks([]); setIndex(0); };
-  const go = (to: number) => setIndex(Math.max(0, Math.min(deck.length, to)));
-  const mark = (known: boolean) => {
-    const next = [...marks];
-    next[index] = known;
-    setMarks(next);
-    go(index + 1);
-  };
+  const [listing, setListing] = useState(false);
+  const go = (to: number) => setIndex(Math.max(0, Math.min(cards.length - 1, to)));
   const touchX = useRef<number | null>(null);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (listing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       if (event.key === "ArrowLeft") go(index - 1);
       else if (event.key === "ArrowRight") go(index + 1);
     };
@@ -202,15 +179,20 @@ export function HindiWordsPage() {
   return <article className="words-page">
     <header className="words-head">
       <Link className="words-back" to="/learn/hindi">← 힌디어</Link>
-      <ol className="words-steps" aria-label={`${Math.min(index + 1, deck.length)} / ${deck.length}`}>
-        {deck.map((id, at) => <li key={id}>
-          <button type="button" aria-label={`${at + 1}번째 단어`} aria-current={at === index ? "step" : undefined}
-            className={[at === index && "is-current", marks[at] === true && "is-correct", marks[at] === false && "is-wrong"].filter(Boolean).join(" ") || undefined}
-            onClick={() => go(at)} />
-        </li>)}
-      </ol>
+      <div className="words-tools">
+        {!listing && <span className="words-count"><strong>{index + 1}</strong> / {cards.length}</span>}
+        <button type="button" className="words-list-toggle" aria-pressed={listing} aria-label="단어 목록" title="단어 목록" onClick={() => setListing(!listing)}>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5.5h12M4 10h12M4 14.5h12" /></svg>
+        </button>
+      </div>
     </header>
-    <div className="word-card"
+    {listing ? <ol className="word-list">
+      {cards.map((card, at) => <li key={card.id}>
+        <button type="button" aria-current={at === index ? "true" : undefined} onClick={() => { setIndex(at); setListing(false); }}>
+          <span lang="hi">{card.word}</span><small>{card.roman}</small><b>{card.meaning}</b>
+        </button>
+      </li>)}
+    </ol> : <div className="word-card"
       onTouchStart={event => { touchX.current = event.touches[0].clientX; }}
       onTouchEnd={event => {
         if (touchX.current === null) return;
@@ -219,24 +201,17 @@ export function HindiWordsPage() {
         if (Math.abs(dx) > 60) go(index + (dx < 0 ? 1 : -1));
       }}>
       <NavArrow dir="prev" disabled={index === 0} onClick={() => go(index - 1)} />
-      {finished ? <>
-        <p className="word-score"><strong>{marks.filter(known => known === true).length}</strong><span>/ {deck.length}</span></p>
-        {missed.length > 0 && <ul className="word-missed">
-          {missed.map(card => <li key={card.id}><span lang="hi">{card.word}</span><small>{card.roman}</small><b>{card.meaning}</b></li>)}
-        </ul>}
-        <div className="word-actions">
-          {missed.length > 0 && <button type="button" className="word-ghost" onClick={() => restart(missed.map(card => card.id))}>틀린 것만</button>}
-          <button type="button" className="word-primary" autoFocus onClick={() => restart(cards.map(card => card.id))}>다시</button>
-        </div>
-      </> : <WordCard key={`${deck[index]}-${index}`} card={cardById.get(deck[index])!} onMark={mark} />}
-      <NavArrow dir="next" disabled={finished} onClick={() => go(index + 1)} />
-    </div>
+      <WordCard key={cards[index].id} card={cards[index]} last={index === cards.length - 1}
+        onNext={() => setIndex(index === cards.length - 1 ? 0 : index + 1)} />
+      <NavArrow dir="next" disabled={index === cards.length - 1} onClick={() => go(index + 1)} />
+    </div>}
     <noscript>
       <h1>힌디어 단어</h1>
-      <p>로마자는 IAST 표기다. 글자에는 있지만 발음하지 않는 기본 모음 a는 로마자에 적지 않았다. 괄호 안은 음절 덩어리별 읽기다.</p>
-      <p>발음하지 않는 a의 규칙(V는 모음, C는 자음): {Object.values(SILENT_RULES).join(" ")}</p>
+      <p>로마자는 IAST 표기다. 글자에는 있지만 발음하지 않는 기본 모음 /a/는 로마자에 적지 않았다. 괄호 안은 음절 덩어리별 읽기다.</p>
+      <p>발음하지 않는 /a/의 규칙(V는 모음, C는 자음): {Object.values(SILENT_RULES).join(" ")}</p>
+      <p>비음·기음 부호: {Object.values(MARK_NOTES).join(" ")}</p>
       <ul>{cards.map(card => <li key={card.id} id={`hindi-word-${card.id}`}>
-        <span lang="hi">{card.word}</span> · {card.roman} · {card.meaning} ({card.reading.map(word => word.map(akshara => `${akshara.text} ${aksharaRoman(akshara)}`).join(", ")).join(" / ")}){wordRules(card).map(rule => ` 묵음 a: ${rule}`).join("")}
+        <span lang="hi">{card.word}</span> · {card.roman} · {card.meaning} ({card.reading.map(word => word.map(akshara => `${akshara.text} ${aksharaRoman(akshara)}`).join(", ")).join(" / ")}){wordRules(card).map(rule => ` 묵음 /a/: ${rule}`).join("")}
       </li>)}</ul>
     </noscript>
   </article>;
