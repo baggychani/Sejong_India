@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import words from "../../data/content/hindi-words.json";
 import { aksharaRoman, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
+import { fadeIn, fadeOut, flyFrom, ghost, resize, slideIn, slideOut, spot, still, type Spot } from "../learn/morph";
 import { usePageTitle } from "../site/title";
 import { siteTitle } from "../site/sections";
 import "../styles/words.css";
@@ -36,8 +37,40 @@ function AksharaTile({ akshara }: { akshara: Akshara }) {
   const [open, setOpen] = useState(false);
   const [tip, setTip] = useState(false);
   const single = akshara.parts.length === 1;
-  return <button type="button" className={open ? "akshara is-open" : "akshara"} aria-expanded={single ? undefined : open}
-    disabled={single} onClick={() => setOpen(!open)}>
+  const ref = useRef<HTMLButtonElement>(null);
+  const before = useRef<{ width: number; glyph?: Spot } | null>(null);
+  const busy = useRef(false);
+
+  // 상자가 넓어지며 부품이 가운데에서 미끄러져 나오고, 원래 덩어리는 겹쳐 흐려진다. 닫을 때는 거꾸로.
+  useLayoutEffect(() => {
+    const box = ref.current;
+    const prev = before.current;
+    before.current = null;
+    if (!box || !prev) return;
+    resize(box, prev.width);
+    if (open) {
+      if (prev.glyph) ghost(box, akshara.text, prev.glyph);
+      slideOut(box, [...box.querySelectorAll(".unit")]);
+    } else {
+      fadeIn([...box.querySelectorAll(".unit")], { delay: 60, rise: 0 });
+    }
+  }, [open, akshara.text]);
+
+  const toggle = async () => {
+    const box = ref.current;
+    if (busy.current) return;
+    if (!box || still()) { setOpen(!open); return; }
+    busy.current = true;
+    if (open) await slideIn(box, [...box.querySelectorAll(".unit")]);
+    const glyph = box.querySelector(".unit-glyph");
+    before.current = { width: box.getBoundingClientRect().width, glyph: !open && glyph ? spot(glyph) : undefined };
+    setOpen(!open);
+    busy.current = false;
+  };
+
+  return <button type="button" ref={ref} data-akshara="" className={open ? "akshara is-open" : "akshara"} aria-expanded={single ? undefined : open}
+    disabled={single} onClick={toggle}>
+    <span className="akshara-box" aria-hidden="true" />
     {open ? akshara.parts.map((part, index) => <span className={`unit ${kindClass(part)}`} key={index}>
       {part.silent
         ? <span className="unit-glyph" aria-label={part.rule ? `발음 안 함. ${SILENT_RULES[part.rule]}` : "발음 안 함"} role="img"><MuteIcon /></span>
@@ -59,17 +92,65 @@ function AksharaTile({ akshara }: { akshara: Akshara }) {
 function WordCard({ card, onMark }: { card: Card; onMark: (known: boolean) => void }) {
   const [split, setSplit] = useState(false);
   const [shown, setShown] = useState(false);
+  const stage = useRef<HTMLDivElement>(null);
+  const from = useRef<Spot[] | null>(null);
+  const busy = useRef(false);
+
+  // 큰 낱말의 음절 덩어리가 제자리에서 차례로 떨어져 나와 칸이 되고, 상자와 로마자가 뒤따라 나타난다.
+  useLayoutEffect(() => {
+    const root = stage.current;
+    const prev = from.current;
+    from.current = null;
+    if (!root || !prev) return;
+    if (split) {
+      const tiles = [...root.querySelectorAll("[data-akshara]")];
+      flyFrom(prev, tiles.map(tile => tile.querySelector(".unit-glyph")!));
+      fadeIn(tiles.map(tile => tile.querySelector(".akshara-box")!), { delay: 110, rise: 0 });
+      fadeIn(tiles.map(tile => tile.querySelector(".unit-roman")!), { delay: 190 });
+    } else {
+      flyFrom(prev, [...root.querySelectorAll(".wb-ak")], 380);
+    }
+  }, [split]);
+
+  const toggleSplit = async (next: boolean) => {
+    const root = stage.current;
+    if (next === split || busy.current) return;
+    if (!root || still()) { setSplit(next); return; }
+    busy.current = true;
+    if (next) {
+      from.current = [...root.querySelectorAll(".wb-ak")].map(spot);
+    } else {
+      // 상자와 로마자가 먼저 걷히고, 글자만 남아 원래 낱말 자리로 돌아간다.
+      const tiles = [...root.querySelectorAll<HTMLElement>("[data-akshara]")];
+      await fadeOut(tiles.flatMap(tile => [
+        ...tile.querySelectorAll(".akshara-box, .unit-roman, .unit-why"),
+        ...(tile.classList.contains("is-open") ? tile.querySelectorAll(".unit-glyph") : []),
+      ]));
+      from.current = tiles.map(tile => {
+        const glyph = tile.querySelector(".unit-glyph")!;
+        return tile.classList.contains("is-open") ? { ...spot(tile), size: spot(glyph).size } : spot(glyph);
+      });
+    }
+    setSplit(next);
+    busy.current = false;
+  };
+
   return <>
-    <div className="word-stage">
+    <div className="word-stage" ref={stage}>
       {split ? <div className="word-breakdown">
         {card.reading.map((word, index) => <div className="word-group" key={index}>
           {word.map((akshara, at) => <AksharaTile akshara={akshara} key={at} />)}
         </div>)}
-      </div> : <p className="word-big" lang="hi">{card.word}</p>}
+      </div> : <p className="word-big" lang="hi">
+        {card.reading.map((word, index) => <Fragment key={index}>
+          {index > 0 && " "}
+          <span className="wb-word">{word.map((akshara, at) => <span className="wb-ak" key={at}>{akshara.text}</span>)}</span>
+        </Fragment>)}
+      </p>}
     </div>
     <p className="word-meaning" aria-live="polite">{shown ? card.meaning : " "}</p>
     <div className="word-actions">
-      <button type="button" className="word-ghost" aria-pressed={split} onClick={() => setSplit(!split)}>뜯어보기</button>
+      <button type="button" className="word-ghost" aria-pressed={split} onClick={() => toggleSplit(!split)}>뜯어보기</button>
       {shown ? <>
         <button type="button" className="word-mark is-wrong" aria-label="몰랐어요" onClick={() => onMark(false)}>
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 4.5l11 11M15.5 4.5l-11 11" /></svg>
@@ -77,7 +158,7 @@ function WordCard({ card, onMark }: { card: Card; onMark: (known: boolean) => vo
         <button type="button" className="word-mark is-correct" aria-label="알았어요" autoFocus onClick={() => onMark(true)}>
           <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.5" /></svg>
         </button>
-      </> : <button type="button" className="word-primary" autoFocus onClick={() => { setShown(true); setSplit(false); }}>뜻 보기</button>}
+      </> : <button type="button" className="word-primary" autoFocus onClick={() => { setShown(true); toggleSplit(false); }}>뜻 보기</button>}
     </div>
   </>;
 }
