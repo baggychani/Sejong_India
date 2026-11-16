@@ -192,3 +192,21 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
   .wq-text b { font-size: 23px; }
   .words-entry-art { min-width: 132px; }
 }
+
+/* 단어 퀴즈: 시간 제한 */
+.wq-stepper.is-small { gap: 14px; margin-top: -8px; }
+.wq-stepper.is-small button { width: 36px; height: 36px; font-size: 19px; }
+.wq-stepper.is-small output { min-width: 124px; }
+.wq-stepper.is-small strong { font-size: 26px; letter-spacing: -.03em; line-height: 1.2; }
+.wq-clock { display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px 5px 8px; border-radius: 999px; background: #eef4f0; color: var(--accent); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; transition: background .2s, color .2s; }
+.wq-clock svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.wq-clock.is-low { background: #fcebe7; color: #b53a24; animation: wq-pulse .9s ease-in-out infinite; }
+@keyframes wq-pulse { 50% { transform: scale(1.06); } }
+/* 남은 시간: 카드 윗변을 따라 오른쪽에서 줄어드는 선 */
+.word-card.wq-card { overflow: hidden; }
+.wq-timer { position: absolute; inset: 0 0 auto; height: 5px; background: #eef1ef; }
+.wq-timer i { display: block; height: 100%; background: var(--accent); transform-origin: left; transition: transform .1s linear, background .3s; }
+.wq-timer i.is-low { background: #dd5a43; }
+.wq-timeout { margin: 0; text-align: center; color: #b53a24; font-size: 14px; font-weight: 700; }
+.word-actions .wq-timeout { padding: 0 6px; }
+@media (prefers-reduced-motion: reduce) { .wq-clock.is-low { animation: none; } }
