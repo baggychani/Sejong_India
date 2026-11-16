@@ -222,6 +222,30 @@ const adminDetails: DetailRecord[] = admin.features.flatMap((feature) => {
   ];
 });
 
+function capitalKorean(value: string) {
+  return value.split(" · ").map(part => {
+    const [korean, rest] = part.split(" / ");
+    const mark = rest?.match(/[☀️❄️]/)?.[0];
+    return mark ? `${korean} ${mark}` : korean;
+  }).join(" · ");
+}
+
+export type RegionRow = { id: string; title: string; capital: string };
+
+function regionRows(kind: "주" | "연방직할지"): RegionRow[] {
+  return adminDetails
+    .filter(detail => detail.eyebrow === kind)
+    .map(detail => ({
+      id: detail.id,
+      title: detail.title,
+      capital: capitalKorean(detail.facts?.find(fact => fact.label === "주도" || fact.label === "행정 중심지")?.value ?? ""),
+    }))
+    .sort((a, b) => a.title.localeCompare(b.title, "ko"));
+}
+
+export const stateRows = regionRows("주");
+export const territoryRows = regionRows("연방직할지");
+
 const landformDetails: DetailRecord[] = landforms.map((item) => ({
   id: item.id,
   eyebrow: "자연지리",

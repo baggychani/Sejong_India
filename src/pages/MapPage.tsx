@@ -22,10 +22,18 @@ import {
   partCallouts,
   quizRegions,
   riverShapes,
+  stateRows,
+  territoryRows,
+  type RegionRow,
 } from "../map/indiaModel";
 
 const quizNames = new Map(quizRegions.map(region => [region.id, region.name]));
 const newQuiz = (): QuizRun => ({ questions: makeQuiz(quizRegions), picks: [], index: 0 });
+type Directory = "institutes" | "states" | "territories";
+const directories = {
+  states: { title: "주", rows: stateRows },
+  territories: { title: "연방직할지", rows: territoryRows },
+} as const;
 
 export function MapPage() {
   const [quiz, setQuiz] = useState<QuizRun | null>(null);
@@ -36,6 +44,7 @@ export function MapPage() {
   const requestedPlace = params.get("place");
   const selectedId = requestedPlace && details.has(requestedPlace) ? requestedPlace : null;
   const [selectingStates, setSelectingStates] = useState(true);
+  const [directory, setDirectory] = useState<Directory>("institutes");
   const panel = useRef<HTMLElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
   const lastRowId = useRef<string | null>(null);
@@ -64,14 +73,20 @@ export function MapPage() {
     });
   }
 
-  function showList() {
+  function clearPlace() {
     setParams(current => {
       const next = new URLSearchParams(current);
       next.delete("place");
       return next;
     }, { replace: true });
+  }
+
+  function showDirectory(next: Directory) {
+    setDirectory(next);
+    clearPlace();
+    if (panel.current) panel.current.scrollTop = 0;
     requestAnimationFrame(() => {
-      const rows = panel.current?.querySelectorAll<HTMLButtonElement>(".institute-list button");
+      const rows = panel.current?.querySelectorAll<HTMLButtonElement>(next === "institutes" ? ".institute-list button" : ".region-list button");
       const target = Array.from(rows ?? []).find((row) => row.dataset.id === lastRowId.current);
       (target ?? rows?.[0])?.focus();
     });
@@ -110,7 +125,7 @@ export function MapPage() {
         }}
         quiz={quiz ? quizMapState(quiz, quizNames, answer) : undefined}
         onToggleQuiz={() => {
-          if (!quiz) showList();
+          if (!quiz) clearPlace();
           setQuiz(quiz ? null : newQuiz());
         }}
         selectedId={quiz ? null : selectedId}
@@ -118,7 +133,7 @@ export function MapPage() {
         onSelect={(id) => {
           lastRowId.current = null;
           if (id) openPlace(id);
-          else showList();
+          else clearPlace();
         }}
         projection={mapConfig.projection}
         layers={mapConfig.layers.map((layer) => ({
@@ -137,10 +152,14 @@ export function MapPage() {
             onOpenPlace={(id) => { setQuiz(null); openPlace(id); }} />
         ) : selected ? (
           <>
-            <button ref={closeButton} className="back-to-list" onClick={showList}><Icon name="back" />학당 목록</button>
+            <div className="detail-nav">
+              <button ref={closeButton} className="back-to-list" onClick={() => showDirectory("institutes")}><Icon name="back" />학당 목록</button>
+              {selected.eyebrow === "주" && <button className="back-to-list" onClick={() => showDirectory("states")}><Icon name="back" />주 목록</button>}
+              {selected.eyebrow === "연방직할지" && <button className="back-to-list" onClick={() => showDirectory("territories")}><Icon name="back" />연방직할지 목록</button>}
+            </div>
             <DetailCard key={selected.id} detail={selected} />
           </>
-        ) : (
+        ) : directory === "institutes" ? (
           <>
             <header className="list-heading"><h1>인도 세종학당</h1><span>{instituteList.length}곳</span></header>
             <ul className="institute-list">
@@ -166,10 +185,37 @@ export function MapPage() {
               ))}
             </ul>
           </>
+        ) : (
+          <RegionDirectory
+            title={directories[directory].title}
+            rows={directories[directory].rows}
+            onOpen={(id) => {
+              lastRowId.current = id;
+              openPlace(id);
+            }}
+          />
         )}
       </aside>
     </div>
     <noscript><MapReference /></noscript>
     </>
+  );
+}
+
+function RegionDirectory({ title, rows, onOpen }: { title: string; rows: RegionRow[]; onOpen: (id: string) => void }) {
+  return (
+    <div className="region-directory">
+      <header className="list-heading"><h1>{title}</h1><span>{rows.length}곳</span></header>
+      <ul className="region-list">
+        {rows.map(row => (
+          <li key={row.id}>
+            <button type="button" data-id={row.id} onClick={() => onOpen(row.id)}>
+              <strong>{row.title}</strong>
+              <span>{row.capital}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
