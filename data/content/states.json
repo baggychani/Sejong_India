@@ -606,7 +606,7 @@
     "parts": [
       { "name": "푸두체리", "at": [79.768, 11.916], "label": { "dx": 20, "dy": -16, "anchor": "start", "leader": true } },
       { "name": "카라이칼", "at": [79.776, 10.895], "label": { "dx": 20, "dy": 16, "anchor": "start", "leader": true } },
-      { "name": "마헤", "at": [75.537, 11.702], "label": { "dx": -18, "dy": -10, "anchor": "end", "leader": true } },
+      { "name": "마헤", "at": [75.263, 12.062], "label": { "dx": -18, "dy": -10, "anchor": "end", "leader": true } },
       { "name": "야남", "at": [82.21, 16.73], "label": { "dx": 18, "dy": -14, "anchor": "start", "leader": true } }
     ],
     "sources": [

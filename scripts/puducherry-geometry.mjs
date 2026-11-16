@@ -1,8 +1,9 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { geoArea } from "d3-geo";
 
-// Mahé town, at the mouth of the Mahé river. Natural Earth's west-coast ring is about 45 km north of this.
-const MAHE = [75.53667, 11.70111];
+// Simplified west-coast ring, sitting in the notch the country coastline already draws.
+// The town itself is a little farther south. Sliding the ring there left a second shape in the sea.
+const COASTAL_MAHE = [[75.304, 12.043], [75.222, 12.022], [75.223, 12.1], [75.276, 12.101], [75.304, 12.043]];
 
 function polygonsOf(feature) {
   const geometry = feature.geometry;
@@ -56,9 +57,9 @@ function roundPolygon(polygon) {
   });
 }
 
-function translate(polygon, [lon, lat]) {
-  const box = outerBox(polygon);
-  return roundPolygon(polygon.map((ring) => ring.map(([x, y]) => [x + lon - box.cx, y + lat - box.cy])));
+function maheOnCoast(polygon) {
+  if (!polygon || outerBox(polygon).cy < 11.9) return [COASTAL_MAHE];
+  return polygon;
 }
 
 function orient(polygon) {
@@ -77,8 +78,8 @@ export async function fixPuducherryGeometry(processedPath, rawPath) {
 
   const drawn = group(polygonsOf(feature));
   const original = group(polygonsOf(source));
-  const mahe = drawn.mahe ?? original.mahe;
-  if (!mahe || !original.yanam || !drawn.puducherry || !drawn.karaikal) {
+  const mahe = maheOnCoast(drawn.mahe ?? original.mahe);
+  if (!original.yanam || !drawn.puducherry || !drawn.karaikal) {
     throw new Error("Puducherry is missing one of its four regions");
   }
 
@@ -87,7 +88,7 @@ export async function fixPuducherryGeometry(processedPath, rawPath) {
     coordinates: [
       orient(drawn.puducherry),
       orient(drawn.karaikal),
-      orient(translate(mahe, MAHE)),
+      orient(mahe),
       orient(roundPolygon(original.yanam)),
     ],
   };
