@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
       outDir = dir;
       pages.length = 0;
       const india = mapSection.path;
-      const routes = [india, india + "/map", india + "/languages", india + "/religions", ...catalog.map(l => india + "/languages/" + l.id),
+      const routes = [india, india + "/map", india + "/languages", india + "/religions", india + "/foods", ...catalog.map(l => india + "/languages/" + l.id),
         ...religionPages.map(religion => india + "/religions/" + religion.id)];
       routes.push(...textbooks.map(book => "/lessons/" + book.id), "/lessons/" + lessonPlanForm.slug);
       routes.push(learningSection.path);

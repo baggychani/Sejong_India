@@ -7,6 +7,7 @@ import { HomePage } from "./pages/HomePage";
 import { CollectionPage } from "./pages/CollectionPage";
 import { EntryPage } from "./pages/EntryPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { FoodPage } from "./pages/FoodPage";
 import { LearningPage, LearningSection } from "./pages/LearningPage";
 import { learningCollections } from "./site/sections";
 
@@ -25,6 +26,7 @@ function IndiaSection() {
       <NavLink to="map" end>지도</NavLink>
       <NavLink to="languages">언어</NavLink>
       <NavLink to="religions">종교</NavLink>
+      <NavLink to="foods">음식</NavLink>
     </nav>
     <button className="india-nav-toggle" aria-controls="india-navigation" aria-expanded={!collapsed}
       aria-label={label} title={label} onClick={() => setCollapsed(!collapsed)}>
@@ -61,6 +63,7 @@ export function App({ pages = browserPages }: { pages?: PageComponents } = {}) {
         } />
         <Route path="languages/:id?" element={<Suspense fallback={null}><LanguagePage /></Suspense>} />
         <Route path="religions/:id?" element={<Suspense fallback={null}><ReligionPage /></Suspense>} />
+        <Route path="foods" element={<FoodPage />} />
         </Route>
         <Route path="/library" element={<Suspense fallback={null}><LibraryPage /></Suspense>} />
         <Route path="/library/:slug" element={<Suspense fallback={null}><BookPage /></Suspense>} />
