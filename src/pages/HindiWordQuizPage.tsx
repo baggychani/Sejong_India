@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import words from "../../data/content/hindi-words.json";
 import { hintBudget, makeWordQuiz, MIN_QUESTIONS, type WordQuestion } from "../learn/wordQuiz";
@@ -20,6 +20,63 @@ const TOTAL = { min: 30, max: 3600, step: 30 };
 const defaultTotal = (questions: number) => Math.max(TOTAL.min, Math.round(questions * 10 / TOTAL.step) * TOTAL.step);
 const spoken = (seconds: number) => seconds < 60 ? `${seconds}초` : `${Math.floor(seconds / 60)}분${seconds % 60 ? ` ${seconds % 60}초` : ""}`;
 const clock = (ms: number) => { const s = Math.ceil(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+
+function LimitPicker({ value, onChange }: { value: LimitMode; onChange: (value: LimitMode) => void }) {
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const options = useRef<(HTMLButtonElement | null)[]>([]);
+  const selected = limitModes.findIndex(([key]) => key === value);
+
+  useEffect(() => {
+    if (!open) return;
+    options.current[selected]?.focus();
+    const dismiss = (event: PointerEvent) => {
+      if (!root.current?.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", dismiss);
+    return () => document.removeEventListener("pointerdown", dismiss);
+  }, [open, selected]);
+
+  return <div className="wq-select" ref={root}
+    onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}
+    onKeyDown={event => {
+      if (event.key === "Escape" && open) {
+        event.preventDefault();
+        event.stopPropagation();
+        setOpen(false);
+        trigger.current?.focus();
+      }
+    }}>
+    <button type="button" className="wq-select-trigger" ref={trigger}
+      aria-labelledby="wq-limit-label wq-limit-value" aria-haspopup="menu" aria-expanded={open} aria-controls="wq-limit-menu"
+      onClick={() => setOpen(!open)}
+      onKeyDown={event => {
+        if (event.key === "ArrowDown" || event.key === "ArrowUp") { event.preventDefault(); setOpen(true); }
+      }}>
+      <span id="wq-limit-value">{limitModes[selected][1]}</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 6.5 3.5 3.5 3.5-3.5" /></svg>
+    </button>
+    <div id="wq-limit-menu" className="wq-select-menu" role="menu" aria-labelledby="wq-limit-label" hidden={!open}
+      onKeyDown={event => {
+        const index = options.current.indexOf(document.activeElement as HTMLButtonElement);
+        const next = event.key === "ArrowDown" ? (index + 1) % limitModes.length
+          : event.key === "ArrowUp" ? (index - 1 + limitModes.length) % limitModes.length
+          : event.key === "Home" ? 0 : event.key === "End" ? limitModes.length - 1 : null;
+        if (next !== null) { event.preventDefault(); options.current[next]?.focus(); }
+        // Move Tab back through the trigger so it leaves the popup in document order.
+        if (event.key === "Tab") { setOpen(false); trigger.current?.focus(); }
+      }}>
+      {limitModes.map(([key, label], index) => <button type="button" key={key} role="menuitemradio"
+        aria-checked={value === key} tabIndex={-1} ref={node => { options.current[index] = node; }}
+        onClick={() => { onChange(key); setOpen(false); trigger.current?.focus(); }}>
+        <span>{label}</span>
+        {value === key && <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8 3 3 6-6" /></svg>}
+      </button>)}
+    </div>
+    <noscript><p>시간 제한: {limitModes.map(([, label]) => label).join(" / ")}</p></noscript>
+  </div>;
+}
 
 /** 시간 안에 고르지 못한 문항의 답. */
 const TIMEOUT = "";
@@ -141,13 +198,8 @@ export function HindiWordQuizPage() {
       </div>
       <div className="wq-settings">
         <div className="wq-setting-row">
-          <label htmlFor="wq-limit-mode">시간 제한</label>
-          <div className="wq-select">
-            <select id="wq-limit-mode" value={mode} onChange={event => setMode(event.target.value as LimitMode)}>
-              {limitModes.map(([key, label]) => <option key={key} value={key}>{label}</option>)}
-            </select>
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 6.5 3.5 3.5 3.5-3.5" /></svg>
-          </div>
+          <span id="wq-limit-label">시간 제한</span>
+          <LimitPicker value={mode} onChange={setMode} />
         </div>
         {mode !== "off" && <div className="wq-duration-row">
           <span>{mode === "each" ? "문항당" : "제한 시간"}</span>

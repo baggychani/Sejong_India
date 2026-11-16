@@ -151,11 +151,17 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
 .wq-settings, .wq-setup-actions { width: min(100%, 320px); }
 .wq-settings { padding-block: 10px; border-block: 1px solid var(--line); }
 .wq-setting-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding-left: 4px; }
-.wq-setting-row label { font-size: 14px; font-weight: 600; }
+.wq-setting-row > span { font-size: 14px; font-weight: 600; }
 .wq-select { position: relative; }
-.wq-select select { appearance: none; min-height: 42px; padding: 10px 35px 10px 15px; border: 1px solid transparent; border-radius: 9px; background: #f3f7f4; color: var(--accent); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s, border-color .15s; }
-.wq-select select:hover { background: #eaf3ee; border-color: #d5e4db; }
-.wq-select svg { position: absolute; top: 50%; right: 12px; width: 14px; height: 14px; transform: translateY(-50%); fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.wq-select-trigger { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 42px; padding: 10px 12px 10px 15px; border: 1px solid transparent; border-radius: 9px; background: #f3f7f4; color: var(--accent); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s, border-color .15s; }
+.wq-select-trigger:hover, .wq-select-trigger[aria-expanded=true] { background: #eaf3ee; border-color: #d5e4db; }
+.wq-select svg { flex: none; width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.wq-select-trigger[aria-expanded=true] > svg { transform: rotate(180deg); }
+.wq-select-menu { position: absolute; z-index: 5; top: calc(100% + 7px); right: 0; width: 156px; padding: 5px; border: 1px solid #dce7e0; border-radius: 14px; background: #fff; box-shadow: 0 10px 28px -8px rgb(25 65 49 / .2), 0 2px 6px rgb(25 65 49 / .04); }
+.wq-select-menu button { display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 40px; padding: 10px 12px; border: 0; border-radius: 9px; background: transparent; color: var(--ink); font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+.wq-select-menu button + button { margin-top: 3px; }
+.wq-select-menu button[aria-checked=true] { background: #eaf3ee; color: var(--accent); font-weight: 600; }
+.wq-select-menu button:hover, .wq-select-menu button:focus-visible { background: #f0f5f2; outline: none; box-shadow: inset 0 0 0 1px #cadfd2; }
 .wq-duration-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 0 0 4px; }
 .wq-duration-row > span { color: var(--muted); font-size: 13px; white-space: nowrap; }
 .wq-setup-actions { display: grid; gap: 12px; text-align: center; }
@@ -219,6 +225,7 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
 @keyframes wq-pulse { 50% { transform: scale(1.06); } }
 /* 남은 시간: 카드 윗변을 따라 오른쪽에서 줄어드는 선 */
 .word-card.wq-card { overflow: hidden; }
+.word-card.wq-setup { overflow: visible; }
 .wq-timer { position: absolute; inset: 0 0 auto; height: 5px; background: #eef1ef; }
 .wq-timer i { display: block; height: 100%; background: var(--accent); transform-origin: left; transition: transform .1s linear, background .3s; }
 .wq-timer i.is-low { background: #dd5a43; }
