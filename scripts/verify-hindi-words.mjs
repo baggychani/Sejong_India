@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { aksharaRoman, KEPT_FINAL_A, MARK_NOTES, readWord, SILENT_RULES } from "../src/learn/devanagari.ts";
 import { readablePage } from "./readable-html.mjs";
+import { hintBudget, makeWordQuiz, similarWords } from "../src/learn/wordQuiz.ts";
 
 export function verifyHindiWords(outDir) {
   const words = JSON.parse(readFileSync("data/content/hindi-words.json", "utf8"));
@@ -61,5 +62,26 @@ export function verifyHindiWords(outDir) {
   for (const rule of [...Object.values(SILENT_RULES), KEPT_FINAL_A, ...Object.values(MARK_NOTES)]) assert(page.includes(rule), `letter note missing from the reading path: ${rule}`);
   for (const verdict of judged) assert(page.includes(verdict), `letter verdict missing from the reading path: ${verdict}`);
   assert(readFileSync(join(outDir, "learn/hindi/index.html"), "utf8").includes('/learn/hindi/words"'), "Hindi page must link to the word study page");
+  // 단어 퀴즈: 문항 수만큼 겹치지 않게, 앞 절반은 뜻 고르기·뒤 절반은 낱말 고르기, 보기 넷은 서로 구별되어야 한다.
+  assert.deepEqual([5, 10, 25, 26, 50, 100].map(hintBudget), [5, 5, 5, 6, 10, 20], "hint budget: at least five, one per five questions rounded up");
+  const meaningOf = new Map(words.map(word => [word.id, word.meaning]));
+  let seed = 7;
+  const random = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+  for (const size of [5, 10, 37, words.length]) for (let round = 0; round < 40; round++) {
+    const quiz = makeWordQuiz(words, size, random);
+    assert.equal(quiz.length, size);
+    assert.equal(new Set(quiz.map(question => question.id)).size, size, "a word quiz must not repeat a word");
+    assert.deepEqual(quiz.map(question => question.kind), quiz.map((_, index) => index < Math.ceil(size / 2) ? "meaning" : "word"));
+    for (const question of quiz) {
+      assert(question.choices.includes(question.id) && new Set(question.choices).size === 4, `${question.id}: four distinct choices with the answer`);
+      assert.equal(new Set(question.choices.map(id => meaningOf.get(id))).size, 4, `${question.id}: choices must differ in meaning`);
+      for (const id of question.choices) assert(id === question.id || !similarWords(id, question.id), `${question.id}: near-synonym ${id} offered as a wrong choice`);
+    }
+  }
+  const retry = makeWordQuiz(words, 3, random, ["nam", "pani", "ghar"]);
+  assert.deepEqual(retry.map(question => question.id).sort(), ["ghar", "nam", "pani"], "retry asks only the missed words");
+  const hindi = readFileSync(join(outDir, "learn/hindi/index.html"), "utf8");
+  assert(hindi.includes('/learn/hindi/words/quiz"'), "Hindi page must link to the word quiz");
+  assert(readFileSync(join(outDir, "learn/hindi/words/quiz/index.html"), "utf8").includes("wq-setup"), "word quiz page must be prerendered with its setup screen");
   console.log(`PASS: ${words.length} Hindi words split into letters that rebuild the word and its romanization; study page linked and readable without JavaScript.`);
 }

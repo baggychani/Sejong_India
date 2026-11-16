@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
       const routes = [india, india + "/map", india + "/languages", india + "/religions", india + "/foods", india + "/festivals", india + "/history", ...catalog.map(l => india + "/languages/" + l.id),
         ...religionPages.map(religion => india + "/religions/" + religion.id)];
       routes.push(...textbooks.map(book => "/lessons/" + book.id), "/lessons/" + lessonPlanForm.slug);
-      routes.push(learningSection.path, "/learn/hindi/words");
+      routes.push(learningSection.path, "/learn/hindi/words", "/learn/hindi/words/quiz");
       for (const { id, path } of collections) {
         routes.push(path);
         for (const name of globSync(id === "study" ? "**/*.md" : "*.md", { cwd: "content/" + id })) {
