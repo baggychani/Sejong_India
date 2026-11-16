@@ -30,10 +30,24 @@ export function verifyHindiWords(outDir) {
   assert.deepEqual(rules("नाम", "nām"), ["final"]);
   assert.deepEqual(rules("लड़का", "laṛkā"), ["medial"]);
   assert.deepEqual(rules("नमस्ते", "namaste"), []);
+  // 아누스와라 판정: 뒤 파열음과 같은 자리의 콧소리 / 그 밖의 자음·단어 끝은 앞 모음을 콧소리로
+  const verdicts = (word, roman) => readWord(word, roman)[0].flatMap(akshara => akshara.parts.flatMap(part => part.verdict ? [part.verdict] : []));
+  assert.deepEqual(verdicts("मिलेंगे", "mileṃge"), ["뒤 C가 /g/ → /ŋ/"]);
+  assert.deepEqual(verdicts("हिंदी", "hiṃdī"), ["뒤 C가 /d/ → /n/"]);
+  assert.deepEqual(verdicts("लंबा", "laṃbā"), ["뒤 C가 /b/ → /m/"]);
+  assert.deepEqual(verdicts("ठंडा", "ṭhaṃḍā"), ["뒤 C가 /ɖ/ → /ɳ/"]);
+  assert.deepEqual(verdicts("पंजाब", "paṃjāb"), ["뒤 C가 /dʒ/ → /ɲ/"]);
+  assert.deepEqual(verdicts("संसार", "saṃsār"), ["뒤 C가 /s/ → 앞 V를 콧소리로"]);
+  assert.deepEqual(verdicts("नहीं", "nahīṃ"), ["단어 끝 → 앞 V를 콧소리로"]);
+  // 단어장의 아누스와라는 모두 판정이 나야 하고, 그 판정이 읽기 경로에도 있어야 한다.
+  const judged = words.flatMap(word => readWord(word.word, word.roman).flat().flatMap(akshara => akshara.parts
+    .filter(part => part.kind === "mark" && part.glyph.endsWith("ं"))
+    .map(part => { assert(part.verdict, `${word.id}: anusvara sound not judged`); return `${akshara.text}: ${part.verdict}`; })));
 
   const page = readablePage(readFileSync(join(outDir, "learn/hindi/words/index.html"), "utf8"), "https://example.org/");
   for (const word of words) for (const value of [word.word, word.roman, word.meaning]) assert(page.includes(value.normalize("NFC")) || page.includes(value), `${word.id}: ${value} missing from the reading path`);
   for (const rule of [...Object.values(SILENT_RULES), ...Object.values(MARK_NOTES)]) assert(page.includes(rule), `letter note missing from the reading path: ${rule}`);
+  for (const verdict of judged) assert(page.includes(verdict), `anusvara verdict missing from the reading path: ${verdict}`);
   assert(readFileSync(join(outDir, "learn/hindi/index.html"), "utf8").includes('/learn/hindi/words"'), "Hindi page must link to the word study page");
   console.log(`PASS: ${words.length} Hindi words split into letters that rebuild the word and its romanization; study page linked and readable without JavaScript.`);
 }

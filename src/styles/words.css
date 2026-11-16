@@ -102,7 +102,7 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
 }
 .unit-tip {
   position: absolute; bottom: calc(100% + 8px); left: 50%; z-index: 2; width: max-content; max-width: 220px; padding: 7px 10px;
-  border-radius: 8px; background: #26302d; color: #fff; font-size: 13px; font-weight: 500; line-height: 1.4; text-align: left;
+  border-radius: 8px; background: #26302d; color: #fff; font-size: 13px; font-weight: 500; line-height: 1.4; text-align: left; white-space: pre-line;
   transform: translateX(-50%); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .12s;
 }
 .unit-why:hover .unit-tip, .unit-why.is-open .unit-tip { opacity: 1; visibility: visible; }

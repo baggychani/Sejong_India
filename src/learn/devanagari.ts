@@ -6,7 +6,7 @@
  * sign: 자음에 붙는 모음 부호 · inherent: 부호가 없을 때 따라오는 기본 모음 a · mark: 비음·기음 부호
  */
 export type PartKind = "consonant" | "half" | "vowel" | "sign" | "inherent" | "mark";
-export type Part = { kind: PartKind; glyph: string; roman: string; silent?: boolean; rule?: SilentRule; note?: string };
+export type Part = { kind: PartKind; glyph: string; roman: string; silent?: boolean; rule?: SilentRule; note?: string; verdict?: string };
 
 /** 소리 나지 않는 기본 모음 a가 어느 규칙에 해당하는지. V는 모음, C는 자음. */
 export type SilentRule = "final" | "medial";
@@ -16,11 +16,13 @@ export const SILENT_RULES: Record<SilentRule, string> = {
 };
 /** 비음·기음 부호가 무엇인지. 쪼갠 화면의 ? 에서 보여 준다. */
 export const MARK_NOTES: Record<string, string> = {
-  "\u0902": "아누스와라. 뒤 자음과 같은 자리의 콧소리(n·m 등)를 낸다. 윗줄에 모음 부호가 있으면 찬드라빈두 대신 써서 모음을 콧소리로 낸다.",
+  "\u0902": "아누스와라. 뒤 C와 같은 자리에서 나는 콧소리다. 뒤 C가 없거나 파열음이 아니면 앞 V를 콧소리로 낸다.",
   "\u0901": "찬드라빈두. 모음을 콧소리로 낸다. 자음 소리는 더하지 않는다.",
   "\u0903": "비사르가. 모음 뒤에 숨을 가볍게 내쉬는 h 소리다.",
 };
 export type Akshara = { text: string; parts: Part[] };
+/** 부호 설명 다음 줄에 이 칸의 판정을 붙인다. 화면의 ? 에서 보여 준다. */
+export const partNote = (part: Part) => part.verdict ? `${part.note}\n이 단어: ${part.verdict}` : part.note;
 
 const VIRAMA = "्";
 const NUKTA = "़";
@@ -123,6 +125,37 @@ function classifySilent(aksharas: Akshara[]) {
   });
 }
 
+// 아누스와라 뒤 파열음·비음 → 그 자음의 소리와 같은 자리의 콧소리.
+// 표에 없는 자음(y r l v ś ṣ s h)과 단어 끝에서는 앞 모음을 콧소리로 낸다.
+const NASAL_PLACES: [string[], string][] = [
+  [["क/k", "ख/kʰ", "ग/g", "घ/gʱ", "ङ/ŋ"], "ŋ"],
+  [["च/tʃ", "छ/tʃʰ", "ज/dʒ", "झ/dʒʱ", "ञ/ɲ"], "ɲ"],
+  [["ट/ʈ", "ठ/ʈʰ", "ड/ɖ", "ढ/ɖʱ", "ण/ɳ"], "ɳ"],
+  [["त/t", "थ/tʰ", "द/d", "ध/dʱ", "न/n"], "n"],
+  [["प/p", "फ/pʰ", "ब/b", "भ/bʱ", "म/m"], "m"],
+];
+const STOP_NASAL = new Map(NASAL_PLACES.flatMap(([letters, nasal]) => letters.map(entry => {
+  const [letter, sound] = entry.split("/");
+  return [letter, { sound, nasal }] as const;
+})));
+const OTHER_SOUNDS: Record<string, string> = { य: "j", र: "r", ल: "l", व: "ʋ", श: "ʃ", ष: "ʂ", स: "s", ह: "ɦ" };
+const ANUSVARA = "ं";
+
+/** 아누스와라마다 뒤 글자를 보고 실제 소리를 정한다. 정할 수 없으면(점 찍은 글자 등) 비워 둔다. */
+function judgeAnusvara(aksharas: Akshara[]) {
+  aksharas.forEach((akshara, at) => {
+    const mark = akshara.parts.find(part => part.kind === "mark" && part.glyph.endsWith(ANUSVARA));
+    if (!mark) return;
+    const next = aksharas[at + 1]?.parts[0];
+    if (!next) { mark.verdict = "단어 끝 → 앞 V를 콧소리로"; return; }
+    if ((next.kind !== "consonant" && next.kind !== "half") || next.glyph.includes(NUKTA)) return;
+    const letter = Array.from(next.glyph)[0];
+    const stop = STOP_NASAL.get(letter);
+    if (stop) mark.verdict = `뒤 C가 /${stop.sound}/ → /${stop.nasal}/`;
+    else if (OTHER_SOUNDS[letter]) mark.verdict = `뒤 C가 /${OTHER_SOUNDS[letter]}/ → 앞 V를 콧소리로`;
+  });
+}
+
 /** 띄어 쓴 낱말마다 악샤라 목록을 돌려준다. */
 export function readWord(text: string, roman: string): Akshara[][] {
   const words = text.normalize("NFC").trim().split(/\s+/);
@@ -132,6 +165,7 @@ export function readWord(text: string, roman: string): Akshara[][] {
     const aksharas = parseWord(word);
     markSilent(aksharas, romans[index], word);
     classifySilent(aksharas);
+    judgeAnusvara(aksharas);
     return aksharas;
   });
 }

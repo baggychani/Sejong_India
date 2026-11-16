@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import words from "../../data/content/hindi-words.json";
-import { aksharaRoman, MARK_NOTES, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
+import { aksharaRoman, MARK_NOTES, partNote, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
 import { fadeIn, fadeOut, flyFrom, ghost, resize, slideIn, slideOut, spot, still, type Spot } from "../learn/morph";
 import { usePageTitle } from "../site/title";
 import { siteTitle } from "../site/sections";
@@ -15,7 +15,11 @@ const wordRules = (card: Card) => [...new Set(card.reading.flat().flatMap(akshar
   .flatMap(part => part.silent && part.rule ? [SILENT_RULES[part.rule]] : []))];
 
 /** ? 에 띄울 설명: 발음하지 않는 /a/의 규칙, 또는 비음 부호가 무엇인지. */
-const why = (part: Part) => part.silent && part.rule ? SILENT_RULES[part.rule] : part.note;
+const why = (part: Part) => part.silent && part.rule ? SILENT_RULES[part.rule] : partNote(part);
+
+/** 한 낱말의 부호 판정(아누스와라가 실제로 내는 소리). */
+const wordVerdicts = (card: Card) => card.reading.flat().flatMap(akshara => akshara.parts
+  .flatMap(part => part.verdict ? [`${akshara.text}: ${part.verdict}`] : []));
 
 const kindClass = (part: Part) => `k-${part.kind}${part.silent ? " is-silent" : ""}`;
 
@@ -211,7 +215,7 @@ export function HindiWordsPage() {
       <p>발음하지 않는 /a/의 규칙(V는 모음, C는 자음): {Object.values(SILENT_RULES).join(" ")}</p>
       <p>비음·기음 부호: {Object.values(MARK_NOTES).join(" ")}</p>
       <ul>{cards.map(card => <li key={card.id} id={`hindi-word-${card.id}`}>
-        <span lang="hi">{card.word}</span> · {card.roman} · {card.meaning} ({card.reading.map(word => word.map(akshara => `${akshara.text} ${aksharaRoman(akshara)}`).join(", ")).join(" / ")}){wordRules(card).map(rule => ` 묵음 /a/: ${rule}`).join("")}
+        <span lang="hi">{card.word}</span> · {card.roman} · {card.meaning} ({card.reading.map(word => word.map(akshara => `${akshara.text} ${aksharaRoman(akshara)}`).join(", ")).join(" / ")}){wordRules(card).map(rule => ` 묵음 /a/: ${rule}`).join("")}{wordVerdicts(card).map(verdict => ` 아누스와라 ${verdict}`).join("")}
       </li>)}</ul>
     </noscript>
   </article>;
