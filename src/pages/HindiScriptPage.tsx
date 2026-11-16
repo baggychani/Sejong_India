@@ -12,6 +12,8 @@ const { consonants, dotted, vowels, signs, marks, places } = LETTERS;
 
 type Item = { glyph: string; roman: string };
 const vowelItems: Item[] = Object.entries(vowels).map(([glyph, roman]) => ({ glyph, roman }));
+const vowelPairs = [["अ", "आ"], ["इ", "ई"], ["उ", "ऊ"]];
+const pairedVowels = new Set(vowelPairs.flat());
 // 자음표: 소리 내는 자리별 다섯 줄, 그리고 나머지 자음.
 const columns = ["무성음", "무성 유기음", "유성음", "유성 유기음", "비음"];
 const stopRows = places.map(([place, letters]) => ({ place, letters: Array.from(letters) }));
@@ -21,6 +23,9 @@ const consonantItems: Item[] = [...Object.entries(consonants).map(([glyph, roman
 const signItems = Object.entries(signs).map(([sign, roman]) => ({ sign, roman, vowel: Object.keys(vowels).find(vowel => vowels[vowel] === roman)! }));
 const markNames: Record<string, string> = { "ं": "아누스와라", "ँ": "찬드라빈두", "ः": "비사르가" };
 const markItems = Object.entries(marks).map(([mark, roman]) => ({ glyph: RING + mark, roman, name: markNames[mark] }));
+const otherMarks = [...markItems,
+  { glyph: RING + VIRAMA, name: "비라마", roman: "" },
+  { glyph: RING + NUKTA, name: "누크타", roman: "" }];
 // 자음끼리 붙여 쓰는 대표적인 모양.
 const conjuncts = [["क", "ष"], ["त", "र"], ["ज", "ञ"], ["श", "र"], ["स", "त"], ["न", "य"], ["च", "छ"], ["द", "य"], ["प", "र"]]
   .map(([first, second]) => ({ first, second, glyph: first + VIRAMA + second, roman: consonants[first] + consonants[second] }));
@@ -107,7 +112,7 @@ function Section({ id, title, count, note, make, children }: { id: string; title
   const [drilling, setDrilling] = useState(false);
   return <section className="sc-section" id={id} aria-labelledby={`${id}-title`}>
     <header className="sc-head">
-      <h2 id={`${id}-title`}>{title}{count !== undefined && <small>{count}</small>}</h2>
+      <h2 className="sc-sr-only" id={`${id}-title`}>{title}{count !== undefined && <small> {count}</small>}</h2>
       <button type="button" className="word-ghost sc-practice" aria-pressed={drilling} onClick={() => setDrilling(!drilling)}>연습</button>
     </header>
     {note && <p className="sc-note">{note}</p>}
@@ -143,15 +148,15 @@ function Builder() {
       <p className="sc-result-roman">{done ? <><span>{consonants[consonant]}</span><span className="is-vowel">{sign === VIRAMA ? "" : sign ? signs[sign] : "a"}</span></> : "\u00A0"}</p>
     </div>
     <div className="sc-picks is-signs" role="group" aria-label="모음 부호">
-      {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-pressed={ending.sign === sign} onClick={() => setSign(ending.sign)}>
-        <span lang="hi">{ending.label}</span><small>{ending.roman || "\u00A0"}</small>
+      {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-label={ending.roman ? `${ending.label} (${ending.roman})` : "비라마"} aria-pressed={ending.sign === sign} onClick={() => setSign(ending.sign)}>
+        <span lang="hi">{ending.label}</span>
       </button>)}
     </div>
   </div>;
 }
 
-// 네 부분은 한 번에 하나씩 본다. 탭의 글자는 그 부분의 대표 글자다.
-const tabs = [["vowels", "모음", "अ"], ["consonants", "자음", "क"], ["signs", "모음 부호", RING + "\u093E"], ["combine", "마트라", "की"]] as const;
+// 네 부분은 한 번에 하나씩 본다.
+const tabs = [["vowels", "모음"], ["consonants", "자음"], ["signs", "모음 부호"], ["combine", "마트라"]] as const;
 type TabId = typeof tabs[number][0];
 
 export function HindiScriptPage() {
@@ -159,7 +164,14 @@ export function HindiScriptPage() {
   const [active, setActive] = useState<TabId>("vowels");
   const parts: Record<TabId, ReactNode> = {
     vowels: <Section key="vowels" id="vowels" title="모음" count={vowelItems.length} make={fromList(vowelItems)}>
-      <div className="sc-tiles">{vowelItems.map(item => <Tile key={item.glyph} {...item} />)}</div>
+      <div className="sc-vowels">
+        <div className="sc-vowel-pairs">
+          {vowelPairs.map(pair => <div className="sc-vowel-pair" key={pair[0]} role="group" aria-label={`${vowels[pair[0]]} · ${vowels[pair[1]]}`}>
+            {pair.map(glyph => <Tile key={glyph} glyph={glyph} roman={vowels[glyph]} />)}
+          </div>)}
+        </div>
+        <div className="sc-vowel-rest">{vowelItems.filter(item => !pairedVowels.has(item.glyph)).map(item => <Tile key={item.glyph} {...item} />)}</div>
+      </div>
     </Section>,
 
     consonants: <Section key="consonants" id="consonants" title="자음" count={consonantItems.length} make={fromList(consonantItems.map(item => ({ glyph: item.glyph, roman: `${item.roman}a` })))}>
@@ -193,9 +205,9 @@ export function HindiScriptPage() {
       <div className="sc-group">
         <h3>그 밖의 부호</h3>
         <div className="sc-signs">
-          {markItems.map(item => <div className="sc-sign" key={item.glyph}><b lang="hi">{item.glyph}</b><span>{item.name}</span><em>{item.roman}</em></div>)}
-          <div className="sc-sign"><b lang="hi">{RING + VIRAMA}</b><span>비라마</span></div>
-          <div className="sc-sign"><b lang="hi">{RING + NUKTA}</b><span>누크타</span></div>
+          {otherMarks.map(item => <div className="sc-sign sc-mark" key={item.glyph}>
+            <b lang="hi">{item.glyph}</b><span>{item.name}</span><em>{item.roman}</em>
+          </div>)}
         </div>
       </div>
     </Section>,
@@ -217,8 +229,8 @@ export function HindiScriptPage() {
     <h1 className="script-title">데바나가리 익히기</h1>
     <div className="script-layout">
     <div className="script-tabs" role="tablist" aria-label="글자 종류">
-      {tabs.map(([id, title, glyph]) => <button type="button" role="tab" key={id} aria-selected={active === id} onClick={() => setActive(id)}>
-        <b lang="hi" aria-hidden="true">{glyph}</b><span>{title}</span>
+      {tabs.map(([id, title]) => <button type="button" role="tab" key={id} aria-selected={active === id} onClick={() => setActive(id)}>
+        <span>{title}</span>
       </button>)}
     </div>
     <div className="script-body">
