@@ -6,7 +6,14 @@
  * sign: 자음에 붙는 모음 부호 · inherent: 부호가 없을 때 따라오는 기본 모음 a · mark: 비음·기음 부호
  */
 export type PartKind = "consonant" | "half" | "vowel" | "sign" | "inherent" | "mark";
-export type Part = { kind: PartKind; glyph: string; roman: string; silent?: boolean };
+export type Part = { kind: PartKind; glyph: string; roman: string; silent?: boolean; rule?: SilentRule };
+
+/** 소리 나지 않는 기본 모음 a가 어느 규칙에 해당하는지. V는 모음, C는 자음. */
+export type SilentRule = "final" | "medial";
+export const SILENT_RULES: Record<SilentRule, string> = {
+  final: "단어 끝 C 뒤의 a는 발음하지 않는다.",
+  medial: "VCaCV에서 가운데 a는 발음하지 않는다.",
+};
 export type Akshara = { text: string; parts: Part[] };
 
 const VIRAMA = "्";
@@ -97,6 +104,19 @@ function markSilent(aksharas: Akshara[], target: string, word: string) {
   for (const index of silent) parts[index].silent = true;
 }
 
+/** 로마자에서 역산한 묵음 a에 규칙을 붙인다. 어느 규칙에도 맞지 않으면(예외) 비워 둔다. */
+function classifySilent(aksharas: Akshara[]) {
+  const voiced = (akshara?: Akshara) => akshara?.parts.some(part => ["vowel", "sign", "inherent"].includes(part.kind) && !part.silent);
+  aksharas.forEach((akshara, at) => {
+    const part = akshara.parts.find(item => item.kind === "inherent" && item.silent);
+    if (!part) return;
+    if (at === aksharas.length - 1) { part.rule = "final"; return; }
+    // VC a CV: 앞 음절에 소리 나는 모음, 이 음절은 자음 하나, 다음 음절은 자음 하나 + 소리 나는 모음.
+    const single = (item?: Akshara) => item?.parts.filter(p => p.kind === "consonant" || p.kind === "half").length === 1;
+    if (at > 0 && voiced(aksharas[at - 1]) && single(akshara) && single(aksharas[at + 1]) && voiced(aksharas[at + 1])) part.rule = "medial";
+  });
+}
+
 /** 띄어 쓴 낱말마다 악샤라 목록을 돌려준다. */
 export function readWord(text: string, roman: string): Akshara[][] {
   const words = text.normalize("NFC").trim().split(/\s+/);
@@ -105,6 +125,7 @@ export function readWord(text: string, roman: string): Akshara[][] {
   return words.map((word, index) => {
     const aksharas = parseWord(word);
     markSilent(aksharas, romans[index], word);
+    classifySilent(aksharas);
     return aksharas;
   });
 }

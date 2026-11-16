@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import words from "../../data/content/hindi-words.json";
-import { aksharaRoman, readWord, type Akshara, type Part } from "../learn/devanagari";
+import { aksharaRoman, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
 import { usePageTitle } from "../site/title";
 import { siteTitle } from "../site/sections";
 import "../styles/words.css";
@@ -19,6 +19,10 @@ function shuffled<T>(items: readonly T[]) {
   return result;
 }
 
+/** 한 낱말에 나온 묵음 a 규칙 문장들(중복 없이). */
+const wordRules = (card: Card) => [...new Set(card.reading.flat().flatMap(akshara => akshara.parts)
+  .flatMap(part => part.silent && part.rule ? [SILENT_RULES[part.rule]] : []))];
+
 const kindClass = (part: Part) => `k-${part.kind}${part.silent ? " is-silent" : ""}`;
 
 /** 소리 끈 스피커. 발음하지 않는 기본 모음 칸에 붙는다. */
@@ -30,14 +34,19 @@ const MuteIcon = () => <svg className="unit-mute" viewBox="0 0 20 20" aria-hidde
 /** 음절 덩어리 하나. 누르면 자음·모음 부호로 갈라진다. */
 function AksharaTile({ akshara }: { akshara: Akshara }) {
   const [open, setOpen] = useState(false);
+  const [tip, setTip] = useState(false);
   const single = akshara.parts.length === 1;
   return <button type="button" className={open ? "akshara is-open" : "akshara"} aria-expanded={single ? undefined : open}
     disabled={single} onClick={() => setOpen(!open)}>
     {open ? akshara.parts.map((part, index) => <span className={`unit ${kindClass(part)}`} key={index}>
       {part.silent
-        ? <span className="unit-glyph" aria-label="발음 안 함" role="img"><MuteIcon /></span>
+        ? <span className="unit-glyph" aria-label={part.rule ? `발음 안 함. ${SILENT_RULES[part.rule]}` : "발음 안 함"} role="img"><MuteIcon /></span>
         : <span className="unit-glyph" lang="hi">{part.glyph}</span>}
       <span className="unit-roman">{part.roman}</span>
+      {part.silent && part.rule && <span className={tip ? "unit-why is-open" : "unit-why"} aria-hidden="true"
+        onClick={event => { event.stopPropagation(); setTip(!tip); }}>
+        ?<span className="unit-tip">{SILENT_RULES[part.rule]}</span>
+      </span>}
     </span>) : <span className="unit">
       <span className="unit-glyph" lang="hi">{akshara.text}</span>
       <span className="unit-roman">
@@ -144,8 +153,9 @@ export function HindiWordsPage() {
     <noscript>
       <h1>힌디어 단어</h1>
       <p>로마자는 IAST 표기다. 글자에는 있지만 발음하지 않는 기본 모음 a는 로마자에 적지 않았다. 괄호 안은 음절 덩어리별 읽기다.</p>
+      <p>발음하지 않는 a의 규칙(V는 모음, C는 자음): {Object.values(SILENT_RULES).join(" ")}</p>
       <ul>{cards.map(card => <li key={card.id} id={`hindi-word-${card.id}`}>
-        <span lang="hi">{card.word}</span> · {card.roman} · {card.meaning} ({card.reading.map(word => word.map(akshara => `${akshara.text} ${aksharaRoman(akshara)}`).join(", ")).join(" / ")})
+        <span lang="hi">{card.word}</span> · {card.roman} · {card.meaning} ({card.reading.map(word => word.map(akshara => `${akshara.text} ${aksharaRoman(akshara)}`).join(", ")).join(" / ")}){wordRules(card).map(rule => ` 묵음 a: ${rule}`).join("")}
       </li>)}</ul>
     </noscript>
   </article>;

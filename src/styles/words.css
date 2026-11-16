@@ -58,6 +58,18 @@
 .unit.k-inherent.is-silent .unit-roman { color: #bcc3bf; font-weight: 500; }
 .unit-mute { width: .62em; height: .62em; }
 .unit-mute .mute-body { fill: #9aa39f; }
+/* 묵음 a 규칙: 모서리 ? 에 마우스를 올리거나 눌러서 본다. */
+.unit.is-silent { position: relative; }
+.unit-why {
+  position: absolute; top: -9px; right: -9px; display: grid; place-items: center; width: 18px; height: 18px;
+  border-radius: 50%; background: #6f7a75; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; cursor: help;
+}
+.unit-tip {
+  position: absolute; bottom: calc(100% + 8px); left: 50%; z-index: 2; width: max-content; max-width: 220px; padding: 7px 10px;
+  border-radius: 8px; background: #26302d; color: #fff; font-size: 13px; font-weight: 500; line-height: 1.4; text-align: left;
+  transform: translateX(-50%); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .12s;
+}
+.unit-why:hover .unit-tip, .unit-why.is-open .unit-tip { opacity: 1; visibility: visible; }
 .unit-mute .mute-x { fill: none; stroke: #c4553f; stroke-width: 2.2; stroke-linecap: round; }
 
 /* 뜻 보기 ↔ O·X 버튼이 바뀌어도 줄 높이가 같도록 버튼 높이를 맞춘다. */
