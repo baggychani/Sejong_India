@@ -187,3 +187,6 @@ export function readWord(text: string, roman: string): Akshara[][] {
 
 /** 소리 나는 대로의 로마자. 발음하지 않는 기본 모음은 뺀다. */
 export const aksharaRoman = (akshara: Akshara) => akshara.parts.filter(part => !part.silent).map(part => part.roman).join("");
+
+/** 글자표. 데바나가리 익히기 화면이 같은 표에서 글자와 로마자를 가져다 쓴다. */
+export const LETTERS = { consonants: CONSONANTS, dotted: DOTTED, vowels: VOWELS, signs: SIGNS, marks: MARKS, places: NASAL_PLACES };

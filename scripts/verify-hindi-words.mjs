@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { aksharaRoman, KEPT_FINAL_A, MARK_NOTES, readWord, SILENT_RULES } from "../src/learn/devanagari.ts";
+import { aksharaRoman, KEPT_FINAL_A, LETTERS, MARK_NOTES, readWord, SILENT_RULES } from "../src/learn/devanagari.ts";
 import { readablePage } from "./readable-html.mjs";
 import { hintBudget, makeWordQuiz, similarWords } from "../src/learn/wordQuiz.ts";
 
@@ -83,5 +83,13 @@ export function verifyHindiWords(outDir) {
   const hindi = readFileSync(join(outDir, "learn/hindi/index.html"), "utf8");
   assert(hindi.includes('/learn/hindi/words/quiz"'), "Hindi page must link to the word quiz");
   assert(readFileSync(join(outDir, "learn/hindi/words/quiz/index.html"), "utf8").includes("wq-setup"), "word quiz page must be prerendered with its setup screen");
+  // 데바나가리 익히기: 글자표의 모든 글자와 로마자가 연습을 시작하지 않아도 글로 읽혀야 한다.
+  const script = readablePage(readFileSync(join(outDir, "learn/hindi/script/index.html"), "utf8"), "https://example.org/");
+  for (const [glyph, roman] of [...Object.entries(LETTERS.vowels), ...Object.entries(LETTERS.consonants)]) {
+    assert(script.includes(glyph) && script.includes(roman), `script page is missing ${glyph} ${roman}`);
+  }
+  for (const sign of Object.keys(LETTERS.signs)) assert(script.includes("क" + sign), `script page is missing the sign on क: ${sign}`);
+  assert(hindi.includes('/learn/hindi/script"'), "Hindi page must link to the script page");
+  assert(hindi.indexOf('/learn/hindi/script"') < hindi.indexOf('/learn/hindi/words"'), "script practice comes before the word deck");
   console.log(`PASS: ${words.length} Hindi words split into letters that rebuild the word and its romanization; study page linked and readable without JavaScript.`);
 }

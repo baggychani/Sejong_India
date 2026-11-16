@@ -1,0 +1,215 @@
+import { useEffect, useState, type ReactNode } from "react";
+import { Link } from "react-router";
+import { LETTERS } from "../learn/devanagari";
+import { usePageTitle } from "../site/title";
+import { siteTitle } from "../site/sections";
+import "../styles/script.css";
+
+const VIRAMA = "्";
+const NUKTA = "़";
+const RING = "◌";
+const { consonants, dotted, vowels, signs, marks, places } = LETTERS;
+
+type Item = { glyph: string; roman: string };
+const vowelItems: Item[] = Object.entries(vowels).map(([glyph, roman]) => ({ glyph, roman }));
+// 자음표: 소리 내는 자리별 다섯 줄, 그리고 나머지 자음.
+const columns = ["무성음", "무성 유기음", "유성음", "유성 유기음", "비음"];
+const stopRows = places.map(([place, letters]) => ({ place, letters: Array.from(letters) }));
+const otherRows = [{ place: "반모음·유음", letters: ["य", "र", "ल", "व"] }, { place: "마찰음", letters: ["श", "ष", "स", "ह"] }];
+const dottedItems: Item[] = Object.entries(dotted).map(([base, roman]) => ({ glyph: base + NUKTA, roman }));
+const consonantItems: Item[] = [...Object.entries(consonants).map(([glyph, roman]) => ({ glyph, roman })), ...dottedItems];
+const signItems = Object.entries(signs).map(([sign, roman]) => ({ sign, roman, vowel: Object.keys(vowels).find(vowel => vowels[vowel] === roman)! }));
+const markNames: Record<string, string> = { "ं": "아누스와라", "ँ": "찬드라빈두", "ः": "비사르가" };
+const markItems = Object.entries(marks).map(([mark, roman]) => ({ glyph: RING + mark, roman, name: markNames[mark] }));
+// 자음끼리 붙여 쓰는 대표적인 모양.
+const conjuncts = [["क", "ष"], ["त", "र"], ["ज", "ञ"], ["श", "र"], ["स", "त"], ["न", "य"], ["च", "छ"], ["द", "य"], ["प", "र"]]
+  .map(([first, second]) => ({ first, second, glyph: first + VIRAMA + second, roman: consonants[first] + consonants[second] }));
+
+const syllable = (consonant: string, sign: string) => consonant + sign;
+const syllableRoman = (consonant: string, sign: string) => consonants[consonant] + (sign === VIRAMA ? "" : sign ? signs[sign] : "a");
+
+/* ───────── 연습 ───────── */
+
+type Question = { glyph: string; answer: string; choices: string[] };
+type Maker = (previous?: string) => Question;
+const pickOne = <T,>(items: readonly T[]) => items[Math.floor(Math.random() * items.length)];
+function shuffled<T>(items: readonly T[]) {
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+/** 글자를 보고 로마자를 고르는 문제. 오답은 같은 묶음의 다른 글자에서 온다. */
+const fromList = (items: Item[]): Maker => previous => {
+  const target = pickOne(items.filter(item => item.glyph !== previous));
+  const wrong = shuffled([...new Set(items.map(item => item.roman))].filter(roman => roman !== target.roman)).slice(0, 3);
+  return { glyph: target.glyph, answer: target.roman, choices: shuffled([target.roman, ...wrong]) };
+};
+/** 자음에 모음 부호를 붙인 글자. 오답은 자음만, 또는 모음만 다른 것으로 낸다. */
+const combined: Maker = previous => {
+  const letters = Object.keys(consonants);
+  const endings = ["", ...Object.keys(signs)];
+  let consonant = pickOne(letters);
+  let sign = pickOne(endings);
+  while (syllable(consonant, sign) === previous) { consonant = pickOne(letters); sign = pickOne(endings); }
+  const answer = syllableRoman(consonant, sign);
+  const wrong = new Set<string>();
+  while (wrong.size < 3) {
+    const other = wrong.size < 2 ? syllableRoman(consonant, pickOne(endings)) : syllableRoman(pickOne(letters), sign);
+    if (other !== answer) wrong.add(other);
+  }
+  return { glyph: syllable(consonant, sign), answer, choices: shuffled([answer, ...wrong]) };
+};
+
+function Drill({ make, onClose }: { make: Maker; onClose: () => void }) {
+  const [question, setQuestion] = useState(() => make());
+  const [picked, setPicked] = useState<string>();
+  const [tally, setTally] = useState({ right: 0, total: 0 });
+  const pick = (choice: string) => {
+    if (picked !== undefined) return;
+    setPicked(choice);
+    setTally({ right: tally.right + (choice === question.answer ? 1 : 0), total: tally.total + 1 });
+  };
+  useEffect(() => {
+    if (picked !== undefined) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      const choice = question.choices[Number(event.key) - 1];
+      if (choice) pick(choice);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
+  return <div className="sc-drill">
+    <div className="sc-drill-head">
+      <span className="words-count"><strong>{tally.right}</strong> / {tally.total}</span>
+      <button type="button" className="words-list-toggle" aria-label="연습 끝내기" title="연습 끝내기" onClick={onClose}>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" /></svg>
+      </button>
+    </div>
+    <p className="sc-drill-glyph" lang="hi">{question.glyph}</p>
+    <div className="sc-drill-choices">
+      {question.choices.map(choice => <button type="button" key={choice} disabled={picked !== undefined} onClick={() => pick(choice)}
+        className={picked === undefined ? undefined : choice === question.answer ? "is-correct" : choice === picked ? "is-wrong" : undefined}>{choice}</button>)}
+    </div>
+    <div className="word-actions">
+      {picked !== undefined && <button type="button" className="word-primary" autoFocus
+        onClick={() => { setQuestion(make(question.glyph)); setPicked(undefined); }}>다음</button>}
+    </div>
+  </div>;
+}
+
+/* ───────── 화면 ───────── */
+
+function Section({ id, title, count, note, make, children }: { id: string; title: string; count?: number; note: ReactNode; make: Maker; children: ReactNode }) {
+  const [drilling, setDrilling] = useState(false);
+  return <section className="sc-section" id={id} aria-labelledby={`${id}-title`}>
+    <header className="sc-head">
+      <h2 id={`${id}-title`}>{title}{count !== undefined && <small>{count}</small>}</h2>
+      <button type="button" className="word-ghost sc-practice" aria-pressed={drilling} onClick={() => setDrilling(!drilling)}>연습</button>
+    </header>
+    <p className="sc-note">{note}</p>
+    {drilling ? <Drill make={make} onClose={() => setDrilling(false)} /> : children}
+  </section>;
+}
+
+/** 글자 한 칸. 자음은 기본 모음 a를 옅게 붙여 보여 준다. */
+function Tile({ glyph, roman, inherent }: { glyph: string; roman: string; inherent?: boolean }) {
+  return <span className={inherent ? "sc-tile is-consonant" : "sc-tile"}><b lang="hi">{glyph}</b><i>{roman}{inherent && <em>a</em>}</i></span>;
+}
+
+/** 자음 하나와 모음 부호 하나를 골라 붙여 본다. */
+function Builder() {
+  const [consonant, setConsonant] = useState("क");
+  const [sign, setSign] = useState("ा");
+  const endings = [{ sign: "", label: RING, roman: "a" }, ...Object.entries(signs).map(([key, roman]) => ({ sign: key, label: RING + key, roman })),
+    { sign: VIRAMA, label: RING + VIRAMA, roman: "" }];
+  const vowel = sign === VIRAMA ? "" : sign ? signs[sign] : "a";
+  return <div className="sc-builder">
+    <div className="sc-result" aria-live="polite">
+      <p className="sc-result-glyph" lang="hi">{syllable(consonant, sign)}</p>
+      <p className="sc-formula"><b lang="hi">{consonant}</b>+<b lang="hi">{sign ? RING + sign : RING}</b></p>
+      <p className="sc-result-roman"><span>{consonants[consonant]}</span><span className="is-vowel">{vowel}</span></p>
+    </div>
+    <div className="sc-picks" role="group" aria-label="자음">
+      {Object.keys(consonants).map(letter => <button type="button" key={letter} lang="hi" aria-pressed={letter === consonant} onClick={() => setConsonant(letter)}>{letter}</button>)}
+    </div>
+    <div className="sc-picks is-signs" role="group" aria-label="모음 부호">
+      {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-pressed={ending.sign === sign} onClick={() => setSign(ending.sign)}>
+        <span lang="hi">{ending.label}</span><small>{ending.sign === VIRAMA ? "없음" : ending.roman}</small>
+      </button>)}
+    </div>
+  </div>;
+}
+
+const sections = [["vowels", "모음"], ["consonants", "자음"], ["signs", "모음 부호"], ["combine", "합치기"]] as const;
+
+export function HindiScriptPage() {
+  usePageTitle(`데바나가리 익히기 · 힌디어 · ${siteTitle}`);
+  return <article className="script-page">
+    <header className="words-head"><Link className="words-back" to="/learn/hindi">← 힌디어</Link></header>
+    <h1 className="script-title">데바나가리 익히기</h1>
+    <nav className="script-nav" aria-label="글자 종류">
+      {sections.map(([id, title]) => <a key={id} href={`#${id}`}>{title}</a>)}
+    </nav>
+
+    <Section id="vowels" title="모음" count={vowelItems.length} make={fromList(vowelItems)}
+      note="낱말의 첫머리나 다른 모음 뒤에서는 모음을 이 글자로 쓴다. 로마자 위의 줄(ā, ī, ū)은 길게 내는 소리다.">
+      <div className="sc-tiles">{vowelItems.map(item => <Tile key={item.glyph} {...item} />)}</div>
+    </Section>
+
+    <Section id="consonants" title="자음" count={consonantItems.length} make={fromList(consonantItems.map(item => ({ glyph: item.glyph, roman: `${item.roman}a` })))}
+      note="자음 글자에는 기본 모음 a가 들어 있다. क는 k가 아니라 ka다. 유기음은 숨을 세게 내쉬며 내는 소리로, 로마자에서는 h를 붙여 적는다.">
+      <div className="sc-grid">
+        <div className="sc-row sc-cols" aria-hidden="true"><span className="sc-place" />{columns.map(column => <span key={column}>{column}</span>)}</div>
+        {stopRows.map(row => <div className="sc-row" key={row.place}>
+          <span className="sc-place">{row.place}</span>
+          {row.letters.map(letter => <Tile key={letter} glyph={letter} roman={consonants[letter]} inherent />)}
+        </div>)}
+      </div>
+      {otherRows.map(row => <div className="sc-group" key={row.place}>
+        <h3>{row.place}</h3>
+        <div className="sc-tiles">{row.letters.map(letter => <Tile key={letter} glyph={letter} roman={consonants[letter]} inherent />)}</div>
+      </div>)}
+      <div className="sc-group">
+        <h3>점을 찍어 만든 글자</h3>
+        <div className="sc-tiles">{dottedItems.map(item => <Tile key={item.glyph} glyph={item.glyph} roman={item.roman} inherent />)}</div>
+      </div>
+    </Section>
+
+    <Section id="signs" title="모음 부호" count={signItems.length} make={fromList([...signItems.map(item => ({ glyph: RING + item.sign, roman: item.roman })), ...markItems])}
+      note="자음 뒤에 오는 모음은 글자 대신 부호로 자음에 붙인다. 부호가 없으면 기본 모음 a다. ◌는 자음이 놓이는 자리다.">
+      <div className="sc-signs">
+        <div className="sc-sign"><b lang="hi">क</b><span><i lang="hi">अ</i>부호 없음</span><em>ka</em></div>
+        {signItems.map(item => <div className="sc-sign" key={item.sign}>
+          <b lang="hi">{syllable("क", item.sign)}</b>
+          <span><i lang="hi">{item.vowel}</i><i lang="hi">{RING + item.sign}</i></span>
+          <em>k{item.roman}</em>
+        </div>)}
+      </div>
+      <div className="sc-group">
+        <h3>그 밖의 부호</h3>
+        <div className="sc-signs">
+          {markItems.map(item => <div className="sc-sign" key={item.glyph}><b lang="hi">{item.glyph}</b><span>{item.name}</span><em>{item.roman}</em></div>)}
+          <div className="sc-sign"><b lang="hi">{RING + VIRAMA}</b><span>비라마</span><em>모음 없음</em></div>
+          <div className="sc-sign"><b lang="hi">{RING + NUKTA}</b><span>누크타</span><em>소리를 바꾸는 점</em></div>
+        </div>
+      </div>
+    </Section>
+
+    <Section id="combine" title="합치기" make={combined}
+      note="자음 하나와 모음 부호 하나를 골라 붙여 본다. 자음끼리 붙일 때는 앞 자음의 모음을 떼고(비라마) 뒤 자음에 이어 쓴다.">
+      <Builder />
+      <div className="sc-group">
+        <h3>자음끼리 합치기</h3>
+        <div className="sc-signs">
+          {conjuncts.map(item => <div className="sc-sign" key={item.glyph}>
+            <b lang="hi">{item.glyph}</b><span><i lang="hi">{item.first + VIRAMA}</i><i lang="hi">{item.second}</i></span><em>{item.roman}a</em>
+          </div>)}
+        </div>
+      </div>
+    </Section>
+  </article>;
+}

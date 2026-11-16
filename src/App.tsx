@@ -10,6 +10,7 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { FoodPage } from "./pages/FoodPage";
 import { HindiWordsPage } from "./pages/HindiWordsPage";
 import { HindiWordQuizPage } from "./pages/HindiWordQuizPage";
+import { HindiScriptPage } from "./pages/HindiScriptPage";
 import { FestivalPage } from "./pages/FestivalPage";
 import { HistoryPage } from "./pages/HistoryPage";
 import { LearningPage, LearningSection } from "./pages/LearningPage";
@@ -55,6 +56,7 @@ export function App({ pages = browserPages }: { pages?: PageComponents } = {}) {
         <Route path="/" element={<HomePage />} />
         <Route path="/learn" element={<LearningSection />}>
           <Route index element={<LearningPage />} />
+          <Route path="hindi/script" element={<HindiScriptPage />} />
           <Route path="hindi/words" element={<HindiWordsPage />} />
           <Route path="hindi/words/quiz" element={<HindiWordQuizPage />} />
           {learningCollections.map(collection => <Route key={collection.id}>
