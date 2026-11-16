@@ -54,6 +54,8 @@ export function verifyReligionContent(outDir) {
   assert(html.split("</head>")[0].includes("ReligionPage-"), "religion page CSS must load before hydration");
   assert(html.includes('href="/Sejong_India/bharat/religions"'), "missing internal religion menu link");
   assert(html.includes('href="/Sejong_India/bharat/foods"'), "missing internal food menu link");
+  assert(html.includes('href="/Sejong_India/bharat/festivals"'), "missing internal festival menu link");
+  assert(html.includes('href="/Sejong_India/bharat/history"'), "missing internal history menu link");
   const rendered = nodes(parse(html, { scriptingEnabled: true }));
   assert(!rendered.some(node => attr(node, "id") === "religion-reference"), "full reference must remain inside noscript");
 
