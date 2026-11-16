@@ -115,7 +115,7 @@ function Section({ id, title, count, note, make, children }: { id: string; title
       <h2 className="sc-sr-only" id={`${id}-title`}>{title}{count !== undefined && <small> {count}</small>}</h2>
       <button type="button" className="word-ghost sc-practice" aria-pressed={drilling} onClick={() => setDrilling(!drilling)}>연습</button>
     </header>
-    {note && <p className="sc-note">{note}</p>}
+    {note && <noscript><p>{note}</p></noscript>}
     {drilling ? <Drill make={make} onClose={() => setDrilling(false)} /> : children}
   </section>;
 }
@@ -136,7 +136,7 @@ function Builder() {
   return <div className="sc-builder">
     <div className="sc-picks is-consonants" role="group" aria-label="자음">
       {[...stopRows, ...otherRows].map(row => <div className="sc-pick-row" key={row.place}>
-        {row.letters.map(letter => <button type="button" key={letter} lang="hi" aria-pressed={letter === consonant} onClick={() => setConsonant(letter)}>{letter}</button>)}
+        {row.letters.map(letter => <button type="button" key={letter} lang="hi" aria-pressed={letter === consonant} onClick={() => setConsonant(current => current === letter ? null : letter)}>{letter}</button>)}
       </div>)}
     </div>
     <div className="sc-result" aria-live="polite">
@@ -148,7 +148,7 @@ function Builder() {
       <p className="sc-result-roman">{done ? <><span>{consonants[consonant]}</span><span className="is-vowel">{sign === VIRAMA ? "" : sign ? signs[sign] : "a"}</span></> : "\u00A0"}</p>
     </div>
     <div className="sc-picks is-signs" role="group" aria-label="모음 부호">
-      {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-label={ending.roman ? `${ending.label} (${ending.roman})` : "비라마"} aria-pressed={ending.sign === sign} onClick={() => setSign(ending.sign)}>
+      {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-label={ending.roman ? `${ending.label} (${ending.roman})` : "비라마"} aria-pressed={ending.sign === sign} onClick={() => setSign(current => current === ending.sign ? null : ending.sign)}>
         <span lang="hi">{ending.label}</span>
       </button>)}
     </div>
