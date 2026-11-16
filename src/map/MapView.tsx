@@ -354,10 +354,10 @@ export function MapView({
           <button
             className="state-selection"
             type="button"
-            aria-pressed={selectingStates}
+            aria-pressed={!selectingStates}
             onClick={onToggleStateSelection}
           >
-            <span>{selectingStates ? "주 선택 해제" : "주 선택"}</span>
+            <span>주 선택 해제</span>
           </button>
         </div>}
         {!quiz && <div className="map-zoom">
