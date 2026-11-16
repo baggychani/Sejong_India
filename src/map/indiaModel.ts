@@ -223,11 +223,7 @@ const adminDetails: DetailRecord[] = admin.features.flatMap((feature) => {
 });
 
 function capitalKorean(value: string) {
-  return value.split(" · ").map(part => {
-    const [korean, rest] = part.split(" / ");
-    const mark = rest?.match(/[☀️❄️]/)?.[0];
-    return mark ? `${korean} ${mark}` : korean;
-  }).join(" · ");
+  return value.split(" · ").map(part => part.split(" / ")[0].replace(/[☀️❄️]/g, "").trim()).join(" · ");
 }
 
 export type RegionRow = { id: string; title: string; capital: string };
