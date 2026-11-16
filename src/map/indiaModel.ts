@@ -211,7 +211,7 @@ const adminDetails: DetailRecord[] = admin.features.flatMap((feature) => {
       id,
       eyebrow: kind,
       title: ko,
-      subtitle: [en, hi, content.names?.ta, content.names?.ml].filter(Boolean).join(" · "),
+      subtitle: [en, hi, content.names?.ta, content.names?.ml, content.names?.kn].filter(Boolean).join(" · "),
       description: content.description,
       facts: [
         { label: kind === "주" ? "주도" : "행정 중심지", value: content.capital, note: content.capitalNote },

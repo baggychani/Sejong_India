@@ -11,7 +11,7 @@ import { readablePage } from "./readable-html.mjs";
 // the record's actual HTML and Markdown; technical exemptions need a reason.
 const publicValue = (format = value => value == null ? "" : String(value)) => ({ kind: "public", format });
 const technical = reason => ({ kind: "technical", reason });
-const name = { ko: publicValue(), en: publicValue(), hi: publicValue(), ta: publicValue(), ml: publicValue() };
+const name = { ko: publicValue(), en: publicValue(), hi: publicValue(), ta: publicValue(), ml: publicValue(), kn: publicValue() };
 const identity = technical("레코드와 URL을 연결하는 내부 식별자다.");
 const layout = technical("지도 라벨의 위치·정렬·연결선 배치 설정이다.");
 const coordinates = technical("지도 도형과 점을 그리기 위한 좌표다.");
