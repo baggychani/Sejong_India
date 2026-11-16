@@ -14,6 +14,7 @@ export const hintBudget = (questions: number) => Math.max(5, Math.ceil(questions
 const ALIKE = [
   ["namaste", "namaskar"], ["dhanyavad", "shukriya"], ["han", "ji"], ["thik-hai", "koi-bat-nahin", "accha"],
   ["alvida", "phir-milenge"], ["tu", "tum", "ap"], ["sikhana", "parhana"], ["parhna", "sikhna"],
+  ["lekin", "par", "magar"], ["phir", "tab", "to"], ["admi", "larka"], ["aurat", "larki"],
 ];
 const alike = (a: string, b: string) => ALIKE.some(group => group.includes(a) && group.includes(b));
 
