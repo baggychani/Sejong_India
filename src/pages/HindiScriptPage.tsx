@@ -145,7 +145,7 @@ function Builder() {
   const done = consonant !== null && sign !== null;
   return <div className="sc-builder">
     <div className="sc-picks is-consonants" role="group" aria-label="자음">
-      {[...stopRows, ...otherRows].map(row => <div className="sc-pick-row" key={row.place}>
+      {[...stopRows, ...otherRows].map((row, index) => <div className={index === stopRows.length ? "sc-pick-row is-gap" : "sc-pick-row"} key={row.place}>
         {row.letters.map(letter => <button type="button" key={letter} lang="hi" aria-pressed={letter === consonant} onClick={() => setConsonant(current => current === letter ? null : letter)}>{letter}</button>)}
       </div>)}
     </div>
@@ -155,7 +155,11 @@ function Builder() {
         <b className={consonant === null ? "is-empty" : undefined} lang="hi">{consonant ?? "\u00A0"}</b>+
         <b className={sign === null ? "is-empty" : undefined} lang="hi">{sign === null ? "\u00A0" : sign ? RING + sign : RING}</b>
       </p>
-      <p className="sc-result-roman">{done ? <><span>{consonants[consonant]}</span><span className="is-vowel">{sign === VIRAMA ? "" : sign ? signs[sign] : "a"}</span></> : "\u00A0"}</p>
+      {/* \uC790\uC74C\uB9CC \uACE0\uB974\uBA74 \uD560\uB780\uD2B8\uCC98\uB7FC \uC790\uC74C \uC18C\uB9AC(k)\uB9CC \uC801\uB294\uB2E4. */}
+      <p className="sc-result-roman">{consonant !== null || sign !== null ? <>
+        <span>{consonant === null ? "" : consonants[consonant]}</span>
+        <span className="is-vowel">{sign === null || sign === VIRAMA ? "" : sign ? signs[sign] : "a"}</span>
+      </> : "\u00A0"}</p>
     </div>
     <div className="sc-picks is-signs" role="group" aria-label="모음 부호">
       {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-label={ending.roman ? `${ending.label} (${ending.roman})` : "할란트(비라마)"} aria-pressed={ending.sign === sign} onClick={() => setSign(current => current === ending.sign ? null : ending.sign)}>
@@ -215,11 +219,11 @@ export function HindiScriptPage() {
     signs: <Section key="signs" id="signs" title="모음 부호" count={signItems.length} make={fromList([...signItems.map(item => ({ glyph: RING + item.sign, roman: item.roman })), ...markItems])}
       note="자음 뒤에 오는 모음은 글자 대신 부호로 자음에 붙인다. 부호가 없으면 기본 모음 a다. ◌는 자음이 놓이는 자리다.">
       <div className="sc-signs">
-        <div className="sc-sign"><b lang="hi">क</b><span><i lang="hi">अ</i>부호 없음</span><em>ka</em></div>
+        <div className="sc-sign"><b lang="hi">क</b><span><i lang="hi">अ</i>부호 없음</span><em>k<span className="is-vowel">a</span></em></div>
         {signItems.map(item => <div className="sc-sign" key={item.sign}>
           <b lang="hi">{syllable("क", item.sign)}</b>
           <span><i lang="hi">{item.vowel}</i><i lang="hi">{RING + item.sign}</i></span>
-          <em>k{item.roman}</em>
+          <em>k<span className="is-vowel">{item.roman}</span></em>
         </div>)}
       </div>
       <div className="sc-group">

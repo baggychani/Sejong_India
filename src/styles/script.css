@@ -62,6 +62,9 @@
 .sc-sign span i { font-style: normal; font-size: 19px; line-height: 1.5; color: #7f8a86; }
 .sc-sign span i + i::before { content: "+"; margin-right: 8px; font-family: inherit; font-size: 12px; color: #b3bcb8; }
 .sc-sign em { font-style: normal; font-size: 15px; font-weight: 650; color: #b4531a; }
+/* 모음 부호 칸: 자음은 진하게, 모음 소리만 주황으로 구별하고 조금 띄운다. */
+.sc-sign:not(.sc-mark) > em:has(.is-vowel) { margin-top: 6px; color: var(--ink); }
+.sc-sign em .is-vowel { color: #b4531a; }
 /* 겹자음: 두 자음을 각각 상자에 담고, 로마자는 자음 칸처럼 자음은 진하게·a는 옅게. */
 .sc-conjuncts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 12px; }
 .sc-conjunct { display: grid; justify-items: center; gap: 14px; padding: 16px 12px 18px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
@@ -93,6 +96,7 @@
 /* 자음은 자음표의 줄 그대로 왼쪽에 세운다. */
 .sc-picks.is-consonants { grid-area: consonants; display: grid; gap: 5px; padding: 0 24px 0 0; border-top: 0; border-right: 1px solid var(--line); }
 .sc-pick-row { display: grid; grid-template-columns: repeat(5, 44px); gap: 5px; }
+.sc-pick-row.is-gap { margin-top: 12px; }
 .sc-picks.is-signs button { height: 52px; min-width: 0; align-content: center; }
 .sc-picks button:hover { border-color: #a9bdb4; }
 .sc-picks button[aria-pressed=true] { border-color: var(--accent); background: #e8f3ec; color: var(--accent); }
