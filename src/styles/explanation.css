@@ -23,5 +23,6 @@
 .explanation-application { margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: #f3f7f4; }
 .explanation-examples { display: grid; gap: 8px; margin: 18px 0 0; padding: 14px 0 0; list-style: none; border-top: 1px solid #e4ebe6; }
 .explanation-examples li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.explanation-panel .explanation-examples .explanation-example-note { flex-basis: 100%; margin: 0 0 8px; color: #52665a; font-size: 14px; line-height: 24px; }
 .explanation-examples [lang=hi] { font-family: "Nirmala UI", "Noto Sans Devanagari", sans-serif; font-size: 26px; line-height: 1.5; }
 .explanation-examples i { color: #a74c18; font-size: 16px; font-style: normal; line-height: 26px; }

@@ -47,7 +47,7 @@ const jsonContracts = {
     id: identity, word: publicValue(), roman: publicValue(), meaning: publicValue() } },
   "hindi-letter-notes": { targets: row => [["learn/hindi/script", `hindi-letter-note-${row.id}`]], schema: {
     id: identity, glyph: publicValue(), roman: publicValue(), title: publicValue(), paragraphs: [publicValue()],
-    examples: [{ word: publicValue(), roman: publicValue(), meaning: publicValue() }],
+    examples: [{ word: publicValue(), roman: publicValue(), meaning: publicValue(), pronunciationNote: publicValue() }],
     sources: [{ title: publicValue(), url: publicValue() }] } },
   "language-goals": { targets: row => [[`bharat/languages/${row.id}`, `language-goal-${row.id}`]], schema: {
     id: identity, text: publicValue(), romanization: publicValue(), variant: publicValue() } },

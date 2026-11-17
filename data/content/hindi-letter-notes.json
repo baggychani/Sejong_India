@@ -31,5 +31,27 @@
       { "title": "A Practical Guide to Hindi Script · 마찰음", "url": "https://iu.pressbooks.pub/hindiscript/chapter/9-1-discussion/" },
       { "title": "University of Texas at Austin · 힌디어 문자", "url": "https://hindi.la.utexas.edu/resources/the-hindi-script/" }
     ]
+  },
+  {
+    "id": "va",
+    "glyph": "व",
+    "title": "व · v",
+    "roman": "v",
+    "paragraphs": [
+      "기본음은 윗니와 아랫입술을 가볍게 가까이해 내는 순치 접근음 [ʋ]이다. 영어의 v처럼 강한 마찰을 만들지 않아, 영어 v와 w 사이에 가까운 소리로 들린다.",
+      "[v]와 [w]는 영어에서는 서로 다른 음소지만, 힌디어에서는 같은 음소 /ʋ/가 다르게 실현된 변이음(allophone)이다. 소리가 달라져도 철자는 व로, 이 사이트의 로마자 전사는 v로 적는다.",
+      "어두에서는 [ʋ]나 [v]에 가깝게, 자음군에서 다른 자음과 모음 사이에 놓이면 [w]에 가깝게 발음하는 경향이 있다. 다만 화자와 단어에 따라 차이가 있어, 앞뒤 모음의 종류만으로 발음이 정해지는 규칙은 아니다.",
+      "아래 대괄호는 단어 전체가 아닌 व 부분의 소리만 나타낸다."
+    ],
+    "examples": [
+      { "word": "व्रत", "roman": "vrat", "meaning": "서약·단식", "pronunciationNote": "व → [v]. 어두의 vr-에서 v에 가까운 소리가 나는 예다." },
+      { "word": "पकवान", "roman": "pakvān", "meaning": "요리", "pronunciationNote": "व → [w]. k와 ā 사이에서 w에 가까운 소리가 나는 예다." },
+      { "word": "स्वागत", "roman": "svāgat", "meaning": "환영", "pronunciationNote": "व → [w] 경향. sv-를 읽을 때 s 다음에 w에 가까운 소리를 바로 이어 낸다." }
+    ],
+    "sources": [
+      { "title": "A Practical Guide to Hindi Script · 반모음", "url": "https://iu.pressbooks.pub/hindiscript/chapter/8-1-discussion/" },
+      { "title": "Somana Fatima · Hindi-Urdu의 v·w 변이음 (§1.5.3)", "url": "https://www.languageinindia.com/may2012/somanadissertationfinal.pdf" },
+      { "title": "Hindi orthography notes · व의 자음·모음 사이 발음", "url": "https://r12a.github.io/scripts/deva/hi" }
+    ]
   }
 ]

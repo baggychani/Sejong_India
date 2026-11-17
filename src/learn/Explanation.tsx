@@ -7,7 +7,7 @@ export type ExplanationNote = {
   roman?: string;
   paragraphs: string[];
   application?: string;
-  examples?: { word: string; roman: string; meaning: string }[];
+  examples?: { word: string; roman: string; meaning: string; pronunciationNote?: string }[];
   sources?: { title: string; url: string }[];
 };
 
@@ -28,6 +28,7 @@ export function ExplanationContent({ note, reading = false }: { note: Explanatio
     {note.application && <div className="explanation-application"><p className="explanation-copy"><Prose text={note.application} reading={reading} /></p></div>}
     {note.examples && <ul className="explanation-examples">{note.examples.map(example => <li key={example.word}>
       <span lang="hi">{example.word}</span><i>{example.roman}</i><span>{example.meaning}</span>
+      {example.pronunciationNote && <p className="explanation-copy explanation-example-note"><Prose text={example.pronunciationNote} reading={reading} /></p>}
     </li>)}</ul>}
     {reading && note.sources && <div>{note.sources.map(source => <p key={source.url}><a href={source.url}>{source.title}</a></p>)}</div>}
   </>;
