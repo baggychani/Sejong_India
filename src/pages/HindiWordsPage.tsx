@@ -23,8 +23,8 @@ const why = (part: Part): ExplanationNote | undefined => {
     title: part.kind === "inherent" ? (part.silent ? "발음하지 않는 /a/" : "끝 /a/의 발음") : text.split(".")[0],
     paragraphs: [text],
     application: part.verdict,
-    // 한 줄짜리 끝 묵음은 글자 위 검은 팁. 적용이 있는 설명은 카드.
-    tip: part.silent && part.rule === "final" && !part.verdict,
+    // 한 문장이고 이 단어 적용이 없는 설명은 글자 위 검은 팁. 찬드라빈두는 항상 그 한 문장이다.
+    tip: !part.verdict && ((part.silent && part.rule === "final") || part.glyph.endsWith("ँ")),
   };
 };
 
