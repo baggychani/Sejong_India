@@ -45,6 +45,8 @@
 .sc-vowel-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 14px; background: #fff; overflow: hidden; }
 .sc-vowel-pair .sc-tile { min-width: 0; border: 0; border-radius: 0; background: transparent; }
 .sc-vowel-pair .sc-tile + .sc-tile { border-left: 1px solid var(--line); }
+/* 짝 상자는 모서리를 둥글게 자르므로 ? 를 칸 안쪽 모서리에 둔다. */
+.sc-vowel-pair .sc-tile-help { top: 8px; right: 8px; }
 .sc-vowel-rest { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
 
 /* 자음표: 줄은 소리 내는 자리, 칸은 소리 내는 방법 */
@@ -58,9 +60,9 @@
 .sc-section > .sc-signs { margin-top: 18px; }
 .sc-sign { display: grid; justify-items: center; gap: 1px; padding: 8px 6px 11px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
 .sc-sign b { font-size: 36px; font-weight: 500; line-height: 1.55; }
-.sc-sign span { display: flex; align-items: baseline; gap: 8px; min-height: 30px; color: var(--muted); font-size: 12px; }
-.sc-sign span i { font-style: normal; font-size: 19px; line-height: 1.5; color: #7f8a86; }
-.sc-sign span i + i::before { content: "+"; margin-right: 8px; font-family: inherit; font-size: 12px; color: #b3bcb8; }
+.sc-sign > span { display: flex; align-items: baseline; gap: 8px; min-height: 30px; color: var(--muted); font-size: 12px; }
+.sc-sign > span i { font-style: normal; font-size: 19px; line-height: 1.5; color: #7f8a86; }
+.sc-sign > span i + i::before { content: "+"; margin-right: 8px; font-family: inherit; font-size: 12px; color: #b3bcb8; }
 .sc-sign em { font-style: normal; font-size: 15px; font-weight: 650; color: #b4531a; }
 /* 모음 부호 칸: 자음은 진하게, 모음 소리만 주황으로 구별하고 조금 띄운다. */
 .sc-sign:not(.sc-mark) > em:has(.is-vowel) { margin-top: 6px; color: var(--ink); }
