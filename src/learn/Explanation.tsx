@@ -90,10 +90,10 @@ export function Explanation({ note, className = "", above = false }: { note: Exp
       if (rect.bottom < 0 || rect.top > height) { popup.hidePopover(); return; }
       popup.style.maxHeight = "";
       const box = popup.getBoundingClientRect();
-      let left = above ? rect.left : Math.max(12, Math.min(rect.right - box.width, width - box.width - 12));
+      // 글자표는 버튼 오른쪽으로 띄워 그 칸을 가리지 않는다. 단어 공부는 글자 위에 둔다.
+      let left = above ? rect.left : rect.right + 8;
       if (left + box.width > width - 12) left = width - box.width - 12;
       if (left < 12) left = 12;
-      // 단어 공부는 글자 위, 그리고 가능하면 버튼 오른쪽으로 띄운다. 아래로 내리면 낱말을 가린다.
       const room = rect.top - 22;
       const below = rect.bottom + 10;
       const top = above
