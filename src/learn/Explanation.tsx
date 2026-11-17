@@ -3,22 +3,33 @@ import "../styles/explanation.css";
 
 export type ExplanationNote = {
   title: string;
+  glyph?: string;
+  roman?: string;
   paragraphs: string[];
   application?: string;
   examples?: { word: string; roman: string; meaning: string }[];
   sources?: { title: string; url: string }[];
 };
 
-/** The popup and the no-JavaScript reading path use the same content. */
-export function ExplanationContent({ note, headingId }: { note: ExplanationNote; headingId?: string }) {
+// Keep mixed-script glyph metrics from expanding individual body lines.
+function Prose({ text, reading }: { text: string; reading: boolean }) {
+  if (reading) return <>{text}</>;
+  return <>{text.split(/(\p{Script=Devanagari}[\p{Script=Devanagari}\p{M}\u200c\u200d]*|\[[^\]\n]+\])/gu).map((part, index) =>
+    index % 2 ? <span key={index} className="explanation-run" lang={part.startsWith("[") ? undefined : "hi"}>{part}</span> : part)}</>;
+}
+
+/** The popup and the no-JavaScript reading path use the same source content. */
+export function ExplanationContent({ note, reading = false }: { note: ExplanationNote; reading?: boolean }) {
   return <>
-    <h3 id={headingId}>{note.title}</h3>
-    {note.paragraphs.map(text => <p key={text}>{text}</p>)}
-    {note.application && <div className="explanation-application"><h4>이 단어에서는</h4><p>{note.application}</p></div>}
+    {reading ? <h3>{note.title}</h3> : note.glyph && <div className="explanation-identity">
+      <span lang="hi">{note.glyph}</span><span className="explanation-roman">{note.roman}</span>
+    </div>}
+    {note.paragraphs.map(text => <p className="explanation-copy" key={text}><Prose text={text} reading={reading} /></p>)}
+    {note.application && <div className="explanation-application"><p className="explanation-copy"><Prose text={note.application} reading={reading} /></p></div>}
     {note.examples && <ul className="explanation-examples">{note.examples.map(example => <li key={example.word}>
       <span lang="hi">{example.word}</span><i>{example.roman}</i><span>{example.meaning}</span>
     </li>)}</ul>}
-    {note.sources && <div className="explanation-sources">{note.sources.map(source => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.title}</a>)}</div>}
+    {reading && note.sources && <div>{note.sources.map(source => <p key={source.url}><a href={source.url}>{source.title}</a></p>)}</div>}
   </>;
 }
 
@@ -60,7 +71,7 @@ export function Explanation({ note, className = "" }: { note: ExplanationNote; c
   return <>
     <button type="button" ref={trigger} className={`explanation-trigger ${className}`} popoverTarget={id}
       aria-label={`${note.title} 설명`} aria-expanded={open} aria-controls={id} aria-haspopup="dialog">?</button>
-    <div ref={panel} id={id} popover="auto" className="explanation-panel" role="dialog" aria-labelledby={`${id}-title`}
+    <div ref={panel} id={id} popover="auto" className={`explanation-panel${note.glyph ? " has-glyph" : ""}`} role="dialog" aria-label={`${note.title} 설명`}
       onToggle={event => { setOpen(event.newState === "open"); }}
       onBeforeToggle={event => { if (event.newState === "open") event.currentTarget.style.visibility = "hidden"; }}
       onKeyDown={event => event.stopPropagation()}
@@ -69,7 +80,7 @@ export function Explanation({ note, className = "" }: { note: ExplanationNote; c
         <button type="button" className="explanation-close" aria-label="설명 닫기" onClick={() => {
           panel.current?.hidePopover(); trigger.current?.focus({ preventScroll: true });
         }}>×</button>
-        <ExplanationContent note={note} headingId={`${id}-title`} />
+        <ExplanationContent note={note} />
       </>}
     </div>
   </>;

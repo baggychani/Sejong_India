@@ -97,7 +97,7 @@ a.words-entry:hover, a.words-entry:focus-visible { border-color: var(--accent); 
 .unit-mute { width: .62em; height: .62em; }
 .unit-mute .mute-body { fill: #9aa39f; }
 /* All explanations, including pronounced a, anchor to their own component cell. */
-.unit-why { position: absolute; z-index: 2; top: -4px; right: 0; }
+.unit-why { position: absolute; z-index: 2; top: -8px; right: -2px; }
 .unit-mute .mute-x { fill: none; stroke: #c4553f; stroke-width: 2.2; stroke-linecap: round; }
 
 /* 뜻 보기 ↔ O·X 버튼이 바뀌어도 줄 높이가 같도록 버튼 높이를 맞춘다. */

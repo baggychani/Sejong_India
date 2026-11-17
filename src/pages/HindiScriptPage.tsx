@@ -247,7 +247,7 @@ export function HindiScriptPage() {
     </div>
     </div>
     <noscript>{letterNotes.map(note => <section key={note.id} id={`hindi-letter-note-${note.id}`}>
-      <ExplanationContent note={note} />
+      <ExplanationContent note={note} reading />
     </section>)}</noscript>
   </article>;
 }
