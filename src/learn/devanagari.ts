@@ -126,7 +126,7 @@ function classifySilent(aksharas: Akshara[]) {
       const last = consonants.at(-1);
       if (consonants.length > 1 && last && KEEPS_FINAL_A.has(last.glyph)) {
         kept.note = KEPT_FINAL_A;
-        kept.verdict = `이 단어의 경우, 끝 자음 묶음 /${consonants.map(item => item.roman).join("")}/의 마지막이 /${last.roman}/이므로 /a/를 약하게 발음한다.`;
+        kept.verdict = `끝 자음 묶음 /${consonants.map(item => item.roman).join("")}/의 마지막이 /${last.roman}/이므로 /a/를 약하게 발음한다.`;
       }
     }
     const part = akshara.parts.find(item => item.kind === "inherent" && item.silent);
@@ -161,13 +161,13 @@ function judgeAnusvara(aksharas: Akshara[]) {
     const mark = akshara.parts.find(part => part.kind === "mark" && part.glyph.endsWith(ANUSVARA));
     if (!mark) return;
     const next = aksharas[at + 1]?.parts[0];
-    if (!next) { mark.verdict = "이 단어의 경우, 단어의 끝이므로 앞의 모음을 콧소리로 발음한다."; return; }
+    if (!next) { mark.verdict = "단어의 끝이므로 앞의 모음을 콧소리로 발음한다."; return; }
     if ((next.kind !== "consonant" && next.kind !== "half") || next.glyph.includes(NUKTA)) return;
     const letter = Array.from(next.glyph)[0];
     const stop = STOP_NASAL.get(letter);
     const open = OPEN_CONSONANTS[letter];
-    if (stop) mark.verdict = `이 단어의 경우, 뒤 자음이 /${CONSONANTS[letter]}/이므로 같은 자리(${stop.place})의 /${CONSONANTS[stop.nasal]}/(${stop.nasal})으로 발음한다.`;
-    else if (open) mark.verdict = `이 단어의 경우, 뒤 자음 /${CONSONANTS[letter]}/${open[1]} 입을 완전히 막지 않는 소리(${open[0]})이므로 앞의 모음을 콧소리로 발음한다.`;
+    if (stop) mark.verdict = `뒤 자음이 /${CONSONANTS[letter]}/이므로 같은 자리(${stop.place})의 /${CONSONANTS[stop.nasal]}/(${stop.nasal})으로 발음한다.`;
+    else if (open) mark.verdict = `뒤 자음 /${CONSONANTS[letter]}/${open[1]} 입을 완전히 막지 않는 소리(${open[0]})이므로 앞의 모음을 콧소리로 발음한다.`;
   });
 }
 

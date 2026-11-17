@@ -1,4 +1,4 @@
-import { useId, useLayoutEffect, useRef, useState } from "react";
+import { useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import "../styles/explanation.css";
 
 export type ExplanationNote = {
@@ -9,23 +9,53 @@ export type ExplanationNote = {
   application?: string;
   examples?: { word: string; roman: string; meaning: string; pronunciationNote?: string }[];
   sources?: { title: string; url: string }[];
+  /** 한 줄 설명. 카드 대신 글자 위 검은 팁으로 보여 준다. */
+  tip?: boolean;
 };
+
+// 끝 /a/가 남는 두 조건. 본문 문장은 그대로 두고 화면에서만 표시한다.
+const CONDITIONS = ["끝이 자음 묶음", "마지막 자음이 /y/·/r/·/l/·/v/"];
+const TIP_PLACE = "단어 끝 자음 뒤";
+
+function marked(text: string, key: string) {
+  const nodes: ReactNode[] = [];
+  let rest = text;
+  let index = 0;
+  while (rest) {
+    const found = CONDITIONS.map(item => ({ item, at: rest.indexOf(item) })).filter(hit => hit.at >= 0).sort((a, b) => a.at - b.at)[0];
+    if (!found) { nodes.push(rest); break; }
+    if (found.at > 0) nodes.push(rest.slice(0, found.at));
+    nodes.push(<strong key={`${key}-${index++}`} className="explanation-highlight">{found.item}</strong>);
+    rest = rest.slice(found.at + found.item.length);
+  }
+  return nodes;
+}
 
 // Keep mixed-script glyph metrics from expanding individual body lines.
 function Prose({ text, reading }: { text: string; reading: boolean }) {
   if (reading) return <>{text}</>;
   return <>{text.split(/(\p{Script=Devanagari}[\p{Script=Devanagari}\p{M}\u200c\u200d]*|\[[^\]\n]+\])/gu).map((part, index) =>
-    index % 2 ? <span key={index} className="explanation-run" lang={part.startsWith("[") ? undefined : "hi"}>{part}</span> : part)}</>;
+    index % 2 ? <span key={index} className="explanation-run" lang={part.startsWith("[") ? undefined : "hi"}>{part}</span> : marked(part, String(index)))}</>;
+}
+
+function TipText({ text }: { text: string }) {
+  const at = text.indexOf(TIP_PLACE);
+  if (at < 0) return <>{text}</>;
+  return <>{text.slice(0, at)}<span className="explanation-tip-place">{TIP_PLACE}</span>{text.slice(at + TIP_PLACE.length)}</>;
 }
 
 /** The popup and the no-JavaScript reading path use the same source content. */
 export function ExplanationContent({ note, reading = false }: { note: ExplanationNote; reading?: boolean }) {
+  const showTitle = !note.glyph && !note.paragraphs.some(text => text.startsWith(note.title));
   return <>
-    {reading ? <h3>{note.title}</h3> : note.glyph && <div className="explanation-identity">
+    {reading ? <h3>{note.title}</h3> : note.glyph ? <div className="explanation-identity">
       <span lang="hi">{note.glyph}</span><span className="explanation-roman">{note.roman}</span>
-    </div>}
+    </div> : showTitle && <p className="explanation-title">{note.title}</p>}
     {note.paragraphs.map(text => <p className="explanation-copy" key={text}><Prose text={text} reading={reading} /></p>)}
-    {note.application && <div className="explanation-application"><p className="explanation-copy"><Prose text={note.application} reading={reading} /></p></div>}
+    {note.application && <div className="explanation-application">
+      {!reading && <p className="explanation-application-label">이 단어에서는</p>}
+      <p className="explanation-copy"><Prose text={note.application} reading={reading} /></p>
+    </div>}
     {note.examples && <ul className="explanation-examples">{note.examples.map(example => <li key={example.word}>
       <span lang="hi">{example.word}</span><i>{example.roman}</i><span>{example.meaning}</span>
       {example.pronunciationNote && <p className="explanation-copy explanation-example-note"><Prose text={example.pronunciationNote} reading={reading} /></p>}
@@ -42,7 +72,7 @@ function panelSize(note: ExplanationNote) {
 }
 
 /** Native top-layer popovers provide outside-click/Escape dismissal without clipping. */
-export function Explanation({ note, className = "" }: { note: ExplanationNote; className?: string }) {
+export function Explanation({ note, className = "", above = false }: { note: ExplanationNote; className?: string; above?: boolean }) {
   const id = useId();
   const trigger = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
@@ -58,10 +88,18 @@ export function Explanation({ note, className = "" }: { note: ExplanationNote; c
       const width = document.documentElement.clientWidth;
       const height = window.innerHeight;
       if (rect.bottom < 0 || rect.top > height) { popup.hidePopover(); return; }
+      popup.style.maxHeight = "";
       const box = popup.getBoundingClientRect();
-      const left = Math.max(12, Math.min(rect.right - box.width, width - box.width - 12));
+      let left = above ? rect.left : Math.max(12, Math.min(rect.right - box.width, width - box.width - 12));
+      if (left + box.width > width - 12) left = width - box.width - 12;
+      if (left < 12) left = 12;
+      // 단어 공부는 글자 위, 그리고 가능하면 버튼 오른쪽으로 띄운다. 아래로 내리면 낱말을 가린다.
+      const room = rect.top - 22;
       const below = rect.bottom + 10;
-      const top = below + box.height <= height - 12 ? below : Math.max(12, rect.top - box.height - 10);
+      const top = above
+        ? (room > 0 ? rect.top - 10 - Math.min(box.height, room) : 12)
+        : below + box.height <= height - 12 ? below : Math.max(12, rect.top - box.height - 10);
+      if (above && room > 0 && box.height > room) popup.style.maxHeight = `${room}px`;
       popup.style.left = `${left}px`;
       popup.style.top = `${top}px`;
       popup.style.visibility = "visible";
@@ -74,12 +112,18 @@ export function Explanation({ note, className = "" }: { note: ExplanationNote; c
       window.removeEventListener("resize", place);
       window.removeEventListener("scroll", place, true);
     };
-  }, [open]);
+  }, [open, above]);
 
+  if (note.tip) return <button type="button" className={`explanation-trigger ${className}`} aria-label={`${note.title} 설명`}
+    aria-expanded={open} onClick={event => { event.stopPropagation(); setOpen(value => !value); }}>
+    ?<span role="tooltip" className={`explanation-tip${open ? " is-open" : ""}`}><TipText text={note.paragraphs[0] ?? ""} /></span>
+  </button>;
+
+  const showTitle = !note.glyph && !note.paragraphs.some(text => text.startsWith(note.title));
   return <>
     <button type="button" ref={trigger} className={`explanation-trigger ${className}`} popoverTarget={id}
       aria-label={`${note.title} 설명`} aria-expanded={open} aria-controls={id} aria-haspopup="dialog">?</button>
-    <div ref={panel} id={id} popover="auto" className={`explanation-panel${note.glyph ? " has-glyph" : ""}${panelSize(note)}`} role="dialog" aria-label={`${note.title} 설명`}
+    <div ref={panel} id={id} popover="auto" className={`explanation-panel${note.glyph ? " has-glyph" : ""}${showTitle ? " has-title" : ""}${panelSize(note)}`} role="dialog" aria-label={`${note.title} 설명`}
       onToggle={event => { setOpen(event.newState === "open"); }}
       onBeforeToggle={event => { if (event.newState === "open") event.currentTarget.style.visibility = "hidden"; }}
       onKeyDown={event => event.stopPropagation()}

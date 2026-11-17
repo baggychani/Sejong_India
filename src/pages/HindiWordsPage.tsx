@@ -23,6 +23,8 @@ const why = (part: Part): ExplanationNote | undefined => {
     title: part.kind === "inherent" ? (part.silent ? "발음하지 않는 /a/" : "끝 /a/의 발음") : text.split(".")[0],
     paragraphs: [text],
     application: part.verdict,
+    // 한 줄짜리 끝 묵음은 글자 위 검은 팁. 적용이 있는 설명은 카드.
+    tip: part.silent && part.rule === "final" && !part.verdict,
   };
 };
 
@@ -84,7 +86,7 @@ function AksharaTile({ akshara }: { akshara: Akshara }) {
         ? <span className="unit-glyph" aria-label={part.rule ? `발음 안 함. ${SILENT_RULES[part.rule]}` : "발음 안 함"} role="img"><MuteIcon /></span>
         : <span className="unit-glyph" lang="hi">{part.glyph}</span>}
       <span className="unit-roman">{part.roman}</span>
-      {note && <Explanation note={note} className="unit-why" />}
+      {note && <Explanation note={note} className="unit-why" above />}
     </div>;
     }) : <div className="unit">
       <span className="unit-glyph" lang="hi">{akshara.text}</span>
