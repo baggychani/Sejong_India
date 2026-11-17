@@ -123,6 +123,9 @@ function Section({ id, title, count, note, make, children }: { id: string; title
   </section>;
 }
 
+/** 겹자음의 두 자음 사이에 놓는 더하기 표시. */
+const PlusIcon = () => <svg className="sc-plus" viewBox="0 0 12 12" aria-label="더하기" role="img"><path d="M6 1.5v9M1.5 6h9" /></svg>;
+
 /** 글자 한 칸. 자음은 기본 모음 a를 옅게 붙여 보여 준다. */
 function Tile({ glyph, roman, inherent }: { glyph: string; roman: string; inherent?: boolean }) {
   const note = notesByGlyph.get(glyph);
@@ -199,9 +202,11 @@ export function HindiScriptPage() {
       </div>
       <div className="sc-group">
         <h3>겹자음</h3>
-        <div className="sc-signs">
-          {conjuncts.map(item => <div className="sc-sign sc-conjunct" key={item.glyph}>
-            <b lang="hi">{item.glyph}</b><span><i lang="hi">{item.first + VIRAMA}</i><i lang="hi">{item.second}</i></span><em>{item.roman}<small>a</small></em>
+        <div className="sc-conjuncts">
+          {conjuncts.map(item => <div className="sc-conjunct" key={item.glyph}>
+            <b lang="hi">{item.glyph}</b>
+            <span className="sc-conjunct-parts"><i lang="hi">{item.first + VIRAMA}</i><PlusIcon /><i lang="hi">{item.second}</i></span>
+            <em>{item.roman}<small>a</small></em>
           </div>)}
         </div>
       </div>

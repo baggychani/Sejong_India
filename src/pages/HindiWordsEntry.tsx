@@ -10,10 +10,9 @@ const sample = readWord(words[0].word, words[0].roman).flat();
 export function HindiWordsEntry() {
   return <>
   <Link className="words-entry" to="/learn/hindi/script">
-    <span className="words-entry-art" aria-hidden="true">
-      {[["अ", "a"], ["क", "ka"], ["की", "kī"]].map(([glyph, roman]) => <span className="words-entry-tile" key={glyph}>
-        <b lang="hi">{glyph}</b><i>{roman}</i>
-      </span>)}
+    {/* 글자를 익히는 일: 모눈 위에서 진한 글자를 보고 옆의 빈 글자를 따라 쓴다. */}
+    <span className="words-entry-art is-script" aria-hidden="true">
+      <b lang="hi">क</b><b lang="hi" className="is-trace">क</b>
     </span>
     <span className="words-entry-text"><strong>데바나가리 익히기</strong></span>
     <Icon name="arrow" />
