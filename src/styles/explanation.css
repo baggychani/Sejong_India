@@ -6,12 +6,14 @@
 .explanation-trigger:focus-visible, .explanation-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .explanation-panel {
   position: fixed; inset: auto; box-sizing: border-box; margin: 0; width: min(370px, calc(100vw - 24px)); max-height: calc(100dvh - 24px);
-  overflow: auto; overscroll-behavior: contain; padding: 12px 50px 18px 20px; border: 1px solid #d5e1d9; border-radius: 18px;
+  overflow: auto; overscroll-behavior: contain; padding: 36px 20px 16px; border: 1px solid #d5e1d9; border-radius: 18px;
   background: #fff; color: #25322c; box-shadow: 0 16px 48px -12px rgb(24 50 36 / .24), 0 2px 8px rgb(24 50 36 / .05);
   font-family: Pretendard, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; font-size: 15px; font-weight: 400; line-height: 26px; text-align: left; cursor: auto; pointer-events: auto;
 }
+.explanation-panel.has-glyph { padding-top: 18px; }
+.explanation-panel.has-title { padding-top: 14px; }
 .explanation-panel.is-wide { width: min(620px, calc(100vw - 24px)); }
-.explanation-title { margin: 0 0 12px; color: var(--accent); font-size: 16px; font-weight: 700; line-height: 1.35; }
+.explanation-title { margin: 0 36px 12px 0; color: var(--accent); font-size: 16px; font-weight: 700; line-height: 1.35; }
 .explanation-highlight { font-weight: 700; padding: 0 2px; border-radius: 3px; background: #ffe56a; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .explanation-tip {
   position: absolute; right: 0; bottom: calc(100% + 8px); z-index: 3; width: max-content; max-width: 240px;
@@ -20,14 +22,14 @@
 }
 .explanation-trigger:hover > .explanation-tip, .explanation-trigger:focus-visible > .explanation-tip, .explanation-tip.is-open { opacity: 1; }
 .explanation-tip-place { color: #ffe14a; }
-.explanation-identity { display: flex; align-items: baseline; gap: 16px; margin: 0 0 18px; color: #25322c; }
+.explanation-identity { display: flex; align-items: baseline; gap: 16px; margin: 0 28px 18px 0; color: #25322c; }
 .explanation-identity [lang=hi] { font-family: "Nirmala UI", "Noto Sans Devanagari", sans-serif; font-size: 44px; font-weight: 500; line-height: 1.35; }
 .explanation-identity .explanation-roman { font-size: 24px; font-weight: 500; line-height: 1; color: #a74c18; }
 .explanation-panel .explanation-copy { margin: 0 0 14px; font-size: 15px; font-weight: 400; line-height: 26px; letter-spacing: 0; word-break: keep-all; overflow-wrap: anywhere; }
 .explanation-panel .explanation-copy .explanation-run { font-family: "Segoe UI", Arial, sans-serif; font-size: 1em; line-height: 0; vertical-align: baseline; }
 .explanation-panel .explanation-copy .explanation-run[lang=hi] { font-family: "Nirmala UI", "Noto Sans Devanagari", sans-serif; }
 .explanation-panel p:last-child { margin-bottom: 0; }
-.explanation-close { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 9px; background: transparent; color: #697b70; font: 24px/1 sans-serif; cursor: pointer; }
+.explanation-close { position: absolute; top: 8px; right: 10px; display: grid; place-items: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 9px; background: transparent; color: #697b70; font: 22px/1 sans-serif; cursor: pointer; }
 .explanation-close:hover { background: #f0f5f2; }
 .explanation-application { margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: #f3f7f4; }
 .explanation-application-label { margin: 0 0 6px; color: var(--accent); font-size: 13px; font-weight: 700; line-height: 1.4; }

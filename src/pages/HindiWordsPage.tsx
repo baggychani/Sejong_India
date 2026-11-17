@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import words from "../../data/content/hindi-words.json";
 import { aksharaRoman, KEPT_FINAL_A, MARK_NOTES, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
 import { Explanation, type ExplanationNote } from "../learn/Explanation";
@@ -181,9 +181,16 @@ function NavArrow({ dir, disabled, onClick }: { dir: "prev" | "next"; disabled: 
 export function HindiWordsPage() {
   usePageTitle(`단어장 · 힌디어 · ${siteTitle}`);
   // 외우는 단어장이다. 맞고 틀림을 매기는 퀴즈는 따로 만든다.
-  const [index, setIndex] = useState(0);
+  // 보던 단어는 ?id= 에 두어 새로고침해도 그 단어가 열린다. 첫 단어는 주소에서 뺀다.
+  const [params, setParams] = useSearchParams();
+  const requested = params.get("id");
+  const found = requested ? cards.findIndex(card => card.id === requested) : 0;
+  const index = found < 0 ? 0 : found;
   const [listing, setListing] = useState(false);
-  const go = (to: number) => setIndex(Math.max(0, Math.min(cards.length - 1, to)));
+  const go = (to: number) => {
+    const next = Math.max(0, Math.min(cards.length - 1, to));
+    setParams(next === 0 ? {} : { id: cards[next].id }, { replace: true });
+  };
   const touchX = useRef<number | null>(null);
 
   useEffect(() => {
@@ -208,7 +215,7 @@ export function HindiWordsPage() {
     </header>
     {listing ? <ol className="word-list">
       {cards.map((card, at) => <li key={card.id}>
-        <button type="button" aria-current={at === index ? "true" : undefined} onClick={() => { setIndex(at); setListing(false); }}>
+        <button type="button" aria-current={at === index ? "true" : undefined} onClick={() => { go(at); setListing(false); }}>
           <span lang="hi">{card.word}</span><small>{card.roman}</small><b>{card.meaning}</b>
         </button>
       </li>)}
@@ -222,7 +229,7 @@ export function HindiWordsPage() {
       }}>
       <NavArrow dir="prev" disabled={index === 0} onClick={() => go(index - 1)} />
       <WordCard key={cards[index].id} card={cards[index]} last={index === cards.length - 1}
-        onNext={() => setIndex(index === cards.length - 1 ? 0 : index + 1)} />
+        onNext={() => go(index === cards.length - 1 ? 0 : index + 1)} />
       <NavArrow dir="next" disabled={index === cards.length - 1} onClick={() => go(index + 1)} />
     </div>}
     <noscript>
