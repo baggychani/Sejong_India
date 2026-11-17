@@ -1,4 +1,5 @@
 import { useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { LETTERS } from "./devanagari";
 import "../styles/explanation.css";
 
 export type ExplanationNote = {
@@ -9,12 +10,14 @@ export type ExplanationNote = {
   application?: string;
   examples?: { word: string; roman: string; meaning: string; pronunciationNote?: string }[];
   sources?: { title: string; url: string }[];
+  /** 본문만으로 뜻이 통해 제목 줄을 보이지 않는다. 제목은 접근성 이름과 읽기 경로에 남는다. */
+  untitled?: boolean;
   /** 한 줄 설명. 카드 대신 글자 위 검은 팁으로 보여 준다. */
   tip?: boolean;
 };
 
-// 끝 /a/가 남는 두 조건. 본문 문장은 그대로 두고 화면에서만 표시한다.
-const CONDITIONS = ["끝이 자음 묶음", "마지막 자음이 /y/·/r/·/l/·/v/"];
+// 끝 /a/가 남는 두 조건과 콧소리가 나는 자리 이름. 본문 문장은 그대로 두고 화면에서만 표시한다.
+const CONDITIONS = ["끝이 자음 묶음", "마지막 자음이 /y/·/r/·/l/·/v/", ...LETTERS.places.map(([place]) => place)];
 const TIP_PLACE = "단어 끝 자음 뒤";
 
 function marked(text: string, key: string) {
@@ -38,20 +41,26 @@ function Prose({ text, reading }: { text: string; reading: boolean }) {
     index % 2 ? <span key={index} className="explanation-run" lang={part.startsWith("[") ? undefined : "hi"}>{part}</span> : marked(part, String(index)))}</>;
 }
 
-function TipText({ text }: { text: string }) {
+function TipText({ text, name }: { text: string; name: string }) {
+  if (text.startsWith(name)) return <><strong>{name}</strong>{text.slice(name.length)}</>;
   const at = text.indexOf(TIP_PLACE);
   if (at < 0) return <>{text}</>;
   return <>{text.slice(0, at)}<span className="explanation-tip-place">{TIP_PLACE}</span>{text.slice(at + TIP_PLACE.length)}</>;
 }
 
+/** 본문이 제목(부호 이름 등)으로 시작하면 제목 줄 대신 그 이름을 굵게 쓴다. */
+const showsTitle = (note: ExplanationNote) => !note.glyph && !note.untitled && !note.paragraphs.some(text => text.startsWith(note.title));
+
 /** The popup and the no-JavaScript reading path use the same source content. */
 export function ExplanationContent({ note, reading = false }: { note: ExplanationNote; reading?: boolean }) {
-  const showTitle = !note.glyph && !note.paragraphs.some(text => text.startsWith(note.title));
+  const showTitle = showsTitle(note);
   return <>
     {reading ? <h3>{note.title}</h3> : note.glyph ? <div className="explanation-identity">
       <span lang="hi">{note.glyph}</span><span className="explanation-roman">{note.roman}</span>
     </div> : showTitle && <p className="explanation-title">{note.title}</p>}
-    {note.paragraphs.map(text => <p className="explanation-copy" key={text}><Prose text={text} reading={reading} /></p>)}
+    {note.paragraphs.map(text => <p className="explanation-copy" key={text}>{!reading && !note.glyph && text.startsWith(note.title)
+      ? <><strong className="explanation-name">{note.title}</strong><Prose text={text.slice(note.title.length)} reading={reading} /></>
+      : <Prose text={text} reading={reading} />}</p>)}
     {note.application && <div className="explanation-application">
       {!reading && <p className="explanation-application-label">이 단어에서는</p>}
       <p className="explanation-copy"><Prose text={note.application} reading={reading} /></p>
@@ -116,10 +125,10 @@ export function Explanation({ note, className = "", above = false }: { note: Exp
 
   if (note.tip) return <button type="button" className={`explanation-trigger ${className}`} aria-label={`${note.title} 설명`}
     aria-expanded={open} onClick={event => { event.stopPropagation(); setOpen(value => !value); }}>
-    ?<span role="tooltip" className={`explanation-tip${open ? " is-open" : ""}`}><TipText text={note.paragraphs[0] ?? ""} /></span>
+    ?<span role="tooltip" className={`explanation-tip${open ? " is-open" : ""}`}><TipText text={note.paragraphs[0] ?? ""} name={note.title} /></span>
   </button>;
 
-  const showTitle = !note.glyph && !note.paragraphs.some(text => text.startsWith(note.title));
+  const showTitle = showsTitle(note);
   return <>
     <button type="button" ref={trigger} className={`explanation-trigger ${className}`} popoverTarget={id}
       aria-label={`${note.title} 설명`} aria-expanded={open} aria-controls={id} aria-haspopup="dialog">?</button>

@@ -14,6 +14,7 @@
 .explanation-panel.has-title { padding-top: 14px; }
 .explanation-panel.is-wide { width: min(620px, calc(100vw - 24px)); }
 .explanation-title { margin: 0 36px 12px 0; color: var(--accent); font-size: 16px; font-weight: 700; line-height: 1.35; }
+.explanation-name { font-weight: 700; color: var(--accent); }
 .explanation-highlight { font-weight: 700; padding: 0 2px; border-radius: 3px; background: #ffe56a; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .explanation-tip {
   position: absolute; right: 0; bottom: calc(100% + 8px); z-index: 3; width: max-content; max-width: 240px;

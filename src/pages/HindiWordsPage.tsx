@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import words from "../../data/content/hindi-words.json";
-import { aksharaRoman, KEPT_FINAL_A, MARK_NOTES, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
+import { aksharaRoman, KEPT_FINAL_A, MARK_NAMES, MARK_NOTES, readWord, SILENT_RULES, type Akshara, type Part } from "../learn/devanagari";
 import { Explanation, type ExplanationNote } from "../learn/Explanation";
 import { fadeIn, fadeOut, flyFrom, ghost, resize, slideIn, slideOut, spot, still, type Spot } from "../learn/morph";
 import { usePageTitle } from "../site/title";
@@ -20,7 +20,9 @@ const why = (part: Part): ExplanationNote | undefined => {
   const text = part.silent && part.rule ? SILENT_RULES[part.rule] : part.note;
   if (!text) return;
   return {
-    title: part.kind === "inherent" ? (part.silent ? "발음하지 않는 /a/" : "끝 /a/의 발음") : text.split(".")[0],
+    title: part.kind === "inherent" ? (part.silent ? "발음하지 않는 /a/" : "끝 /a/의 발음") : MARK_NAMES[part.glyph.slice(-1)] ?? text.split(".")[0],
+    // 남는 끝 /a/는 본문만으로 뜻이 통하므로 제목 줄을 두지 않는다.
+    untitled: part.kind === "inherent" && !part.silent,
     paragraphs: [text],
     application: part.verdict,
     // 한 문장이고 이 단어 적용이 없는 설명은 글자 위 검은 팁. 찬드라빈두는 항상 그 한 문장이다.

@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router";
-import { LETTERS } from "../learn/devanagari";
+import { LETTERS, MARK_NAMES } from "../learn/devanagari";
 import letterNotes from "../../data/content/hindi-letter-notes.json";
 import { Explanation, ExplanationContent } from "../learn/Explanation";
 import { usePageTitle } from "../site/title";
@@ -24,7 +24,7 @@ const otherRows = [{ place: "반모음·유음", letters: ["य", "र", "ल", 
 const dottedItems: Item[] = Object.entries(dotted).map(([base, roman]) => ({ glyph: base + NUKTA, roman }));
 const consonantItems: Item[] = [...Object.entries(consonants).map(([glyph, roman]) => ({ glyph, roman })), ...dottedItems];
 const signItems = Object.entries(signs).map(([sign, roman]) => ({ sign, roman, vowel: Object.keys(vowels).find(vowel => vowels[vowel] === roman)! }));
-const markNames: Record<string, string> = { "ं": "아누스와라", "ँ": "찬드라빈두", "ः": "비사르가" };
+const markNames = MARK_NAMES;
 const markItems = Object.entries(marks).map(([mark, roman]) => ({ glyph: RING + mark, roman, name: markNames[mark] }));
 const otherMarks = [...markItems,
   { glyph: RING + VIRAMA, name: "비라마", roman: "" },
