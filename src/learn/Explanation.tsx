@@ -17,15 +17,17 @@ export type ExplanationNote = {
 };
 
 // 끝 /a/가 남는 두 조건과 콧소리가 나는 자리 이름. 본문 문장은 그대로 두고 화면에서만 표시한다.
-const CONDITIONS = ["끝이 자음 묶음", "마지막 자음이 /y/·/r/·/l/·/v/", ...LETTERS.places.map(([place]) => place)];
+// 자리 이름은 ‘이 단어에서는’ 판정에서만 칠한다. 글자 설명의 ‘치경경구개음’ 같은 낱말 속 ‘경구개음’은 칠하지 않는다.
+const CONDITIONS = ["끝이 자음 묶음", "마지막 자음이 /y/·/r/·/l/·/v/"];
+const PLACES = [...CONDITIONS, ...LETTERS.places.map(([place]) => place)];
 const TIP_PLACE = "단어 끝 자음 뒤";
 
-function marked(text: string, key: string) {
+function marked(text: string, key: string, terms: string[]) {
   const nodes: ReactNode[] = [];
   let rest = text;
   let index = 0;
   while (rest) {
-    const found = CONDITIONS.map(item => ({ item, at: rest.indexOf(item) })).filter(hit => hit.at >= 0).sort((a, b) => a.at - b.at)[0];
+    const found = terms.map(item => ({ item, at: rest.indexOf(item) })).filter(hit => hit.at >= 0).sort((a, b) => a.at - b.at)[0];
     if (!found) { nodes.push(rest); break; }
     if (found.at > 0) nodes.push(rest.slice(0, found.at));
     nodes.push(<strong key={`${key}-${index++}`} className="explanation-highlight">{found.item}</strong>);
@@ -35,10 +37,10 @@ function marked(text: string, key: string) {
 }
 
 // Keep mixed-script glyph metrics from expanding individual body lines.
-function Prose({ text, reading }: { text: string; reading: boolean }) {
+function Prose({ text, reading, terms = CONDITIONS }: { text: string; reading: boolean; terms?: string[] }) {
   if (reading) return <>{text}</>;
   return <>{text.split(/(\p{Script=Devanagari}[\p{Script=Devanagari}\p{M}\u200c\u200d]*|\[[^\]\n]+\])/gu).map((part, index) =>
-    index % 2 ? <span key={index} className="explanation-run" lang={part.startsWith("[") ? undefined : "hi"}>{part}</span> : marked(part, String(index)))}</>;
+    index % 2 ? <span key={index} className="explanation-run" lang={part.startsWith("[") ? undefined : "hi"}>{part}</span> : marked(part, String(index), terms))}</>;
 }
 
 function TipText({ text, name }: { text: string; name: string }) {
@@ -63,7 +65,7 @@ export function ExplanationContent({ note, reading = false }: { note: Explanatio
       : <Prose text={text} reading={reading} />}</p>)}
     {note.application && <div className="explanation-application">
       {!reading && <p className="explanation-application-label">이 단어에서는</p>}
-      <p className="explanation-copy"><Prose text={note.application} reading={reading} /></p>
+      <p className="explanation-copy"><Prose text={note.application} reading={reading} terms={PLACES} /></p>
     </div>}
     {note.examples && <ul className="explanation-examples">{note.examples.map(example => <li key={example.word}>
       <span lang="hi">{example.word}</span><i>{example.roman}</i><span>{example.meaning}</span>

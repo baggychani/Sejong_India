@@ -33,6 +33,39 @@
     ]
   },
   {
+    "id": "ri",
+    "glyph": "ऋ",
+    "title": "ऋ · ṛ",
+    "roman": "ṛ",
+    "paragraphs": [
+      "산스크리트어에서 모음 없이 혼자 음절을 이루던 성절 자음 [r̩]이다. 그 흔적으로 자음이지만 모음표에 들어 있다.",
+      "현대 힌디어에서는 자음+모음인 रि(ri)와 똑같이 발음한다. 로마자 ṛ는 자음 ड़(ṛ)와 표기만 같을 뿐 전혀 다른 소리다.",
+      "산스크리트어에서 들어온 단어에만 쓰인다. 자음 뒤에서는 부호 ◌ृ로 붙는다(कृ = kṛ)."
+    ],
+    "examples": [
+      {
+        "word": "ऋषि",
+        "roman": "ṛṣi",
+        "meaning": "현자"
+      },
+      {
+        "word": "कृष्ण",
+        "roman": "kṛṣṇ",
+        "meaning": "크리슈나(신의 이름)"
+      }
+    ],
+    "sources": [
+      {
+        "title": "University of Texas at Austin · 힌디어 문자",
+        "url": "https://hindi.la.utexas.edu/resources/the-hindi-script/"
+      },
+      {
+        "title": "Hindi orthography notes · 모음 ऋ",
+        "url": "https://r12a.github.io/scripts/deva/hi"
+      }
+    ]
+  },
+  {
     "id": "sha",
     "glyph": "श",
     "title": "श · ś",

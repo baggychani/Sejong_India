@@ -109,12 +109,17 @@ export function verifyHindiWords(outDir) {
       for (let parent = trigger.parentNode; parent; parent = parent.parentNode) assert.notEqual(parent.tagName, "button", "help buttons must not be nested in buttons");
     }
   }
+  // 반대 방향: 설명이 있는 글자는 글자표에 그 칸이 있어 ? 로 열 수 있어야 한다(점 찍은 글자의 조합 순서 등).
+  const tileGlyphs = new Set(tiles.filter(tile => tile.childNodes.some(node => attr(node, "popovertarget")))
+    .map(tile => tile.childNodes.find(node => node.tagName === "b")?.childNodes.map(node => node.value ?? "").join("")));
+  for (const note of notes) assert(tileGlyphs.has(note.glyph), `${note.id}: explanation has no tile to open it from (${note.glyph})`);
   // Reading content is complete but must not add visible paragraphs in normal browsing.
   const visibleNodes = walk(parse(scriptHtml, { scriptingEnabled: true }));
   for (const note of notes) assert(!visibleNodes.some(node => attr(node, "id") === `hindi-letter-note-${note.id}`), "letter reading fallback leaked into the visible page");
   for (const [glyph, roman] of [...Object.entries(LETTERS.vowels), ...Object.entries(LETTERS.consonants)]) {
     assert(script.includes(glyph) && script.includes(roman), `script page is missing ${glyph} ${roman}`);
   }
+  for (const [base, roman] of Object.entries(LETTERS.dotted)) assert(script.includes(base + "़") && script.includes(roman), `script page is missing the dotted letter ${base}़ ${roman}`);
   for (const sign of Object.keys(LETTERS.signs)) assert(script.includes("क" + sign), `script page is missing the sign on क: ${sign}`);
   assert(hindi.includes('/learn/hindi/script"'), "Hindi page must link to the script page");
   assert(hindi.indexOf('/learn/hindi/script"') < hindi.indexOf('/learn/hindi/words"'), "script practice comes before the word deck");
