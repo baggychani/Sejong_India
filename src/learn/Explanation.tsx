@@ -34,6 +34,13 @@ export function ExplanationContent({ note, reading = false }: { note: Explanatio
   </>;
 }
 
+// श·ष처럼 짧은 설명은 370px가 맞다. 본문이 그보다 길면 높이만 늘지 않도록 옆으로 넓힌다.
+const COMPACT_NOTE_CHARS = 240;
+function panelSize(note: ExplanationNote) {
+  const text = [...note.paragraphs, note.application ?? "", ...(note.examples ?? []).flatMap(example => example.pronunciationNote ? [example.pronunciationNote] : [])].join("");
+  return text.length > COMPACT_NOTE_CHARS ? " is-wide" : "";
+}
+
 /** Native top-layer popovers provide outside-click/Escape dismissal without clipping. */
 export function Explanation({ note, className = "" }: { note: ExplanationNote; className?: string }) {
   const id = useId();
@@ -72,7 +79,7 @@ export function Explanation({ note, className = "" }: { note: ExplanationNote; c
   return <>
     <button type="button" ref={trigger} className={`explanation-trigger ${className}`} popoverTarget={id}
       aria-label={`${note.title} 설명`} aria-expanded={open} aria-controls={id} aria-haspopup="dialog">?</button>
-    <div ref={panel} id={id} popover="auto" className={`explanation-panel${note.glyph ? " has-glyph" : ""}`} role="dialog" aria-label={`${note.title} 설명`}
+    <div ref={panel} id={id} popover="auto" className={`explanation-panel${note.glyph ? " has-glyph" : ""}${panelSize(note)}`} role="dialog" aria-label={`${note.title} 설명`}
       onToggle={event => { setOpen(event.newState === "open"); }}
       onBeforeToggle={event => { if (event.newState === "open") event.currentTarget.style.visibility = "hidden"; }}
       onKeyDown={event => event.stopPropagation()}
