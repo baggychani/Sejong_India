@@ -27,9 +27,9 @@ const signItems = Object.entries(signs).map(([sign, roman]) => ({ sign, roman, v
 const markNames = MARK_NAMES;
 const markItems = Object.entries(marks).map(([mark, roman]) => ({ glyph: RING + mark, roman, name: markNames[mark] }));
 const otherMarks = [...markItems,
-  { glyph: RING + VIRAMA, name: "비라마", roman: "" },
+  { glyph: RING + VIRAMA, name: "할란트(비라마)", roman: "" },
   { glyph: RING + NUKTA, name: "누크타", roman: "" }];
-// 자음끼리 붙여 쓰는 대표적인 모양.
+// 겹자음: 자음끼리 붙여 쓰는 대표적인 모양.
 const conjuncts = [["क", "ष"], ["त", "र"], ["ज", "ञ"], ["श", "र"], ["स", "त"], ["न", "य"], ["च", "छ"], ["द", "य"], ["प", "र"]]
   .map(([first, second]) => ({ first, second, glyph: first + VIRAMA + second, roman: consonants[first] + consonants[second] }));
 
@@ -155,7 +155,7 @@ function Builder() {
       <p className="sc-result-roman">{done ? <><span>{consonants[consonant]}</span><span className="is-vowel">{sign === VIRAMA ? "" : sign ? signs[sign] : "a"}</span></> : "\u00A0"}</p>
     </div>
     <div className="sc-picks is-signs" role="group" aria-label="모음 부호">
-      {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-label={ending.roman ? `${ending.label} (${ending.roman})` : "비라마"} aria-pressed={ending.sign === sign} onClick={() => setSign(current => current === ending.sign ? null : ending.sign)}>
+      {endings.map(ending => <button type="button" key={ending.sign || "none"} aria-label={ending.roman ? `${ending.label} (${ending.roman})` : "할란트(비라마)"} aria-pressed={ending.sign === sign} onClick={() => setSign(current => current === ending.sign ? null : ending.sign)}>
         <span lang="hi">{ending.label}</span>
       </button>)}
     </div>
@@ -197,6 +197,14 @@ export function HindiScriptPage() {
         <h3>점을 찍어 만든 글자</h3>
         <div className="sc-tiles">{dottedItems.map(item => <Tile key={item.glyph} glyph={item.glyph} roman={item.roman} inherent />)}</div>
       </div>
+      <div className="sc-group">
+        <h3>겹자음</h3>
+        <div className="sc-signs">
+          {conjuncts.map(item => <div className="sc-sign" key={item.glyph}>
+            <b lang="hi">{item.glyph}</b><span><i lang="hi">{item.first + VIRAMA}</i><i lang="hi">{item.second}</i></span><em>{item.roman}a</em>
+          </div>)}
+        </div>
+      </div>
     </Section>,
 
     signs: <Section key="signs" id="signs" title="모음 부호" count={signItems.length} make={fromList([...signItems.map(item => ({ glyph: RING + item.sign, roman: item.roman })), ...markItems])}
@@ -221,14 +229,6 @@ export function HindiScriptPage() {
 
     combine: <Section key="combine" id="combine" title="마트라" make={combined}>
       <Builder />
-      <div className="sc-group">
-        <h3>자음끼리 합치기</h3>
-        <div className="sc-signs">
-          {conjuncts.map(item => <div className="sc-sign" key={item.glyph}>
-            <b lang="hi">{item.glyph}</b><span><i lang="hi">{item.first + VIRAMA}</i><i lang="hi">{item.second}</i></span><em>{item.roman}a</em>
-          </div>)}
-        </div>
-      </div>
     </Section>,
   };
   return <article className="script-page">

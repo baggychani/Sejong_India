@@ -21,8 +21,8 @@ const why = (part: Part): ExplanationNote | undefined => {
   if (!text) return;
   return {
     title: part.kind === "inherent" ? (part.silent ? "발음하지 않는 /a/" : "끝 /a/의 발음") : MARK_NAMES[part.glyph.slice(-1)] ?? text.split(".")[0],
-    // 남는 끝 /a/는 본문만으로 뜻이 통하므로 제목 줄을 두지 않는다.
-    untitled: part.kind === "inherent" && !part.silent,
+    // /a/ 설명은 본문만으로 뜻이 통하므로 제목 줄을 두지 않는다.
+    untitled: part.kind === "inherent",
     paragraphs: [text],
     application: part.verdict,
     // 한 문장이고 이 단어 적용이 없는 설명은 글자 위 검은 팁. 찬드라빈두는 항상 그 한 문장이다.

@@ -12,7 +12,7 @@ export type Part = { kind: PartKind; glyph: string; roman: string; silent?: bool
 export type SilentRule = "final" | "medial";
 export const SILENT_RULES: Record<SilentRule, string> = {
   final: "단어 끝 자음 뒤의 /a/는 발음하지 않는다.",
-  medial: "앞뒤에 모음이 있는 두 자음 사이에 낀 /a/는 발음하지 않는다. (모음-자음-/a/-자음-모음)",
+  medial: "‘모음 + 자음 + अ + 자음 + 모음’에서 가운데 단모음 अ는 발음하지 않는다.",
 };
 /** 단어 끝인데도 /a/가 남는 경우. 로마자에 끝 a가 적힌 단어에서 역산한다. */
 export const KEPT_FINAL_A = "단어 끝 /a/는 보통 발음하지 않지만, 끝이 자음 묶음이고 마지막 자음이 /y/·/r/·/l/·/v/이면 /a/를 약하게 발음한다.";
