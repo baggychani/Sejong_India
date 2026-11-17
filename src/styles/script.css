@@ -62,6 +62,12 @@
 .sc-sign span i { font-style: normal; font-size: 19px; line-height: 1.5; color: #7f8a86; }
 .sc-sign span i + i::before { content: "+"; margin-right: 8px; font-family: inherit; font-size: 12px; color: #b3bcb8; }
 .sc-sign em { font-style: normal; font-size: 15px; font-weight: 650; color: #b4531a; }
+/* 겹자음: 두 자음을 각각 상자에 담고, 로마자는 자음 칸처럼 자음은 진하게·a는 옅게. */
+.sc-conjunct span { gap: 18px; }
+.sc-conjunct span i { position: relative; min-width: 32px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; background: #faf9f6; text-align: center; }
+.sc-conjunct span i + i::before { position: absolute; left: -14px; margin: 0; }
+.sc-conjunct em { color: var(--ink); }
+.sc-conjunct em small { font-size: inherit; font-weight: 500; color: #d39a72; }
 .sc-sign.sc-mark { grid-template-rows: 56px 30px 22px; align-items: center; }
 .sc-mark > span { align-items: center; justify-content: center; }
 .sc-mark > em { line-height: 22px; }

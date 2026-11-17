@@ -200,8 +200,8 @@ export function HindiScriptPage() {
       <div className="sc-group">
         <h3>겹자음</h3>
         <div className="sc-signs">
-          {conjuncts.map(item => <div className="sc-sign" key={item.glyph}>
-            <b lang="hi">{item.glyph}</b><span><i lang="hi">{item.first + VIRAMA}</i><i lang="hi">{item.second}</i></span><em>{item.roman}a</em>
+          {conjuncts.map(item => <div className="sc-sign sc-conjunct" key={item.glyph}>
+            <b lang="hi">{item.glyph}</b><span><i lang="hi">{item.first + VIRAMA}</i><i lang="hi">{item.second}</i></span><em>{item.roman}<small>a</small></em>
           </div>)}
         </div>
       </div>

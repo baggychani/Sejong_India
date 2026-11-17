@@ -8,10 +8,22 @@
       "영어 ship의 sh와 비슷하며 발음기호로는 [ʃ]로 나타낸다. 치경경구개음 [ɕ]로 기술하기도 한다.",
       "로마자 ś의 악센트(´)는 치경음 स(s)와 구별하기 위한 기호다. 현대 힌디어에서는 ष(ṣ)와 발음이 대체로 같으므로 단어별 철자로 구별해 익힌다."
     ],
-    "examples": [{ "word": "शहर", "roman": "śahar", "meaning": "도시" }],
+    "examples": [
+      {
+        "word": "शहर",
+        "roman": "śahar",
+        "meaning": "도시"
+      }
+    ],
     "sources": [
-      { "title": "A Practical Guide to Hindi Script · 마찰음", "url": "https://iu.pressbooks.pub/hindiscript/chapter/9-1-discussion/" },
-      { "title": "Somana Fatima · 힌디어·우르두어 음성학 연구", "url": "https://www.languageinindia.com/may2012/somanadissertationfinal.pdf" }
+      {
+        "title": "A Practical Guide to Hindi Script · 마찰음",
+        "url": "https://iu.pressbooks.pub/hindiscript/chapter/9-1-discussion/"
+      },
+      {
+        "title": "Somana Fatima · 힌디어·우르두어 음성학 연구",
+        "url": "https://www.languageinindia.com/may2012/somanadissertationfinal.pdf"
+      }
     ]
   },
   {
@@ -24,12 +36,26 @@
       "다만 현대 일상어에서는 대부분 श와 똑같이 [ʃ]로 발음한다. 산스크리트어 차용어에 쓰이며, 특히 ट·ठ 앞이나 합자 क्ष(kṣ)에서 자주 볼 수 있다."
     ],
     "examples": [
-      { "word": "भाषा", "roman": "bhāṣā", "meaning": "언어" },
-      { "word": "कष्ट", "roman": "kaṣṭ", "meaning": "고통" }
+      {
+        "word": "भाषा",
+        "roman": "bhāṣā",
+        "meaning": "언어"
+      },
+      {
+        "word": "कष्ट",
+        "roman": "kaṣṭ",
+        "meaning": "고통"
+      }
     ],
     "sources": [
-      { "title": "A Practical Guide to Hindi Script · 마찰음", "url": "https://iu.pressbooks.pub/hindiscript/chapter/9-1-discussion/" },
-      { "title": "University of Texas at Austin · 힌디어 문자", "url": "https://hindi.la.utexas.edu/resources/the-hindi-script/" }
+      {
+        "title": "A Practical Guide to Hindi Script · 마찰음",
+        "url": "https://iu.pressbooks.pub/hindiscript/chapter/9-1-discussion/"
+      },
+      {
+        "title": "University of Texas at Austin · 힌디어 문자",
+        "url": "https://hindi.la.utexas.edu/resources/the-hindi-script/"
+      }
     ]
   },
   {
@@ -44,14 +70,103 @@
       "아래 대괄호는 단어 전체가 아닌 व 부분의 소리만 나타낸다."
     ],
     "examples": [
-      { "word": "व्रत", "roman": "vrat", "meaning": "서약·단식", "pronunciationNote": "व → [v]. 어두의 vr-에서 v에 가까운 소리가 나는 예다." },
-      { "word": "पकवान", "roman": "pakvān", "meaning": "요리", "pronunciationNote": "व → [w]. k와 ā 사이에서 w에 가까운 소리가 나는 예다." },
-      { "word": "स्वागत", "roman": "svāgat", "meaning": "환영", "pronunciationNote": "व → [w] 경향. sv-를 읽을 때 s 다음에 w에 가까운 소리를 바로 이어 낸다." }
+      {
+        "word": "व्रत",
+        "roman": "vrat",
+        "meaning": "서약·단식",
+        "pronunciationNote": "व → [v]. 어두의 vr-에서 v에 가까운 소리가 나는 예다."
+      },
+      {
+        "word": "पकवान",
+        "roman": "pakvān",
+        "meaning": "요리",
+        "pronunciationNote": "व → [w]. k와 ā 사이에서 w에 가까운 소리가 나는 예다."
+      },
+      {
+        "word": "स्वागत",
+        "roman": "svāgat",
+        "meaning": "환영",
+        "pronunciationNote": "व → [w] 경향. sv-를 읽을 때 s 다음에 w에 가까운 소리를 바로 이어 낸다."
+      }
     ],
     "sources": [
-      { "title": "A Practical Guide to Hindi Script · 반모음", "url": "https://iu.pressbooks.pub/hindiscript/chapter/8-1-discussion/" },
-      { "title": "Somana Fatima · Hindi-Urdu의 v·w 변이음 (§1.5.3)", "url": "https://www.languageinindia.com/may2012/somanadissertationfinal.pdf" },
-      { "title": "Hindi orthography notes · व의 자음·모음 사이 발음", "url": "https://r12a.github.io/scripts/deva/hi" }
+      {
+        "title": "A Practical Guide to Hindi Script · 반모음",
+        "url": "https://iu.pressbooks.pub/hindiscript/chapter/8-1-discussion/"
+      },
+      {
+        "title": "Somana Fatima · Hindi-Urdu의 v·w 변이음 (§1.5.3)",
+        "url": "https://www.languageinindia.com/may2012/somanadissertationfinal.pdf"
+      },
+      {
+        "title": "Hindi orthography notes · व의 자음·모음 사이 발음",
+        "url": "https://r12a.github.io/scripts/deva/hi"
+      }
+    ]
+  },
+  {
+    "id": "rra",
+    "glyph": "ड़",
+    "title": "ड़ · ṛ",
+    "roman": "ṛ",
+    "paragraphs": [
+      "혀끝을 한 번 가볍게 튕기는 권설 탄음 [ɽ]이다. ड(ḍ)처럼 혀끝을 입천장 쪽으로 말아 올렸다가, 앞으로 튕기듯 펴면서 낸다.",
+      "로마자 ṛ의 아랫점은 권설음 표시이며 영어 r과는 다른 소리다. 한국어 귀에는 ‘ㄹ’과 ‘ㄷ’ 사이처럼 들린다.",
+      "단어 첫머리에는 오지 않고 모음 사이나 단어 끝에 온다. 단어 맨 앞에 비슷한 글자가 보이면 점 없는 ड(ḍ)다."
+    ],
+    "examples": [
+      {
+        "word": "लड़का",
+        "roman": "laṛkā",
+        "meaning": "소년"
+      },
+      {
+        "word": "बड़ा",
+        "roman": "baṛā",
+        "meaning": "큰"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Hindi orthography notes · 점 찍은 글자 ड़·ढ़",
+        "url": "https://r12a.github.io/scripts/deva/hi"
+      },
+      {
+        "title": "University of Texas at Austin · 힌디어 문자",
+        "url": "https://hindi.la.utexas.edu/resources/the-hindi-script/"
+      }
+    ]
+  },
+  {
+    "id": "rrha",
+    "glyph": "ढ़",
+    "title": "ढ़ · ṛh",
+    "roman": "ṛh",
+    "paragraphs": [
+      "ड़(ṛ)에 숨소리를 섞어 내는 권설 탄음 [ɽʱ]이다. 혀끝을 말아 올렸다가 한 번 튕기면서 숨을 함께 내보낸다.",
+      "ढ(ḍh) 아래에 점을 찍어 만든다. ड़처럼 단어 첫머리에는 오지 않는다."
+    ],
+    "examples": [
+      {
+        "word": "पढ़ना",
+        "roman": "paṛhnā",
+        "meaning": "읽다"
+      },
+      {
+        "word": "बूढ़ा",
+        "roman": "būṛhā",
+        "meaning": "늙은"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Hindi orthography notes · 점 찍은 글자 ड़·ढ़",
+        "url": "https://r12a.github.io/scripts/deva/hi"
+      },
+      {
+        "title": "University of Texas at Austin · 힌디어 문자",
+        "url": "https://hindi.la.utexas.edu/resources/the-hindi-script/"
+      }
     ]
   }
 ]
